@@ -1,0 +1,172 @@
+{
+  "course": "TestCourse",
+  "units": [
+    {
+      "number": 1,
+      "title": "Matter, Measurement & Lab Safety",
+      "days": 12,
+      "performance_expectations": ["HS-PS1-1", "HS-PS1-3"],
+      "anchoring_phenomenon": "A sealed bag of microwave popcorn increases in size when heated but does not change in mass. What is happening to the matter inside?",
+      "essential_questions": [
+        "How can we classify different types of matter based on their properties?",
+        "Why is precise measurement important in scientific investigation?",
+        "What safety protocols protect us during laboratory work?"
+      ],
+      "crse_theme": "Students explore how cultural practices around food preparation (e.g., nixtamalization of corn, fermentation in kimchi) involve chemical and physical changes, connecting indigenous and global knowledge systems to chemistry concepts.",
+      "assessment_overview": {
+        "formative": [
+          "Exit tickets on matter classification",
+          "Lab safety quiz",
+          "Vocabulary journal checks"
+        ],
+        "summative": [
+          "Matter Classification Lab Practical",
+          "Unit 1 Exam: Matter & Measurement"
+        ]
+      },
+      "investigations": [
+        "Investigation 1: Classifying Unknown Substances by Physical Properties"
+      ],
+      "lessons": [
+        {
+          "number": 1,
+          "title": "Classifying Matter",
+          "days": 2,
+          "learning_target": "At the end of 42 minutes I can classify matter as pure substances or mixtures based on observable and measurable properties.",
+          "circle_prompt": "Share one thing you observed on your way to school today that involved a change in matter (ice melting, steam from a vent, food cooking, etc.).",
+          "do_now": "Look at the four items on your desk (salt, sand, a penny, and trail mix). Sort them into two groups and be ready to explain your reasoning.",
+          "standards": {
+            "pe": ["HS-PS1-1"],
+            "sep": ["Developing and Using Models"],
+            "ccc": ["Patterns"],
+            "dci": ["PS1.A: Structure and Properties of Matter"]
+          },
+          "materials": [
+            "Sample set per group: salt, sand, iron filings, trail mix, distilled water",
+            "Hand lenses (1 per student)",
+            "Magnets (1 per group)",
+            "Classification graphic organizer (printed)",
+            "Matter Classification anchor chart"
+          ],
+          "five_e": {
+            "engage": {
+              "time": "5 min",
+              "description": "Show a short video clip of a street food vendor making cotton candy. Ask: Is cotton candy the same substance as the sugar that went in? Students turn-and-talk."
+            },
+            "explore": {
+              "time": "15 min",
+              "description": "In groups of 3, students examine the sample set using hand lenses and magnets. They record observations in a T-chart (what they see vs. what they infer about composition). Groups attempt to sort substances into categories."
+            },
+            "explain": {
+              "time": "10 min",
+              "description": "Teacher-led discussion building the classification hierarchy: Matter -> Pure Substances (Elements, Compounds) and Mixtures (Homogeneous, Heterogeneous). Students label their samples using the new vocabulary and update their graphic organizer."
+            },
+            "elaborate": {
+              "time": "8 min",
+              "description": "Students receive three new mystery samples and must classify them using the framework. They write a justification sentence for each using the Because/But/So structure."
+            },
+            "evaluate": {
+              "time": "4 min",
+              "description": "Exit ticket: Given a description of a substance, students identify it as element, compound, homogeneous mixture, or heterogeneous mixture and provide one piece of evidence."
+            }
+          },
+          "differentiation": {
+            "approaching": "Provide a pre-filled graphic organizer with key terms and definitions; pair with a peer mentor during the Explore phase.",
+            "on_level": "Complete the classification activity as designed with the graphic organizer scaffold.",
+            "advanced": "Challenge students to propose a method to separate each mixture and explain the physical principle behind each separation technique.",
+            "ell": "Provide a bilingual vocabulary list (Spanish/English); use visual cues on the classification chart; allow verbal responses during the Evaluate phase.",
+            "iep": "Extended time on exit ticket; preferential seating near the anchor chart; provide a word bank for written responses."
+          },
+          "crse_connection": "Discuss how indigenous peoples classified natural materials (plants, minerals, animal products) for medicine, construction, and art long before modern chemistry formalized these categories.",
+          "hochman_activity": "Because/But/So sentences: Students write three sentences about matter classification using each conjunction. Example stem: 'Trail mix is a heterogeneous mixture...'",
+          "vocabulary": [
+            {"term": "Matter", "definition": "Anything that has mass and takes up space"},
+            {"term": "Pure Substance", "definition": "Matter with a fixed composition that cannot be separated by physical means"},
+            {"term": "Element", "definition": "A pure substance made of only one type of atom"},
+            {"term": "Compound", "definition": "A pure substance made of two or more elements chemically combined"},
+            {"term": "Mixture", "definition": "Two or more substances physically combined that retain their properties"},
+            {"term": "Homogeneous", "definition": "A mixture with uniform composition throughout"},
+            {"term": "Heterogeneous", "definition": "A mixture with visibly different parts or phases"}
+          ],
+          "guided_notes_outline": [
+            "Section 1: What is Matter?",
+            "Section 2: Pure Substances — Elements vs. Compounds",
+            "Section 3: Mixtures — Homogeneous vs. Heterogeneous",
+            "Section 4: Classification Flowchart"
+          ],
+          "cer": {
+            "topic": "Classification of Matter",
+            "phenomenon": "You are given three unknown white powders labeled A, B, and C. Powder A dissolves completely in water and the solution tastes salty. Powder B does not dissolve and feels gritty. Powder C dissolves in water but the solution tastes sweet. Using only physical properties, classify each powder.",
+            "claim_starter": "Based on the observed physical properties, I claim that Powder A is a..., Powder B is a..., and Powder C is a...",
+            "evidence_source": "Use data from your observations table (solubility, taste, texture) to identify at least two properties per substance that support your classification.",
+            "reasoning_frame": "This evidence supports my claim because the physical properties of each powder are consistent with the characteristics of [category], which is defined as..."
+          }
+        },
+        {
+          "number": 2,
+          "title": "Measurement and Significant Figures",
+          "days": 2,
+          "learning_target": "At the end of 42 minutes I can take accurate measurements using appropriate tools and express them with the correct number of significant figures.",
+          "circle_prompt": "Think about a time when a measurement really mattered — cooking, building something, a game. What happened when the measurement was off?",
+          "do_now": "Estimate the length of your desk in centimeters. Write your estimate, then measure with a ruler. How close were you?",
+          "standards": {
+            "pe": ["HS-PS1-3"],
+            "sep": ["Using Mathematics and Computational Thinking"],
+            "ccc": ["Scale, Proportion, and Quantity"],
+            "dci": ["PS1.A: Structure and Properties of Matter"]
+          },
+          "materials": [
+            "Metric rulers (1 per student)",
+            "Triple-beam balances (1 per group)",
+            "Graduated cylinders (10 mL and 100 mL per group)",
+            "Irregular objects for volume measurement",
+            "Significant Figures reference card (printed)"
+          ],
+          "five_e": {
+            "engage": {
+              "time": "5 min",
+              "description": "Show the NASA Mars Climate Orbiter disaster story — a $125 million spacecraft lost because of a unit conversion error. Ask: Why do units and precision matter in science?"
+            },
+            "explore": {
+              "time": "15 min",
+              "description": "Station rotation: Students measure the same set of objects at 4 stations (length, mass, liquid volume, irregular solid volume). They record all measurements with units."
+            },
+            "explain": {
+              "time": "10 min",
+              "description": "Introduce significant figures rules. Students revisit their measurements and determine the correct number of sig figs for each. Class discusses why different tools give different levels of precision."
+            },
+            "elaborate": {
+              "time": "8 min",
+              "description": "Practice problems: Students calculate density using their measurements and express answers with the correct number of significant figures."
+            },
+            "evaluate": {
+              "time": "4 min",
+              "description": "Quick-write: Explain in 2-3 sentences why significant figures matter in scientific measurements. Use at least one specific example from today's lab."
+            }
+          },
+          "differentiation": {
+            "approaching": "Provide a measurement checklist for each station; include unit conversion reference card.",
+            "on_level": "Complete station rotation and sig fig practice as designed.",
+            "advanced": "Calculate percent error for each measurement and analyze which tools are most precise.",
+            "ell": "Label all measurement tools in English and native language; provide sentence frames for the quick-write.",
+            "iep": "Allow use of calculator for sig fig problems; provide extra time at stations; reduce number of practice problems."
+          },
+          "crse_connection": "Explore how ancient civilizations developed precise measurement systems (Egyptian cubits, Chinese chi) and how measurement standards reflect cultural values and needs.",
+          "hochman_activity": "Appositive sentences: Students write sentences embedding a definition as an appositive. Example: 'Significant figures, the meaningful digits in a measurement, tell us how precise our tools are.'",
+          "vocabulary": [
+            {"term": "Significant Figures", "definition": "The digits in a measurement that are known with certainty plus one estimated digit"},
+            {"term": "Precision", "definition": "How close repeated measurements are to each other"},
+            {"term": "Accuracy", "definition": "How close a measurement is to the true or accepted value"},
+            {"term": "Meniscus", "definition": "The curved surface of a liquid in a graduated cylinder"}
+          ],
+          "guided_notes_outline": [
+            "Section 1: Why Measurement Matters in Science",
+            "Section 2: SI Units and Common Conversions",
+            "Section 3: Rules for Counting Significant Figures",
+            "Section 4: Significant Figures in Calculations"
+          ]
+        }
+      ]
+    }
+  ]
+}
