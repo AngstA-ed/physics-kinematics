@@ -172,8 +172,8 @@ def build_lesson_plan(doc, course, unit, lesson):
     style_run(run3, size=BODY_SIZE, italic=True, color=RGBColor(0xD6, 0xE4, 0xF0))
 
     # 2. Opening Circle (light blue)
-    add_heading_text(doc, "Opening Circle (2-3 min)")
-    add_shaded_box(doc, "Community Prompt", lesson.get("circle_prompt", "TBD"), LIGHT_BLUE)
+    add_heading_text(doc, "Suggested Opening Circle (2-3 min)")
+    add_shaded_box(doc, "Suggested Community Prompt", lesson.get("circle_prompt", "TBD"), LIGHT_BLUE)
 
     # 3. Do Now (light green)
     add_heading_text(doc, "Do Now (3-5 min)")
@@ -266,9 +266,9 @@ def build_lesson_plan(doc, course, unit, lesson):
     )
 
     # 10. Hochman Integration
-    add_heading_text(doc, "Hochman Writing Integration")
+    add_heading_text(doc, "Suggested Hochman Writing Activity")
     add_shaded_box(
-        doc, "Literacy Activity",
+        doc, "Suggested Literacy Activity",
         lesson.get("hochman_activity", "TBD"),
         LIGHT_BLUE
     )
