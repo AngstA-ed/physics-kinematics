@@ -1,0 +1,78 @@
+/* Lesson-page layout primitives. Imports brand.css. */
+@import url("./brand/brand.css");
+
+.lesson-shell {
+  max-width: var(--max-content-width);
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.lesson-section {
+  margin: 2.5rem 0;
+}
+
+.notice-wonder, .initial-model, .revise-model {
+  border: 2px dashed var(--rule);
+  border-radius: var(--radius);
+  padding: 1rem;
+  background: #fafafa;
+}
+
+.turn-and-talk {
+  border-left: 4px solid var(--vs-blue);
+  background: #f0f9ff;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  margin: 1.25rem 0;
+}
+
+.turn-and-talk::before {
+  content: "Turn and Talk · ";
+  font-weight: 700;
+  color: var(--vs-blue);
+}
+
+.exit-ticket {
+  border: 2px solid var(--em-purple);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+.vocab-box {
+  background: #fff8f0;
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.controls label {
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.controls input[type="range"] { flex: 1; }
+
+.readout {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--em-purple);
+}
+
+.noscript-storyboard {
+  display: none;
+}
+
+.noscript .noscript-storyboard,
+noscript .noscript-storyboard {
+  display: block;
+}

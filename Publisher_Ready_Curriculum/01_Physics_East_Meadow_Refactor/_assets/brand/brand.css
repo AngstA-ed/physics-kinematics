@@ -1,0 +1,97 @@
+/*
+ * VSCHSD × East Meadow co-branding tokens.
+ * Source: public CSS inspection of vschsd.org and emufsd.us, 2026-05-08.
+ * Update here only — referenced by every HTML lesson page.
+ */
+:root {
+  --em-purple: #662e80;
+  --em-orange: #f37366;
+  --vs-blue: #2ea3f2;
+  --ink: #1a1a1a;
+  --paper: #ffffff;
+  --rule: #e6e6e6;
+  --tint-curated: #f5f2fb;     /* light purple background for Curated Resources box */
+
+  --font-body: Inter, "Open Sans", system-ui, -apple-system, sans-serif;
+  --font-display: Inter, system-ui, sans-serif;
+
+  --radius: 6px;
+  --max-content-width: 72ch;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.5;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--em-purple);
+  font-weight: 700;
+}
+
+a { color: var(--vs-blue); }
+
+.curated-resources {
+  background: var(--tint-curated);
+  border-left: 4px solid var(--em-purple);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.75rem 0;
+}
+
+.brand-header img { height: 40px; width: auto; }
+
+.brand-header .divider {
+  width: 1px;
+  height: 32px;
+  background: var(--rule);
+}
+
+.brand-header .district-name {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+
+.strategy-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 4px;
+  background: var(--vs-blue);
+  color: white;
+  font-weight: 600;
+}
+
+.strategy-chip.hochman      { background: var(--em-purple); }
+.strategy-chip.active       { background: var(--vs-blue); }
+.strategy-chip.btc          { background: #2a7f4f; }
+.strategy-chip.circle       { background: var(--em-orange); }
+
+.warning {
+  border-left: 4px solid var(--em-orange);
+  background: #fff4f1;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+}
+
+@media print {
+  .interactive, .controls, button { display: none !important; }
+  .noscript-storyboard { display: block !important; }
+}

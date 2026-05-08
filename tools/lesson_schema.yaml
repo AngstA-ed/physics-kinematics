@@ -1,0 +1,64 @@
+# Single source of truth for lesson structure rules.
+# Both tools/scaffold_lesson.py and tools/validators.py read this.
+
+teacher_guide_required_headings:
+  - "Cover"
+  - "Curated Resources (from East Meadow Scope & Sequence)"
+  - "CCC Focus"
+  - "NYSSLS Observation Checklist Crosswalk"
+  - "Opening Connection"
+  - "At-a-Glance"
+  - "Lesson Objectives"
+  - "Agenda"
+  - "Discussion Prompts"
+  - "Common Misconceptions"
+  - "Access & Differentiation"
+  - "Strategy Spotlight"
+  - "Exit Ticket + Closing Reflection"
+  - "Companion Materials"
+
+curated_resources_required_subheadings:
+  - "NYSSLS Standards"
+  - "Phenomenon"
+  - "Javalab / Labs"
+  - "Assessments"
+
+answer_key_required_headings:
+  - "Cover"
+  - "Make-It-Make-Sense Answers"
+  - "Exit Ticket Answer"
+  - "Closing Reflection (rubric)"
+
+unit_plan_required_headings:
+  - "Cover"
+  - "Unit Scope (from East Meadow Scope & Sequence)"
+  - "Pacing Calendar"
+  - "Strategy Rotation"
+  - "NYSSLS Coverage Matrix"
+  - "Vocabulary Scope"
+
+student_html_required_data_sections:
+  - "phenomenon"
+  - "driving-question"
+  - "notice-wonder"
+  - "initial-model"
+  - "interactive"
+  - "make-it-make-sense"
+  - "vocab"
+  - "revise-model"
+  - "return-to-phenomenon"
+  - "exit-ticket"
+  - "explore-further"
+
+vocab_max: 3
+
+forbidden_in_onenote_html:
+  - "<script"
+  - "<iframe"
+  - "<link rel=\"stylesheet\""
+
+strategy_chip_values:
+  - "HOCHMAN"
+  - "ACTIVE LEARNING"
+  - "BTC"
+  - "RESTORATIVE CIRCLE"
