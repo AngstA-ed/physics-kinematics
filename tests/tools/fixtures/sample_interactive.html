@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sample Interactive</title>
+  <link rel="stylesheet" href="../_assets/lesson.css">
+  <style>.local { color: red; }</style>
+</head>
+<body>
+  <header class="brand-header"><div>Header</div></header>
+  <main>
+    <section data-section="phenomenon">
+      <iframe src="https://www.youtube.com/embed/abc123" title="Phenomenon video"></iframe>
+    </section>
+    <section data-section="interactive">
+      <div data-interactive="true">
+        <svg width="100" height="100"><circle cx="50" cy="50" r="20" fill="blue"/></svg>
+        <script>console.log("alive");</script>
+      </div>
+      <noscript class="noscript-storyboard">
+        <p>Storyboard frame 1: ...</p>
+      </noscript>
+    </section>
+  </main>
+  <script type="module" src="../_assets/lesson.js"></script>
+</body>
+</html>
