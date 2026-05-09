@@ -475,22 +475,42 @@ main { padding: var(--s-6) 0 var(--s-8); }
   }
 }
 
-/* ----- Sticky TOC ----- */
+/* ----- Sticky TOC (paper bookmark) ----- */
 .toc {
   position: sticky;
   top: var(--s-4);
   font-size: var(--fs-small);
-  border-left: 1px solid var(--border);
-  padding-left: var(--s-3);
+  background: var(--paper-edge);
+  border: 1px solid var(--ink-faint);
+  border-right: 0;
+  padding: var(--s-3);
+  border-radius: var(--r-sm) 0 0 var(--r-sm);
+  margin-right: -1px;
+  position: sticky;
+}
+
+.toc::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  background: var(--paper-edge);
+  clip-path: polygon(0 0, 100% 8%, 60% 16%, 100% 24%, 70% 32%, 100% 40%, 60% 48%, 100% 56%, 70% 64%, 100% 72%, 60% 80%, 100% 88%, 0 100%);
+  border-top: 1px solid var(--ink-faint);
+  border-bottom: 1px solid var(--ink-faint);
+  border-right: 1px solid var(--ink-faint);
 }
 
 .toc h4 {
   font-size: var(--fs-tiny);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ink-subtle);
+  letter-spacing: 0.10em;
+  color: var(--ink-soft);
   margin: 0 0 var(--s-2);
-  font-weight: 700;
+  font-weight: 400;
+  font-family: var(--font-display);
 }
 
 .toc ol { list-style: none; padding: 0; margin: 0; counter-reset: toc; }
@@ -498,27 +518,37 @@ main { padding: var(--s-6) 0 var(--s-8); }
 
 .toc a {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--s-2);
   padding: 6px 0;
   color: var(--ink-soft);
   border: 0;
-  font-weight: 500;
+  font-weight: 400;
+  font-family: var(--font-body);
 }
 
 .toc a::before {
   content: counter(toc, decimal-leading-zero);
   font-size: var(--fs-tiny);
   font-variant-numeric: tabular-nums;
-  color: var(--ink-subtle);
-  font-weight: 600;
-  min-width: 22px;
+  font-family: var(--font-display);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .toc a:hover { color: var(--em-purple); border: 0; }
 
 .toc a.active { color: var(--em-purple); font-weight: 600; }
-.toc a.active::before { color: var(--em-purple); }
+.toc a.active::before { background: var(--red-pen); color: var(--paper); border-color: var(--red-pen); }
 
 /* ----- Section cards (notebook pages) ----- */
 .section {
