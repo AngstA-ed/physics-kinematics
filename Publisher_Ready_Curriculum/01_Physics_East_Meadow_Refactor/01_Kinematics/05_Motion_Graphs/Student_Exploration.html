@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Motion Graphs — Unit: Kinematics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Kinematics — Lesson 05: Motion Graphs</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A classmate is going to walk a short choreography: forward 3 seconds, stop 2 seconds, backward 4 seconds. A second classmate will narrate her position aloud each second. Your job: record the same trip in <em>three different graphs</em> — position, velocity, and acceleration — all telling the same story.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>How can the same motion produce three different-looking graphs that are all "right"?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">When the classmate stopped, what happened to the position-time graph? What happened to the velocity-time graph? Are they the same?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch your best guess at the x-t graph for the choreography. Don't worry about exact numbers — focus on the shape.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Press <strong>Play</strong> below. A dot moves on the track at the top, and the x-t and v-t graphs draw alongside in real time.</p>
+  <div data-interactive="true">
+    <svg id="mg-canvas" width="480" height="380" viewBox="0 0 480 380" role="img" aria-label="Motion graphs explorer">
+      <line x1="40" y1="40" x2="440" y2="40" stroke="#e6e6e6" stroke-width="2"/>
+      <text x="40" y="30" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">Position track</text>
+      <circle id="mg-dot" cx="40" cy="40" r="7" fill="#662e80"/>
+      <text x="40" y="100" font-family="Inter, sans-serif" font-size="11" fill="#662e80">Position vs Time</text>
+      <line x1="40" y1="180" x2="440" y2="180" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="40" y1="110" x2="40" y2="180" stroke="#1a1a1a" stroke-width="1"/>
+      <polyline id="mg-xt" points="" fill="none" stroke="#662e80" stroke-width="2.5"/>
+      <text x="40" y="210" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">Velocity vs Time</text>
+      <line x1="40" y1="320" x2="440" y2="320" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="40" y1="220" x2="440" y2="220" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <line x1="40" y1="270" x2="440" y2="270" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <line x1="40" y1="220" x2="40" y2="320" stroke="#1a1a1a" stroke-width="1"/>
+      <text x="20" y="270" font-family="Inter, sans-serif" font-size="9" fill="#1a1a1a">0</text>
+      <polyline id="mg-vt" points="" fill="none" stroke="#2ea3f2" stroke-width="2.5"/>
+    </svg>
+    <div class="controls">
+      <label>Choose a scenario:
+        <select id="mg-scenario">
+          <option value="constant">Constant velocity (5 m/s)</option>
+          <option value="speedup">Speed up (a = +2 m/s²)</option>
+          <option value="reversal">Forward, stop, backward</option>
+        </select>
+      </label>
+      <button id="mg-play" type="button">Play</button>
+      <button id="mg-reset" type="button">Reset</button>
+    </div>
+    <script>
+      (function () {
+        const dot = document.getElementById("mg-dot");
+        const xt = document.getElementById("mg-xt");
+        const vt = document.getElementById("mg-vt");
+        const sel = document.getElementById("mg-scenario");
+        const T_MAX = 10;
+        const TRACK_X0 = 40, TRACK_X1 = 440;
+        const X_RANGE_M = 50;        // ±25 m around center
+        function vAt(t, scenario) {
+          if (scenario === "constant") return 5;
+          if (scenario === "speedup")  return 2 * t;
+          if (scenario === "reversal") {
+            if (t < 3) return 4;
+            if (t < 5) return 0;
+            return -3;
+          }
+          return 0;
+        }
+        function xAt(t, scenario) {
+          if (scenario === "constant") return 5 * t;
+          if (scenario === "speedup")  return t * t;
+          if (scenario === "reversal") {
+            if (t < 3) return 4 * t;
+            if (t < 5) return 12;
+            return 12 - 3 * (t - 5);
+          }
+          return 0;
+        }
+        let raf = null;
+        function reset() {
+          if (raf) cancelAnimationFrame(raf);
+          dot.setAttribute("cx", (TRACK_X0 + TRACK_X1) / 2);
+          xt.setAttribute("points", "");
+          vt.setAttribute("points", "");
+        }
+        document.getElementById("mg-reset").onclick = reset;
+        document.getElementById("mg-play").onclick = () => {
+          reset();
+          const scenario = sel.value;
+          const xtPts = [], vtPts = [];
+          const t0 = performance.now();
+          function frame(now) {
+            let t = (now - t0) / 1000;
+            if (t > T_MAX) t = T_MAX;
+            const x = xAt(t, scenario);
+            const v = vAt(t, scenario);
+            const xClamp = Math.max(-X_RANGE_M / 2, Math.min(X_RANGE_M / 2, x));
+            const cx = (TRACK_X0 + TRACK_X1) / 2 + (xClamp / (X_RANGE_M / 2)) * (TRACK_X1 - TRACK_X0) / 2;
+            dot.setAttribute("cx", cx);
+            const tPx = TRACK_X0 + (t / T_MAX) * (TRACK_X1 - TRACK_X0);
+            const xPx = 180 - Math.max(-1, Math.min(1, x / 30)) * 70;
+            const vPx = 270 - Math.max(-10, Math.min(10, v)) * 5;
+            xtPts.push(tPx + "," + xPx);
+            vtPts.push(tPx + "," + vPx);
+            xt.setAttribute("points", xtPts.join(" "));
+            vt.setAttribute("points", vtPts.join(" "));
+            if (t < T_MAX) raf = requestAnimationFrame(frame);
+          }
+          raf = requestAnimationFrame(frame);
+        };
+        reset();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Constant velocity 5 m/s. The x-t graph is a straight line going up (positive constant slope = velocity). The v-t graph is a horizontal line at v = 5.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="100" x2="260" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="20" y1="100" x2="260" y2="20" stroke="#662e80" stroke-width="2.5"/>
+      <text x="200" y="45" font-family="Inter, sans-serif" font-size="11" fill="#662e80">x-t</text>
+      <line x1="20" y1="60" x2="260" y2="60" stroke="#2ea3f2" stroke-width="2.5"/>
+      <text x="200" y="55" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">v-t</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Constant acceleration a = +2 m/s². The x-t graph is a parabola (slope grows over time). The v-t graph is a straight line going up (slope = +2).</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="100" x2="260" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <path d="M 20 100 Q 140 95 260 25" stroke="#662e80" stroke-width="2.5" fill="none"/>
+      <text x="200" y="55" font-family="Inter, sans-serif" font-size="11" fill="#662e80">x-t (parabola)</text>
+      <line x1="20" y1="100" x2="260" y2="40" stroke="#2ea3f2" stroke-width="2.5"/>
+      <text x="40" y="55" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">v-t (linear)</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Forward, stop, backward. The x-t graph rises, plateaus, then falls. The v-t graph is positive, then zero, then negative — the *sign* of v-t reveals the direction-reversal that x-t hides in plain sight.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="60" x2="260" y2="60" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <line x1="20" y1="100" x2="260" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <polyline points="20,90 90,40 150,40 260,90" stroke="#662e80" stroke-width="2.5" fill="none"/>
+      <polyline points="20,40 90,40 90,60 150,60 150,80 260,80" stroke="#2ea3f2" stroke-width="2.5" fill="none"/>
+      <text x="100" y="35" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">v: + → 0 → −</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">When the dot stopped, what was the slope of the x-t graph? What was the value on the v-t graph? Are they the same number?</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Watch the dot move with constant velocity 4 m/s for 5 seconds. Sketch its x-t graph and its v-t graph.</li>
+    <li>An object's v-t graph rises from 0 at t = 0 to 10 m/s at t = 5 s. What is the acceleration? What is the displacement during this interval?</li>
+    <li>The x-t graph of an object is a horizontal line. What is the velocity? Sketch the corresponding v-t graph.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"On the x-t graph the slope is ___, which means the object is ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>position-time graph (x-t)</strong> — graph of position vs time; <em>slope</em> equals velocity</li>
+    <li><strong>velocity-time graph (v-t)</strong> — graph of velocity vs time; <em>slope</em> equals acceleration</li>
+    <li><strong>area-under-curve</strong> — on a v-t graph, the area between the curve and the t-axis equals the displacement</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Update your initial x-t sketch from the choreography. Then add a v-t graph below it. Label each region (forward / stopped / backward) on both graphs.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Re-narrate the classmate's choreography using all three quantities (position, velocity, acceleration). Where does each one match up to the graphs you drew?</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A v-t graph: 0–4 s rises from 0 to 8 m/s; 4–7 s stays at 8 m/s; 7–10 s falls from 8 to 0. (a) Accelerations during each interval? (b) Sketch the corresponding x-t graph (qualitative). (c) Total displacement (use area under v-t).</li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/moving-man" target="_blank" rel="noopener">PhET — Moving Man</a></li>
+    <li><a href="https://www.physicsclassroom.com/Concept-Builders/Kinematics/Graph-That-Motion/Concept-Builder" target="_blank" rel="noopener">Physics Classroom — Graph That Motion (Concept Builder)</a></li>
+    <li><a href="https://www.physicsclassroom.com/Physics-Interactives/1-D-Kinematics/Graph-That-Motion/Graph-That-Motion-Interactive" target="_blank" rel="noopener">Physics Classroom — Graph That Motion (Interactive)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · kinematics-05</p>
+</footer>
+
+</div>
+</body>
+</html>

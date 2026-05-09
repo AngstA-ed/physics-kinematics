@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Distance and Displacement — Unit: Kinematics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Kinematics — Lesson 02: Distance and Displacement</h1>
+    <div></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>One classmate is going to walk from their seat to the door — but they are going to take the long way around (behind chairs, around tables). We will measure two things: the <em>length of the path they actually walked</em>, and the <em>straight-line gap</em> from their seat to the door. Are those the same number?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>When you describe how far something moved, which number is "right" — the path length, or the straight-line gap?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the classmate's walk and write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Share with your partner: which number do you think is "the answer" — the path length or the straight-line gap? Why?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch the path on a grid. Label the path length. Then draw a straight arrow from start to end and label its length too.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Use the buttons below to add steps to a path on the grid. Then toggle "show distance" and "show displacement" to compare.</p>
+  <div data-interactive="true">
+    <svg id="dd-canvas" width="480" height="360" viewBox="0 0 480 360" role="img" aria-label="Distance vs displacement canvas">
+      <defs>
+        <marker id="dd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+        </marker>
+      </defs>
+      <g id="dd-grid" stroke="#e6e6e6" stroke-width="1"></g>
+      <g id="dd-path-group" stroke="#662e80" stroke-width="3" fill="none"></g>
+      <line id="dd-displacement" x1="0" y1="0" x2="0" y2="0" stroke="#2ea3f2" stroke-width="3" stroke-dasharray="6 4" marker-end="url(#dd-arrow)" visibility="hidden"/>
+      <circle id="dd-start" cx="40" cy="320" r="6" fill="#662e80"/>
+      <circle id="dd-end" cx="40" cy="320" r="6" fill="#2ea3f2"/>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="dd-east" type="button">+1 East</button>
+        <button id="dd-west" type="button">+1 West</button>
+        <button id="dd-north" type="button">+1 North</button>
+        <button id="dd-south" type="button">+1 South</button>
+        <button id="dd-reset" type="button">Reset</button>
+        <button id="dd-toggle-dist" type="button" aria-pressed="true">Hide distance</button>
+        <button id="dd-toggle-disp" type="button" aria-pressed="false">Show displacement</button>
+      </div>
+      <p>Distance (path length): <span id="dd-distance" class="readout">0</span> units · Displacement: <span id="dd-disp-mag" class="readout">0.0</span> units, <span id="dd-disp-dir" class="readout">—</span></p>
+    </div>
+    <script>
+      (function () {
+        const STEP = 32;
+        const ORIGIN_X = 40, ORIGIN_Y = 320;
+        const grid = document.getElementById("dd-grid");
+        for (let x = 0; x <= 480; x += STEP) {
+          const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          l.setAttribute("x1", x); l.setAttribute("y1", 0);
+          l.setAttribute("x2", x); l.setAttribute("y2", 360);
+          grid.appendChild(l);
+        }
+        for (let y = 0; y <= 360; y += STEP) {
+          const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          l.setAttribute("x1", 0); l.setAttribute("y1", y);
+          l.setAttribute("x2", 480); l.setAttribute("y2", y);
+          grid.appendChild(l);
+        }
+        const path = [{ x: 0, y: 0 }];
+        const pathGroup = document.getElementById("dd-path-group");
+        const displacement = document.getElementById("dd-displacement");
+        const endDot = document.getElementById("dd-end");
+        let showDist = true, showDisp = false;
+        function draw() {
+          pathGroup.innerHTML = "";
+          for (let i = 1; i < path.length; i++) {
+            const a = path[i - 1], b = path[i];
+            const seg = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            seg.setAttribute("x1", ORIGIN_X + a.x * STEP);
+            seg.setAttribute("y1", ORIGIN_Y - a.y * STEP);
+            seg.setAttribute("x2", ORIGIN_X + b.x * STEP);
+            seg.setAttribute("y2", ORIGIN_Y - b.y * STEP);
+            seg.setAttribute("opacity", showDist ? "1" : "0.15");
+            pathGroup.appendChild(seg);
+          }
+          const end = path[path.length - 1];
+          endDot.setAttribute("cx", ORIGIN_X + end.x * STEP);
+          endDot.setAttribute("cy", ORIGIN_Y - end.y * STEP);
+          if (showDisp && (end.x !== 0 || end.y !== 0)) {
+            displacement.setAttribute("x1", ORIGIN_X);
+            displacement.setAttribute("y1", ORIGIN_Y);
+            displacement.setAttribute("x2", ORIGIN_X + end.x * STEP);
+            displacement.setAttribute("y2", ORIGIN_Y - end.y * STEP);
+            displacement.setAttribute("visibility", "visible");
+          } else {
+            displacement.setAttribute("visibility", "hidden");
+          }
+          const dist = path.length - 1;
+          const dispMag = Math.sqrt(end.x * end.x + end.y * end.y);
+          let dirText = "—";
+          if (end.x !== 0 || end.y !== 0) {
+            const ang = Math.atan2(end.y, end.x) * 180 / Math.PI;
+            dirText = ang.toFixed(0) + "° from east";
+          }
+          document.getElementById("dd-distance").textContent = dist;
+          document.getElementById("dd-disp-mag").textContent = dispMag.toFixed(1);
+          document.getElementById("dd-disp-dir").textContent = dirText;
+        }
+        function step(dx, dy) {
+          const last = path[path.length - 1];
+          const nx = last.x + dx, ny = last.y + dy;
+          if (Math.abs(ORIGIN_X + nx * STEP - 240) > 220 || Math.abs(ORIGIN_Y - ny * STEP - 180) > 160) return;
+          path.push({ x: nx, y: ny });
+          draw();
+        }
+        document.getElementById("dd-east").onclick  = () => step(1, 0);
+        document.getElementById("dd-west").onclick  = () => step(-1, 0);
+        document.getElementById("dd-north").onclick = () => step(0, 1);
+        document.getElementById("dd-south").onclick = () => step(0, -1);
+        document.getElementById("dd-reset").onclick = () => { path.length = 1; draw(); };
+        document.getElementById("dd-toggle-dist").onclick = (e) => {
+          showDist = !showDist;
+          e.target.textContent = showDist ? "Hide distance" : "Show distance";
+          e.target.setAttribute("aria-pressed", showDist);
+          draw();
+        };
+        document.getElementById("dd-toggle-disp").onclick = (e) => {
+          showDisp = !showDisp;
+          e.target.textContent = showDisp ? "Hide displacement" : "Show displacement";
+          e.target.setAttribute("aria-pressed", showDisp);
+          draw();
+        };
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A walker takes 4 steps east, 3 steps north, 4 steps west — 11 grid steps along a zig-zag path. The path traces 4-right, 3-up, 4-left.</p>
+    <svg width="280" height="160" viewBox="0 0 280 160">
+      <line x1="20" y1="140" x2="180" y2="140" stroke="#662e80" stroke-width="3"/>
+      <line x1="180" y1="140" x2="180" y2="20" stroke="#662e80" stroke-width="3"/>
+      <line x1="180" y1="20" x2="20" y2="20" stroke="#662e80" stroke-width="3"/>
+      <text x="90" y="135" font-family="Inter, sans-serif" font-size="11" fill="#662e80">distance = 11</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> The displacement is the straight-line gap from start to end — it lands the walker only 3 units north of the start, regardless of the zig-zag.</p>
+    <svg width="280" height="160" viewBox="0 0 280 160">
+      <line x1="20" y1="140" x2="180" y2="140" stroke="#662e80" stroke-width="3" opacity="0.3"/>
+      <line x1="180" y1="140" x2="180" y2="20" stroke="#662e80" stroke-width="3" opacity="0.3"/>
+      <line x1="180" y1="20" x2="20" y2="20" stroke="#662e80" stroke-width="3" opacity="0.3"/>
+      <line x1="20" y1="140" x2="20" y2="20" stroke="#2ea3f2" stroke-width="3" stroke-dasharray="6 4"/>
+      <text x="30" y="80" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">displacement = 3, north</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> A round trip — out and back along the same path — gives nonzero distance but <em>zero</em> displacement. The walker ends exactly where they started.</p>
+    <svg width="280" height="160" viewBox="0 0 280 160">
+      <line x1="20" y1="80" x2="200" y2="80" stroke="#662e80" stroke-width="3" opacity="0.4"/>
+      <line x1="200" y1="80" x2="20" y2="80" stroke="#662e80" stroke-width="3" opacity="0.4" stroke-dasharray="2 2"/>
+      <text x="40" y="110" font-family="Inter, sans-serif" font-size="11" fill="#662e80">distance = 12</text>
+      <text x="40" y="125" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">displacement = 0</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">When are distance and displacement <em>equal</em>? When is displacement <em>zero</em> but distance is not? Build at least one example of each on the grid above to convince your partner.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A jogger runs around a 400 m oval track exactly once. What is the distance? What is the displacement?</li>
+    <li>Sketch a path on the grid that has distance = 12 units and displacement = 4 units. Then sketch one with distance = 8 units and displacement = 0 units.</li>
+    <li>Can displacement ever be larger than distance? Explain.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The distance is ___ but the displacement is ___ because ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>distance</strong> — total length of the path traveled (a scalar; always ≥ 0)</li>
+    <li><strong>displacement</strong> — straight-line change in position from start to end, with direction (a vector)</li>
+    <li><strong>scalar</strong> — a quantity with magnitude only (no direction)</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Re-sketch the classroom walk path. Label the distance and the displacement using today's vocabulary. Add an arrow that shows the displacement.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>If we re-do the walk in a perfectly straight line from seat to door, would distance and displacement still differ? Predict in one sentence, then test if there is time.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A student walks 4 m east, then 3 m north, then 4 m west.
+      <br>(a) Total distance? (b) Displacement (magnitude and direction)? (c) One sentence on why your two answers differ.
+    </li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://www.physicsclassroom.com/Physics-Interactives/1-D-Kinematics/Vector-Walk/Vector-Walk-Interactive" target="_blank" rel="noopener">Vector Walk — Physics Classroom</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · kinematics-02</p>
+</footer>
+
+</div>
+</body>
+</html>

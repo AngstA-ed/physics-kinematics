@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Teacher_Guide</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<h1 id="horizontal-projectile-motion-teacher-guide">Horizontal
+Projectile Motion — Teacher Guide</h1>
+<h2 id="cover">Cover</h2>
+<p><strong>Unit: Kinematics — Lesson 08: Horizontal Projectile
+Motion</strong> East Meadow Schools × Valley Stream Central High School
+District Strategy chips: BTC, HOCHMAN</p>
+<h2 id="curated-resources-from-east-meadow-scope-sequence">Curated
+Resources (from East Meadow Scope &amp; Sequence)</h2>
+<h3 id="nyssls-standards">NYSSLS Standards</h3>
+<p>(No explicit NYSSLS performance expectation in the MD row.) This
+lesson supports <strong>HS-PS2-1</strong> by separating motion into
+<em>independent</em> x- and y-components — the cornerstone for the 2-D
+analysis that all projectile and force-vector problems require.</p>
+<h3 id="phenomenon">Phenomenon</h3>
+<ul>
+<li>MythBusters — Bullet Fired vs. Bullet Dropped: <a href="https://www.youtube.com/watch?v=D9wQVIEdKh8" class="uri">https://www.youtube.com/watch?v=D9wQVIEdKh8</a></li>
+<li>Shoot-n-Drop: <a href="https://youtu.be/zMF4CD7i3hg?si=bR5YxGmfllkFeEqf" class="uri">https://youtu.be/zMF4CD7i3hg?si=bR5YxGmfllkFeEqf</a></li>
+</ul>
+<p>The MythBusters experiment demonstrates that a horizontally-fired
+bullet and a simultaneously-dropped bullet hit the ground at the
+<em>same</em> time. Counterintuitive — and exactly the lesson’s
+punchline.</p>
+<h3 id="javalab-labs">Javalab / Labs</h3>
+<ul>
+<li>PhET — Projectile Motion: <a href="https://phet.colorado.edu/en/simulations/projectile-motion" class="uri">https://phet.colorado.edu/en/simulations/projectile-motion</a></li>
+<li>Java Lab — Horizontal Projectile: <a href="https://javalab.org/en/projectile_en/" class="uri">https://javalab.org/en/projectile_en/</a></li>
+</ul>
+<h3 id="assessments">Assessments</h3>
+<p>(No assessment curated for this row — teacher discretion. Exit ticket
+below serves as the formative check.)</p>
+<h2 id="ccc-focus">CCC Focus</h2>
+<p><strong>Cause and Effect</strong> — <em>the cause</em> of the
+simultaneous landing is that gravity acts only on the y-component of
+motion. <em>The effect</em> is that horizontal velocity does not affect
+fall time.</p>
+<h2 id="nyssls-observation-checklist-crosswalk">NYSSLS Observation
+Checklist Crosswalk</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Item</th>
+<th>Where it shows up in this lesson</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Local/relatable phenomenon</td>
+<td>Phenomenon section — MythBusters bullet experiment</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Turn and Talk (2–3×)</td>
+<td>TT#1 after the video; TT#2 after BTC thin-slicing tasks</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Students develop questions/models/procedures</td>
+<td>Initial Model + thin-slicing puzzle progression</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CCC defined and used</td>
+<td>CCC Focus restated when separating x- and y-motions</td>
+</tr>
+<tr>
+<td>5</td>
+<td>ENL — ≤3 vocab, second half</td>
+<td>Key Vocabulary (horizontal velocity / vertical velocity / range)
+post-investigation</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Revisit phenomenon with evidence</td>
+<td>Return to the Phenomenon — re-watch MythBusters with x-y
+separation</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ENL/SPED supports</td>
+<td>BTC random groups distribute load; Hochman scaffold structures the
+writing</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Assessment check</td>
+<td>Exit Ticket — table-edge problem</td>
+</tr>
+</tbody>
+</table>
+<h2 id="opening-connection">Opening Connection</h2>
+<p>Pick one (SEL): - 1-question check-in - “Name something you noticed
+since last class” - Quick gratitude / effort acknowledgment</p>
+<h2 id="at-a-glance">At-a-Glance</h2>
+<ul>
+<li><strong>Duration:</strong> 42 minutes (1 period; consider
+double-period day so the BTC plus Hochman can both land)</li>
+<li><strong>Materials:</strong> Whiteboards / chart paper at standing
+height (4 stations); markers; deck of cards (random groups); printed
+thin-slicing task cards (4 levels per station); printed Hochman
+paragraph organizer (one per student); access to the interactive on
+devices.</li>
+<li><strong>Safety:</strong> None.</li>
+<li><strong>Prior knowledge:</strong> Lessons 01–07 (vectors →
+components, freefall, vertical projectiles).</li>
+</ul>
+<h2 id="lesson-objectives">Lesson Objectives</h2>
+<p>I can… - Explain why the horizontal velocity of a projectile does not
+change the fall time (in the absence of air resistance). - Calculate the
+time-to-fall and the horizontal range for a projectile launched
+horizontally from a height. - Write a 3-sentence paragraph (with a topic
+sentence) explaining why fall time depends only on the launch
+height.</p>
+<h2 id="agenda">Agenda</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Time</th>
+<th>Block</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0–3</td>
+<td>Opening Connection (SEL)</td>
+<td>Brief check-in</td>
+</tr>
+<tr>
+<td>3–8</td>
+<td>Phenomenon hook</td>
+<td>Play MythBusters bullet clip; class predicts which lands first</td>
+</tr>
+<tr>
+<td>8–13</td>
+<td>Notice &amp; Wonder + Turn and Talk #1</td>
+<td>Capture predictions; surface the “horizontal velocity should help it
+stay aloft” misconception</td>
+</tr>
+<tr>
+<td>13–18</td>
+<td>Initial Model</td>
+<td>Students sketch the trajectories of a fired bullet and a dropped
+bullet on the same y-vs-x grid</td>
+</tr>
+<tr>
+<td>18–28</td>
+<td>Investigate — interactive + BTC thin-slicing</td>
+<td>See Strategy Spotlight (Part 1)</td>
+</tr>
+<tr>
+<td>28–37</td>
+<td>Hochman paragraph topic-sentence work</td>
+<td>See Strategy Spotlight (Part 2)</td>
+</tr>
+<tr>
+<td>37–40</td>
+<td>Vocabulary + Revise Model</td>
+<td>Introduce <em>horizontal velocity</em>, <em>vertical velocity</em>,
+<em>range</em></td>
+</tr>
+<tr>
+<td>40–42</td>
+<td>Exit Ticket + Closing Reflection</td>
+<td>Table-edge problem</td>
+</tr>
+</tbody>
+</table>
+<h2 id="discussion-prompts">Discussion Prompts</h2>
+<ul>
+<li>“If you fire a bullet horizontally and drop another bullet at the
+same instant from the same height, which hits the ground first?”</li>
+<li><em>Sample student response:</em> “They hit at the same time,
+because gravity is the only thing pulling them down — and the bullets
+started with the same vertical velocity (zero).”</li>
+<li>“What is the horizontal velocity at the moment of landing? Did it
+change during the fall?”</li>
+<li><em>Probe:</em> “If horizontal velocity didn’t change, what does
+that say about the <em>horizontal acceleration</em>?”</li>
+</ul>
+<h2 id="common-misconceptions">Common Misconceptions</h2>
+<ul>
+<li><strong>Misconception:</strong> “A faster horizontal launch keeps
+the projectile in the air longer.” → <strong>Correction:</strong>
+Time-of-fall is determined by the <em>vertical</em> component alone.
+Horizontal velocity affects <em>range</em> (how far it goes), not
+time.</li>
+<li><strong>Misconception:</strong> “There is a horizontal force on the
+projectile.” → <strong>Correction:</strong> Once released, the only
+force on a projectile (ignoring air resistance) is gravity, which is
+purely vertical.</li>
+<li><strong>Misconception:</strong> “Doubling the launch height doubles
+the fall time.” → <strong>Correction:</strong> Time goes as √h, so
+doubling h multiplies time by √2 ≈ 1.41, not 2.</li>
+</ul>
+<h2 id="access-differentiation">Access &amp; Differentiation</h2>
+<ul>
+<li><strong>ELL/ENL supports:</strong> Sentence frames embedded in the
+Hochman scaffold itself: *“Fall time depends only on <strong><em>,
+because gravity acts only </em></strong>, so horizontal velocity ___.”*
+Word-choice box: {horizontal, vertical, gravity, range, fall time,
+independent, components}.</li>
+<li><strong>IEP/SPED supports:</strong> Pre-printed trajectory templates
+with the y-axis (height) marked at 1 m, 2 m, 5 m. Provide the formula t
+= √(2h/g) on a reference card.</li>
+<li><strong>Extensions:</strong> Predict the <em>speed</em> (magnitude
+of v_x and v_y combined) at the moment of impact. Or: a marble rolls off
+a table 0.8 m high at 1 m/s — where does it land relative to the table
+edge?</li>
+</ul>
+<h2 id="strategy-spotlight">Strategy Spotlight</h2>
+<p><strong>Part 1 — BTC <em>thin-slicing</em> (10 min).</strong></p>
+<p>Random groups of 3 (visibly random, by playing-card suit). At each
+chart-paper station, post the four progressively harder puzzles:</p>
+<ol type="1">
+<li><strong>Level 1:</strong> “A ball is dropped from a 5 m table. How
+long until it hits the floor? Use g = 9.8 m/s².” <em>(Answer: t =
+√(2·5/9.8) ≈ 1.01 s.)</em></li>
+<li><strong>Level 2:</strong> “Same ball, but rolled off the table at 2
+m/s horizontally. Now how long until it hits the floor?” <em>(Same
+answer: 1.01 s.)</em></li>
+<li><strong>Level 3:</strong> “Now how far horizontally does the rolled
+ball travel before hitting the floor?” <em>(Range = v_x · t = 2 × 1.01 ≈
+2.02 m.)</em></li>
+<li><strong>Level 4:</strong> “If we double the table height to 10 m,
+what happens to the fall time and to the range?” <em>(t becomes √2 ≈
+1.43 s; range becomes 2 × 1.43 ≈ 2.86 m. The fall time grew by √2, not
+2.)</em></li>
+</ol>
+<p>3-minute rotations. Students argue at chart paper. Teacher walks but
+does not solve.</p>
+<p><strong>Part 2 — Hochman <em>paragraph topic sentence</em> (10
+min).</strong></p>
+<p>Students write a 3-sentence paragraph explaining why horizontal
+velocity does not affect fall time. Provide the <strong>topic-sentence
+frame</strong> as a starter:</p>
+<blockquote>
+<p><strong>Topic sentence:</strong> “When a projectile is launched
+horizontally, its <strong>fall time depends only on the launch
+height</strong> — not on the horizontal speed.”</p>
+</blockquote>
+<p>Students then write <strong>two supporting sentences</strong> that
+reference <em>evidence</em> from the BTC stations and from the
+MythBusters phenomenon:</p>
+<ul>
+<li><em>Sentence 2 (evidence):</em> “At Levels 1 and 2 of our station
+puzzles, the ball took the same time (~1 s) whether it was dropped or
+rolled off the table at 2 m/s.”</li>
+<li><em>Sentence 3 (causal mechanism):</em> “This makes sense because
+gravity acts only vertically; the horizontal velocity has no force
+pulling it sideways, so the projectile keeps its launch speed in x while
+gravity pulls it down in y.”</li>
+</ul>
+<p>Read three student paragraphs aloud (with permission). Discuss which
+topic sentence most clearly <em>previews</em> what the supporting
+sentences will show.</p>
+<h2 id="exit-ticket-closing-reflection">Exit Ticket + Closing
+Reflection</h2>
+<p>A marble rolls off a 0.80 m high table at 1.5 m/s horizontally. Use g
+= 9.8 m/s².</p>
+<ol type="a">
+<li>How long does the marble take to hit the floor?</li>
+<li>How far from the table’s edge does it land?</li>
+<li>Write one topic sentence (Hochman style) that captures <em>why</em>
+a marble rolling faster horizontally would land further but at the same
+time.</li>
+</ol>
+<p><em>Closing reflection (30 sec):</em> What is one thing that
+surprised you today? Who helped you make sense of something?</p>
+<h2 id="companion-materials">Companion Materials</h2>
+<ul>
+<li><code>Student_Exploration.html</code> (rich interactive)</li>
+<li><code>Student_Exploration.onenote.html</code> (OneNote-paste
+static)</li>
+<li><code>Answer_Key.docx</code></li>
+</ul>
+<h2 id="key-vocabulary-max-3">Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>horizontal velocity (v_x)</strong> — the constant rightward
+(or leftward) speed of a projectile (no horizontal force, so v_x is
+unchanged during flight)</li>
+<li><strong>vertical velocity (v_y)</strong> — the downward speed of the
+projectile, growing under gravity</li>
+<li><strong>range</strong> — the horizontal distance from launch point
+to landing point</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Acceleration — Unit: Kinematics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Kinematics — Lesson 04: Acceleration</h1>
+    <div><span class="strategy-chip btc">BTC</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Open the <a href="http://www.physicsclassroom.com/mmedia/kinema/acceln.cfm" target="_blank" rel="noopener">Physics Classroom acceleration animations</a>. Watch any one for 30 seconds. Notice how the spacing between the moving dots changes from frame to frame. Why?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>How can we measure how fast an object's <em>velocity</em> is changing?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Some animations show dots that get further apart over time. Some show dots getting closer. What do you think the difference means about the object?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch a velocity-time (v-t) graph of what you think "speeding up" looks like. Then sketch what "constant velocity" looks like. What's the difference?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Set the acceleration with the slider, then press <strong>Run</strong>. Watch the dot move and the velocity grow (or shrink) on the v-t graph in real time.</p>
+  <div data-interactive="true">
+    <svg id="acc-canvas" width="480" height="320" viewBox="0 0 480 320" role="img" aria-label="Acceleration explorer">
+      <line x1="40" y1="80" x2="440" y2="80" stroke="#e6e6e6" stroke-width="2"/>
+      <text x="40" y="60" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">Position track</text>
+      <circle id="acc-dot" cx="40" cy="80" r="8" fill="#662e80"/>
+      <line x1="40" y1="280" x2="440" y2="280" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="40" y1="180" x2="40" y2="280" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="40" y1="180" x2="440" y2="180" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <text x="40" y="170" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">v-t graph</text>
+      <text x="20" y="280" font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a">0</text>
+      <text x="20" y="184" font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a">+</text>
+      <text x="445" y="295" font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a">t</text>
+      <polyline id="acc-vt" points="" fill="none" stroke="#2ea3f2" stroke-width="2.5"/>
+    </svg>
+    <div class="controls">
+      <label>Acceleration a (m/s²): <input id="acc-a" type="range" min="-4" max="4" step="0.5" value="2"> <span id="acc-a-r" class="readout">2.0</span></label>
+      <label>Initial velocity v₀ (m/s): <input id="acc-v0" type="range" min="-10" max="10" step="1" value="0"> <span id="acc-v0-r" class="readout">0</span></label>
+      <button id="acc-run" type="button">Run (8 s)</button>
+      <button id="acc-reset" type="button">Reset</button>
+      <p>Time: <span id="acc-t" class="readout">0.0</span> s · velocity: <span id="acc-v" class="readout">0.0</span> m/s · position: <span id="acc-x" class="readout">0.0</span> m</p>
+    </div>
+    <script>
+      (function () {
+        const dot = document.getElementById("acc-dot");
+        const vt = document.getElementById("acc-vt");
+        const aInput = document.getElementById("acc-a");
+        const v0Input = document.getElementById("acc-v0");
+        function refresh() {
+          document.getElementById("acc-a-r").textContent = parseFloat(aInput.value).toFixed(1);
+          document.getElementById("acc-v0-r").textContent = v0Input.value;
+        }
+        aInput.addEventListener("input", refresh);
+        v0Input.addEventListener("input", refresh);
+        refresh();
+        const T_MAX = 8;
+        const X_TRACK_START = 40, X_TRACK_END = 440, TRACK_PX = X_TRACK_END - X_TRACK_START;
+        const X_VT_START = 40, X_VT_END = 440, VT_PX = X_VT_END - X_VT_START;
+        const Y_VT_BASE = 280, Y_VT_RANGE = 100;     // pixels per ±20 m/s
+        let raf = null;
+        function reset() {
+          if (raf) cancelAnimationFrame(raf);
+          dot.setAttribute("cx", X_TRACK_START);
+          vt.setAttribute("points", "");
+          ["acc-t","acc-v","acc-x"].forEach(id => document.getElementById(id).textContent = "0.0");
+        }
+        document.getElementById("acc-reset").onclick = reset;
+        document.getElementById("acc-run").onclick = () => {
+          reset();
+          const a = parseFloat(aInput.value);
+          const v0 = parseFloat(v0Input.value);
+          const t0 = performance.now();
+          const points = [];
+          // Position scale: at constant a=4, v0=0, after 8s, x = 128 m. Use 200 m max range.
+          const X_MAX_M = 200;
+          function frame(now) {
+            let t = (now - t0) / 1000;
+            if (t > T_MAX) t = T_MAX;
+            const v = v0 + a * t;
+            const x = v0 * t + 0.5 * a * t * t;
+            const xClamped = Math.max(-X_MAX_M, Math.min(X_MAX_M, x));
+            const xPx = X_TRACK_START + ((xClamped + X_MAX_M) / (2 * X_MAX_M)) * TRACK_PX;
+            dot.setAttribute("cx", xPx);
+            const vClamped = Math.max(-20, Math.min(20, v));
+            const vyPx = Y_VT_BASE - (vClamped / 20) * Y_VT_RANGE;
+            const tPx = X_VT_START + (t / T_MAX) * VT_PX;
+            points.push(tPx + "," + vyPx);
+            vt.setAttribute("points", points.join(" "));
+            document.getElementById("acc-t").textContent = t.toFixed(1);
+            document.getElementById("acc-v").textContent = v.toFixed(1);
+            document.getElementById("acc-x").textContent = x.toFixed(1);
+            if (t < T_MAX) raf = requestAnimationFrame(frame);
+          }
+          raf = requestAnimationFrame(frame);
+        };
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> a = +2 m/s², v₀ = 0. After 8 s, the dot has reached v = 16 m/s. The v-t graph is a straight line going up — slope = +2. The dot's spacing on the position track grows over time.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="100" x2="260" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="20" y1="20" x2="20" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="20" y1="100" x2="260" y2="20" stroke="#2ea3f2" stroke-width="2.5"/>
+      <text x="160" y="55" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">slope = a = +2</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> a = −1 m/s², v₀ = 10 m/s. The dot starts moving forward but the v-t line trends downward; at t = 10 s, velocity hits zero. The slope of v-t is the (negative) acceleration.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="60" x2="260" y2="60" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <line x1="20" y1="100" x2="260" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="20" y1="20" x2="20" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="20" y1="20" x2="260" y2="100" stroke="#2ea3f2" stroke-width="2.5"/>
+      <text x="120" y="50" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">slope = a = −1</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> a = 0, v₀ = 5 m/s. The dot moves at constant velocity. The v-t graph is horizontal — zero slope = zero acceleration.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="100" x2="260" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="20" y1="20" x2="20" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="20" y1="50" x2="260" y2="50" stroke="#2ea3f2" stroke-width="2.5"/>
+      <text x="120" y="40" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">slope = 0</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">If two cars have the same acceleration but different starting velocities, what is the same about their v-t graphs? What is different?</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Slide a = +3 m/s² and watch the dot for 4 s. What is the dot's velocity at the end? How far did it travel from rest?</li>
+    <li>What does the v-t graph slope tell you? Sketch a v-t graph for a car that speeds up at 2 m/s² for 5 s, then holds steady for 3 s.</li>
+    <li>A car moving west has a negative acceleration (in the eastward-positive convention). Is the car speeding up or slowing down? Explain.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The acceleration is ___ m/s² because the velocity changed by ___ m/s in ___ seconds."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>acceleration</strong> — change in velocity ÷ time; a vector; units m/s²</li>
+    <li><strong>deceleration</strong> — informal name for acceleration whose vector opposes the velocity</li>
+    <li><strong>slope</strong> — on a v-t graph, the steepness of the line; equals the acceleration</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Update your initial v-t sketches. Add slope labels (positive, negative, zero). Use the word <em>acceleration</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Open one of the Physics Classroom acceleration animations again. Predict what its v-t graph would look like, then check yourself with the interactive above.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A sprinter starts from rest and reaches 9 m/s in 3 seconds. (a) Average acceleration? (b) Sketch her v-t graph. (c) After the line she slows from 9 to 0 in 6 seconds. What is her acceleration during the slow-down? Positive or negative? Explain.</li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="http://www.physicsclassroom.com/mmedia/kinema/acceln.cfm" target="_blank" rel="noopener">Physics Classroom — Acceleration</a></li>
+    <li><a href="https://ophysics.com/k6.html" target="_blank" rel="noopener">OPhysics — Uniform Acceleration in 1D</a></li>
+    <li><a href="https://docs.google.com/document/d/1D36lv1SUPDFQEmgBKByWXksyVVC5y12s-4YqXao3zkY/edit?tab=t.0" target="_blank" rel="noopener">Speeding up / Slowing Down (Google Doc)</a></li>
+    <li><a href="http://betterlesson.com/lesson/631023/newton-s-second-law-in-1-d" target="_blank" rel="noopener">Newton's Second Law in 1-D Motion (Better Lesson assessment)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · kinematics-04</p>
+</footer>
+
+</div>
+</body>
+</html>

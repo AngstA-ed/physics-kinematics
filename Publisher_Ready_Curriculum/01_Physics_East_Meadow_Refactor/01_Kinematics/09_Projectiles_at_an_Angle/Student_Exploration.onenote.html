@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Projectiles at an Angle — Unit: Kinematics</title>
+
+</head>
+<body>
+<div class="lesson-shell">
+<header class="brand-header">
+<img alt="East Meadow Schools" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgNDAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRWFzdCBNZWFkb3cgU2Nob29scyBwbGFjZWhvbGRlciBsb2dvIj4KICA8cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iIzY2MmU4MCIvPgogIDx0ZXh0IHg9IjgwIiB5PSIyNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjcwMCIgZm9udC1zaXplPSIxNCI+RWFzdCBNZWFkb3c8L3RleHQ+Cjwvc3ZnPgo="/>
+<div class="divider"></div>
+<img alt="Valley Stream Central HSD" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNDAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVmFsbGV5IFN0cmVhbSBDZW50cmFsIEhTRCBwbGFjZWhvbGRlciBsb2dvIj4KICA8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iIzJlYTNmMiIvPgogIDx0ZXh0IHg9IjEwMCIgeT0iMjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTQiPlZhbGxleSBTdHJlYW0gQ2VudHJhbDwvdGV4dD4KPC9zdmc+Cg=="/>
+<div>
+<div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+<h1>Unit: Kinematics — Lesson 09: Projectiles at an Angle</h1>
+<div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+</div>
+</header>
+<section class="lesson-section" data-section="phenomenon">
+<h2>Phenomenon</h2>
+<p>Watch <a href="https://www.youtube.com/watch?v=YyekCd0g8B8" rel="noopener" target="_blank">Jamaal Murray catches his own hail mary</a>. The player tosses the ball with one hand, sprints around the defender, and catches the same ball before it hits the ground. He has internalized — without equations — the launch angle and air-time that bring the ball back to him.</p>
+</section>
+<section class="lesson-section" data-section="driving-question">
+<h2>Driving Question</h2>
+<p><strong>What launch angle produces the maximum horizontal range — and why?</strong></p>
+</section>
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="turn-and-talk">If you had to throw a softball as far as possible (same speed every time), what angle would you choose? Why?</aside>
+<section class="lesson-section initial-model" data-section="initial-model">
+<h2>Initial Model</h2>
+<p>Sketch trajectories for three launches at the same v₀: 20°, 45°, and 70°. Predict which lands farthest.</p>
+</section>
+<section class="lesson-section" data-section="interactive">
+<h2>Investigate</h2>
+<p>Slide v₀ and θ. Press <strong>Launch</strong>. The trajectory traces in real time, and the readouts show range and time-of-flight. Toggle <em>show optimal angle</em> to highlight the 45° prediction.</p>
+<div class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> Low launch angle (20°) at v₀ = 12 m/s — short range (~9.5 m), short air-time (~0.84 s), low arc.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<line stroke="#1a1a1a" stroke-width="1" x1="20" x2="260" y1="100" y2="100"></line>
+<path d="M 20 100 Q 140 40 240 100" fill="none" stroke="#662e80" stroke-width="2" transform="scale(1, 0.4) translate(0, 150)"></path>
+</svg>
+<p><strong>Storyboard frame 2.</strong> Optimal launch angle (45°) at the same v₀ — maximum range (~14.7 m). The arc reaches a moderate peak height. This is the *optimal angle*.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<line stroke="#1a1a1a" stroke-width="1" x1="20" x2="260" y1="100" y2="100"></line>
+<path d="M 20 100 Q 140 20 260 100" fill="none" stroke="#662e80" stroke-width="2"></path>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="11" x="120" y="50">θ = 45°, R_max</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> High launch angle (70°) at the same v₀ — shorter range (~9.5 m, same as 20° by *symmetry*), much longer air-time (~2.30 s), high peak. 20° and 70° give the same range because they are symmetric around 45°.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<line stroke="#1a1a1a" stroke-width="1" x1="20" x2="260" y1="100" y2="100"></line>
+<path d="M 20 100 Q 80 10 140 100" fill="none" stroke="#662e80" stroke-width="2"></path>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="11" x="20" y="20">θ = 70°: high arc, same range as 20°</text>
+</svg>
+</div>
+
+</section>
+<aside class="turn-and-talk">Try θ = 30° and θ = 60° at the same v₀. The ranges are the same! Why? Use today's vocabulary in your answer.</aside>
+<section class="lesson-section" data-section="make-it-make-sense">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>Set v₀ = 12 m/s and θ = 30°. What is the range? What is the time-of-flight?</li>
+<li>At the same v₀ = 12 m/s, set θ = 60°. Compare its range and time-of-flight to the 30° launch.</li>
+<li>At what launch angle is the range maximized? What is the maximum range at v₀ = 12 m/s?</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"At a launch angle of ___°, the range is ___ m because v_x = ___ and v_y = ___."</p>
+</details>
+</section>
+<section class="lesson-section vocab-box" data-section="vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>launch angle (θ)</strong> — the angle above horizontal at which the projectile is launched</li>
+<li><strong>range equation</strong> — R = v₀² sin(2θ) / g, valid for level ground and no air resistance</li>
+<li><strong>optimal angle</strong> — 45° on level ground (in vacuum); the angle that produces maximum range</li>
+</ul>
+</section>
+<section class="lesson-section revise-model" data-section="revise-model">
+<h2>Revise Your Model</h2>
+<p>Update your initial trajectory sketches. Add the *range* and *time-of-flight* values for each angle. Highlight the symmetric pairs (15°/75°, 30°/60°).</p>
+</section>
+<section class="lesson-section" data-section="return-to-phenomenon">
+<h2>Return to the Phenomenon</h2>
+<p>Use today's tools to estimate Jamaal Murray's hail mary throw. If the ball was airborne for ~2.5 s and traveled ~25 m horizontally, what was the launch angle and launch speed (approximately)?</p>
+</section>
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A soccer player kicks the ball at 14 m/s at 35° above horizontal. (a) v_x and v_y components? (b) Time-of-flight? (c) Range? (d) Predict whether kicking at 55° (same speed) lands closer or farther. Explain.</li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section class="lesson-section" data-section="explore-further">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=YyekCd0g8B8" rel="noopener" target="_blank">Jamaal Murray hail mary (YouTube)</a></li>
+<li><a href="https://phet.colorado.edu/en/simulations/projectile-motion" rel="noopener" target="_blank">PhET — Projectile Motion</a></li>
+<li><a href="https://docs.google.com/document/d/1urBrkxMU0f61gNARBEiuZELhE-vlfjjvFCr-GhaDq5I/edit?tab=t.0" rel="noopener" target="_blank">Projectile Lab worksheet (Google Doc)</a></li>
+</ul>
+</section>
+<footer>
+<p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · kinematics-09</p>
+</footer>
+</div>
+</body>
+</html>

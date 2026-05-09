@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Horizontal Projectile Motion — Unit: Kinematics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Kinematics — Lesson 08: Horizontal Projectile Motion</h1>
+    <div><span class="strategy-chip btc">BTC</span> <span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Watch <a href="https://www.youtube.com/watch?v=D9wQVIEdKh8" target="_blank" rel="noopener">MythBusters — Bullet Fired vs. Bullet Dropped</a>. Two bullets are released at exactly the same instant from the same height: one is fired horizontally, the other simply dropped. Predict — which one hits the ground first?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>Why does the horizontal velocity of a projectile <em>not</em> change how long it stays in the air?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Most students predict the dropped bullet lands first (because the fired bullet is "moving away from the ground"). Why is that intuition appealing — and why is it wrong?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>On a y-vs-x grid, sketch the trajectory of (1) a marble dropped from a table edge, and (2) a marble rolled off the same table at 2 m/s. Mark the moment each one hits the floor.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Roll a marble off a table at the speed you choose. Watch it alongside a second marble that is simply dropped. Compare their fall times and trajectories.</p>
+  <div data-interactive="true">
+    <svg id="hp-canvas" width="480" height="320" viewBox="0 0 480 320" role="img" aria-label="Horizontal projectile explorer">
+      <!-- Table top -->
+      <rect x="20" y="60" width="80" height="6" fill="#1a1a1a"/>
+      <line x1="60" y1="66" x2="60" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+      <!-- Floor -->
+      <line id="hp-floor" x1="20" y1="280" x2="460" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="20" y="298" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">floor</text>
+      <text x="20" y="56" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">table edge</text>
+      <!-- height label -->
+      <line x1="10" y1="60" x2="10" y2="280" stroke="#999" stroke-width="0.5"/>
+      <text x="14" y="180" font-family="Inter, sans-serif" font-size="10" fill="#999" id="hp-h-label">h = 1.25 m</text>
+      <!-- Trajectory of rolled marble -->
+      <polyline id="hp-roll-path" points="" fill="none" stroke="#2ea3f2" stroke-width="2" stroke-dasharray="3 2"/>
+      <!-- Marbles -->
+      <circle id="hp-roll" cx="60" cy="60" r="7" fill="#2ea3f2"/>
+      <circle id="hp-drop" cx="60" cy="60" r="7" fill="#662e80"/>
+    </svg>
+    <div class="controls">
+      <label>Table height h (m): <input id="hp-h" type="range" min="0.5" max="3" step="0.25" value="1.25"> <span id="hp-h-r" class="readout">1.25</span></label>
+      <label>Horizontal launch speed v_x (m/s): <input id="hp-vx" type="range" min="0" max="6" step="0.5" value="2"> <span id="hp-vx-r" class="readout">2.0</span></label>
+      <button id="hp-go" type="button">Release both</button>
+      <button id="hp-reset" type="button">Reset</button>
+      <p>Time: <span id="hp-t" class="readout">0.00</span> s · rolled marble x = <span id="hp-x" class="readout">0.00</span> m, y = <span id="hp-y" class="readout">0.00</span> m</p>
+      <p>Fall time: <span id="hp-tof" class="readout">—</span> s · range: <span id="hp-range" class="readout">—</span> m</p>
+    </div>
+    <script>
+      (function () {
+        const G = 9.8;
+        const X0_PX = 60, Y0_PX = 60, FLOOR_Y_PX = 280;
+        const Y_RANGE_PX = FLOOR_Y_PX - Y0_PX;
+        const X_RANGE_PX = 460 - X0_PX;
+        const X_RANGE_M = 8;        // 8 m visible
+        const hInput = document.getElementById("hp-h");
+        const vxInput = document.getElementById("hp-vx");
+        const rollEl = document.getElementById("hp-roll");
+        const dropEl = document.getElementById("hp-drop");
+        const path = document.getElementById("hp-roll-path");
+        function refresh() {
+          document.getElementById("hp-h-r").textContent = hInput.value;
+          document.getElementById("hp-vx-r").textContent = parseFloat(vxInput.value).toFixed(1);
+          document.getElementById("hp-h-label").textContent = "h = " + hInput.value + " m";
+        }
+        hInput.addEventListener("input", refresh);
+        vxInput.addEventListener("input", refresh);
+        refresh();
+        let raf = null;
+        function reset() {
+          if (raf) cancelAnimationFrame(raf);
+          rollEl.setAttribute("cx", X0_PX); rollEl.setAttribute("cy", Y0_PX);
+          dropEl.setAttribute("cx", X0_PX); dropEl.setAttribute("cy", Y0_PX);
+          path.setAttribute("points", "");
+          ["hp-t","hp-x","hp-y"].forEach(id => document.getElementById(id).textContent = "0.00");
+          ["hp-tof","hp-range"].forEach(id => document.getElementById(id).textContent = "—");
+        }
+        document.getElementById("hp-reset").onclick = reset;
+        document.getElementById("hp-go").onclick = () => {
+          reset();
+          const h = parseFloat(hInput.value);
+          const vx = parseFloat(vxInput.value);
+          const tof = Math.sqrt(2 * h / G);
+          const range = vx * tof;
+          document.getElementById("hp-tof").textContent = tof.toFixed(2);
+          document.getElementById("hp-range").textContent = range.toFixed(2);
+          const t0 = performance.now();
+          const pts = [];
+          function frame(now) {
+            let t = (now - t0) / 1000;
+            if (t > tof) t = tof;
+            const y = 0.5 * G * t * t;
+            const x = vx * t;
+            const xPx = X0_PX + (x / X_RANGE_M) * X_RANGE_PX;
+            const yPx = Y0_PX + (y / h) * Y_RANGE_PX;
+            rollEl.setAttribute("cx", xPx); rollEl.setAttribute("cy", yPx);
+            dropEl.setAttribute("cx", X0_PX); dropEl.setAttribute("cy", yPx);
+            pts.push(xPx + "," + yPx);
+            path.setAttribute("points", pts.join(" "));
+            document.getElementById("hp-t").textContent = t.toFixed(2);
+            document.getElementById("hp-x").textContent = x.toFixed(2);
+            document.getElementById("hp-y").textContent = y.toFixed(2);
+            if (t < tof) raf = requestAnimationFrame(frame);
+          }
+          raf = requestAnimationFrame(frame);
+        };
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A blue marble rolls off the table at 2 m/s; a purple marble is simply dropped at the same instant. They fall the same height h.</p>
+    <p><strong>Storyboard frame 2.</strong> Both marbles strike the floor <em>at the same instant</em>. The blue marble has traveled some horizontal distance (the *range*); the purple marble landed directly below the table edge.</p>
+    <svg width="320" height="160" viewBox="0 0 320 160">
+      <rect x="10" y="20" width="60" height="4" fill="#1a1a1a"/>
+      <line x1="40" y1="24" x2="40" y2="80" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="10" y1="140" x2="310" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+      <path d="M 40 24 Q 100 60 200 140" stroke="#2ea3f2" stroke-width="2" stroke-dasharray="3 2" fill="none"/>
+      <line x1="40" y1="24" x2="40" y2="140" stroke="#662e80" stroke-width="2" stroke-dasharray="3 2"/>
+      <circle cx="200" cy="140" r="6" fill="#2ea3f2"/>
+      <circle cx="40" cy="140" r="6" fill="#662e80"/>
+      <text x="100" y="155" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">same fall time, different range</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Doubling the launch height does NOT double the fall time. Time of fall scales as √h, so doubling h multiplies time by √2 ≈ 1.41. Range scales the same way (range = v_x · t), so range also grows by √2.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">When the rolled marble lands, what is its <em>horizontal velocity</em>? What is its <em>vertical velocity</em>? Did either change during the flight?</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Set h = 1.25 m. Release both marbles with v_x = 3 m/s on the rolled one. Which lands first? What is the fall time?</li>
+    <li>What is the horizontal velocity of the rolled marble at the moment of impact?</li>
+    <li>If you double the table height, what happens to the fall time? Does the range double too?</li>
+  </ol>
+  <details>
+    <summary>Hochman paragraph organizer</summary>
+    <ol>
+      <li><strong>Topic sentence:</strong> "When a projectile is launched horizontally, its fall time depends only on the launch height — not on the horizontal speed."</li>
+      <li><strong>Sentence 2 (evidence):</strong> Use a number from the interactive that supports the topic sentence.</li>
+      <li><strong>Sentence 3 (mechanism):</strong> Why does this work? (Hint: gravity acts only ___; the horizontal velocity has no force changing it.)</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>horizontal velocity (v_x)</strong> — constant horizontal speed of a projectile (no horizontal force)</li>
+    <li><strong>vertical velocity (v_y)</strong> — downward speed of the projectile, growing under gravity</li>
+    <li><strong>range</strong> — the horizontal distance from launch point to landing point</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Update your y-vs-x sketch from the Initial Model. Mark the *fall time* on each trajectory. Are they the same number?</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Re-watch the MythBusters bullet experiment. Use today's vocabulary to write a one-sentence explanation of why both bullets hit the ground at the same time.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A marble rolls off a 0.80 m table at 1.5 m/s. g = 9.8 m/s². (a) Fall time? (b) Distance from the edge it lands? (c) Write one Hochman-style topic sentence that captures why a faster horizontal speed produces longer range but the same fall time.</li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://www.youtube.com/watch?v=D9wQVIEdKh8" target="_blank" rel="noopener">MythBusters — Bullet Fired vs. Bullet Dropped</a></li>
+    <li><a href="https://youtu.be/zMF4CD7i3hg?si=bR5YxGmfllkFeEqf" target="_blank" rel="noopener">Shoot-n-Drop demonstration</a></li>
+    <li><a href="https://phet.colorado.edu/en/simulations/projectile-motion" target="_blank" rel="noopener">PhET — Projectile Motion</a></li>
+    <li><a href="https://javalab.org/en/projectile_en/" target="_blank" rel="noopener">Java Lab — Horizontal Projectile</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · kinematics-08</p>
+</footer>
+
+</div>
+</body>
+</html>
