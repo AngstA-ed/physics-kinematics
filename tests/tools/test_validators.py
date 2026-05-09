@@ -6,6 +6,7 @@ from tools.validators import (
     validate_answer_key,
     validate_student_html,
     validate_onenote_html,
+    validate_assessment,
     ValidationError,
 )
 
@@ -134,3 +135,77 @@ def test_answer_key_fails_when_section_missing(tmp_path: Path, schema_path: Path
     file.write_text("## Cover\n", encoding="utf-8")
     with pytest.raises(ValidationError, match="missing required heading"):
         validate_answer_key(file, schema_path)
+
+
+# ---------------------------------------------------------------------------
+# Assessment validator (catches answer-revealing bold in MC option lines)
+# ---------------------------------------------------------------------------
+
+_CLEAN_ASSESSMENT = """\
+# Sample Assessment
+
+## Stimulus
+
+A car has mass **0.5 kg** and accelerates at 2 m/s². Note the bold above is
+in the stimulus, not in an option, so it is allowed.
+
+## Multiple Choice
+
+1. The car's acceleration is closest to:
+   - (A) 0 m/s²
+   - (B) 1.0 m/s²
+   - (C) 2.0 m/s²
+   - (D) 6.0 m/s²
+
+2. The net force is closest to:
+   - (A) 0 N
+   - (B) 1.0 N
+   - (C) 2.0 N
+   - (D) 4.0 N
+
+## Constructed Response
+
+**(a)** Calculate the displacement.
+
+## Answer Key
+
+**Multiple choice:** 1.C · 2.B
+"""
+
+
+def test_assessment_passes_when_options_have_no_bold(tmp_path: Path, schema_path: Path):
+    file = tmp_path / "Sample_Assessment.md"
+    file.write_text(_CLEAN_ASSESSMENT, encoding="utf-8")
+    validate_assessment(file, schema_path)
+
+
+def test_assessment_fails_when_mc_option_has_markdown_bold(tmp_path: Path, schema_path: Path):
+    bad = _CLEAN_ASSESSMENT.replace(
+        "   - (C) 2.0 m/s²",
+        "   - (C) **2.0 m/s²**",
+    )
+    file = tmp_path / "Sample_Assessment.md"
+    file.write_text(bad, encoding="utf-8")
+    with pytest.raises(ValidationError, match=r"reveals the correct answer"):
+        validate_assessment(file, schema_path)
+
+
+def test_assessment_fails_when_mc_option_has_html_strong(tmp_path: Path, schema_path: Path):
+    bad = _CLEAN_ASSESSMENT.replace(
+        "   - (B) 1.0 N",
+        "   - (B) <strong>1.0 N</strong>",
+    )
+    file = tmp_path / "Sample_Assessment.md"
+    file.write_text(bad, encoding="utf-8")
+    with pytest.raises(ValidationError, match=r"reveals the correct answer"):
+        validate_assessment(file, schema_path)
+
+
+def test_assessment_allows_bold_outside_mc_options(tmp_path: Path, schema_path: Path):
+    """Bold in stimulus, CR prompts, and the answer-key section is fine."""
+    file = tmp_path / "Sample_Assessment.md"
+    # _CLEAN_ASSESSMENT already has bold in the stimulus, in the CR prompt
+    # ("**(a)**"), and in the answer key ("**Multiple choice:**"). The
+    # validator should not complain about any of these.
+    file.write_text(_CLEAN_ASSESSMENT, encoding="utf-8")
+    validate_assessment(file, schema_path)

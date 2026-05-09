@@ -20,7 +20,8 @@ from tools.pandoc_runner import md_to_docx, md_to_onenote_html
 from tools.static_ifier import staticify
 from tools.validators import (
     validate_teacher_guide, validate_answer_key, validate_student_html,
-    validate_onenote_html, validate_unit_plan, ValidationError,
+    validate_onenote_html, validate_unit_plan, validate_assessment,
+    ValidationError,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -86,9 +87,12 @@ def build_unit_plan(folder: Path, *, schema_path: Path, reference_doc: Path | No
     return written
 
 
-def build_assessments(folder: Path, *, reference_doc: Path | None) -> list[str]:
+def build_assessments(
+    folder: Path, *, schema_path: Path, reference_doc: Path | None,
+) -> list[str]:
     written: list[str] = []
     for md in folder.glob("*.md"):
+        validate_assessment(md, schema_path)
         docx = md.with_suffix(".docx")
         onhtml = md.with_suffix(".onenote.html")
         md_to_docx(md, docx, reference_doc)
@@ -127,7 +131,9 @@ def build_target(target: Path, *, schema_path: Path, reference_doc: Path | None)
     if (target / "Assessments").is_dir():
         try:
             report["built"] += build_assessments(
-                target / "Assessments", reference_doc=reference_doc,
+                target / "Assessments",
+                schema_path=schema_path,
+                reference_doc=reference_doc,
             )
         except Exception as e:
             report["failed"].append((str(target / "Assessments"), str(e)))

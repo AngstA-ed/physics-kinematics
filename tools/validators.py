@@ -140,3 +140,45 @@ def validate_onenote_html(path: Path, schema_path: Path) -> None:
             raise ValidationError(
                 f"{path.name}: forbidden tag '{forbidden}' present in OneNote HTML"
             )
+
+
+# Matches a Regents-style multiple-choice option line, e.g. "   - (A) 0 m/s²"
+# Captures only the option text (everything after the "(X)" marker).
+_MC_OPTION_RE = re.compile(r"^\s*-\s+\([A-D]\)\s+(.+)$")
+
+
+def validate_assessment(path: Path, schema_path: Path) -> None:
+    """Validate a Regents-style assessment markdown source.
+
+    Hard-fails if any multiple-choice option line contains a marker that would
+    reveal the correct answer to students (bold, etc.). Markers are listed in
+    `forbidden_in_mc_options` in lesson_schema.yaml. Bold remains permitted
+    elsewhere in the document (stimulus emphasis, constructed-response prompt
+    labels, the explicit answer-key section).
+    """
+    schema = _load_schema(schema_path)
+    mc_heading = schema.get("assessment_mc_section_heading", "Multiple Choice").lower()
+    forbidden = schema.get("forbidden_in_mc_options", ["**"])
+    text = path.read_text(encoding="utf-8")
+
+    in_mc = False
+    for line_no, line in enumerate(text.split("\n"), start=1):
+        stripped = line.strip()
+        if stripped.startswith("## "):
+            heading = stripped[3:].strip().lower()
+            in_mc = mc_heading in heading
+            continue
+        if not in_mc:
+            continue
+        m = _MC_OPTION_RE.match(line)
+        if not m:
+            continue
+        option_text = m.group(1)
+        for marker in forbidden:
+            if marker in option_text:
+                raise ValidationError(
+                    f"{path.name}: line {line_no} — multiple-choice option "
+                    f"contains forbidden marker {marker!r} which reveals the "
+                    f"correct answer to students. Move emphasis to the "
+                    f"answer-key section instead."
+                )

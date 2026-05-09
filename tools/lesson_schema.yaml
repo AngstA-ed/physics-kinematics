@@ -57,6 +57,17 @@ forbidden_in_onenote_html:
   - "<iframe"
   - "<link rel=\"stylesheet\""
 
+# Assessment validation
+# The build hard-fails if a Regents-style multiple-choice option line contains
+# any of these markers, since they reveal the correct answer to students. Move
+# emphasis to the explicit answer-key section instead.
+assessment_mc_section_heading: "Multiple Choice"
+forbidden_in_mc_options:
+  - "**"        # markdown bold
+  - "<strong>"  # HTML bold (in case anyone hand-codes inline HTML)
+  - "<b>"
+  - "__"        # markdown bold via underscores
+
 strategy_chip_values:
   - "HOCHMAN"
   - "ACTIVE LEARNING"
