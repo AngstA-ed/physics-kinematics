@@ -59,6 +59,40 @@ export function bindSlider(sliderId, readoutId, formatter = v => v.toFixed(1)) {
 
 export const G = 9.8;
 
+// ===========================================================
+// Scroll-in animation triggers (lab-notebook redesign)
+// Adds .in-view to .section and .lab elements when they enter
+// the viewport. CSS keyframes (in site.css) animate them.
+// Also flips body.anim-ready so the initial-hidden styles apply.
+// Respects prefers-reduced-motion via the CSS gate.
+// ===========================================================
+(function () {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Mark the body as animation-ready *after* the page has had a chance
+  // to paint, so the initial-hidden state doesn't FOUC.
+  requestAnimationFrame(() => {
+    document.body.classList.add("anim-ready");
+  });
+
+  if (reduce) {
+    // Add .in-view to everything immediately so nothing stays hidden.
+    document.querySelectorAll(".section, .lab").forEach(el => el.classList.add("in-view"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.05 });
+
+  document.querySelectorAll(".section, .lab").forEach(el => observer.observe(el));
+})();
+
 // =============================================================
 // Guided Tour
 // =============================================================
