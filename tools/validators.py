@@ -58,13 +58,20 @@ def _vocab_count(text: str) -> int:
     return count
 
 
+def _heading_present(needle: str, haystack: list[str]) -> bool:
+    """Match a required heading against the file's headings, allowing the
+    file to append a suffix (like a time-range "*(0 – 12 min)*"). The
+    canonical form in the schema is the heading prefix."""
+    return any(h == needle or h.startswith(needle + " ") or h.startswith(needle + "\t") for h in haystack)
+
+
 def validate_teacher_guide(path: Path, schema_path: Path) -> None:
     schema = _load_schema(schema_path)
     text = path.read_text(encoding="utf-8")
     h2s = _level_two_headings(text)
 
     for required in schema["teacher_guide_required_headings"]:
-        if required not in h2s:
+        if not _heading_present(required, h2s):
             raise ValidationError(
                 f"{path.name}: missing required heading '## {required}'"
             )

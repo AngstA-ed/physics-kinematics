@@ -15,11 +15,12 @@ from tools.validators import (
 def test_teacher_guide_passes_with_all_required_headings(tmp_path: Path, schema_path: Path):
     headings = [
         "Cover", "Curated Resources (from East Meadow Scope & Sequence)",
-        "CCC Focus", "NYSSLS Observation Checklist Crosswalk",
-        "Opening Connection", "At-a-Glance", "Lesson Objectives", "Agenda",
-        "Discussion Prompts", "Common Misconceptions",
-        "Access & Differentiation", "Strategy Spotlight",
-        "Exit Ticket + Closing Reflection", "Companion Materials",
+        "Lesson Overview",
+        "Phase 1 · Engage", "Phase 2 · Explore", "Phase 3 · Explain",
+        "Phase 4 · Elaborate", "Phase 5 · Evaluate",
+        "Common Misconceptions", "Access & Differentiation",
+        "Strategy Spotlight", "NYSSLS Observation Checklist Crosswalk",
+        "Companion Materials", "Key Vocabulary (max 3)",
     ]
     sub_headings = "\n\n".join([
         "### NYSSLS Standards\nHS-PS2-1.",
@@ -32,7 +33,8 @@ def test_teacher_guide_passes_with_all_required_headings(tmp_path: Path, schema_
         body_parts.append(f"## {h}\n")
         if h == "Curated Resources (from East Meadow Scope & Sequence)":
             body_parts.append(sub_headings + "\n")
-    body_parts.append("\n## Key Vocabulary (max 3)\n- term1\n- term2\n")
+        if h == "Key Vocabulary (max 3)":
+            body_parts.append("- term1\n- term2\n")
     file = tmp_path / "Teacher_Guide.md"
     file.write_text("\n".join(body_parts), encoding="utf-8")
 
@@ -50,16 +52,19 @@ def test_teacher_guide_fails_when_curated_subheading_missing(tmp_path: Path, sch
     body = []
     for h in [
         "Cover", "Curated Resources (from East Meadow Scope & Sequence)",
-        "CCC Focus", "NYSSLS Observation Checklist Crosswalk",
-        "Opening Connection", "At-a-Glance", "Lesson Objectives", "Agenda",
-        "Discussion Prompts", "Common Misconceptions",
-        "Access & Differentiation", "Strategy Spotlight",
-        "Exit Ticket + Closing Reflection", "Companion Materials",
+        "Lesson Overview",
+        "Phase 1 · Engage", "Phase 2 · Explore", "Phase 3 · Explain",
+        "Phase 4 · Elaborate", "Phase 5 · Evaluate",
+        "Common Misconceptions", "Access & Differentiation",
+        "Strategy Spotlight", "NYSSLS Observation Checklist Crosswalk",
+        "Companion Materials", "Key Vocabulary (max 3)",
     ]:
         body.append(f"## {h}\n")
         if h.startswith("Curated"):
             # Only NYSSLS, missing the others
             body.append("### NYSSLS Standards\nHS-PS2-1.\n")
+        if h == "Key Vocabulary (max 3)":
+            body.append("- term1\n- term2\n")
     file = tmp_path / "Teacher_Guide.md"
     file.write_text("\n".join(body), encoding="utf-8")
     with pytest.raises(ValidationError, match="Curated Resources missing sub-heading"):
@@ -69,11 +74,12 @@ def test_teacher_guide_fails_when_curated_subheading_missing(tmp_path: Path, sch
 def test_teacher_guide_fails_when_vocab_exceeds_three(tmp_path: Path, schema_path: Path):
     headings = [
         "Cover", "Curated Resources (from East Meadow Scope & Sequence)",
-        "CCC Focus", "NYSSLS Observation Checklist Crosswalk",
-        "Opening Connection", "At-a-Glance", "Lesson Objectives", "Agenda",
-        "Discussion Prompts", "Common Misconceptions",
-        "Access & Differentiation", "Strategy Spotlight",
-        "Exit Ticket + Closing Reflection", "Companion Materials",
+        "Lesson Overview",
+        "Phase 1 · Engage", "Phase 2 · Explore", "Phase 3 · Explain",
+        "Phase 4 · Elaborate", "Phase 5 · Evaluate",
+        "Common Misconceptions", "Access & Differentiation",
+        "Strategy Spotlight", "NYSSLS Observation Checklist Crosswalk",
+        "Companion Materials", "Key Vocabulary (max 3)",
     ]
     sub = "\n".join([
         "### NYSSLS Standards\nHS-PS2-1.",
@@ -86,7 +92,8 @@ def test_teacher_guide_fails_when_vocab_exceeds_three(tmp_path: Path, schema_pat
         body.append(f"## {h}\n")
         if h.startswith("Curated"):
             body.append(sub + "\n")
-    body.append("\n## Key Vocabulary (max 3)\n- a\n- b\n- c\n- d\n")
+        if h == "Key Vocabulary (max 3)":
+            body.append("- a\n- b\n- c\n- d\n")
     file = tmp_path / "Teacher_Guide.md"
     file.write_text("\n".join(body), encoding="utf-8")
     with pytest.raises(ValidationError, match="vocab exceeds"):

@@ -1,21 +1,25 @@
 # Single source of truth for lesson structure rules.
 # Both tools/scaffold_lesson.py and tools/validators.py read this.
 
+# Teacher guides are organized by the 5E phenomenon-based lesson model
+# documented in the joint East Meadow / Valley Stream Central PPTX (slide 32).
+# Each phase has minute-by-minute facilitation script, anticipated student
+# responses, and sample teacher language inside.
 teacher_guide_required_headings:
   - "Cover"
   - "Curated Resources (from East Meadow Scope & Sequence)"
-  - "CCC Focus"
-  - "NYSSLS Observation Checklist Crosswalk"
-  - "Opening Connection"
-  - "At-a-Glance"
-  - "Lesson Objectives"
-  - "Agenda"
-  - "Discussion Prompts"
+  - "Lesson Overview"
+  - "Phase 1 · Engage"
+  - "Phase 2 · Explore"
+  - "Phase 3 · Explain"
+  - "Phase 4 · Elaborate"
+  - "Phase 5 · Evaluate"
   - "Common Misconceptions"
   - "Access & Differentiation"
   - "Strategy Spotlight"
-  - "Exit Ticket + Closing Reflection"
+  - "NYSSLS Observation Checklist Crosswalk"
   - "Companion Materials"
+  - "Key Vocabulary (max 3)"
 
 curated_resources_required_subheadings:
   - "NYSSLS Standards"
