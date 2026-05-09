@@ -10,6 +10,9 @@ on:
     branches: [main, physics-east-meadow-refactor]
     paths:
       - "Publisher_Ready_Curriculum/01_Physics_East_Meadow_Web/**"
+      - "tools/validate_web.py"
+      - "tools/validators.py"
+      - "tools/lesson_schema.yaml"
       - ".github/workflows/deploy-pages.yml"
   # Also allow manual trigger from the Actions tab.
   workflow_dispatch:
@@ -31,6 +34,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install validator dependencies
+        run: pip install beautifulsoup4 lxml PyYAML
+
+      - name: Validate web assessments (no answer reveals)
+        # Hard-fails the deploy if any HTML page in the web edition has an
+        # emphasis tag (<strong>, <b>, <em>) inside a multiple-choice option,
+        # which would reveal the correct answer to students. Mirrors the
+        # markdown-side validate_assessment that runs at build_lessons.py time.
+        run: python tools/validate_web.py
 
       - name: Stage site contents
         run: |

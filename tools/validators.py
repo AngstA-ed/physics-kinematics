@@ -182,3 +182,45 @@ def validate_assessment(path: Path, schema_path: Path) -> None:
                     f"correct answer to students. Move emphasis to the "
                     f"answer-key section instead."
                 )
+
+
+def validate_web_assessment_html(path: Path, schema_path: Path) -> None:
+    """Validate a web-edition (hand-authored) HTML page.
+
+    Hard-fails if any <ol> inside a <section> whose <h2> contains "multiple
+    choice" has <li> children with emphasis tags (<strong>, <b>, <em>).
+    Such tags would reveal the correct answer to students. Mirrors the
+    markdown-side validate_assessment for the OneNote-friendly track.
+
+    Pages that have no "multiple choice" section (lesson pages, the unit
+    plan page, etc.) are validated as clean — the heuristic is selective.
+    """
+    from bs4 import BeautifulSoup
+    schema = _load_schema(schema_path)
+    forbidden = schema.get("forbidden_in_web_mc_options", ["strong", "b", "em"])
+    soup = BeautifulSoup(path.read_text(encoding="utf-8"), "lxml")
+
+    for h2 in soup.find_all("h2"):
+        if "multiple choice" not in h2.get_text(" ", strip=True).lower():
+            continue
+        section = h2.find_parent("section")
+        if section is None:
+            continue
+        # Only scan top-level <ol> children of the MC section. Don't recurse
+        # into a nested answer-key block that might also be inside the section.
+        for ol in section.find_all("ol", recursive=True):
+            # Skip <ol> elements that live inside a <details> answer-key reveal
+            if ol.find_parent("details") is not None:
+                continue
+            for li in ol.find_all("li", recursive=False):
+                for tag_name in forbidden:
+                    hit = li.find(tag_name)
+                    if hit is not None:
+                        snippet = hit.get_text(" ", strip=True)
+                        raise ValidationError(
+                            f"{path.name}: <{tag_name}> inside a "
+                            f"multiple-choice option (\"{snippet}\") would "
+                            f"reveal the correct answer to students. Remove "
+                            f"the emphasis tag — the answer key belongs in "
+                            f"the collapsible <details> section."
+                        )

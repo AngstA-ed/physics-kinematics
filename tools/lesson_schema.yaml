@@ -68,6 +68,15 @@ forbidden_in_mc_options:
   - "<b>"
   - "__"        # markdown bold via underscores
 
+# Web-edition (hand-authored HTML) check — same intent as the markdown rule
+# above, but enforced via DOM inspection rather than text matching. The
+# pre-deploy step in .github/workflows/deploy-pages.yml runs this against
+# every *.html under Publisher_Ready_Curriculum/01_Physics_East_Meadow_Web/.
+forbidden_in_web_mc_options:
+  - "strong"
+  - "b"
+  - "em"        # also catches italics, which would similarly mark an answer
+
 strategy_chip_values:
   - "HOCHMAN"
   - "ACTIVE LEARNING"

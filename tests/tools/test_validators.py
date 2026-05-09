@@ -7,6 +7,7 @@ from tools.validators import (
     validate_student_html,
     validate_onenote_html,
     validate_assessment,
+    validate_web_assessment_html,
     ValidationError,
 )
 
@@ -209,3 +210,96 @@ def test_assessment_allows_bold_outside_mc_options(tmp_path: Path, schema_path: 
     # validator should not complain about any of these.
     file.write_text(_CLEAN_ASSESSMENT, encoding="utf-8")
     validate_assessment(file, schema_path)
+
+
+# ---------------------------------------------------------------------------
+# Web-edition assessment HTML validator
+# ---------------------------------------------------------------------------
+
+_CLEAN_WEB_ASSESSMENT_HTML = """\
+<!doctype html>
+<html><body>
+<section>
+  <h2><span class="num">Stimulus</span></h2>
+  <p>Mass is <strong>0.5 kg</strong> — bold here is fine, it's the stimulus.</p>
+</section>
+<section>
+  <h2><span class="num">MC</span> Multiple Choice (15 items, 1 pt each)</h2>
+  <ol>
+    <li>The car's acceleration is closest to:
+      (A) 0 m/s² · (B) 1.0 m/s² · (C) 2.0 m/s² · (D) 6.0 m/s²</li>
+    <li>The net force is closest to:
+      (A) 0 N · (B) 1.0 N · (C) 2.0 N · (D) 4.0 N</li>
+  </ol>
+</section>
+<section>
+  <h2><span class="num">CR</span> Constructed-response cluster</h2>
+  <p><strong>(a) (2 pts)</strong> Calculate displacement.</p>
+</section>
+<section>
+  <h2><span class="num">Key</span> Answer key (teacher use)</h2>
+  <details>
+    <summary>Reveal answer key</summary>
+    <p><strong>Multiple choice:</strong> 1.C · 2.B</p>
+  </details>
+</section>
+</body></html>
+"""
+
+
+def test_web_assessment_passes_when_options_have_no_emphasis(tmp_path: Path, schema_path: Path):
+    file = tmp_path / "assessment.html"
+    file.write_text(_CLEAN_WEB_ASSESSMENT_HTML, encoding="utf-8")
+    validate_web_assessment_html(file, schema_path)
+
+
+def test_web_assessment_fails_when_mc_option_has_strong(tmp_path: Path, schema_path: Path):
+    bad = _CLEAN_WEB_ASSESSMENT_HTML.replace(
+        "(C) 2.0 m/s²",
+        "(C) <strong>2.0 m/s²</strong>",
+    )
+    file = tmp_path / "assessment.html"
+    file.write_text(bad, encoding="utf-8")
+    with pytest.raises(ValidationError, match=r"reveal the correct answer"):
+        validate_web_assessment_html(file, schema_path)
+
+
+def test_web_assessment_fails_when_mc_option_has_b_or_em(tmp_path: Path, schema_path: Path):
+    bad_b = _CLEAN_WEB_ASSESSMENT_HTML.replace("(B) 1.0 N", "(B) <b>1.0 N</b>")
+    file_b = tmp_path / "assessment_b.html"
+    file_b.write_text(bad_b, encoding="utf-8")
+    with pytest.raises(ValidationError, match=r"<b>"):
+        validate_web_assessment_html(file_b, schema_path)
+
+    bad_em = _CLEAN_WEB_ASSESSMENT_HTML.replace("(D) 4.0 N", "(D) <em>4.0 N</em>")
+    file_em = tmp_path / "assessment_em.html"
+    file_em.write_text(bad_em, encoding="utf-8")
+    with pytest.raises(ValidationError, match=r"<em>"):
+        validate_web_assessment_html(file_em, schema_path)
+
+
+def test_web_assessment_ignores_pages_without_mc_section(tmp_path: Path, schema_path: Path):
+    """A lesson page that has no 'Multiple Choice' h2 is validated as clean,
+    even if it contains <strong> in unrelated places."""
+    html = """<html><body>
+      <section><h2>Phenomenon</h2><p><strong>Watch this</strong>.</p></section>
+      <section><h2>Vocabulary</h2><ul><li><strong>vector</strong> — quantity with direction</li></ul></section>
+    </body></html>"""
+    file = tmp_path / "lesson.html"
+    file.write_text(html, encoding="utf-8")
+    validate_web_assessment_html(file, schema_path)
+
+
+def test_web_assessment_allows_strong_inside_details_answer_key(tmp_path: Path, schema_path: Path):
+    """The collapsible <details> answer key inside the MC section may use
+    <strong> for labels — it's collapsed by default and clearly marked."""
+    file = tmp_path / "assessment.html"
+    # _CLEAN_WEB_ASSESSMENT_HTML places the answer-key <details> inside its
+    # own section, but to be safe we also test a structure where it lives
+    # inside the same section as the MC list.
+    html = _CLEAN_WEB_ASSESSMENT_HTML.replace(
+        "</ol>\n</section>",
+        "</ol>\n  <details><summary>Reveal</summary><ol><li><strong>1.C</strong></li></ol></details>\n</section>",
+    )
+    file.write_text(html, encoding="utf-8")
+    validate_web_assessment_html(file, schema_path)
