@@ -255,19 +255,32 @@ textarea {
 
 textarea:focus { outline: none; border-color: var(--red-pen); box-shadow: var(--shadow-glow); }
 
-/* ----- Site shell ----- */
+/* ----- Site header (paper masthead) ----- */
 .site-header {
-  background: var(--grad-co-brand);
-  color: var(--on-brand);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: var(--paper);
+  background-image: linear-gradient(rgba(166, 124, 82, 0.06) 1px, transparent 1px);
+  background-size: 100% 28px;
+  border-bottom: 1px solid var(--ink);
+  position: relative;
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--ink);
+  filter: url(#ink-wobble);
 }
 
 .site-header-inner {
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: var(--s-3) var(--s-4);
+  padding: var(--s-3) var(--s-4) 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: var(--s-4);
 }
@@ -276,9 +289,10 @@ textarea:focus { outline: none; border-color: var(--red-pen); box-shadow: var(--
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  color: var(--on-brand);
+  color: var(--ink);
   text-decoration: none;
   border: 0;
+  padding-bottom: var(--s-3);
 }
 
 .brand-lockup:hover { border: 0; }
@@ -286,44 +300,57 @@ textarea:focus { outline: none; border-color: var(--red-pen); box-shadow: var(--
 .brand-lockup .logos {
   display: flex;
   align-items: center;
-  gap: var(--s-2);
-  background: rgba(255,255,255,0.12);
-  padding: var(--s-1) var(--s-3);
-  border-radius: var(--r-pill);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  gap: var(--s-3);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  backdrop-filter: none;
 }
 
-.brand-lockup .logos img { height: 22px; width: auto; }
-.brand-lockup .logos .x { opacity: 0.7; font-weight: 300; }
+.brand-lockup .logos img { height: 24px; width: auto; transform: rotate(-1.5deg); }
+.brand-lockup .logos .x { opacity: 0.5; font-weight: 400; font-family: var(--font-display); color: var(--ink-faint); font-size: 1.1rem; }
 
 .brand-lockup .label {
   font-size: var(--fs-tiny);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 600;
-  opacity: 0.92;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+  color: var(--ink-soft);
+  font-family: var(--font-display);
 }
 
 .site-header nav {
   display: flex;
-  gap: var(--s-2);
-  font-size: var(--fs-small);
-  align-items: center;
+  gap: 4px;
+  align-items: flex-end;
 }
 
 .site-header nav a {
-  color: var(--on-brand);
-  opacity: 0.85;
-  padding: var(--s-1) var(--s-3);
-  border-radius: var(--r-sm);
-  border: 0;
-  font-weight: 500;
+  color: var(--ink-soft);
+  font-size: var(--fs-small);
+  padding: var(--s-2) var(--s-3) calc(var(--s-2) + 4px);
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  border: 1px solid var(--ink);
+  border-bottom: 0;
+  background: var(--paper-edge);
+  font-weight: 400;
+  font-family: var(--font-display);
+  transition: transform 0.12s ease;
+  margin-bottom: -1px;
+  position: relative;
 }
 
-.site-header nav a:hover { opacity: 1; background: rgba(255,255,255,0.12); border: 0; }
+.site-header nav a:hover {
+  background: var(--paper);
+  transform: translateY(-1px);
+  border-bottom: 0;
+}
 
-.site-header nav a.active { background: rgba(255,255,255,0.18); opacity: 1; }
+.site-header nav a.active {
+  background: var(--paper);
+  color: var(--ink);
+  z-index: 1;
+}
 
 /* ----- Hero (lesson + index) ----- */
 .hero {
