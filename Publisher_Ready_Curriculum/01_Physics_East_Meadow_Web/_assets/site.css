@@ -520,55 +520,131 @@ main { padding: var(--s-6) 0 var(--s-8); }
 .toc a.active { color: var(--em-purple); font-weight: 600; }
 .toc a.active::before { color: var(--em-purple); }
 
-/* ----- Sections ----- */
+/* ----- Section cards (notebook pages) ----- */
 .section {
-  background: var(--surface-1);
-  border: 1px solid var(--border);
+  background: var(--paper);
+  border: 2px dashed var(--ink-faint);
   border-radius: var(--r-md);
-  padding: var(--s-4) var(--s-5);
-  box-shadow: var(--shadow-1);
+  padding: var(--s-5) var(--s-5);
+  box-shadow: none;
+  position: relative;
 }
 
 .section + .section { margin-top: var(--s-4); }
 
+.section + .section::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--s-2) * -1 - 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 16px;
+  background: var(--paper);
+  background-image: var(--divider-doodle, none);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: var(--ink-faint);
+}
+
+/* Cycle through 6 doodle variants by section index using nth-of-type */
+main .section:nth-of-type(6n+1) { --divider-doodle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 16'><path d='M2,8 Q8,4 14,8 T26,8 M22,4 L28,8 L22,12' stroke='%238a7a5a' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>"); }
+main .section:nth-of-type(6n+2) { --divider-doodle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16'><path d='M12,2 L13.8,7 L19,7 L14.6,10 L16.2,15 L12,12 L7.8,15 L9.4,10 L5,7 L10.2,7 Z' stroke='%238a7a5a' stroke-width='1.4' fill='none' stroke-linejoin='round'/></svg>"); }
+main .section:nth-of-type(6n+3) { --divider-doodle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16'><path d='M3,9 L9,14 L21,3' stroke='%238a7a5a' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>"); }
+main .section:nth-of-type(6n+4) { --divider-doodle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 16'><path d='M3,4 Q14,4 18,8 Q22,12 28,12 M24,9 L28,12 L25,15' stroke='%238a7a5a' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>"); }
+main .section:nth-of-type(6n+5) { --divider-doodle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16'><path d='M16,8 Q16,4 12,4 Q6,4 6,9 Q6,13 12,13 Q19,13 19,7 Q19,2 11,2' stroke='%238a7a5a' stroke-width='1.4' fill='none' stroke-linecap='round'/></svg>"); }
+main .section:nth-of-type(6n) { --divider-doodle: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16'><circle cx='12' cy='8' r='3' stroke='%238a7a5a' stroke-width='1.6' fill='none'/><circle cx='12' cy='8' r='1' fill='%238a7a5a'/></svg>"); }
+
 .section h2 {
   display: flex;
-  align-items: center;
-  gap: var(--s-2);
+  align-items: baseline;
+  gap: var(--s-3);
   margin-top: 0;
   margin-bottom: var(--s-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  color: var(--ink);
+  position: relative;
+}
+
+.section h2::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: var(--red-pen);
+  filter: url(#ink-wobble);
+  opacity: 0.65;
+  border-radius: 2px;
 }
 
 .section h2 .num {
-  font-size: var(--fs-small);
-  font-weight: 700;
-  color: var(--vs-blue);
-  font-variant-numeric: tabular-nums;
-  background: var(--grad-co-brand-soft);
-  padding: 2px 10px;
-  border-radius: var(--r-pill);
-  letter-spacing: 0.04em;
+  font-size: var(--fs-tiny);
+  font-weight: 400;
+  color: var(--em-purple);
+  font-family: var(--font-display);
+  background: transparent;
+  border: 1.5px solid var(--em-purple);
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  letter-spacing: 0.06em;
+  transform: rotate(-2deg);
+  flex-shrink: 0;
 }
 
 /* Special section variants */
 .section.driver {
-  background: var(--grad-co-brand);
-  color: var(--on-brand);
-  border-color: transparent;
-  box-shadow: var(--shadow-3);
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--em-purple);
+  border-style: dashed;
+  border-width: 2px;
+  position: relative;
 }
 
-.section.driver h2, .section.driver p { color: var(--on-brand); }
+.section.driver h2, .section.driver p { color: var(--ink); }
+
+.section.driver p:first-of-type {
+  background: linear-gradient(180deg, transparent 50%, var(--highlighter) 50%, var(--highlighter) 92%, transparent 92%);
+  display: inline;
+  padding: 0 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
 
 .section.driver .num {
-  background: rgba(255,255,255,0.18);
-  color: var(--on-brand);
+  border-color: var(--em-purple);
+  color: var(--em-purple);
 }
 
-.section.notice-wonder { background: var(--surface-2); }
+.section.notice-wonder {
+  background: var(--paper);
+  background-image: linear-gradient(var(--rule) 1px, transparent 1px);
+  background-size: 100% 28px;
+  background-position: 0 var(--s-5);
+}
 
 .section.exit {
-  border-left: 4px solid var(--em-purple);
+  border-style: dashed;
+  border-color: var(--em-purple);
+  border-width: 2.5px;
+  position: relative;
+}
+
+.section.exit::before {
+  content: "✂";
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  background: var(--paper);
+  padding: 0 6px;
+  color: var(--em-purple);
+  font-size: 1rem;
 }
 
 /* ----- Turn and Talk callouts ----- */
