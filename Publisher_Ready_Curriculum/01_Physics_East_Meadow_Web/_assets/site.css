@@ -1172,6 +1172,17 @@ details.misc[open] summary { margin-bottom: var(--s-2); }
   outline-offset: 6px;
   border-radius: var(--r-sm);
   animation: tourPulse 1.6s ease-in-out infinite;
+  /* Override scroll-in animations so the highlight is always visible */
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Ensure scroll-in animations don't hide tour targets */
+body.anim-ready .section.tour-highlight,
+body.anim-ready .lab.tour-highlight {
+  opacity: 1;
+  transform: none;
+  animation: tourPulse 1.6s ease-in-out infinite;
 }
 
 @keyframes tourPulse {

@@ -249,6 +249,8 @@ class Tour {
     }
     target.scrollIntoView({ behavior: "smooth", block: "center" });
     target.classList.add("tour-highlight");
+    // Force the section to be visible (overrides scroll-in opacity:0)
+    target.classList.add("in-view");
     this.renderPanel(step);
   }
 
