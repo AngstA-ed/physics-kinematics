@@ -4,6 +4,16 @@ A modern, browser-first version of the Kinematics pilot unit, built without OneN
 
 This is the **sibling** of [`../01_Physics_East_Meadow_Refactor/`](../01_Physics_East_Meadow_Refactor/), which is the OneNote-paste-friendly track. Same source pedagogy; different delivery target.
 
+## Sharing the demo
+
+Paste this link into an email or Slack message to take someone on a self-paced tour:
+
+```
+https://angsta-ed.github.io/physics-kinematics/?tour=1
+```
+
+The recipient lands on the unit homepage and immediately starts a 9-step guided walkthrough — through the landing, the Vectors playground, the three-graph Acceleration simulator, the Projectiles target-shooting game, the Unit Plan, and the Regents-style assessment. Each step has a short copy-deck-style explanation and a "Skip tour" escape hatch. Tour state lives in sessionStorage, so back/forward and tab refresh resume cleanly. There is also a "Take the 2-minute tour" button on the landing-page hero for anyone who arrives without the query param.
+
 ## What's different from the OneNote-friendly track
 
 | Aspect | OneNote-friendly track | Web edition (this folder) |
