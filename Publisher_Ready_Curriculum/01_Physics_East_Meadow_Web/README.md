@@ -4,6 +4,26 @@ A modern, browser-first version of the Kinematics pilot unit, built without OneN
 
 This is the **sibling** of [`../01_Physics_East_Meadow_Refactor/`](../01_Physics_East_Meadow_Refactor/), which is the OneNote-paste-friendly track. Same source pedagogy; different delivery target.
 
+## Visual identity
+
+The web edition uses a **lab-notebook** identity — cream paper, fountain-pen ink, hand-drawn arrows, taped-on cards, hand-drawn outline buttons. The design system lives in `_assets/site.css`; brand tokens in the `:root` block at the top.
+
+### Fonts (Google Fonts)
+
+- **Architects Daughter** — block-print handwriting for headlines, callouts, and stamps
+- **Lora** — readable serif for body text and lesson copy
+- **JetBrains Mono** — tabular numbers in lab-readout panels
+
+The fonts are loaded from `fonts.googleapis.com`. For air-gapped classrooms or districts that block third-party CDNs, vendor the three fonts locally:
+
+1. Download `woff2` files for each font from `https://google-webfonts-helper.herokuapp.com/`.
+2. Place them in `_assets/fonts/` (create the folder).
+3. In each HTML page, replace the Google Fonts `<link>` with a local `_assets/fonts.css` that has `@font-face` declarations pointing at the local woff2 files.
+
+### Rolling back to the previous SaaS design
+
+Run `git checkout HEAD~1 -- Publisher_Ready_Curriculum/01_Physics_East_Meadow_Web/_assets/site.css` from the project root. The HTML markup is forward-compatible with both stylesheets, so reverting the single CSS file restores the previous look. To also restore the previous typography, re-add the original Inter `<link>` tag in each HTML page.
+
 ## Sharing the demo
 
 Paste this link into an email or Slack message to take someone on a self-paced tour:
