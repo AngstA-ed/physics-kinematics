@@ -10,9 +10,9 @@ git checkout physics-east-meadow-refactor
 git pull origin physics-east-meadow-refactor
 ```
 
-Last commit on this branch: **`54a9d8e`** — *feat(ci): pre-deploy check for answer-revealing emphasis in web HTML*
+Last commit on this branch: **`2978268`** — *docs: add RESUME.md for picking up the work in a fresh CLI session*
 
-Branch is fully pushed. Run `git status` and you'll see DOCX files dirty from a local rebuild; those regenerate from markdown via `python tools/build_lessons.py 01_Kinematics` so they don't need to be committed.
+Branch is fully pushed (local HEAD == `origin/physics-east-meadow-refactor`). Run `git status` and you'll see DOCX files dirty from a local rebuild plus some pre-existing `generator/` and `Chemistry/` modifications unrelated to the Physics refactor — those regenerate from markdown via `python tools/build_lessons.py 01_Kinematics` and are safe to ignore.
 
 ## Project at a glance
 
@@ -101,6 +101,7 @@ That alone will: pull current branch state via `git pull`, read this file, invok
 ## Recent commit log (last 10)
 
 ```
+2978268  docs: add RESUME.md for picking up the work in a fresh CLI session
 54a9d8e  feat(ci): pre-deploy check for answer-revealing emphasis in web HTML
 eb611d8  feat(validators): hard-fail on answer-revealing bold in MC options
 126cfa8  feat(web): add guided tour for async demo sharing
@@ -110,7 +111,6 @@ da97ccc  feat(kinematics): unit plan, Regents-style assessment, README, OneNote 
 58c1f9b  feat(kinematics): author Phase D lessons 02-09 with unique interactives
 c9458aa  build(kinematics/vectors): pilot lesson green build + script path fix
 c037a9e  feat(kinematics/vectors): author interactive vector-addition explorer + 3-frame storyboard
-7b91e83  feat(kinematics/vectors): author Answer_Key content
 ```
 
 ## Files the next session should read first
