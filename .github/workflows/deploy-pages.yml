@@ -1,0 +1,60 @@
+name: Deploy Physics web edition to GitHub Pages
+
+# Builds the Pages artifact from Publisher_Ready_Curriculum/01_Physics_East_Meadow_Web
+# and deploys it. The OneNote-friendly track at 01_Physics_East_Meadow_Refactor and
+# all source markdown / DOCX outputs are not included in the Pages site.
+
+on:
+  # Run on push to main, or to the feature branch while it's in flight.
+  push:
+    branches: [main, physics-east-meadow-refactor]
+    paths:
+      - "Publisher_Ready_Curriculum/01_Physics_East_Meadow_Web/**"
+      - ".github/workflows/deploy-pages.yml"
+  # Also allow manual trigger from the Actions tab.
+  workflow_dispatch:
+
+# GitHub Pages deployment requires these permissions.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Avoid concurrent deploys.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Stage site contents
+        run: |
+          mkdir -p _site
+          cp -R Publisher_Ready_Curriculum/01_Physics_East_Meadow_Web/. _site/
+          # Optional: surface a top-level redirect or banner if you ever publish
+          # the OneNote track too. For now, the web edition IS the published site.
+          ls -la _site
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
