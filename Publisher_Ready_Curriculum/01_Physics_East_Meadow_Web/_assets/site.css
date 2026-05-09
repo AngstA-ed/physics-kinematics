@@ -726,22 +726,41 @@ main .section:nth-of-type(6n) { --divider-doodle: url("data:image/svg+xml;utf8,<
   line-height: 1.55;
 }
 
-/* ----- Interactive containers ----- */
+/* ----- Lab interactives (notebook lab-bench) ----- */
 .lab {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  border: 2px solid var(--ink);
   border-radius: var(--r-md);
   padding: var(--s-4);
   margin: var(--s-4) 0;
+  position: relative;
+}
+
+.lab::before {
+  content: "EXPERIMENT";
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  background: var(--paper);
+  padding: 0 8px;
+  font-family: var(--font-display);
+  font-size: var(--fs-tiny);
+  letter-spacing: 0.12em;
+  color: var(--em-purple);
 }
 
 .lab-canvas {
-  background: var(--surface-1);
+  background: var(--paper);
   border-radius: var(--r-sm);
   padding: var(--s-3);
   margin-bottom: var(--s-3);
   display: flex;
   justify-content: center;
+  border: 1px dashed var(--ink-faint);
 }
 
 .lab-controls {
@@ -764,7 +783,9 @@ main .section:nth-of-type(6n) { --divider-doodle: url("data:image/svg+xml;utf8,<
   flex: 1;
   min-width: 200px;
   font-size: var(--fs-small);
-  font-weight: 500;
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--ink);
 }
 
 .lab-controls .label-row {
@@ -773,34 +794,42 @@ main .section:nth-of-type(6n) { --divider-doodle: url("data:image/svg+xml;utf8,<
   align-items: baseline;
 }
 
+/* ----- Lab readouts (data-log table) ----- */
 .lab-readouts {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: var(--s-3);
-  background: var(--surface-1);
-  padding: var(--s-3);
+  gap: 0;
+  background: var(--paper);
+  padding: 0;
   border-radius: var(--r-sm);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--ink);
+  overflow: hidden;
 }
 
 .readout-card {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  padding: var(--s-3);
+  border-right: 1px dashed var(--ink-faint);
+  border-bottom: 1px dashed var(--ink-faint);
 }
+
+.readout-card:last-child { border-right: 0; }
 
 .readout-card .key {
   font-size: var(--fs-tiny);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ink-subtle);
-  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  font-weight: 400;
+  font-family: var(--font-display);
 }
 
 .readout-card .val {
   font-family: var(--font-mono);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--em-purple);
   font-variant-numeric: tabular-nums;
 }
