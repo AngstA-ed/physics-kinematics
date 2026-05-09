@@ -352,24 +352,32 @@ textarea:focus { outline: none; border-color: var(--red-pen); box-shadow: var(--
   z-index: 1;
 }
 
-/* ----- Hero (lesson + index) ----- */
+/* ----- Hero (notebook cover-page) ----- */
 .hero {
-  background: var(--grad-co-brand);
-  color: var(--on-brand);
-  padding: var(--s-7) var(--s-4) var(--s-8);
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: var(--ink);
+  padding: var(--s-7) var(--s-4) var(--s-7);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  border-bottom: 2px dashed var(--ink-faint);
 }
 
 .hero::before {
   content: "";
   position: absolute;
-  top: -20%;
-  right: -10%;
-  width: 60%;
-  height: 140%;
-  background: radial-gradient(circle, rgba(243,115,102,0.25) 0%, transparent 60%);
-  pointer-events: none;
+  top: var(--s-4);
+  right: var(--s-4);
+  width: 90px;
+  height: 36px;
+  background: var(--em-purple);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 36'><rect x='3' y='3' width='84' height='30' stroke='black' stroke-width='2.5' fill='none'/><text x='45' y='22' text-anchor='middle' font-family='Architects Daughter' font-size='12' fill='black'>UNIT 01</text></svg>") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 36'><rect x='3' y='3' width='84' height='30' stroke='black' stroke-width='2.5' fill='none'/><text x='45' y='22' text-anchor='middle' font-family='Architects Daughter' font-size='12' fill='black'>UNIT 01</text></svg>") no-repeat center / contain;
+  transform: rotate(-6deg);
+  opacity: 0.85;
 }
 
 .hero-inner {
@@ -382,26 +390,29 @@ textarea:focus { outline: none; border-color: var(--red-pen); box-shadow: var(--
 .hero .eyebrow {
   font-size: var(--fs-small);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 600;
+  letter-spacing: 0.10em;
+  font-weight: 400;
   margin-bottom: var(--s-3);
-  opacity: 0.92;
+  color: var(--ink-soft);
+  font-family: var(--font-display);
 }
 
 .hero h1 {
   font-size: var(--fs-hero);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-  color: var(--on-brand);
+  font-weight: 400;
+  font-family: var(--font-display);
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--ink);
   max-width: 24ch;
   margin-bottom: var(--s-4);
 }
 
 .hero .lede {
+  font-family: var(--font-body);
   font-size: 1.125rem;
   max-width: 52ch;
-  opacity: 0.92;
+  color: var(--ink-soft);
   margin-bottom: var(--s-4);
 }
 
@@ -411,30 +422,39 @@ textarea:focus { outline: none; border-color: var(--red-pen); box-shadow: var(--
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 12px;
-  border-radius: var(--r-pill);
+  padding: 4px 12px;
+  border-radius: var(--r-sm);
   font-size: var(--fs-tiny);
-  font-weight: 700;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: rgba(255,255,255,0.18);
-  color: var(--on-brand);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  letter-spacing: 0.08em;
+  background: var(--paper-tape);
+  color: var(--ink);
+  font-family: var(--font-display);
+  border: 1px solid rgba(43, 36, 24, 0.2);
+  transform: rotate(var(--chip-rot, -1deg));
+  position: relative;
+  transition: transform 0.12s ease, background-color 0.15s ease;
 }
+
+.chip:nth-child(2n) { --chip-rot: 1.5deg; }
+.chip:nth-child(3n) { --chip-rot: -0.5deg; }
+.chip:nth-child(4n) { --chip-rot: 1deg; }
+
+.chip:hover { transform: rotate(0deg) translateY(-1px); }
 
 .chip::before {
   content: "";
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: currentColor;
+  background: var(--ink-faint);
 }
 
-.chip.hochman::before { background: var(--em-orange); }
-.chip.active::before { background: #ffe680; }
-.chip.btc::before { background: #6dffae; }
-.chip.circle::before { background: #ffb29a; }
+.chip.hochman::before { background: var(--red-pen); }
+.chip.active::before { background: var(--vs-blue); }
+.chip.btc::before { background: var(--mint); }
+.chip.circle::before { background: var(--peach); }
 
 /* ----- Main content shell ----- */
 main { padding: var(--s-6) 0 var(--s-8); }
