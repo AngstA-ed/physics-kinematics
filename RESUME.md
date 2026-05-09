@@ -10,7 +10,7 @@ git checkout physics-east-meadow-refactor
 git pull origin physics-east-meadow-refactor
 ```
 
-Last commit on this branch: **`2978268`** — *docs: add RESUME.md for picking up the work in a fresh CLI session*
+Last commit on this branch: see `git log --oneline -1`. The branch is fully pushed to `origin/physics-east-meadow-refactor`.
 
 Branch is fully pushed (local HEAD == `origin/physics-east-meadow-refactor`). Run `git status` and you'll see DOCX files dirty from a local rebuild plus some pre-existing `generator/` and `Chemistry/` modifications unrelated to the Physics refactor — those regenerate from markdown via `python tools/build_lessons.py 01_Kinematics` and are safe to ignore.
 
@@ -28,6 +28,14 @@ Branch is fully pushed (local HEAD == `origin/physics-east-meadow-refactor`). Ru
 
 Design spec: `docs/superpowers/specs/2026-05-08-physics-east-meadow-refactor-design.md`
 Implementation plan: `docs/superpowers/plans/2026-05-08-physics-east-meadow-refactor-plan.md`
+
+## Recent additions worth knowing about
+
+- **Lab-notebook visual redesign of the web edition** (cream paper, fountain-pen ink, Architects Daughter handwriting, taped vocab cards, hand-drawn outline buttons, paper-bookmark TOC) — live at `https://angsta-ed.github.io/physics-kinematics/`.
+- **Strategy Spotlight asides** on the 7 web lessons that have a strategy chip — sticky-note-styled teacher's-notes blocks describing the Hochman / Active Learning / BTC / Restorative Circle move inline.
+- **5E phenomenon-based teacher guides** — every Kinematics lesson's `Teacher_Guide.md` is now organized by Phase 1 Engage → Phase 5 Evaluate, with minute-by-minute facilitation script, sample teacher language, and anticipated student responses inside each phase. Generated DOCXes ship with the web edition; each lesson hero has a "Download teacher guide (DOCX)" button.
+- **Tour fix** — the `?tour=1` guided demo works again under the redesigned scroll-in animations.
+- **Validators** — schema, MC-answer-bold check (markdown), MC-answer-emphasis check (web HTML); 30/30 pytest tests; web validator runs as a pre-deploy CI step.
 
 ## What's next (the open task)
 

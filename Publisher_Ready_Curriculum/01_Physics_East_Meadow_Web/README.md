@@ -4,6 +4,30 @@ A modern, browser-first version of the Kinematics pilot unit, built without OneN
 
 This is the **sibling** of [`../01_Physics_East_Meadow_Refactor/`](../01_Physics_East_Meadow_Refactor/), which is the OneNote-paste-friendly track. Same source pedagogy; different delivery target.
 
+## Teacher guide downloads
+
+Each lesson hero has a **Download teacher guide (DOCX)** button. The downloads ship with the site at `teacher_guides/<lesson-slug>-teacher-guide.docx`.
+
+The DOCX content is generated from the markdown sources in the OneNote-friendly track (`../01_Physics_East_Meadow_Refactor/01_Kinematics/<lesson>/Teacher_Guide.md`) via Pandoc + the co-branded reference template. After a teacher-guide markdown change, regenerate and re-copy:
+
+```
+source .venv/bin/activate
+python tools/build_lessons.py 01_Kinematics       # rebuilds DOCX from MD
+# Then re-copy into the web edition:
+for L in 01_Vectors:01-vectors 02_Distance_and_Displacement:02-distance-displacement \
+         03_Average_Speed_and_Velocity:03-velocity 04_Acceleration:04-acceleration \
+         05_Motion_Graphs:05-motion-graphs 06_Freefall:06-freefall \
+         07_Vertical_Projectiles:07-vertical-projectiles \
+         08_Horizontal_Projectile_Motion:08-horizontal-projectile-motion \
+         09_Projectiles_at_an_Angle:09-projectiles-at-an-angle; do
+  src_dir="${L%%:*}"; dest_name="${L##*:}"
+  cp "../01_Physics_East_Meadow_Refactor/01_Kinematics/${src_dir}/Teacher_Guide.docx" \
+     "teacher_guides/${dest_name}-teacher-guide.docx"
+done
+```
+
+The teacher guides follow the **5E phenomenon-based lesson model** documented in PPTX slide 32 (the joint training deck). Each guide has minute-by-minute facilitation script, sample teacher language, and anticipated student responses inside each phase (Engage / Explore / Explain / Elaborate / Evaluate).
+
 ## Visual identity
 
 The web edition uses a **lab-notebook** identity — cream paper, fountain-pen ink, hand-drawn arrows, taped-on cards, hand-drawn outline buttons. The design system lives in `_assets/site.css`; brand tokens in the `:root` block at the top.

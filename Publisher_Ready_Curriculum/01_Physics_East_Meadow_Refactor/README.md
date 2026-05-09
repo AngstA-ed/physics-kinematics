@@ -28,6 +28,22 @@ Every lesson ships in **two flavors per audience**:
 
 Source files (`.md`, hand-authored `.html`) are committed alongside the build outputs. The sources are diffable in git; the built artifacts are what teachers receive.
 
+## Teacher guides — 5E phenomenon-based structure
+
+Each lesson's `Teacher_Guide.md` (and the DOCX/onenote.html outputs built from it) is organized by the 5E phases of the phenomenon-based lesson model from PPTX slide 32:
+
+- **Phase 1 · Engage** *(0 – 12 min)* — Opening Connection (SEL) → Phenomenon hook → Notice & Wonder + Turn-and-Talk #1 → bridge to Phase 2
+- **Phase 2 · Explore** *(12 – 32 min)* — Initial Model (silent) → Investigation (lab work, often with a strategy chip — Hochman / Active Learning / BTC inline)
+- **Phase 3 · Explain** *(32 – 37 min)* — Turn-and-Talk #2 + class consensus → Vocabulary introduction (≤ 3 terms, second half of lesson per NYSSLS observation checklist item 5)
+- **Phase 4 · Elaborate** *(37 – 40 min)* — Revise the model → Return to the phenomenon
+- **Phase 5 · Evaluate** *(40 – 42 min)* — Exit Ticket transfer task + Closing Reflection (SEL)
+
+Each phase contains: minute-by-minute timing, **teacher actions**, **sample teacher language** in pull quotes, **anticipated student responses** with how to handle each, and **facilitation discipline notes** ("what to look for / resist / redirect"). The 14-section flat structure from the original pilot has been folded into the 5E phases.
+
+The schema (`tools/lesson_schema.yaml`) requires 15 H2 headings: Cover · Curated Resources · Lesson Overview · 5 phase sections · Common Misconceptions · Access & Differentiation · Strategy Spotlight · NYSSLS Observation Checklist Crosswalk · Companion Materials · Key Vocabulary. The validator does prefix-match so a heading can append a suffix like `*(0 – 12 min)*` without schema noise.
+
+`scaffold_lesson.py` generates new lesson skeletons in this 5E structure — for future units (Forces, Energy, etc.), the scaffold gives the right shape from the start.
+
 ## Pedagogical model
 
 Every lesson follows the **NYSSLS phenomenon-based lesson flow** (slide 32 of the joint training PPTX):
