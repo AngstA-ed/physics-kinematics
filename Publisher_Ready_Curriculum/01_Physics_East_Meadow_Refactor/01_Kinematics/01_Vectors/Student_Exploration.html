@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Vectors — Unit: Kinematics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Kinematics — Lesson 01: Vectors</h1>
+    <div><span class="strategy-chip circle">RESTORATIVE CIRCLE</span> <span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Watch this short animation: arrows from <a href="http://www.physicsclassroom.com/mmedia/vectors/va.cfm" target="_blank" rel="noopener">Physics Classroom — Vector Animations</a> show two arrows being added head to tail. Notice that the order in which you add them does not change where the second arrow ends up.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>How can we add two quantities that have direction, not just size?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>List two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner. Share <em>one</em> thing you noticed about the arrows and <em>one</em> thing you wondered. Pick a wondering you would like the class to figure out today.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch your first explanation. If arrow A points 4 squares right and arrow B points 3 squares up, where does the second arrow's tip end up — and how would you describe that ending point in words?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Drag the sliders to change the magnitudes of vector A (right) and vector B (up). Watch how the dashed resultant arrow R changes. Predict <em>before</em> you slide.</p>
+  <div data-interactive="true">
+    <svg id="vec-canvas" width="480" height="360" viewBox="0 0 480 360" role="img" aria-label="Vector addition canvas">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#662e80"/>
+        </marker>
+        <marker id="arrow-vs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#2ea3f2"/>
+        </marker>
+        <marker id="arrow-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+        </marker>
+      </defs>
+      <!-- grid lines -->
+      <g stroke="#e6e6e6" stroke-width="1">
+        <line x1="0" y1="20" x2="480" y2="20"/>
+        <line x1="0" y1="60" x2="480" y2="60"/>
+        <line x1="0" y1="100" x2="480" y2="100"/>
+        <line x1="0" y1="140" x2="480" y2="140"/>
+        <line x1="0" y1="180" x2="480" y2="180" stroke="#999" stroke-width="1.5"/>
+        <line x1="0" y1="220" x2="480" y2="220"/>
+        <line x1="0" y1="260" x2="480" y2="260"/>
+        <line x1="0" y1="300" x2="480" y2="300"/>
+        <line x1="0" y1="340" x2="480" y2="340"/>
+        <line x1="40" y1="0" x2="40" y2="360"/>
+        <line x1="80" y1="0" x2="80" y2="360"/>
+        <line x1="120" y1="0" x2="120" y2="360"/>
+        <line x1="160" y1="0" x2="160" y2="360"/>
+        <line x1="200" y1="0" x2="200" y2="360"/>
+        <line x1="240" y1="0" x2="240" y2="360" stroke="#999" stroke-width="1.5"/>
+        <line x1="280" y1="0" x2="280" y2="360"/>
+        <line x1="320" y1="0" x2="320" y2="360"/>
+        <line x1="360" y1="0" x2="360" y2="360"/>
+        <line x1="400" y1="0" x2="400" y2="360"/>
+        <line x1="440" y1="0" x2="440" y2="360"/>
+      </g>
+      <!-- A (purple) -->
+      <line id="vec-a" x1="240" y1="180" x2="320" y2="180" stroke="#662e80" stroke-width="3" marker-end="url(#arrow)"/>
+      <text id="lab-a" x="280" y="170" font-family="Inter, sans-serif" font-size="14" fill="#662e80" font-weight="700">A</text>
+      <!-- B (blue, head-to-tail) -->
+      <line id="vec-b" x1="320" y1="180" x2="320" y2="120" stroke="#2ea3f2" stroke-width="3" marker-end="url(#arrow-vs)"/>
+      <text id="lab-b" x="328" y="150" font-family="Inter, sans-serif" font-size="14" fill="#2ea3f2" font-weight="700">B</text>
+      <!-- Resultant (black, dashed) -->
+      <line id="vec-r" x1="240" y1="180" x2="320" y2="120" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow-r)"/>
+      <text id="lab-r" x="265" y="145" font-family="Inter, sans-serif" font-size="14" fill="#1a1a1a" font-weight="700">R</text>
+    </svg>
+    <div class="controls">
+      <label>A magnitude (horizontal): <input id="ax" type="range" min="-8" max="8" step="1" value="4"> <span id="ax-r" class="readout">4</span></label>
+      <label>B magnitude (vertical): <input id="by" type="range" min="-8" max="8" step="1" value="3"> <span id="by-r" class="readout">3</span></label>
+      <p>Resultant magnitude: <span id="res" class="readout">5.0</span> units · direction: <span id="dir" class="readout">36.9°</span> from the +x axis</p>
+    </div>
+    <script>
+      (function () {
+        const SCALE = 20, CX = 240, CY = 180;
+        const ax = document.getElementById("ax");
+        const by = document.getElementById("by");
+        const vecA = document.getElementById("vec-a");
+        const vecB = document.getElementById("vec-b");
+        const vecR = document.getElementById("vec-r");
+        function update() {
+          const a = parseFloat(ax.value), b = parseFloat(by.value);
+          const ahx = CX + a * SCALE;
+          const ahy = CY;                       // A is purely horizontal
+          const bhx = ahx;                      // B starts at the head of A
+          const bhy = ahy - b * SCALE;          // SVG y goes down, so subtract
+          vecA.setAttribute("x2", ahx); vecA.setAttribute("y2", ahy);
+          vecB.setAttribute("x1", ahx); vecB.setAttribute("y1", ahy);
+          vecB.setAttribute("x2", bhx); vecB.setAttribute("y2", bhy);
+          vecR.setAttribute("x2", bhx); vecR.setAttribute("y2", bhy);
+          document.getElementById("ax-r").textContent = a;
+          document.getElementById("by-r").textContent = b;
+          const mag = Math.sqrt(a * a + b * b);
+          const ang = Math.atan2(b, a) * 180 / Math.PI;
+          document.getElementById("res").textContent = mag.toFixed(1);
+          document.getElementById("dir").textContent = ang.toFixed(1) + "°";
+        }
+        ax.addEventListener("input", update);
+        by.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Vector A points right, magnitude 4 units. Vector B points up, magnitude 3 units, drawn head-to-tail from the tip of A.</p>
+    <svg width="240" height="180" viewBox="0 0 240 180">
+      <line x1="20" y1="160" x2="100" y2="160" stroke="#662e80" stroke-width="3"/>
+      <line x1="100" y1="160" x2="100" y2="100" stroke="#2ea3f2" stroke-width="3"/>
+      <text x="55" y="155" font-family="Inter, sans-serif" font-size="12" fill="#662e80">A=4</text>
+      <text x="105" y="135" font-family="Inter, sans-serif" font-size="12" fill="#2ea3f2">B=3</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> The resultant R is the dashed arrow from the tail of A to the head of B. Its magnitude is √(4² + 3²) = 5 units. R points about 37° above the +x axis.</p>
+    <svg width="240" height="180" viewBox="0 0 240 180">
+      <line x1="20" y1="160" x2="100" y2="160" stroke="#662e80" stroke-width="3"/>
+      <line x1="100" y1="160" x2="100" y2="100" stroke="#2ea3f2" stroke-width="3"/>
+      <line x1="20" y1="160" x2="100" y2="100" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="40" y="125" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">R=5</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> If B grew to 6 units, R would be √(16 + 36) ≈ 7.2 units — the resultant grows when either input vector grows. Direction also shifts steeper (about 56° above +x).</p>
+    <svg width="240" height="180" viewBox="0 0 240 180">
+      <line x1="20" y1="160" x2="100" y2="160" stroke="#662e80" stroke-width="3"/>
+      <line x1="100" y1="160" x2="100" y2="40" stroke="#2ea3f2" stroke-width="3"/>
+      <line x1="20" y1="160" x2="100" y2="40" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="105" y="100" font-family="Inter, sans-serif" font-size="12" fill="#2ea3f2">B=6</text>
+      <text x="35" y="105" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">R≈7.2</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">If A points right (magnitude 4) and B points up (magnitude 3), the resultant comes out to 5 — not 7. Use the grid to convince your partner why.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Slide the controls so A = 3 and B = 4. What is the magnitude and direction of the resultant?</li>
+    <li>Describe what happens to the resultant when A and B point in the same direction. What about opposite directions?</li>
+    <li>If a vector has magnitude 10 and points 30° above the x-axis, what are its x- and y-components?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The resultant of A + B has magnitude ___ because ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>vector</strong> — a quantity with both magnitude and direction</li>
+    <li><strong>magnitude</strong> — the size or length of a vector</li>
+    <li><strong>direction</strong> — the way a vector points, often given as an angle</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Update your sketch from the Initial Model. Use the words <em>magnitude</em> and <em>direction</em> in one sentence to describe where the second arrow ends up.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Open the original Physics Classroom animation again. Predict the resultant of the two arrows shown using today's vocabulary. Was your prediction in the Initial Model close? What changed?</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A boat sails 5 km east, then 12 km north. Sketch the resultant displacement on a grid and find its magnitude. Show one sentence of reasoning.</li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/vector-addition" target="_blank" rel="noopener">PhET Vector Addition Simulation</a></li>
+    <li><a href="https://www.physicsclassroom.com/Physics-Interactives/Vectors-and-Projectiles/Vector-Addition/Vector-Addition-Interactive" target="_blank" rel="noopener">Physics Classroom — Vector Addition Interactive</a></li>
+    <li><a href="https://docs.google.com/document/d/1szBnR_mZA5WvECXAl-6wyQtQCxTnDcYVXrKPT8NvaFQ/edit?tab=t.0" target="_blank" rel="noopener">Vector Golf course (Google Doc)</a></li>
+    <li><a href="http://betterlesson.com/lesson/630798/an-introduction-to-free-body-diagrams" target="_blank" rel="noopener">An Introduction to Free Body Diagrams (Better Lesson)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · kinematics-01</p>
+</footer>
+
+</div>
+</body>
+</html>
