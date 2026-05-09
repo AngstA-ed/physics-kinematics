@@ -33,94 +33,94 @@ The mass of the car is **0.50 kg**.
 1. During the first phase (0–3 s), the car's acceleration is closest to:
    - (A) 0 m/s²
    - (B) 1.0 m/s²
-   - (C) **2.0 m/s²**
+   - (C) 2.0 m/s²
    - (D) 6.0 m/s²
 
 2. During the constant-velocity phase (3–7 s), the car's acceleration is closest to:
-   - (A) **0 m/s²**
+   - (A) 0 m/s²
    - (B) 1.5 m/s²
    - (C) 6.0 m/s²
    - (D) cannot be determined
 
 3. During the slow-down phase (7–9 s), the car's acceleration is closest to:
    - (A) +3.0 m/s²
-   - (B) **−3.0 m/s²**
+   - (B) −3.0 m/s²
    - (C) +1.5 m/s²
    - (D) −6.0 m/s²
 
 4. According to Newton's Second Law (F_net = m·a), the magnitude of the net force on the car during the first phase is closest to:
    - (A) 0 N
    - (B) 0.5 N
-   - (C) **1.0 N**
+   - (C) 1.0 N
    - (D) 3.0 N
 
 5. The magnitude of the net force on the car during the constant-velocity phase is closest to:
-   - (A) **0 N**
+   - (A) 0 N
    - (B) 1.0 N
    - (C) 3.0 N
    - (D) 6.0 N
 
 6. During the slow-down phase, the direction of the net force on the car relative to its motion is best described as:
    - (A) the same as the motion (forward)
-   - (B) **opposite to the motion (backward)**
+   - (B) opposite to the motion (backward)
    - (C) perpendicular to the motion
    - (D) zero
 
 7. The total distance traveled by the car between t = 0 and t = 3 s is closest to:
    - (A) 3 m
    - (B) 6 m
-   - (C) **9 m**
+   - (C) 9 m
    - (D) 18 m
    *(Hint: distance equals area under the v-t graph; ½·base·height = ½·3·6 = 9 m)*
 
 8. The total distance traveled by the car between t = 3 s and t = 7 s is closest to:
    - (A) 6 m
    - (B) 12 m
-   - (C) **24 m**
+   - (C) 24 m
    - (D) 30 m
 
 9. The total distance traveled across the entire 9 seconds is closest to:
    - (A) 24 m
    - (B) 30 m
-   - (C) **39 m**
+   - (C) 39 m
    - (D) 54 m
    *(Phase 1: 9 m; Phase 2: 24 m; Phase 3: ½·2·6 = 6 m. Total ≈ 39 m.)*
 
 10. Which of the following best describes the displacement and the distance over the 9 seconds?
     - (A) Displacement < distance because the car reverses direction
-    - (B) **Displacement = distance because the motion is in a single direction**
+    - (B) Displacement = distance because the motion is in a single direction
     - (C) Displacement > distance because the car accelerates
     - (D) Displacement = 0 because the final velocity equals the initial velocity
 
 11. A second car of mass **1.0 kg** is given the same v-t profile (same accelerations during each phase). The net force on the second car during the first phase, compared to the original 0.5 kg car, is:
     - (A) the same
     - (B) half as large
-    - (C) **twice as large**
+    - (C) twice as large
     - (D) four times as large
     *(Same a, double m → double F.)*
 
 12. If the original 0.50 kg car instead reached 6 m/s in **1 s** (rather than 3 s), the average net force during that startup phase would be closest to:
     - (A) 1 N
-    - (B) **3 N**
+    - (B) 3 N
     - (C) 6 N
     - (D) 12 N
     *(a = 6 m/s², F = ma = 0.5·6 = 3 N)*
 
 13. A position-time graph corresponding to the v-t graph above would, during the constant-velocity phase, look like:
     - (A) a horizontal line
-    - (B) **a straight line with positive slope**
+    - (B) a straight line with positive slope
     - (C) a straight line with negative slope
     - (D) a parabola opening upward
 
 14. During the first phase (0–3 s) the *position-time* graph would look like:
     - (A) a horizontal line at zero
     - (B) a straight line with positive constant slope
-    - (C) **a parabola opening upward (slope grows)**
+    - (C) a parabola opening upward (slope grows)
     - (D) a parabola opening downward
 
 15. Which crosscutting concept best describes the relationship between the unbalanced force on the car and the resulting acceleration shown on the graph?
     - (A) Patterns
-    - (B) **Cause and Effect**
+    - (B) Cause and Effect
     - (C) Stability and Change
     - (D) Energy and Matter
     *(HS-PS2-1's tagged CCC is Cause and Effect.)*
