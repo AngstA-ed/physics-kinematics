@@ -1302,11 +1302,68 @@ details.misc[open] summary { margin-bottom: var(--s-2); }
   #tour-panel::before, #tour-panel::after { display: none; }
 }
 
-/* Print */
+/* Print — degrade to plain document */
 @media print {
   .site-header, .site-footer, .toc, .pager, .progress-bar, #tour-panel, .tour-cta { display: none; }
   .tour-highlight { outline: 0; animation: none; }
-  .section, .lab, .vocab { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
-  .hero { background: #fff; color: #000; padding: var(--s-3); }
-  .hero h1, .hero .eyebrow, .hero .lede { color: #000; }
+
+  body {
+    background: white;
+    color: black;
+    font-family: Georgia, serif;
+  }
+
+  body::before, body::after { display: none; }
+
+  h1, h2, h3, h4 {
+    font-family: Georgia, serif;
+    font-weight: 700;
+    color: black;
+  }
+
+  .section, .lab, .vocab {
+    box-shadow: none;
+    border: 1px solid #999;
+    background: white;
+    background-image: none;
+    break-inside: avoid;
+    transform: none;
+  }
+
+  .section + .section::before { display: none; }
+  .section h2::after { display: none; }
+  .vocab::before, .vocab::after { display: none; }
+  .lab::before {
+    border: 1px solid #999;
+    background: white;
+    color: black;
+  }
+  .lab-canvas { background: white; border: 1px solid #ccc; }
+
+  .hero {
+    background: white;
+    background-image: none;
+    color: black;
+    padding: var(--s-3);
+    border-bottom: 2px solid black;
+  }
+  .hero::before { display: none; }
+  .hero h1, .hero .eyebrow, .hero .lede { color: black; font-family: Georgia, serif; }
+
+  .chip {
+    transform: none;
+    background: white;
+    border: 1px solid #999;
+    color: black;
+  }
+
+  .tt {
+    background: white;
+    background-image: none;
+    border: 1px solid #999;
+    border-left: 3px solid black;
+  }
+
+  .lesson-card { background: white; background-image: none; border: 1px solid #999; }
+  .lesson-card .number { transform: none; }
 }
