@@ -19,6 +19,6 @@ def md_to_onenote_html(src: Path, out: Path) -> None:
         str(out),
         "--standalone",
         "--embed-resources",   # Pandoc 3.x replacement for --self-contained
-        "--no-highlight",
+        "--syntax-highlighting=none",
     ]
     subprocess.run(cmd, check=True)

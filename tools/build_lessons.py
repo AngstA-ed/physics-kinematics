@@ -9,6 +9,13 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+
+# When run as `python tools/build_lessons.py`, ensure the project root is on
+# sys.path so the absolute `tools.*` imports resolve.
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
+
 from tools.pandoc_runner import md_to_docx, md_to_onenote_html
 from tools.static_ifier import staticify
 from tools.validators import (

@@ -6,11 +6,16 @@ Usage:
 """
 from __future__ import annotations
 import argparse
+import sys
 from pathlib import Path
 from typing import Sequence
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATES = Path(__file__).resolve().parent / "templates"
+
+# Allow direct invocation: `python tools/scaffold_lesson.py ...`
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
 def _render_chips(chips: Sequence[str]) -> str:
