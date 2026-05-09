@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Average Speed and Velocity · Kinematics · Lesson 03</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="../_assets/site.css">
+</head>
+<body>
+<div class="progress-bar"></div>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../index.html">
+      <span class="logos">
+        <img src="../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Kinematics</span>
+    </a>
+    <nav>
+      <a href="../index.html">Unit</a>
+      <a href="../unit_plan.html">Unit Plan</a>
+      <a href="../assessment.html">Assessment</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 03 · Unit: Kinematics</div>
+    <h1>Average speed and velocity — same trip, different stories.</h1>
+    <p class="lede">
+      Two cars start and end at the same place at the same time. One has higher average speed. The other has higher
+      average velocity. Both can be true. Direction is doing the work.
+    </p>
+    <div class="chips">
+      <span class="chip hochman">Hochman · sentence expansion</span>
+      <span class="chip">HS-PS2-1 thread</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="shell with-toc">
+    <div>
+      <section id="phenomenon" class="section">
+        <h2><span class="num">01</span> Phenomenon</h2>
+        <p>Two students start side-by-side. One walks straight to the door. The other walks halfway, doubles back to a friend's seat, then heads to the door. Both finish at the same time. Same speed? Same velocity?</p>
+      </section>
+
+      <section id="driving" class="section driver">
+        <h2><span class="num">02</span> Driving Question</h2>
+        <p style="font-size: 1.25rem; font-weight: 600;">How can two trips have the same average speed but different average velocities — or vice versa?</p>
+      </section>
+
+      <section id="notice" class="section notice-wonder">
+        <h2><span class="num">03</span> Notice &amp; Wonder</h2>
+        <textarea rows="5" placeholder="What I notice / What I wonder…"></textarea>
+      </section>
+
+      <aside class="tt">Did the two students "move the same"? Defend your answer with a number — even a guess.</aside>
+
+      <section id="initial" class="section">
+        <h2><span class="num">04</span> Initial Model</h2>
+        <p>Write a kernel sentence: <strong>"The car moves."</strong> We will expand it together below.</p>
+      </section>
+
+      <section id="investigate" class="section">
+        <h2><span class="num">05</span> Investigate — race two cars</h2>
+        <p>Pick a scenario, then press <strong>Run</strong>. The cars start and end in the same place but take different paths.</p>
+
+        <div class="lab" data-interactive="true">
+          <div class="lab-canvas">
+            <svg id="vc" width="640" height="280" viewBox="0 0 640 280" role="img">
+              <line x1="40" y1="80" x2="600" y2="80" stroke="#e5e5ea" stroke-width="2"/>
+              <line x1="40" y1="180" x2="600" y2="180" stroke="#e5e5ea" stroke-width="2"/>
+              <line x1="40" y1="40" x2="40" y2="220" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4 3"/>
+              <line x1="600" y1="40" x2="600" y2="220" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4 3"/>
+              <text x="40" y="32" font-family="Inter" font-size="11" fill="#1a1a1a">START</text>
+              <text x="555" y="32" font-family="Inter" font-size="11" fill="#1a1a1a">END (100 m)</text>
+              <rect id="vc-a" x="32" y="65" width="22" height="30" fill="#662e80" rx="4"/>
+              <text x="60" y="84" font-family="Inter" font-size="13" font-weight="700" fill="#662e80">Car A</text>
+              <rect id="vc-b" x="32" y="165" width="22" height="30" fill="#2ea3f2" rx="4"/>
+              <text x="60" y="184" font-family="Inter" font-size="13" font-weight="700" fill="#2ea3f2">Car B</text>
+              <line id="vc-a-trail" x1="43" y1="80" x2="43" y2="80" stroke="#662e80" stroke-width="2" stroke-dasharray="3 3" opacity="0.4"/>
+              <polyline id="vc-b-trail" points="" stroke="#2ea3f2" stroke-width="2" stroke-dasharray="3 3" opacity="0.4" fill="none"/>
+            </svg>
+          </div>
+          <div class="lab-controls">
+            <div class="row">
+              <label>Scenario:
+                <select id="vc-scenario">
+                  <option value="straight">Both go straight (different speeds)</option>
+                  <option value="reversal" selected>B reverses, A goes straight</option>
+                  <option value="opposite">B passes the end, comes back</option>
+                </select>
+              </label>
+              <button id="vc-run" class="primary" type="button">Run</button>
+              <button id="vc-reset" type="button">Reset</button>
+            </div>
+            <div class="lab-readouts">
+              <div class="readout-card"><span class="key">Car A · distance</span><span class="val" id="vc-a-d">—</span></div>
+              <div class="readout-card"><span class="key">Car A · avg speed</span><span class="val" id="vc-a-s">—</span></div>
+              <div class="readout-card"><span class="key">Car A · avg velocity</span><span class="val accent" id="vc-a-v">—</span></div>
+              <div class="readout-card"><span class="key">Car B · distance</span><span class="val" id="vc-b-d">—</span></div>
+              <div class="readout-card"><span class="key">Car B · avg speed</span><span class="val" id="vc-b-s">—</span></div>
+              <div class="readout-card"><span class="key">Car B · avg velocity</span><span class="val accent" id="vc-b-v">—</span></div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          (function () {
+            const PX_PER_M = (600 - 40) / 100;
+            const X0 = 40;
+            const carA = document.getElementById("vc-a");
+            const carB = document.getElementById("vc-b");
+            const aTrail = document.getElementById("vc-a-trail");
+            const bTrail = document.getElementById("vc-b-trail");
+            let raf = null;
+            function pos(meters, y) { return X0 + meters * PX_PER_M; }
+            function reset() {
+              if (raf) cancelAnimationFrame(raf);
+              carA.setAttribute("x", X0 - 8);
+              carB.setAttribute("x", X0 - 8);
+              aTrail.setAttribute("x2", X0);
+              bTrail.setAttribute("points", X0 + ",180");
+              ["vc-a-d","vc-a-s","vc-a-v","vc-b-d","vc-b-s","vc-b-v"].forEach(id => document.getElementById(id).textContent = "—");
+            }
+            document.getElementById("vc-reset").onclick = reset;
+            document.getElementById("vc-run").onclick = () => {
+              reset();
+              const sc = document.getElementById("vc-scenario").value;
+              const aSpeed = sc === "straight" ? 5 : 10;
+              let bDistance, bDuration;
+              if (sc === "straight") { bDistance = 100; bDuration = 100 / 8; }
+              else if (sc === "reversal") { bDistance = 200; bDuration = 200 / 15; }
+              else { bDistance = 300; bDuration = 300 / 20; }
+              const aDuration = 100 / aSpeed;
+              const totalDuration = Math.max(aDuration, bDuration);
+              const t0 = performance.now();
+              const bPts = [];
+              function frame(now) {
+                let t = (now - t0) / 1000;
+                if (t > totalDuration) t = totalDuration;
+                // Car A: constant straight
+                const aMeters = Math.min(100, aSpeed * t);
+                carA.setAttribute("x", pos(aMeters) - 11);
+                aTrail.setAttribute("x2", pos(aMeters));
+                // Car B: scenario dependent
+                let bMeters;
+                if (sc === "straight") {
+                  bMeters = Math.min(100, 8 * t);
+                } else if (sc === "reversal") {
+                  const dist = Math.min(200, 15 * t);
+                  bMeters = dist <= 100 ? dist : 100 - (dist - 100);
+                } else {
+                  const dist = Math.min(300, 20 * t);
+                  if (dist <= 150) bMeters = dist;
+                  else if (dist <= 250) bMeters = 150 - (dist - 150);
+                  else bMeters = 50 + (dist - 250);
+                }
+                carB.setAttribute("x", pos(bMeters) - 11);
+                bPts.push(pos(bMeters) + ",180");
+                bTrail.setAttribute("points", bPts.join(" "));
+                // Readouts when done
+                if (t >= aDuration) {
+                  document.getElementById("vc-a-d").textContent = "100 m";
+                  document.getElementById("vc-a-s").textContent = (100/aDuration).toFixed(1) + " m/s";
+                  document.getElementById("vc-a-v").textContent = (100/aDuration).toFixed(1) + " m/s →";
+                }
+                if (t >= bDuration) {
+                  document.getElementById("vc-b-d").textContent = bDistance + " m";
+                  document.getElementById("vc-b-s").textContent = (bDistance/bDuration).toFixed(1) + " m/s";
+                  document.getElementById("vc-b-v").textContent = (100/bDuration).toFixed(1) + " m/s →";
+                }
+                if (t < totalDuration) raf = requestAnimationFrame(frame);
+              }
+              raf = requestAnimationFrame(frame);
+            };
+            reset();
+          })();
+        </script>
+      </section>
+
+      <aside class="tt">If both cars start and end at the same marker, why does Car A have a higher <em>average velocity</em>, while Car B can have higher <em>average speed</em>?</aside>
+
+      <section id="mims" class="section">
+        <h2><span class="num">06</span> Make it make sense</h2>
+        <ol>
+          <li>Car A travels 100 m east in 5 s. Car B travels 60 m east, then 40 m west, in 5 s. Average speed and velocity for each?</li>
+          <li>Use a Hochman expansion: kernel "The car moves." → +speed → +direction → +time. End with a sentence precise enough that another physicist could re-create the motion.</li>
+          <li>Sketch a scenario where two trips have equal average speeds but different average velocities.</li>
+        </ol>
+        <details class="misc">
+          <summary>Hochman organizer</summary>
+          <ol>
+            <li>Kernel: <em>The car moves.</em></li>
+            <li>+ speed: <em>The car moves at ___ m/s.</em></li>
+            <li>+ direction → velocity: <em>The car moves ___ at ___ m/s.</em></li>
+            <li>+ time + trip detail: <em>The ___ car moves ___ at an average velocity of ___ m/s for ___ seconds.</em></li>
+          </ol>
+        </details>
+      </section>
+
+      <section id="vocab" class="section vocab">
+        <h2><span class="num">07</span> Key vocabulary</h2>
+        <dl>
+          <dt>speed</dt><dd>Distance ÷ time. A scalar — always ≥ 0.</dd>
+          <dt>velocity</dt><dd>Displacement ÷ time. A vector — has direction.</dd>
+          <dt>average rate</dt><dd>Total change ÷ total time elapsed.</dd>
+        </dl>
+      </section>
+
+      <section id="revise" class="section">
+        <h2><span class="num">08</span> Revise your model</h2>
+        <p>Take "The car moves" through the four expansions, ending with a sentence precise enough to describe Car B's motion from the simulator.</p>
+      </section>
+
+      <section id="return" class="section">
+        <h2><span class="num">09</span> Return to the phenomenon</h2>
+        <p>Re-classify the two students from the start of class. Same speed? Same velocity? Use today's vocabulary.</p>
+      </section>
+
+      <section id="exit" class="section exit">
+        <h2><span class="num">10</span> Exit ticket + closing reflection</h2>
+        <ol>
+          <li>A cyclist rides 20 km along a trail and returns to the start in 1 hour. (a) Average speed? (b) Average velocity? (c) Hochman expansion starting from "The cyclist rode."</li>
+          <li><em>Reflection:</em> What surprised you? Who helped?</li>
+        </ol>
+      </section>
+
+      <section id="explore" class="section">
+        <h2><span class="num">11</span> Explore further</h2>
+        <p>(No external links curated for this row of the East Meadow Scope and Sequence — try the simulator above with each scenario.)</p>
+      </section>
+
+      <nav class="pager">
+        <a class="prev" href="02-distance-displacement.html"><span class="label">← Previous</span><span class="target">Distance and Displacement</span></a>
+        <a class="next" href="04-acceleration.html"><span class="label">Next →</span><span class="target">Acceleration</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 03 of 9 · Unit: Kinematics</span>
+  </div>
+</footer>
+
+<script type="module" src="../_assets/site.js"></script>
+</body>
+</html>

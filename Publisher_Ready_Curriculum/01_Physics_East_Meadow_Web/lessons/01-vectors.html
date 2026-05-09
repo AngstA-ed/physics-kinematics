@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectors · Kinematics · Lesson 01</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="../_assets/site.css">
+</head>
+<body>
+<div class="progress-bar"></div>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../index.html">
+      <span class="logos">
+        <img src="../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Kinematics</span>
+    </a>
+    <nav>
+      <a href="../index.html">Unit</a>
+      <a href="../unit_plan.html">Unit Plan</a>
+      <a href="../assessment.html">Assessment</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 01 · Unit: Kinematics</div>
+    <h1>Vectors — direction matters as much as size.</h1>
+    <p class="lede">
+      Quantities like force and acceleration aren't just numbers — they have a direction. Adding them isn't
+      ordinary arithmetic. Today you'll build, drag, and combine vectors on a grid until the head-to-tail rule
+      feels obvious.
+    </p>
+    <div class="chips">
+      <span class="chip circle">Restorative Circle</span>
+      <span class="chip active">Active Learning</span>
+      <span class="chip">HS-PS2-1</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="shell with-toc">
+    <div>
+      <section id="phenomenon" class="section">
+        <h2><span class="num">01</span> Phenomenon</h2>
+        <p>
+          Open the
+          <a href="http://www.physicsclassroom.com/mmedia/vectors/va.cfm" target="_blank" rel="noopener">
+          Physics Classroom vector animations</a>. Two arrows are added head-to-tail. The order changes which arrow
+          you draw first, but the resultant — the dashed arrow from the start of the first to the tip of the last —
+          is identical either way.
+        </p>
+      </section>
+
+      <section id="driving" class="section driver">
+        <h2><span class="num">02</span> Driving Question</h2>
+        <p style="font-size: 1.25rem; font-weight: 600;">
+          How do we add quantities that point in different directions?
+        </p>
+      </section>
+
+      <section id="notice" class="section notice-wonder">
+        <h2><span class="num">03</span> Notice &amp; Wonder</h2>
+        <p>List two things you notice and two things you wonder.</p>
+        <textarea rows="5" placeholder="What I notice / What I wonder…"></textarea>
+      </section>
+
+      <aside class="tt">
+        Share with your partner: one thing you noticed about the arrows, and one thing you wondered. Pick a
+        wondering you'd like the class to figure out today.
+      </aside>
+
+      <section id="initial" class="section">
+        <h2><span class="num">04</span> Initial Model</h2>
+        <p>
+          Sketch in your notebook: arrow A points 4 squares right, arrow B points 3 squares up. Where does the
+          tip of B end up — and how would you describe that ending point in words?
+        </p>
+      </section>
+
+      <section id="investigate" class="section">
+        <h2><span class="num">05</span> Investigate — vector playground</h2>
+        <p>
+          Click <strong>Add vector</strong> to drop a vector onto the canvas. Drag its tip to set magnitude
+          and direction. Vectors chain head-to-tail; the dashed black arrow is the resultant from origin to
+          the tip of the last vector. Add up to six.
+        </p>
+
+        <div class="lab" data-interactive="true">
+          <div class="lab-canvas">
+            <svg id="v-canvas" width="640" height="420" viewBox="0 0 640 420" role="img" aria-label="Vector playground">
+              <defs>
+                <marker id="m-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#662e80"/>
+                </marker>
+                <marker id="m-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#2ea3f2"/>
+                </marker>
+                <marker id="m-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#f37366"/>
+                </marker>
+                <marker id="m-result" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#14141a"/>
+                </marker>
+                <pattern id="grid-bg" width="32" height="32" patternUnits="userSpaceOnUse">
+                  <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#e5e5ea" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="640" height="420" fill="url(#grid-bg)"/>
+              <line x1="0" y1="210" x2="640" y2="210" stroke="#c7c7cc" stroke-width="1.5"/>
+              <line x1="320" y1="0" x2="320" y2="420" stroke="#c7c7cc" stroke-width="1.5"/>
+              <g id="v-vectors"></g>
+              <g id="v-resultant"></g>
+              <g id="v-handles"></g>
+            </svg>
+          </div>
+          <div class="lab-controls">
+            <div class="button-bar">
+              <button id="v-add" class="primary" type="button">+ Add vector</button>
+              <button id="v-clear" type="button">Clear</button>
+              <button id="v-toggle-comp" type="button" aria-pressed="false">Show components</button>
+            </div>
+            <div class="lab-readouts">
+              <div class="readout-card">
+                <span class="key">Vectors</span>
+                <span class="val" id="v-count">0</span>
+              </div>
+              <div class="readout-card">
+                <span class="key">Resultant magnitude</span>
+                <span class="val accent" id="v-rmag">—</span>
+              </div>
+              <div class="readout-card">
+                <span class="key">Resultant direction</span>
+                <span class="val" id="v-rdir">—</span>
+              </div>
+              <div class="readout-card">
+                <span class="key">Total path length</span>
+                <span class="val" id="v-rpath">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          (function () {
+            const SCALE = 32; // 1 unit = 32 px
+            const ORIGIN_X = 320, ORIGIN_Y = 210;
+            const COLORS = ["#662e80", "#2ea3f2", "#f37366", "#2a7f4f", "#5b3aa5", "#cf3a76"];
+            const MARKERS = ["m-purple", "m-blue", "m-orange", "m-orange", "m-purple", "m-blue"];
+            const svg = document.getElementById("v-canvas");
+            const vGroup = document.getElementById("v-vectors");
+            const rGroup = document.getElementById("v-resultant");
+            const hGroup = document.getElementById("v-handles");
+            let vectors = [];
+            let dragging = null;
+            let showComponents = false;
+
+            function snap(v) {
+              return Math.round(v);
+            }
+
+            function getStartPositions() {
+              const starts = [{ x: 0, y: 0 }];
+              let cx = 0, cy = 0;
+              vectors.forEach(v => {
+                cx += v.x; cy += v.y;
+                starts.push({ x: cx, y: cy });
+              });
+              return starts;
+            }
+
+            function render() {
+              vGroup.innerHTML = "";
+              rGroup.innerHTML = "";
+              hGroup.innerHTML = "";
+              const starts = getStartPositions();
+              vectors.forEach((vec, i) => {
+                const s = starts[i];
+                const e = starts[i + 1];
+                const x1 = ORIGIN_X + s.x * SCALE;
+                const y1 = ORIGIN_Y - s.y * SCALE;
+                const x2 = ORIGIN_X + e.x * SCALE;
+                const y2 = ORIGIN_Y - e.y * SCALE;
+                // Vector line
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", x1); line.setAttribute("y1", y1);
+                line.setAttribute("x2", x2); line.setAttribute("y2", y2);
+                line.setAttribute("stroke", COLORS[i % 6]);
+                line.setAttribute("stroke-width", "3.5");
+                line.setAttribute("marker-end", "url(#" + MARKERS[i % 6] + ")");
+                line.setAttribute("stroke-linecap", "round");
+                vGroup.appendChild(line);
+                // Components (dashed)
+                if (showComponents) {
+                  const dashStyle = { stroke: COLORS[i % 6], "stroke-width": "1.5", "stroke-dasharray": "4 3", opacity: "0.55" };
+                  const cx = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                  cx.setAttribute("x1", x1); cx.setAttribute("y1", y1);
+                  cx.setAttribute("x2", x2); cx.setAttribute("y2", y1);
+                  Object.entries(dashStyle).forEach(([k, v]) => cx.setAttribute(k, v));
+                  vGroup.appendChild(cx);
+                  const cy = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                  cy.setAttribute("x1", x2); cy.setAttribute("y1", y1);
+                  cy.setAttribute("x2", x2); cy.setAttribute("y2", y2);
+                  Object.entries(dashStyle).forEach(([k, v]) => cy.setAttribute(k, v));
+                  vGroup.appendChild(cy);
+                }
+                // Label
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute("x", (x1 + x2) / 2 + 8);
+                label.setAttribute("y", (y1 + y2) / 2 - 8);
+                label.setAttribute("font-family", "Inter, sans-serif");
+                label.setAttribute("font-weight", "700");
+                label.setAttribute("font-size", "14");
+                label.setAttribute("fill", COLORS[i % 6]);
+                label.textContent = String.fromCharCode(65 + i); // A, B, C...
+                vGroup.appendChild(label);
+                // Handle (drag tip)
+                const handle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                handle.setAttribute("cx", x2);
+                handle.setAttribute("cy", y2);
+                handle.setAttribute("r", "8");
+                handle.setAttribute("fill", "white");
+                handle.setAttribute("stroke", COLORS[i % 6]);
+                handle.setAttribute("stroke-width", "2.5");
+                handle.style.cursor = "grab";
+                handle.dataset.idx = i;
+                hGroup.appendChild(handle);
+              });
+              // Resultant
+              if (vectors.length >= 2) {
+                const end = starts[starts.length - 1];
+                const x2 = ORIGIN_X + end.x * SCALE;
+                const y2 = ORIGIN_Y - end.y * SCALE;
+                const r = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                r.setAttribute("x1", ORIGIN_X); r.setAttribute("y1", ORIGIN_Y);
+                r.setAttribute("x2", x2); r.setAttribute("y2", y2);
+                r.setAttribute("stroke", "#14141a");
+                r.setAttribute("stroke-width", "2.5");
+                r.setAttribute("stroke-dasharray", "6 4");
+                r.setAttribute("marker-end", "url(#m-result)");
+                r.setAttribute("stroke-linecap", "round");
+                rGroup.appendChild(r);
+                const lbl = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                lbl.setAttribute("x", (ORIGIN_X + x2) / 2 - 16);
+                lbl.setAttribute("y", (ORIGIN_Y + y2) / 2 + 4);
+                lbl.setAttribute("font-family", "Inter, sans-serif");
+                lbl.setAttribute("font-weight", "800");
+                lbl.setAttribute("font-size", "16");
+                lbl.setAttribute("fill", "#14141a");
+                lbl.textContent = "R";
+                rGroup.appendChild(lbl);
+              }
+              // Readouts
+              document.getElementById("v-count").textContent = vectors.length;
+              const last = starts[starts.length - 1];
+              if (vectors.length === 0) {
+                document.getElementById("v-rmag").textContent = "—";
+                document.getElementById("v-rdir").textContent = "—";
+                document.getElementById("v-rpath").textContent = "—";
+              } else {
+                const rmag = Math.sqrt(last.x * last.x + last.y * last.y);
+                const rdir = Math.atan2(last.y, last.x) * 180 / Math.PI;
+                const path = vectors.reduce((acc, v) => acc + Math.sqrt(v.x * v.x + v.y * v.y), 0);
+                document.getElementById("v-rmag").textContent = rmag.toFixed(2);
+                document.getElementById("v-rdir").textContent = rdir.toFixed(1) + "°";
+                document.getElementById("v-rpath").textContent = path.toFixed(2);
+              }
+            }
+
+            // Add vector
+            document.getElementById("v-add").addEventListener("click", () => {
+              if (vectors.length >= 6) return;
+              vectors.push({ x: 3, y: 0 });
+              render();
+            });
+            // Clear
+            document.getElementById("v-clear").addEventListener("click", () => {
+              vectors = [];
+              render();
+            });
+            // Toggle components
+            const tcBtn = document.getElementById("v-toggle-comp");
+            tcBtn.addEventListener("click", () => {
+              showComponents = !showComponents;
+              tcBtn.setAttribute("aria-pressed", showComponents);
+              tcBtn.textContent = showComponents ? "Hide components" : "Show components";
+              render();
+            });
+
+            // Drag handles
+            function svgPoint(e) {
+              const rect = svg.getBoundingClientRect();
+              const sx = svg.viewBox.baseVal.width / rect.width;
+              const sy = svg.viewBox.baseVal.height / rect.height;
+              return {
+                x: (e.clientX - rect.left) * sx,
+                y: (e.clientY - rect.top) * sy
+              };
+            }
+            svg.addEventListener("pointerdown", (e) => {
+              const t = e.target.closest("circle");
+              if (!t || !t.dataset.idx) return;
+              dragging = parseInt(t.dataset.idx, 10);
+              t.setPointerCapture(e.pointerId);
+              t.style.cursor = "grabbing";
+            });
+            svg.addEventListener("pointermove", (e) => {
+              if (dragging === null) return;
+              const p = svgPoint(e);
+              const starts = getStartPositions();
+              const s = starts[dragging];
+              const dx = (p.x - ORIGIN_X) / SCALE - s.x;
+              const dy = (ORIGIN_Y - p.y) / SCALE - s.y;
+              vectors[dragging] = { x: snap(dx), y: snap(dy) };
+              render();
+            });
+            svg.addEventListener("pointerup", (e) => {
+              dragging = null;
+              const t = e.target.closest("circle");
+              if (t) t.style.cursor = "grab";
+            });
+
+            // Seed with two vectors so the playground isn't empty
+            vectors.push({ x: 4, y: 0 });
+            vectors.push({ x: 0, y: 3 });
+            render();
+          })();
+        </script>
+      </section>
+
+      <aside class="tt">
+        Drag the tips so A is +4 right and B is +3 up. The resultant magnitude is 5 — not 7. Use the grid to
+        convince your partner why.
+      </aside>
+
+      <section id="mims" class="section">
+        <h2><span class="num">06</span> Make it make sense</h2>
+        <ol>
+          <li>Set the playground to two vectors, A = 3 right and B = 4 up. What is the magnitude and direction
+            of the resultant?</li>
+          <li>What happens when A and B point in the same direction? Opposite directions?</li>
+          <li>If a vector has magnitude 10 and points 30° above the x-axis, what are its x- and y-components?
+            (Toggle <em>Show components</em> to check.)</li>
+        </ol>
+        <details class="misc">
+          <summary>Stuck? Sentence frame</summary>
+          <p>"The resultant of A + B has magnitude ___ because ___."</p>
+        </details>
+      </section>
+
+      <section id="vocab" class="section vocab">
+        <h2><span class="num">07</span> Key vocabulary</h2>
+        <dl>
+          <dt>vector</dt><dd>A quantity with both magnitude and direction.</dd>
+          <dt>magnitude</dt><dd>The size or length of a vector.</dd>
+          <dt>direction</dt><dd>The way a vector points, often given as an angle.</dd>
+        </dl>
+      </section>
+
+      <section id="revise" class="section">
+        <h2><span class="num">08</span> Revise your model</h2>
+        <p>
+          Update your initial sketch from §04. Use the words <em>magnitude</em> and <em>direction</em> in one
+          sentence to describe where the tip of B ends up.
+        </p>
+      </section>
+
+      <section id="return" class="section">
+        <h2><span class="num">09</span> Return to the phenomenon</h2>
+        <p>
+          Open the Physics Classroom vector animation again. Predict the resultant of the two arrows shown using
+          today's vocabulary. Was your initial guess close? What changed?
+        </p>
+      </section>
+
+      <section id="exit" class="section exit">
+        <h2><span class="num">10</span> Exit ticket + closing reflection</h2>
+        <ol>
+          <li>A boat sails 5 km east, then 12 km north. Sketch the resultant displacement on a grid and find its
+            magnitude. Show one sentence of reasoning.</li>
+          <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of
+            something?</li>
+        </ol>
+      </section>
+
+      <section id="explore" class="section">
+        <h2><span class="num">11</span> Explore further</h2>
+        <ul class="resource-list">
+          <li><a href="https://phet.colorado.edu/en/simulations/vector-addition" target="_blank" rel="noopener">
+            PhET Vector Addition Simulation
+            <span class="source">phet.colorado.edu</span>
+          </a></li>
+          <li><a href="https://www.physicsclassroom.com/Physics-Interactives/Vectors-and-Projectiles/Vector-Addition/Vector-Addition-Interactive" target="_blank" rel="noopener">
+            Physics Classroom — Vector Addition Interactive
+            <span class="source">physicsclassroom.com</span>
+          </a></li>
+          <li><a href="https://docs.google.com/document/d/1szBnR_mZA5WvECXAl-6wyQtQCxTnDcYVXrKPT8NvaFQ/edit?tab=t.0" target="_blank" rel="noopener">
+            Vector Golf
+            <span class="source">Google Doc</span>
+          </a></li>
+          <li><a href="http://betterlesson.com/lesson/630798/an-introduction-to-free-body-diagrams" target="_blank" rel="noopener">
+            An Introduction to Free Body Diagrams
+            <span class="source">Better Lesson assessment</span>
+          </a></li>
+        </ul>
+      </section>
+
+      <nav class="pager">
+        <a class="prev" href="../index.html">
+          <span class="label">← Unit index</span>
+          <span class="target">Kinematics</span>
+        </a>
+        <a class="next" href="02-distance-displacement.html">
+          <span class="label">Next lesson →</span>
+          <span class="target">Distance and Displacement</span>
+        </a>
+      </nav>
+    </div>
+
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 01 of 9 · Unit: Kinematics</span>
+  </div>
+</footer>
+
+<script type="module" src="../_assets/site.js"></script>
+</body>
+</html>

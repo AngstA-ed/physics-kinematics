@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horizontal Projectile Motion · Kinematics · Lesson 08</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="../_assets/site.css">
+</head>
+<body>
+<div class="progress-bar"></div>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../index.html">
+      <span class="logos"><img src="../_assets/brand/em_logo.svg" alt=""><span class="x">×</span><img src="../_assets/brand/vs_logo.svg" alt=""></span>
+      <span class="label">Physics · Kinematics</span>
+    </a>
+    <nav>
+      <a href="../index.html">Unit</a>
+      <a href="../unit_plan.html">Unit Plan</a>
+      <a href="../assessment.html">Assessment</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 08 · Unit: Kinematics</div>
+    <h1>Horizontal projectiles — gravity doesn't care which way you're moving sideways.</h1>
+    <p class="lede">
+      Roll a marble off the table while another simply drops. Counterintuitive moment: they hit the floor at the
+      same time. The horizontal velocity carries the rolled marble across the room, but it doesn't slow the fall.
+    </p>
+    <div class="chips">
+      <span class="chip btc">Building Thinking Classrooms</span>
+      <span class="chip hochman">Hochman · paragraph topic</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="shell with-toc">
+    <div>
+      <section id="phenomenon" class="section">
+        <h2><span class="num">01</span> Phenomenon</h2>
+        <p>Watch <a href="https://www.youtube.com/watch?v=D9wQVIEdKh8" target="_blank" rel="noopener">MythBusters — Bullet Fired vs. Bullet Dropped</a>. Two bullets are released at exactly the same instant from the same height: one is fired horizontally, the other simply dropped. Predict — which one hits the ground first?</p>
+      </section>
+
+      <section id="driving" class="section driver">
+        <h2><span class="num">02</span> Driving Question</h2>
+        <p style="font-size: 1.25rem; font-weight: 600;">Why does horizontal velocity not change how long a projectile stays in the air?</p>
+      </section>
+
+      <section id="notice" class="section notice-wonder">
+        <h2><span class="num">03</span> Notice &amp; Wonder</h2>
+        <textarea rows="5" placeholder="What I notice / What I wonder…"></textarea>
+      </section>
+
+      <aside class="tt">Most students predict the dropped bullet lands first. Why is that intuition appealing — and why is it wrong?</aside>
+
+      <section id="initial" class="section">
+        <h2><span class="num">04</span> Initial Model</h2>
+        <p>On a y-vs-x grid, sketch the trajectory of (1) a marble dropped from the table edge, and (2) a marble rolled off at 2 m/s. Mark the moment each one hits the floor.</p>
+      </section>
+
+      <section id="investigate" class="section">
+        <h2><span class="num">05</span> Investigate — twin marbles cliff sandbox</h2>
+        <p>Vary the height and horizontal launch speed. Press <strong>Release both</strong>. Watch a rolled marble and a simply-dropped marble fall together. Both hit the floor at the same time, every time.</p>
+        <div class="lab" data-interactive="true">
+          <div class="lab-canvas">
+            <svg id="hp" width="640" height="420" viewBox="0 0 640 420" role="img">
+              <rect x="20" y="80" width="120" height="8" fill="#1a1a1a"/>
+              <line x1="80" y1="88" x2="80" y2="180" stroke="#1a1a1a" stroke-width="3"/>
+              <line x1="20" y1="380" x2="620" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+              <text x="20" y="396" font-family="Inter" font-size="11" fill="#6e6e73">FLOOR</text>
+              <line x1="14" y1="80" x2="14" y2="380" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+              <text id="hp-h-label" x="2" y="240" font-family="Inter" font-size="11" fill="#6e6e73" transform="rotate(-90 18 240)">h = 1.25 m</text>
+              <polyline id="hp-roll-path" points="" fill="none" stroke="#2ea3f2" stroke-width="2" stroke-dasharray="3 2" opacity="0.7"/>
+              <line id="hp-drop-path" x1="80" y1="80" x2="80" y2="80" stroke="#662e80" stroke-width="2" stroke-dasharray="3 2" opacity="0.7"/>
+              <circle id="hp-roll" cx="80" cy="80" r="9" fill="#2ea3f2"/>
+              <circle id="hp-drop" cx="80" cy="80" r="9" fill="#662e80"/>
+            </svg>
+          </div>
+          <div class="lab-controls">
+            <div class="row">
+              <label>
+                <span class="label-row"><span>Table height h (m)</span><span id="hp-h-r" class="readout">1.25</span></span>
+                <input id="hp-h" type="range" min="0.5" max="3" step="0.25" value="1.25">
+              </label>
+              <label>
+                <span class="label-row"><span>Horizontal speed v_x (m/s)</span><span id="hp-vx-r" class="readout">2.0</span></span>
+                <input id="hp-vx" type="range" min="0" max="6" step="0.5" value="2">
+              </label>
+            </div>
+            <div class="button-bar">
+              <button id="hp-go" class="primary" type="button">Release both</button>
+              <button id="hp-reset" type="button">Reset</button>
+            </div>
+            <div class="lab-readouts">
+              <div class="readout-card"><span class="key">Time elapsed</span><span class="val" id="hp-t">0.00</span></div>
+              <div class="readout-card"><span class="key">Fall time</span><span class="val accent" id="hp-tof">—</span></div>
+              <div class="readout-card"><span class="key">Range (rolled marble)</span><span class="val accent" id="hp-range">—</span></div>
+              <div class="readout-card"><span class="key">Both land at same time</span><span class="val" id="hp-same">—</span></div>
+            </div>
+          </div>
+        </div>
+        <script>
+          (function () {
+            const G = 9.8;
+            const X0 = 80, Y0 = 80, Y_FLOOR = 380;
+            const X_RANGE_PX = 620 - X0, Y_RANGE_PX = Y_FLOOR - Y0;
+            const X_RANGE_M = 8;
+            const rollEl = document.getElementById("hp-roll");
+            const dropEl = document.getElementById("hp-drop");
+            const rollPath = document.getElementById("hp-roll-path");
+            const dropPath = document.getElementById("hp-drop-path");
+            const hIn = document.getElementById("hp-h");
+            const vxIn = document.getElementById("hp-vx");
+            function refresh() {
+              document.getElementById("hp-h-r").textContent = hIn.value;
+              document.getElementById("hp-vx-r").textContent = parseFloat(vxIn.value).toFixed(1);
+              document.getElementById("hp-h-label").textContent = "h = " + hIn.value + " m";
+            }
+            hIn.addEventListener("input", refresh);
+            vxIn.addEventListener("input", refresh);
+            refresh();
+            let raf = null;
+            function reset() {
+              if (raf) cancelAnimationFrame(raf);
+              rollEl.setAttribute("cx", X0); rollEl.setAttribute("cy", Y0);
+              dropEl.setAttribute("cx", X0); dropEl.setAttribute("cy", Y0);
+              rollPath.setAttribute("points", "");
+              dropPath.setAttribute("y2", Y0);
+              ["hp-t","hp-tof","hp-range"].forEach(id => document.getElementById(id).textContent = "—");
+              document.getElementById("hp-t").textContent = "0.00";
+              document.getElementById("hp-same").textContent = "—";
+            }
+            document.getElementById("hp-reset").onclick = reset;
+            document.getElementById("hp-go").onclick = () => {
+              reset();
+              const h = parseFloat(hIn.value);
+              const vx = parseFloat(vxIn.value);
+              const tof = Math.sqrt(2 * h / G);
+              const range = vx * tof;
+              document.getElementById("hp-tof").textContent = tof.toFixed(2) + " s";
+              document.getElementById("hp-range").textContent = range.toFixed(2) + " m";
+              const t0 = performance.now();
+              const pts = [];
+              function frame(now) {
+                let t = (now - t0) / 1000;
+                if (t > tof) t = tof;
+                const y = 0.5 * G * t * t;
+                const x = vx * t;
+                const xPx = X0 + (x / X_RANGE_M) * X_RANGE_PX;
+                const yPx = Y0 + (y / h) * Y_RANGE_PX;
+                rollEl.setAttribute("cx", xPx); rollEl.setAttribute("cy", yPx);
+                dropEl.setAttribute("cx", X0); dropEl.setAttribute("cy", yPx);
+                pts.push(xPx + "," + yPx);
+                rollPath.setAttribute("points", pts.join(" "));
+                dropPath.setAttribute("y2", yPx);
+                document.getElementById("hp-t").textContent = t.toFixed(2);
+                if (t >= tof) document.getElementById("hp-same").textContent = "✓ Yes";
+                if (t < tof) raf = requestAnimationFrame(frame);
+              }
+              raf = requestAnimationFrame(frame);
+            };
+            reset();
+          })();
+        </script>
+      </section>
+
+      <aside class="tt">When the rolled marble lands, what is its <em>horizontal velocity</em>? What is its <em>vertical velocity</em>? Did either change during the flight?</aside>
+
+      <section id="mims" class="section">
+        <h2><span class="num">06</span> Make it make sense</h2>
+        <ol>
+          <li>Set h = 1.25 m. Roll one marble at 3 m/s; drop the other simultaneously. Which lands first?</li>
+          <li>What is the horizontal velocity of the rolled marble at the moment of impact?</li>
+          <li>Double the table height. What happens to the fall time? Does the range double?</li>
+        </ol>
+        <details class="misc">
+          <summary>Hochman paragraph organizer</summary>
+          <ol>
+            <li><strong>Topic:</strong> "When a projectile is launched horizontally, fall time depends only on launch height — not horizontal speed."</li>
+            <li><strong>Evidence:</strong> Use a number from the simulator that supports the topic sentence.</li>
+            <li><strong>Mechanism:</strong> Why? (Hint: gravity acts only ___; horizontal velocity has no force changing it.)</li>
+          </ol>
+        </details>
+      </section>
+
+      <section id="vocab" class="section vocab">
+        <h2><span class="num">07</span> Key vocabulary</h2>
+        <dl>
+          <dt>horizontal velocity (v_x)</dt><dd>Constant horizontal speed of a projectile. No horizontal force, so v_x is unchanged during flight.</dd>
+          <dt>vertical velocity (v_y)</dt><dd>Downward speed, growing under gravity.</dd>
+          <dt>range</dt><dd>Horizontal distance from launch to landing.</dd>
+        </dl>
+      </section>
+
+      <section id="revise" class="section">
+        <h2><span class="num">08</span> Revise your model</h2>
+        <p>Update your y-vs-x sketch. Mark the *fall time* on each trajectory. Are they the same number?</p>
+      </section>
+
+      <section id="return" class="section">
+        <h2><span class="num">09</span> Return to the phenomenon</h2>
+        <p>Re-watch the MythBusters bullet experiment. Use today's vocabulary in a one-sentence explanation.</p>
+      </section>
+
+      <section id="exit" class="section exit">
+        <h2><span class="num">10</span> Exit ticket + closing reflection</h2>
+        <ol>
+          <li>A marble rolls off a 0.80 m table at 1.5 m/s. (a) Fall time? (b) Distance from edge it lands? (c) One Hochman-style topic sentence on why faster horizontal speed → longer range, same fall time.</li>
+          <li><em>Reflection:</em> What surprised you? Who helped?</li>
+        </ol>
+      </section>
+
+      <section id="explore" class="section">
+        <h2><span class="num">11</span> Explore further</h2>
+        <ul class="resource-list">
+          <li><a href="https://www.youtube.com/watch?v=D9wQVIEdKh8" target="_blank" rel="noopener">MythBusters — Bullet Fired vs. Dropped<span class="source">YouTube</span></a></li>
+          <li><a href="https://youtu.be/zMF4CD7i3hg?si=bR5YxGmfllkFeEqf" target="_blank" rel="noopener">Shoot-n-Drop demonstration<span class="source">YouTube</span></a></li>
+          <li><a href="https://phet.colorado.edu/en/simulations/projectile-motion" target="_blank" rel="noopener">PhET — Projectile Motion<span class="source">phet.colorado.edu</span></a></li>
+          <li><a href="https://javalab.org/en/projectile_en/" target="_blank" rel="noopener">Java Lab — Horizontal Projectile<span class="source">javalab.org</span></a></li>
+        </ul>
+      </section>
+
+      <nav class="pager">
+        <a class="prev" href="07-vertical-projectiles.html"><span class="label">← Previous</span><span class="target">Vertical Projectiles</span></a>
+        <a class="next" href="09-projectiles-at-an-angle.html"><span class="label">Next →</span><span class="target">Projectiles at an Angle</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 08 of 9 · Unit: Kinematics</span>
+  </div>
+</footer>
+
+<script type="module" src="../_assets/site.js"></script>
+</body>
+</html>

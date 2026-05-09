@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acceleration · Kinematics · Lesson 04</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="../_assets/site.css">
+</head>
+<body>
+<div class="progress-bar"></div>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../index.html">
+      <span class="logos">
+        <img src="../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Kinematics</span>
+    </a>
+    <nav>
+      <a href="../index.html">Unit</a>
+      <a href="../unit_plan.html">Unit Plan</a>
+      <a href="../assessment.html">Assessment</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 04 · Unit: Kinematics</div>
+    <h1>Acceleration — when velocity is changing.</h1>
+    <p class="lede">
+      Three graphs, one motion. Drag the acceleration slider and watch position, velocity, and acceleration
+      tell the same story in three different shapes.
+    </p>
+    <div class="chips">
+      <span class="chip btc">Building Thinking Classrooms</span>
+      <span class="chip">HS-PS2-1</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="shell with-toc">
+    <div>
+      <section id="phenomenon" class="section">
+        <h2><span class="num">01</span> Phenomenon</h2>
+        <p>Open the <a href="http://www.physicsclassroom.com/mmedia/kinema/acceln.cfm" target="_blank" rel="noopener">Physics Classroom acceleration animations</a>. The dots are evenly spaced in time; their <em>spacing on the page</em> changes as the object speeds up or slows down. That spacing is the visible signature of acceleration.</p>
+      </section>
+
+      <section id="driving" class="section driver">
+        <h2><span class="num">02</span> Driving Question</h2>
+        <p style="font-size: 1.25rem; font-weight: 600;">How can we measure how fast an object's <em>velocity</em> is changing?</p>
+      </section>
+
+      <section id="notice" class="section notice-wonder">
+        <h2><span class="num">03</span> Notice &amp; Wonder</h2>
+        <textarea rows="5" placeholder="What I notice / What I wonder…"></textarea>
+      </section>
+
+      <aside class="tt">Some animations show dots that get further apart over time. What does that mean about the object?</aside>
+
+      <section id="initial" class="section">
+        <h2><span class="num">04</span> Initial Model</h2>
+        <p>Sketch a v-t graph for "speeding up." Then sketch one for "constant velocity." What's the difference?</p>
+      </section>
+
+      <section id="investigate" class="section">
+        <h2><span class="num">05</span> Investigate — three linked graphs</h2>
+        <p>Pick a, then press <strong>Run</strong>. Watch the dot, then watch all three graphs draw simultaneously. Slope of x-t = velocity. Slope of v-t = acceleration. The a-t graph is the constant you set.</p>
+        <div class="lab" data-interactive="true">
+          <div class="lab-canvas">
+            <svg id="ac" width="640" height="500" viewBox="0 0 640 500" role="img">
+              <text x="20" y="18" font-family="Inter" font-size="11" font-weight="700" fill="#6e6e73">POSITION TRACK</text>
+              <line x1="40" y1="40" x2="600" y2="40" stroke="#e5e5ea" stroke-width="2"/>
+              <circle id="ac-dot" cx="40" cy="40" r="9" fill="#662e80"/>
+              <text x="20" y="80" font-family="Inter" font-size="11" font-weight="700" fill="#6e6e73">x-t (position)</text>
+              <line x1="40" y1="180" x2="600" y2="180" stroke="#1a1a1a" stroke-width="1"/>
+              <line x1="40" y1="100" x2="40" y2="180" stroke="#1a1a1a" stroke-width="1"/>
+              <polyline id="ac-xt" points="" fill="none" stroke="#662e80" stroke-width="2.5"/>
+              <text x="20" y="220" font-family="Inter" font-size="11" font-weight="700" fill="#6e6e73">v-t (velocity)</text>
+              <line x1="40" y1="320" x2="600" y2="320" stroke="#1a1a1a" stroke-width="1"/>
+              <line x1="40" y1="240" x2="40" y2="320" stroke="#1a1a1a" stroke-width="1"/>
+              <line x1="40" y1="280" x2="600" y2="280" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+              <polyline id="ac-vt" points="" fill="none" stroke="#2ea3f2" stroke-width="2.5"/>
+              <text x="20" y="360" font-family="Inter" font-size="11" font-weight="700" fill="#6e6e73">a-t (acceleration)</text>
+              <line x1="40" y1="460" x2="600" y2="460" stroke="#1a1a1a" stroke-width="1"/>
+              <line x1="40" y1="380" x2="40" y2="460" stroke="#1a1a1a" stroke-width="1"/>
+              <line x1="40" y1="420" x2="600" y2="420" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+              <polyline id="ac-at" points="" fill="none" stroke="#f37366" stroke-width="2.5"/>
+            </svg>
+          </div>
+          <div class="lab-controls">
+            <div class="row">
+              <label>
+                <span class="label-row"><span>Acceleration a (m/s²)</span><span id="ac-a-r" class="readout">2.0</span></span>
+                <input id="ac-a" type="range" min="-4" max="4" step="0.5" value="2">
+              </label>
+              <label>
+                <span class="label-row"><span>Initial velocity v₀ (m/s)</span><span id="ac-v0-r" class="readout">0</span></span>
+                <input id="ac-v0" type="range" min="-10" max="10" step="1" value="0">
+              </label>
+            </div>
+            <div class="button-bar">
+              <button id="ac-run" class="primary" type="button">Run (8 s)</button>
+              <button id="ac-reset" type="button">Reset</button>
+            </div>
+            <div class="lab-readouts">
+              <div class="readout-card"><span class="key">Time</span><span class="val" id="ac-t">0.0</span></div>
+              <div class="readout-card"><span class="key">Velocity (m/s)</span><span class="val accent" id="ac-v">0.0</span></div>
+              <div class="readout-card"><span class="key">Position (m)</span><span class="val" id="ac-x">0.0</span></div>
+            </div>
+          </div>
+        </div>
+        <script>
+          (function () {
+            const G = 9.8;
+            const dot = document.getElementById("ac-dot");
+            const xt = document.getElementById("ac-xt");
+            const vt = document.getElementById("ac-vt");
+            const at = document.getElementById("ac-at");
+            const aIn = document.getElementById("ac-a");
+            const v0In = document.getElementById("ac-v0");
+            function refresh() {
+              document.getElementById("ac-a-r").textContent = parseFloat(aIn.value).toFixed(1);
+              document.getElementById("ac-v0-r").textContent = v0In.value;
+            }
+            aIn.addEventListener("input", refresh);
+            v0In.addEventListener("input", refresh);
+            refresh();
+            const T_MAX = 8;
+            const X0 = 40, X1 = 600;
+            let raf = null;
+            function reset() {
+              if (raf) cancelAnimationFrame(raf);
+              dot.setAttribute("cx", 40);
+              xt.setAttribute("points", "");
+              vt.setAttribute("points", "");
+              at.setAttribute("points", "");
+              ["ac-t","ac-v","ac-x"].forEach(id => document.getElementById(id).textContent = "0.0");
+            }
+            document.getElementById("ac-reset").onclick = reset;
+            document.getElementById("ac-run").onclick = () => {
+              reset();
+              const a = parseFloat(aIn.value);
+              const v0 = parseFloat(v0In.value);
+              const t0 = performance.now();
+              const xtPts = [], vtPts = [], atPts = [];
+              const X_MAX = 200;
+              function frame(now) {
+                let t = (now - t0) / 1000;
+                if (t > T_MAX) t = T_MAX;
+                const v = v0 + a * t;
+                const x = v0 * t + 0.5 * a * t * t;
+                const tPx = X0 + (t / T_MAX) * (X1 - X0);
+                const xClamp = Math.max(-X_MAX, Math.min(X_MAX, x));
+                const dotPx = X0 + ((xClamp + X_MAX) / (2 * X_MAX)) * (X1 - X0);
+                dot.setAttribute("cx", dotPx);
+                const xPx = 180 - Math.max(-1, Math.min(1, x / 80)) * 70;
+                xtPts.push(tPx + "," + xPx);
+                xt.setAttribute("points", xtPts.join(" "));
+                const vPx = 280 - Math.max(-30, Math.min(30, v)) / 30 * 40;
+                vtPts.push(tPx + "," + vPx);
+                vt.setAttribute("points", vtPts.join(" "));
+                const aPx = 420 - Math.max(-5, Math.min(5, a)) / 5 * 30;
+                atPts.push(tPx + "," + aPx);
+                at.setAttribute("points", atPts.join(" "));
+                document.getElementById("ac-t").textContent = t.toFixed(1);
+                document.getElementById("ac-v").textContent = v.toFixed(1);
+                document.getElementById("ac-x").textContent = x.toFixed(1);
+                if (t < T_MAX) raf = requestAnimationFrame(frame);
+              }
+              raf = requestAnimationFrame(frame);
+            };
+          })();
+        </script>
+      </section>
+
+      <aside class="tt">Two cars have the same acceleration but different starting velocities. What's the same about their v-t graphs? What's different?</aside>
+
+      <section id="mims" class="section">
+        <h2><span class="num">06</span> Make it make sense</h2>
+        <ol>
+          <li>Set a = +3 m/s² and v₀ = 0. Press Run. Velocity at t = 4 s? Distance traveled?</li>
+          <li>What does the slope of the v-t graph tell you? Sketch v-t for a car at +2 m/s² for 5 s, then 0 m/s² for 3 s.</li>
+          <li>A car moving west has a negative acceleration (eastward-positive convention). Speeding up or slowing down? Explain.</li>
+        </ol>
+      </section>
+
+      <section id="vocab" class="section vocab">
+        <h2><span class="num">07</span> Key vocabulary</h2>
+        <dl>
+          <dt>acceleration</dt><dd>Change in velocity ÷ time. A vector. Units m/s².</dd>
+          <dt>deceleration</dt><dd>Acceleration whose vector opposes the velocity (slowing down).</dd>
+          <dt>slope</dt><dd>Steepness of the v-t graph; equals the acceleration.</dd>
+        </dl>
+      </section>
+
+      <section id="revise" class="section">
+        <h2><span class="num">08</span> Revise your model</h2>
+        <p>Update your initial v-t sketches. Add slope labels. Use the word <em>acceleration</em>.</p>
+      </section>
+
+      <section id="return" class="section">
+        <h2><span class="num">09</span> Return to the phenomenon</h2>
+        <p>Reopen one of the Physics Classroom animations. Predict its v-t graph, then check yourself with the simulator.</p>
+      </section>
+
+      <section id="exit" class="section exit">
+        <h2><span class="num">10</span> Exit ticket + closing reflection</h2>
+        <ol>
+          <li>A sprinter starts from rest and reaches 9 m/s in 3 s. (a) Average a? (b) v-t sketch. (c) Slows from 9 to 0 in 6 s — what is a during the slow-down? Sign? Why?</li>
+          <li><em>Reflection:</em> What surprised you? Who helped?</li>
+        </ol>
+      </section>
+
+      <section id="explore" class="section">
+        <h2><span class="num">11</span> Explore further</h2>
+        <ul class="resource-list">
+          <li><a href="http://www.physicsclassroom.com/mmedia/kinema/acceln.cfm" target="_blank" rel="noopener">Physics Classroom — Acceleration<span class="source">physicsclassroom.com</span></a></li>
+          <li><a href="https://ophysics.com/k6.html" target="_blank" rel="noopener">OPhysics — Uniform Acceleration in 1D<span class="source">ophysics.com</span></a></li>
+          <li><a href="https://docs.google.com/document/d/1D36lv1SUPDFQEmgBKByWXksyVVC5y12s-4YqXao3zkY/edit?tab=t.0" target="_blank" rel="noopener">Speeding up / Slowing Down<span class="source">Google Doc</span></a></li>
+          <li><a href="http://betterlesson.com/lesson/631023/newton-s-second-law-in-1-d" target="_blank" rel="noopener">Newton's Second Law in 1-D Motion<span class="source">Better Lesson assessment</span></a></li>
+        </ul>
+      </section>
+
+      <nav class="pager">
+        <a class="prev" href="03-velocity.html"><span class="label">← Previous</span><span class="target">Average Speed and Velocity</span></a>
+        <a class="next" href="05-motion-graphs.html"><span class="label">Next →</span><span class="target">Motion Graphs</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 04 of 9 · Unit: Kinematics</span>
+  </div>
+</footer>
+
+<script type="module" src="../_assets/site.js"></script>
+</body>
+</html>

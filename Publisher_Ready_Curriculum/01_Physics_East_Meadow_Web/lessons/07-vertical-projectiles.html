@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vertical Projectiles · Kinematics · Lesson 07</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="../_assets/site.css">
+</head>
+<body>
+<div class="progress-bar"></div>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../index.html">
+      <span class="logos"><img src="../_assets/brand/em_logo.svg" alt=""><span class="x">×</span><img src="../_assets/brand/vs_logo.svg" alt=""></span>
+      <span class="label">Physics · Kinematics</span>
+    </a>
+    <nav>
+      <a href="../index.html">Unit</a>
+      <a href="../unit_plan.html">Unit Plan</a>
+      <a href="../assessment.html">Assessment</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 07 · Unit: Kinematics</div>
+    <h1>Throw it straight up. The trip is symmetric.</h1>
+    <p class="lede">
+      Toss a ball vertically. The time to rise equals the time to fall. The speed at any height on the way up
+      equals the speed at the same height on the way down — only the direction flips. Gravity never pauses.
+    </p>
+    <div class="chips"><span class="chip">HS-PS2-1 thread</span></div>
+  </div>
+</section>
+
+<main>
+  <div class="shell with-toc">
+    <div>
+      <section id="phenomenon" class="section">
+        <h2><span class="num">01</span> Phenomenon</h2>
+        <p>Toss a volleyball straight up so it rises about 2 m. A classmate times its air-time. The ball spent <em>some</em> of that time going up, the rest coming down. Were those equal? At the very top, was the ball ever <em>not moving</em>?</p>
+      </section>
+
+      <section id="driving" class="section driver">
+        <h2><span class="num">02</span> Driving Question</h2>
+        <p style="font-size: 1.25rem; font-weight: 600;">What does the velocity of a vertically-thrown object look like at launch, peak, and landing?</p>
+      </section>
+
+      <section id="notice" class="section notice-wonder">
+        <h2><span class="num">03</span> Notice &amp; Wonder</h2>
+        <textarea rows="5" placeholder="What I notice / What I wonder…"></textarea>
+      </section>
+
+      <aside class="tt">At the very peak, what is the ball's velocity? What is its acceleration? Are they the same number?</aside>
+
+      <section id="initial" class="section">
+        <h2><span class="num">04</span> Initial Model</h2>
+        <p>Sketch a v-t graph for the entire trip from launch to landing. Mark the peak.</p>
+      </section>
+
+      <section id="investigate" class="section">
+        <h2><span class="num">05</span> Investigate — toss the ball</h2>
+        <p>Slide the launch speed, press <strong>Throw</strong>. Watch the ball go up, peak (v = 0!), and come back down. The v-t graph alongside is a single straight line through zero — slope = constant −g.</p>
+        <div class="lab" data-interactive="true">
+          <div class="lab-canvas">
+            <svg id="vp" width="640" height="500" viewBox="0 0 640 500" role="img">
+              <line x1="80" y1="40" x2="80" y2="460" stroke="#1a1a1a" stroke-width="1"/>
+              <line x1="80" y1="460" x2="200" y2="460" stroke="#1a1a1a" stroke-width="1"/>
+              <text x="40" y="464" font-family="Inter" font-size="11" fill="#6e6e73">launch</text>
+              <text x="50" y="46" font-family="Inter" font-size="11" fill="#6e6e73">+y</text>
+              <circle id="vp-ball" cx="140" cy="460" r="11" fill="#662e80"/>
+              <line x1="140" y1="40" x2="140" y2="460" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4" id="vp-peak-line"/>
+              <text x="280" y="32" font-family="Inter" font-size="11" font-weight="700" fill="#6e6e73">v-t</text>
+              <line x1="280" y1="40" x2="280" y2="460" stroke="#1a1a1a" stroke-width="1"/>
+              <line x1="280" y1="250" x2="600" y2="250" stroke="#999" stroke-width="0.5" stroke-dasharray="2 4"/>
+              <line x1="280" y1="460" x2="600" y2="460" stroke="#1a1a1a" stroke-width="1"/>
+              <text x="260" y="254" font-family="Inter" font-size="9" fill="#6e6e73">0</text>
+              <text x="260" y="58" font-family="Inter" font-size="9" fill="#6e6e73">+v</text>
+              <text x="260" y="466" font-family="Inter" font-size="9" fill="#6e6e73">−v</text>
+              <polyline id="vp-vt" points="" fill="none" stroke="#2ea3f2" stroke-width="2.5"/>
+              <line id="vp-vt-peak" x1="280" y1="250" x2="280" y2="250" stroke="#f37366" stroke-width="2" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <div class="lab-controls">
+            <div class="row">
+              <label>
+                <span class="label-row"><span>Initial velocity v₀ (m/s)</span><span id="vp-v0-r" class="readout">10</span></span>
+                <input id="vp-v0" type="range" min="4" max="20" step="1" value="10">
+              </label>
+            </div>
+            <div class="button-bar">
+              <button id="vp-throw" class="primary" type="button">Throw</button>
+              <button id="vp-reset" type="button">Reset</button>
+            </div>
+            <div class="lab-readouts">
+              <div class="readout-card"><span class="key">Time to peak</span><span class="val" id="vp-tpk">—</span></div>
+              <div class="readout-card"><span class="key">Peak height</span><span class="val accent" id="vp-hpk">—</span></div>
+              <div class="readout-card"><span class="key">Time-of-flight</span><span class="val" id="vp-tof">—</span></div>
+              <div class="readout-card"><span class="key">Velocity at landing</span><span class="val accent" id="vp-vland">—</span></div>
+            </div>
+          </div>
+        </div>
+        <script>
+          (function () {
+            const G = 9.8;
+            const ball = document.getElementById("vp-ball");
+            const vt = document.getElementById("vp-vt");
+            const vtPeak = document.getElementById("vp-vt-peak");
+            const v0In = document.getElementById("vp-v0");
+            const Y_GROUND = 460, Y_TOP = 40;
+            const VT_X0 = 280, VT_X1 = 600;
+            v0In.addEventListener("input", () => document.getElementById("vp-v0-r").textContent = v0In.value);
+            let raf = null;
+            function reset() {
+              if (raf) cancelAnimationFrame(raf);
+              ball.setAttribute("cy", Y_GROUND);
+              vt.setAttribute("points", "");
+              vtPeak.setAttribute("x1", VT_X0); vtPeak.setAttribute("x2", VT_X0);
+              ["vp-tpk","vp-hpk","vp-tof","vp-vland"].forEach(id => document.getElementById(id).textContent = "—");
+            }
+            document.getElementById("vp-reset").onclick = reset;
+            document.getElementById("vp-throw").onclick = () => {
+              reset();
+              const v0 = parseFloat(v0In.value);
+              const tof = 2 * v0 / G;
+              const tpk = v0 / G;
+              const hpk = v0 * v0 / (2 * G);
+              document.getElementById("vp-tpk").textContent = tpk.toFixed(2) + " s";
+              document.getElementById("vp-hpk").textContent = hpk.toFixed(2) + " m";
+              document.getElementById("vp-tof").textContent = tof.toFixed(2) + " s";
+              document.getElementById("vp-vland").textContent = (-v0).toFixed(1) + " m/s";
+              const tpkPx = VT_X0 + (tpk / tof) * (VT_X1 - VT_X0);
+              vtPeak.setAttribute("x1", tpkPx); vtPeak.setAttribute("x2", tpkPx);
+              vtPeak.setAttribute("y1", Y_TOP); vtPeak.setAttribute("y2", Y_GROUND);
+              const t0 = performance.now();
+              const pts = [];
+              const Y_RANGE = Y_GROUND - Y_TOP - 20;
+              function frame(now) {
+                let t = (now - t0) / 1000;
+                if (t > tof) t = tof;
+                const v = v0 - G * t;
+                const y = v0 * t - 0.5 * G * t * t;
+                const cy = Y_GROUND - (y / hpk) * Y_RANGE * 0.95;
+                ball.setAttribute("cy", cy);
+                const tPx = VT_X0 + (t / tof) * (VT_X1 - VT_X0);
+                const vPx = 250 - (v / v0) * (250 - Y_TOP - 10);
+                pts.push(tPx + "," + vPx);
+                vt.setAttribute("points", pts.join(" "));
+                if (t < tof) raf = requestAnimationFrame(frame);
+              }
+              raf = requestAnimationFrame(frame);
+            };
+            reset();
+          })();
+        </script>
+      </section>
+
+      <aside class="tt">If a friend launches at 10 m/s and another at 20 m/s, would the second ball stay in the air <em>twice</em> as long? Slide and check.</aside>
+
+      <section id="mims" class="section">
+        <h2><span class="num">06</span> Make it make sense</h2>
+        <ol>
+          <li>Set v₀ = 10 m/s. What is the velocity at the peak? At what time does the ball reach the peak?</li>
+          <li>Why is the v-t graph a straight line, even though the ball is sometimes going up and sometimes going down?</li>
+          <li>A ball thrown up at 8 m/s — how fast is it moving when it returns to the launch height?</li>
+        </ol>
+      </section>
+
+      <section id="vocab" class="section vocab">
+        <h2><span class="num">07</span> Key vocabulary</h2>
+        <dl>
+          <dt>peak</dt><dd>Highest point of the throw; v = 0 momentarily.</dd>
+          <dt>time-of-flight</dt><dd>Total time from launch to landing.</dd>
+          <dt>symmetry</dt><dd>Time-up = time-down; same speed at the same height up and down.</dd>
+        </dl>
+      </section>
+
+      <section id="revise" class="section">
+        <h2><span class="num">08</span> Revise your model</h2>
+        <p>Update your v-t sketch. Add: peak time, launch and landing velocities, slope (it never changes — but draw the temptation, then refute it).</p>
+      </section>
+
+      <section id="return" class="section">
+        <h2><span class="num">09</span> Return to the phenomenon</h2>
+        <p>If your earlier toss had ~1.0 s air-time, what was your launch speed?</p>
+      </section>
+
+      <section id="exit" class="section exit">
+        <h2><span class="num">10</span> Exit ticket + closing reflection</h2>
+        <ol>
+          <li>Volleyball thrown straight up at v₀ = 12 m/s (g = 9.8). (a) Time to peak? (b) Max height above launch? (c) Velocity at return to launch? (d) Total time-of-flight?</li>
+          <li><em>Reflection:</em> What surprised you? Who helped?</li>
+        </ol>
+      </section>
+
+      <section id="explore" class="section">
+        <h2><span class="num">11</span> Explore further</h2>
+        <ul class="resource-list">
+          <li><a href="https://ophysics.com/k8.html" target="_blank" rel="noopener">OPhysics — Projectile Motion<span class="source">ophysics.com</span></a></li>
+          <li><a href="https://phet.colorado.edu/en/simulations/projectile-motion" target="_blank" rel="noopener">PhET — Projectile Motion<span class="source">phet.colorado.edu</span></a></li>
+        </ul>
+      </section>
+
+      <nav class="pager">
+        <a class="prev" href="06-freefall.html"><span class="label">← Previous</span><span class="target">Freefall</span></a>
+        <a class="next" href="08-horizontal-projectile-motion.html"><span class="label">Next →</span><span class="target">Horizontal Projectile Motion</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 07 of 9 · Unit: Kinematics</span>
+  </div>
+</footer>
+
+<script type="module" src="../_assets/site.js"></script>
+</body>
+</html>
