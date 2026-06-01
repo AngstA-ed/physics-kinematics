@@ -1,0 +1,803 @@
+[
+ {
+  "unitIdx": 2,
+  "unitDir": "02_Physical_Behavior_of_Matter",
+  "unitName": "Physical Behavior of Matter",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Classification_of_Matter",
+    "topic": "Classification of Matter",
+    "subTopics": "Pure substances vs. mixtures; elements vs. compounds; homogeneous vs. heterogeneous mixtures",
+    "nyssls": "—",
+    "phenomenon": "How can we tell whether a sample is one substance or many?",
+    "labs": "Classification of matter sorting activity; \"mystery samples\" lab",
+    "assessments": "Matter classification quiz"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_States_of_Matter_and_Phase_Changes",
+    "topic": "States of Matter & Phase Changes",
+    "subTopics": "Solid, liquid, gas, plasma; melting, freezing, vaporization, condensation, sublimation, deposition",
+    "nyssls": "—",
+    "phenomenon": "Why does dry ice (solid CO₂) skip the liquid phase entirely?",
+    "labs": "Dry ice demo; phase change diagrams; particle-model drawings of each phase Boiling Point (Ice or Water, Ethanol) - Javalab",
+    "assessments": "Phase-change identification quiz"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Physical_vs_Chemical_Properties_Changes",
+    "topic": "Physical vs. Chemical Properties / Changes",
+    "subTopics": "Distinguishing physical and chemical properties; signs of chemical change; intensive vs. extensive properties",
+    "nyssls": "HS-PS1-3 Thermal energy has an effect on the ability of electrical attraction between particles. Spacing of particles changes in response to addition of energy.",
+    "phenomenon": "When you cut paper vs. burn paper — what's actually different about what happens?",
+    "labs": "Physical vs. chemical change stations lab; observing burning Mg ribbon",
+    "assessments": "Property/change identification assessment"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Distinguishing_Elements_Compounds_Mixtures",
+    "topic": "Distinguishing Elements, Compounds, Mixtures",
+    "subTopics": "Particle-level diagrams; symbols and formulas; identifying from descriptions and pictures",
+    "nyssls": "—",
+    "phenomenon": "Why does table salt taste so different from the sodium and chlorine that make it?",
+    "labs": "Element/compound/mixture diagram drawing; comparing properties of components vs. compound",
+    "assessments": "Element vs. compound vs. mixture exit ticket"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_Types_of_Mixtures",
+    "topic": "Types of Mixtures",
+    "subTopics": "Solutions, suspensions, colloids; the Tyndall effect",
+    "nyssls": "—",
+    "phenomenon": "Why does a flashlight beam show up in fog or milk but not in clear water?",
+    "labs": "Tyndall effect demo (laser through water vs. milk vs. cornstarch suspension)",
+    "assessments": "Mixture type identification quiz"
+   },
+   {
+    "topicIdx": 5,
+    "lessonDir": "06_Separating_Mixtures",
+    "topic": "Separating Mixtures",
+    "subTopics": "Filtration, distillation, chromatography, evaporation, decanting; choosing a method based on properties",
+    "nyssls": "—",
+    "phenomenon": "How do we get fresh water from seawater?",
+    "labs": "Distillation demo; paper chromatography of markers / candy dyes; Distillation – Javalab",
+    "assessments": "Design-a-separation challenge"
+   }
+  ]
+ },
+ {
+  "unitIdx": 3,
+  "unitDir": "03_Heat_and_Energy",
+  "unitName": "Heat & Energy",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Heating_and_Cooling_Curves",
+    "topic": "Heating & Cooling Curves",
+    "subTopics": "Temperature vs. time graphs; identifying phase changes; potential vs. kinetic energy regions",
+    "nyssls": "PS3-1 The initial energies of the system's components (energy in fields, thermal energy, kinetic energy, energy stored in springs) expressed as Joules in each component, with an algebraic description to calculate total initial energy. Students use the computational model to calculate changes in the energy of one component when changes in other components and energy flows are known. Students identify the limitations of the computational model based on assumptions made in the algebraic descriptions.",
+    "phenomenon": "Why does the temperature of boiling water stay at 100 °C no matter how much heat you add?",
+    "labs": "Heating curve of water lab (ice → steam); graph interpretation practice",
+    "assessments": "Heating-curve interpretation quiz"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Heat_Calculations",
+    "topic": "Heat Calculations",
+    "subTopics": "q = mcΔT; q = mH_f; q = mH_v; specific heat capacity; calorimetry",
+    "nyssls": "PS3-1 The energy flows in or out of the system, including a quantification in an algebraic description (flow into the system defined as positive); and the final energies of the system components, including a quantification in an algebraic description to calculate the total final energy of the system.",
+    "phenomenon": "Why does the sand at the beach get scorching hot but the ocean stays cool on the same sunny day?",
+    "labs": "Specific heat lab (metal samples); calorimetry of food / hand warmer; ice-melting calorimetry  Boiling Point (Ice or Water, Ethanol) - Javalab",
+    "assessments": "Calorimetry problem set; lab report"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Photosynthesis_Energy_Storage_in_Bonds",
+    "topic": "Photosynthesis (Energy Storage in Bonds)",
+    "subTopics": "Chemical energy stored in bond differences between reactants (CO₂ + H₂O) and products (sugar + O₂)",
+    "nyssls": "LS1-5 Photosynthesis as resulting in the storage of energy in the difference between the energies of the chemical bonds of the inputs (carbon dioxide and water) and outputs (sugar and oxygen).",
+    "phenomenon": "How does a plant 'capture' sunlight as chemical energy you can later eat?",
+    "labs": "Photosynthesis bond-energy diagram; comparison with combustion (reverse process)",
+    "assessments": "Cross-cutting energy-flow short response"
+   }
+  ]
+ },
+ {
+  "unitIdx": 4,
+  "unitDir": "04_Gas_Laws",
+  "unitName": "Gas Laws",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Real_vs_Ideal_Gases",
+    "topic": "Real vs. Ideal Gases",
+    "subTopics": "Assumptions of the ideal gas model; conditions where real gases deviate from ideal behavior",
+    "nyssls": "PS1-9 Real gases may be included at conditions near STP. The relationships of the variables in the combined gas law may be described both qualitatively and quantitatively. The concept of an ideal gas is a model to explain the behavior of gases. A real gas is most like an ideal gas at low pressure and high temperature. DO NOT TEACH: gas law names (Boyle's Law, etc.).",
+    "phenomenon": "Why do helium balloons shrink and sink overnight in a cold room?",
+    "labs": "Crushing-can demo; inverted-graduated-cylinder collection of gas",
+    "assessments": "Real vs. ideal gas conditions short response"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Kinetic_Molecular_Theory",
+    "topic": "Kinetic Molecular Theory",
+    "subTopics": "Postulates of KMT; relating temperature to average kinetic energy; pressure as molecular collisions",
+    "nyssls": "—",
+    "phenomenon": "Why does a sealed bag of chips puff up when you take it up a mountain?",
+    "labs": "Marshmallow in a syringe; balloon in a vacuum chamber; KMT particle-motion simulation",
+    "assessments": "KMT explanation prompts"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_PressureVolume_Relationship",
+    "topic": "Pressure–Volume Relationship",
+    "subTopics": "Inverse relationship between P and V at constant T (qualitative & quantitative)",
+    "nyssls": "—",
+    "phenomenon": "Why does a syringe get harder to push as you compress the air inside?",
+    "labs": "Gas Properties – PhET Interactive Simulations; syringe-pressure exploration",
+    "assessments": "P-V graphing & calculation problem set"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_TemperatureVolume_and_TemperaturePressure_Relationships",
+    "topic": "Temperature–Volume & Temperature–Pressure Relationships",
+    "subTopics": "Direct relationships at constant P or constant V; absolute (Kelvin) temperature scale",
+    "nyssls": "—",
+    "phenomenon": "Why do tire pressures drop on cold winter mornings?",
+    "labs": "Balloon in liquid nitrogen demo; collapsing-can demo with hot/cold water",
+    "assessments": "T-V and T-P calculation quiz"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_Combined_Gas_Law",
+    "topic": "Combined Gas Law",
+    "subTopics": "P₁V₁/T₁ = P₂V₂/T₂; using Kelvin temperatures; STP conditions",
+    "nyssls": "PS1-9 Analyze data to support the claim that the combined gas law describes the relationships among volume, pressure, and temperature for a sample of an ideal gas.",
+    "phenomenon": "How do scuba divers calculate the volume of compressed air they'll need at depth?",
+    "labs": "Combined gas law data analysis; weather-balloon problem",
+    "assessments": "Combined gas law problem set; lab data analysis"
+   }
+  ]
+ },
+ {
+  "unitIdx": 5,
+  "unitDir": "05_Atomic_Concepts",
+  "unitName": "Atomic Concepts",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Evolution_of_the_Atomic_Model",
+    "topic": "Evolution of the Atomic Model",
+    "subTopics": "Dalton → Thomson → Rutherford → Bohr → wave-mechanical model; the role of evidence in revising models",
+    "nyssls": "PS1-1 A positively-charged nucleus composed of both protons and neutrons, surrounded by negatively-charged electrons.",
+    "phenomenon": "How can scientists 'see' something far too small to see?",
+    "labs": "Zoom in to a Pinhead presentation (incorporate measurement / scale / sci notation); htwins.net Scale of the Universe; Rutherford gold-foil simulation",
+    "assessments": "Atomic model timeline / evidence-to-model exit ticket"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Determining_Number_of_Subatomic_Particles",
+    "topic": "Determining Number of Subatomic Particles",
+    "subTopics": "Using atomic number, mass number, and charge to find protons, neutrons, electrons",
+    "nyssls": "PS1-1 The number of protons in each element.",
+    "phenomenon": "Why is the identity of an element fixed by its number of protons alone?",
+    "labs": "Build an Atom – PhET Interactive Simulations; subatomic-particle counting practice",
+    "assessments": "Subatomic particle counting quiz"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Properties_of_Subatomic_Particles",
+    "topic": "Properties of Subatomic Particles",
+    "subTopics": "Charge, relative mass, and location of protons, neutrons, electrons",
+    "nyssls": "—",
+    "phenomenon": "Why is almost all the mass of an atom in a region that is almost all empty space?",
+    "labs": "\"Atomic stadium\" scale model (nucleus = pea, atom = stadium)",
+    "assessments": "Subatomic particle property table check"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Isotopes_and_Average_Atomic_Mass",
+    "topic": "Isotopes & Average Atomic Mass",
+    "subTopics": "Defining isotopes; relating isotopic abundance to average atomic mass",
+    "nyssls": "Stability and change — not calculating average atomic mass.",
+    "phenomenon": "How does carbon dating reveal when an ancient turtle migrated?",
+    "labs": "Turtle migration carbon-dating activity; \"isotopes of pennies\" simulation",
+    "assessments": "Isotope identification & abundance interpretation"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_Ions",
+    "topic": "Ions",
+    "subTopics": "Formation of cations and anions; predicting ion charges from periodic-table position",
+    "nyssls": "PS1-1 The number and charges in stable ions that form from atoms in a group of the periodic table.",
+    "phenomenon": "Why does sodium violently react with water but sodium ion sits peacefully in table salt?",
+    "labs": "Ion formation diagrams; predicting ion charge from group number practice",
+    "assessments": "Ion formation and charge quiz"
+   },
+   {
+    "topicIdx": 5,
+    "lessonDir": "06_Electron_Configuration_Excited_and_Ground_States",
+    "topic": "Electron Configuration: Excited & Ground States",
+    "subTopics": "Reading electron configurations from the reference tables; identifying excited vs. ground state",
+    "nyssls": "—",
+    "phenomenon": "Why does fireworks chemistry produce a different color for every element?",
+    "labs": "Flame test lab; excited-state configuration practice",
+    "assessments": "Configuration ground-state/excited-state quiz"
+   },
+   {
+    "topicIdx": 6,
+    "lessonDir": "07_Bright_Line_Spectra",
+    "topic": "Bright-Line Spectra",
+    "subTopics": "Emission spectra as fingerprints of elements; relating spectral lines to electron transitions",
+    "nyssls": "—",
+    "phenomenon": "How do astronomers know what stars are made of without ever visiting one?",
+    "labs": "Spectroscope observation of gas-discharge tubes; element-identification challenge",
+    "assessments": "Spectrum-to-element identification check"
+   },
+   {
+    "topicIdx": 7,
+    "lessonDir": "08_Emission_Spectrum_Electromagnetic_Spectrum",
+    "topic": "Emission Spectrum / Electromagnetic Spectrum",
+    "subTopics": "EM spectrum regions and energies; relationship between wavelength, frequency, and energy",
+    "nyssls": "PS4-4 Evaluate the validity and reliability of claims in published materials of the effects that different frequencies of electromagnetic radiation have when absorbed by matter.",
+    "phenomenon": "Why is UV light dangerous but radio waves harmless?",
+    "labs": "Light Emission Spectra Simulator; EM spectrum sorting activity",
+    "assessments": "EM spectrum & wavelength-energy quiz"
+   }
+  ]
+ },
+ {
+  "unitIdx": 6,
+  "unitDir": "06_Nuclear_Chemistry",
+  "unitName": "Nuclear Chemistry",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Radioactivity",
+    "topic": "Radioactivity",
+    "subTopics": "Alpha, beta (electron and positron), and gamma emission; identifying radiation types and their properties",
+    "nyssls": "HS-PS1-8, 1.a.i–iii. Students will develop models in which they identify and describe the components of the models including: identification of element by the number of protons; the number of protons and neutrons in the nucleus before and after the decay; the identity of the emitted particles (alpha, beta — both electrons and positrons, and gamma).",
+    "phenomenon": "Why are some atoms unstable and 'decay' on their own?",
+    "labs": "Cloud chamber demo (or video); paper-shielding investigation for radiation types",
+    "assessments": "Radiation type identification quiz"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Transmutation_Reactions",
+    "topic": "Transmutation Reactions",
+    "subTopics": "Natural and artificial transmutation; nuclear equations; fission and fusion models; conservation of mass and charge in nuclear processes",
+    "nyssls": "HS-PS1-8 (multiple): Students will develop five distinct models illustrating fission, fusion, and three types of radioactive decay, including: total nucleons conserved; energy changes much larger than chemical changes (10⁵–10⁶×); fusion = two nuclei merge into one larger nucleus; fission = nucleus splits into smaller fragments; decay models illustrate energy and particle types for α, β, γ; alpha emission is a type of fission; beta and gamma emission are not.",
+    "phenomenon": "How does the Sun produce its energy and how is that different from what happens in a nuclear power plant?",
+    "labs": "Fission vs. fusion model construction; balancing nuclear equations practice",
+    "assessments": "Five-model nuclear-process portfolio (fission, fusion, α, β, γ)"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Half_Life",
+    "topic": "Half-Life",
+    "subTopics": "Defining half-life; calculations using fraction remaining, time elapsed, and number of half-lives",
+    "nyssls": "—",
+    "phenomenon": "How can we use radioactive isotopes to date a 5,000-year-old artifact?",
+    "labs": "M&M / penny half-life simulation; carbon-14 dating problems",
+    "assessments": "Half-life problem set"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Benefits_and_Risks_of_Nuclear_Chemistry",
+    "topic": "Benefits & Risks of Nuclear Chemistry",
+    "subTopics": "Medical imaging, cancer treatment, power generation, nuclear weapons; risk-benefit analysis",
+    "nyssls": "PS4-4 Evaluate the validity and reliability of claims in published materials of the effects that different frequencies of electromagnetic radiation have when absorbed by matter.",
+    "phenomenon": "Should our community accept a nuclear power plant nearby?",
+    "labs": "Risk-benefit case studies (Chernobyl, Fukushima, medical isotopes); structured debate",
+    "assessments": "Argumentative writing: risk-benefit position paper"
+   }
+  ]
+ },
+ {
+  "unitIdx": 7,
+  "unitDir": "07_The_Periodic_Table",
+  "unitName": "The Periodic Table",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Placement_of_Elements",
+    "topic": "Placement of Elements",
+    "subTopics": "Periods and groups; arrangement by atomic number; relationship between position and electron configuration",
+    "nyssls": "PS1-1 Elements and their arrangement in the periodic table: i. The arrangement of the main groups reflects the patterns of outermost electrons. ii. Elements are arranged by the numbers of protons in atoms. PS1-2 The outermost (valence) electron state of the atoms that make up reactants and products is based on their position in the periodic table.",
+    "phenomenon": "Why does the periodic table have such a strange shape?",
+    "labs": "Mendeleev predict-the-element activity; \"discovering\" pattern from element properties  Mendeleev's Periodic Table - Javalab",
+    "assessments": "Element-placement reasoning quiz"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Electron_Configuration_and_Valence_Electrons",
+    "topic": "Electron Configuration & Valence Electrons",
+    "subTopics": "Identifying valence electrons from group number; electron configurations from the reference table",
+    "nyssls": "PS1-1 Electrons in the outermost energy level of atoms (i.e., valence electrons).",
+    "phenomenon": "Why do all the elements in a column behave so similarly?",
+    "labs": "Valence electron diagrams; group-property prediction stations",
+    "assessments": "Valence electron identification quiz"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Classes_of_Elements",
+    "topic": "Classes of Elements",
+    "subTopics": "Metals, nonmetals, metalloids; properties and reactivity (without emphasis on group names)",
+    "nyssls": "Not names of groups — focus on reactivity.",
+    "phenomenon": "Why are metals shiny and conductive but nonmetals are dull and brittle?",
+    "labs": "Metal vs. nonmetal property comparison lab (conductivity, malleability, luster) The Ductility and Malleability of Metal - Javalab",
+    "assessments": "Metal/nonmetal/metalloid classification check"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Allotropes",
+    "topic": "Allotropes",
+    "subTopics": "Different molecular forms of the same element (e.g., diamond, graphite, graphene; O₂ and O₃)",
+    "nyssls": "—",
+    "phenomenon": "Why is diamond the hardest natural substance but graphite is soft enough to write with — when both are pure carbon?",
+    "labs": "Carbon allotrope structure-modeling activity",
+    "assessments": "Allotrope short-response question"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_Periodic_Trends",
+    "topic": "Periodic Trends",
+    "subTopics": "Atomic radius, ionization energy, electronegativity, metallic character; trends across periods and down groups",
+    "nyssls": "PS1-1 Students use the periodic table to predict patterns of behavior based on attraction and repulsion between electrically charged particles, and the patterns of outermost electrons that determine reactivity. The trend in reactivity and electronegativity down a group and across a row is based on attractions of valence electrons to the nucleus; and the relative sizes of atoms across a row and down a group. PS1-2 The patterns of reactivity (e.g., the high reactivity of alkali metals) at the macroscopic level. Students describe the causal relationship between the observable patterns of reactivity and the patterns of outermost electrons.",
+    "phenomenon": "Why does francium react more violently with water than sodium does?",
+    "labs": "Alkali metal in water demonstration video; trend-graphing lab using reference table data",
+    "assessments": "Periodic trends prediction & explanation assessment"
+   }
+  ]
+ },
+ {
+  "unitIdx": 8,
+  "unitDir": "08_Chemical_Bonding",
+  "unitName": "Chemical Bonding",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Naming_Compounds",
+    "topic": "Naming Compounds",
+    "subTopics": "Binary ionic, ternary ionic (polyatomic), covalent (Greek prefix), and acids using IUPAC rules",
+    "nyssls": "—",
+    "phenomenon": "Why does chemistry have such a complicated naming system?",
+    "labs": "Compound-naming card game; nomenclature flow-chart practice",
+    "assessments": "Naming and formula-writing quiz"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Identifying_Bond_Type_and_Number",
+    "topic": "Identifying Bond Type & Number",
+    "subTopics": "Ionic, covalent, metallic bonds; predicting bond type from electronegativity difference and element types",
+    "nyssls": "PS1-1 i. The number and types of bonds formed (ionic, covalent, metallic) by an element and between elements. PS1-2 The numbers and types of bonds (ionic, covalent) that each atom forms, as determined by valence electron states and electronegativity. PS1-2 A discussion of how the patterns of attraction allow the prediction of the type of reaction that occurs (e.g., formation of ionic compounds, combustion of hydrocarbons).",
+    "phenomenon": "Why does salt dissolve in water but oil does not?",
+    "labs": "State Lab: Bend and Stretch; bond-type prediction from electronegativity difference",
+    "assessments": "State Lab: Bend and Stretch lab report"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Writing_Formulas_from_Names",
+    "topic": "Writing Formulas from Names",
+    "subTopics": "Crossing charges; reducing subscripts; handling polyatomic ions",
+    "nyssls": "—",
+    "phenomenon": "How does a chemical formula tell us the exact ratio of atoms?",
+    "labs": "Formula-writing dominoes; polyatomic ion practice",
+    "assessments": "Formula-writing quiz"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Ionic_Bonding",
+    "topic": "Ionic Bonding",
+    "subTopics": "Electron transfer; lattice structure; properties of ionic compounds (high MP, conductivity in solution)",
+    "nyssls": "—",
+    "phenomenon": "Why do salt crystals always grow as cubes?",
+    "labs": "Crystal-growing lab; ionic-lattice 3D modeling",
+    "assessments": "Ionic compound properties quiz"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_Covalent_Bonding_incl_Organic_Structures",
+    "topic": "Covalent Bonding (incl. Organic Structures)",
+    "subTopics": "Single, double, and triple covalent bonds; introduction to organic structural formulas",
+    "nyssls": "—",
+    "phenomenon": "Why does water have such unusual properties (surface tension, expanding when frozen, high boiling point)?",
+    "labs": "Molecular model kits (water, methane, ammonia, CO₂); building organic molecules",
+    "assessments": "Covalent structure drawing assessment"
+   },
+   {
+    "topicIdx": 5,
+    "lessonDir": "06_Metallic_Bonding",
+    "topic": "Metallic Bonding",
+    "subTopics": "\"Sea of electrons\" model; explaining conductivity, malleability, ductility, luster",
+    "nyssls": "—",
+    "phenomenon": "Why can you bend a copper wire but a salt crystal shatters?",
+    "labs": "Metal-property exploration; conductivity testing of metals vs. ionic compounds",
+    "assessments": "Metallic bonding short-response"
+   },
+   {
+    "topicIdx": 6,
+    "lessonDir": "07_Lewis_Dot_Diagrams",
+    "topic": "Lewis Dot Diagrams",
+    "subTopics": "Drawing Lewis structures for atoms, ions, and molecules; octet rule",
+    "nyssls": "—",
+    "phenomenon": "How can a simple dot diagram predict how molecules will form?",
+    "labs": "Lewis structure drawing practice; \"chemistry pictionary\" with Lewis dots",
+    "assessments": "Lewis structure quiz"
+   },
+   {
+    "topicIdx": 7,
+    "lessonDir": "08_Molecular_Geometry_VSEPR",
+    "topic": "Molecular Geometry (VSEPR)",
+    "subTopics": "Predicting shapes from electron pair repulsion (linear, bent, trigonal planar, tetrahedral, etc.)",
+    "nyssls": "—",
+    "phenomenon": "Why is water bent but carbon dioxide linear, when both have 3 atoms?",
+    "labs": "Balloon VSEPR demo; molecular model construction; shape-prediction stations",
+    "assessments": "VSEPR shape-prediction quiz"
+   },
+   {
+    "topicIdx": 8,
+    "lessonDir": "09_Intermolecular_Forces",
+    "topic": "Intermolecular Forces",
+    "subTopics": "Strength of forces between molecules; relating IMF to bulk properties (BP, viscosity, surface tension)",
+    "nyssls": "HS-PS1-3 Strength of forces between molecules — not naming different forces. Bulk properties based on IMF. HS-PS2-6: Communicate scientific and technical information about why the molecular-level structure is important in the functioning of designed materials.",
+    "phenomenon": "Why can a water strider walk on water? Surface tension – swimmer / Water hat",
+    "labs": "Surface tension explorations (paper clip on water, drops on penny); viscosity races (honey, oil, water)",
+    "assessments": "IMF–property matching assessment"
+   },
+   {
+    "topicIdx": 9,
+    "lessonDir": "10_Polar_and_Nonpolar_Bonds_and_Molecules",
+    "topic": "Polar & Nonpolar Bonds and Molecules",
+    "subTopics": "Bond polarity from electronegativity; molecular polarity from shape + bond polarity (inorganic and organic)",
+    "nyssls": "DCPS2.B: Attraction and repulsion between electric charges at the atomic scale explain the structure, properties, and transformations of matter.",
+    "phenomenon": "Why do M&M coatings only float in some liquids? Floating M&Ms",
+    "labs": "Floating M&Ms exploration; \"like dissolves like\" stations; bending water with a charged rod",
+    "assessments": "Acetone Mystery Case; Bonding & Solutions Assessment Question"
+   }
+  ]
+ },
+ {
+  "unitIdx": 9,
+  "unitDir": "09_Chemical_Reactions_and_Moles",
+  "unitName": "Chemical Reactions & Moles",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Writing_and_Balancing_Equations",
+    "topic": "Writing & Balancing Equations",
+    "subTopics": "Symbolic representations of reactions; balancing using coefficients; states of matter",
+    "nyssls": "HS-PS1-7, 1.a.i. Students will identify and describe the quantities of reactants of a chemical reaction in terms of atoms, moles, and mass. HS-PS1-7, 1.a.iii. Students will use balanced chemical equations. PS1-2 The total number of atoms of each element in the reactant and products is the same.",
+    "phenomenon": "Why must atoms balance on both sides of a chemical equation?",
+    "labs": "Balancing equations practice; \"atoms in/atoms out\" model with manipulatives",
+    "assessments": "Balancing equations quiz"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Conservation_of_Matter",
+    "topic": "Conservation of Matter",
+    "subTopics": "Mass is conserved in chemical reactions; reasoning from balanced equations and stoichiometry",
+    "nyssls": "HS-PS1-7, 1.a.iv. Students will identify that atoms, and therefore mass, are conserved during a chemical reaction. HS-PS1-7, 3.a. Students will describe how mathematical representations (e.g., stoichiometric calculations) support the claim that mass is conserved.",
+    "phenomenon": "When you burn steel wool it gets HEAVIER — where does the extra mass come from? Burning steel wool",
+    "labs": "Burning steel wool mass-comparison lab; closed-system reaction mass measurement",
+    "assessments": "Conservation of mass CER (claim-evidence-reasoning) write-up"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Types_of_Chemical_Reactions",
+    "topic": "Types of Chemical Reactions",
+    "subTopics": "Synthesis, decomposition, single replacement, double replacement, combustion; predicting products",
+    "nyssls": "PS1-2 A discussion of how the patterns of attraction allow the prediction of the type of reaction that occurs (e.g., formation of ionic compounds, combustion of hydrocarbons). PS1-2 Identification of the products and reactants, including their chemical formulas and the arrangement of their outermost (valence) electrons.",
+    "phenomenon": "Why do some pairs of chemicals react instantly when mixed and others don't react at all?",
+    "labs": "Reaction-type stations lab (5 reactions, classify each); precipitation reaction tray",
+    "assessments": "Reaction-type identification quiz"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Spontaneous_Reactions",
+    "topic": "Spontaneous Reactions",
+    "subTopics": "Predicting whether reactions occur using activity series and reactivity patterns",
+    "nyssls": "PS1-2 The patterns of reactivity (e.g., the high reactivity of alkali metals) at the macroscopic level as determined by using the periodic table. The outermost (valence) electron configuration and the relative electronegativity of atoms in reactants and products based on periodic-table position.",
+    "phenomenon": "Why does a piece of zinc 'dissolve' in copper sulfate solution but copper does nothing in zinc sulfate?",
+    "labs": "Activity series single-replacement micro-lab",
+    "assessments": "Predict-the-product assessment"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_Defining_the_Mole",
+    "topic": "Defining the Mole",
+    "subTopics": "Mole as a counting unit; Avogadro's number; mass of one mole of various substances",
+    "nyssls": "HS-PS1-7, 2.a.iv. Students will identify that atoms, and therefore mass, are conserved during a chemical reaction.",
+    "phenomenon": "How do chemists count atoms when they're far too small and numerous to see?",
+    "labs": "\"What does a mole look like?\" demos with sugar, salt, water, marbles",
+    "assessments": "Mole concept quiz"
+   },
+   {
+    "topicIdx": 5,
+    "lessonDir": "06_Empirical_and_Molecular_Formulas",
+    "topic": "Empirical & Molecular Formulas",
+    "subTopics": "Determining empirical formula from percent composition; finding molecular formula from molar mass",
+    "nyssls": "—",
+    "phenomenon": "How can chemists figure out an unknown compound's formula from just lab data?",
+    "labs": "Empirical formula of magnesium oxide lab; percent composition → empirical formula practice",
+    "assessments": "Empirical/molecular formula problem set"
+   },
+   {
+    "topicIdx": 6,
+    "lessonDir": "07_Mole_Calculations_and_Stoichiometry",
+    "topic": "Mole Calculations & Stoichiometry",
+    "subTopics": "Mole-mole, mass-mass, and mass-mole conversions using balanced equations; limiting reactants (qualitative)",
+    "nyssls": "HS-PS1-7, 1.a.iii. Students will use balanced chemical equations. HS-PS1-7, 2.b.i. Given a chemical reaction, students will use mathematical representations to predict the relative number of atoms in reactants vs. products at the atomic-molecular scale. HS-PS1-7, 2.b.ii. Given a chemical reaction, students will use mathematical representations to calculate the mass of any component, given any other component.",
+    "phenomenon": "Why does a campfire eventually go out — even when there's still wood and air left? Limiting reactants",
+    "labs": "S'mores stoichiometry; limiting reactant lab (Mg + HCl); recipe-scaling analogy",
+    "assessments": "Stoichiometry problem set; lab calculation report"
+   }
+  ]
+ },
+ {
+  "unitIdx": 10,
+  "unitDir": "10_Solutions",
+  "unitName": "Solutions",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Classifying_Solutions",
+    "topic": "Classifying Solutions",
+    "subTopics": "Solute, solvent; saturated, unsaturated, supersaturated solutions; aqueous solutions",
+    "nyssls": "PS1-10: Solutions — Use evidence to support claims regarding the formation, properties, and behaviors of solutions at bulk scales.",
+    "phenomenon": "Why does sugar dissolve faster in hot tea than iced tea?",
+    "labs": "Saturation investigation lab; supersaturated sodium acetate \"hot ice\" demo; rock candy growing",
+    "assessments": "Fast and Fragrant performance task"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Precipitation",
+    "topic": "Precipitation",
+    "subTopics": "Disguise between soluble and insoluble compounds in an aqueous solution",
+    "nyssls": "",
+    "phenomenon": "Why do solids form when mixing certain ionic solutions?",
+    "labs": "Precipitation Reaction - Javalab",
+    "assessments": "Reference Table of interpretation quiz"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Using_Solubility_Tables",
+    "topic": "Using Solubility Tables",
+    "subTopics": "Reading Reference Table G; predicting solubility of solids vs. gases at varied temperature",
+    "nyssls": "—",
+    "phenomenon": "Why does a warm soda go flat faster than a cold one?",
+    "labs": "Solubility – Javalab; reference table interpretation practice",
+    "assessments": "Reference Table G interpretation quiz"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Vapor_Pressure",
+    "topic": "Vapor Pressure",
+    "subTopics": "Equilibrium vapor pressure; relationship to IMF and boiling point; reading Reference Table H",
+    "nyssls": "HS-PS1-3 Strength of IMF in relation to vapor pressure.",
+    "phenomenon": "Why does water boil at a lower temperature on a mountaintop? Why do hydrothermal vents stay liquid at high temperatures?",
+    "labs": "Pressure cooker demo; vapor pressure curve interpretation",
+    "assessments": "Vapor pressure & boiling point quiz"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_Concentration_of_Solutions",
+    "topic": "Concentration of Solutions",
+    "subTopics": "Molarity (M); parts per million (ppm); percent by mass; dilution calculations",
+    "nyssls": "PS1-10 Concentrations can be quantitatively expressed in ppm, molarity, and percent by mass.",
+    "phenomenon": "What does \"5 ppm of lead\" in drinking water actually mean — is it dangerous?",
+    "labs": "Molarity lab (preparing standard solutions); dilution practice problems",
+    "assessments": "Concentration calculation quiz"
+   },
+   {
+    "topicIdx": 5,
+    "lessonDir": "06_Colligative_Properties",
+    "topic": "Colligative Properties",
+    "subTopics": "Boiling point elevation and freezing point depression (qualitative only); examples in everyday life",
+    "nyssls": "PS1-10 Examples of physical properties could include colligative properties, degree of saturation, physical behavior of solutions, solvation process and conductivity. NOT TEACH: calculating FP depression / BP elevation. Assessment is limited to qualitative statements.",
+    "phenomenon": "Why do we salt the roads in winter? Why don't bubbles freeze the way water does? Bubble freeze",
+    "labs": "Salt + ice ice-cream-in-a-bag lab; antifreeze investigation",
+    "assessments": "Colligative properties qualitative explanation"
+   },
+   {
+    "topicIdx": 6,
+    "lessonDir": "07_STP_and_Standard_Conditions",
+    "topic": "STP & Standard Conditions",
+    "subTopics": "Defining STP; using standard conditions in solution and gas calculations",
+    "nyssls": "—",
+    "phenomenon": "Why do scientists need a common 'standard' for reporting results?",
+    "labs": "STP reference table use; standard conditions discussion",
+    "assessments": "STP quick check"
+   }
+  ]
+ },
+ {
+  "unitIdx": 11,
+  "unitDir": "11_Kinetics_and_Equilibrium",
+  "unitName": "Kinetics & Equilibrium",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Collision_Theory_and_Rates_of_Reaction",
+    "topic": "Collision Theory & Rates of Reaction",
+    "subTopics": "Factors that affect rate (temperature, concentration, surface area, catalysts); molecular collision model",
+    "nyssls": "HS-PS1-5: Students construct an explanation that includes the idea that as the kinetic energy of colliding particles increases and the number of collisions increases, the reaction rate increases.",
+    "phenomenon": "Why does a glow stick glow longer in cold water than in hot water?",
+    "labs": "Alka-Seltzer rate investigation (variables: temperature, surface area); glow-stick rate demo",
+    "assessments": "Reaction rate factor lab report"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Energy_in_Reactions",
+    "topic": "Energy in Reactions",
+    "subTopics": "Endothermic vs. exothermic; activation energy; bond breaking absorbs energy, bond forming releases energy",
+    "nyssls": "HS-PS1-4 — Develop a model to illustrate that the release or absorption of energy from a chemical reaction system depends on the changes in total bond energy. Model the chemical reaction, bonds broken/formed, energy transfer between components, and relative potential energies of reactants and products.",
+    "phenomenon": "Why does a hand warmer release heat for hours? Why does an instant cold pack feel so cold?",
+    "labs": "Hot/cold pack investigation; bond energy diagram construction",
+    "assessments": "Energy diagram interpretation quiz"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Potential_Energy_Diagrams",
+    "topic": "Potential Energy Diagrams",
+    "subTopics": "Reading PE diagrams: reactants, products, ΔH, activation energy, activated complex; effect of catalysts",
+    "nyssls": "DC1.B: Chemical processes, their rates, and whether or not energy is stored or released can be understood in terms of the collisions of molecules and the rearrangements of atoms into new molecules. PS3-1 The boundaries of the system and that the reference level for potential energy = 0 (the potential energy of the initial or final state does not have to be zero).",
+    "phenomenon": "Why won't gasoline burn until you provide a spark, even though it's a highly exothermic reaction?",
+    "labs": "PE diagram drawing practice; catalyst effect on diagrams",
+    "assessments": "PE diagram interpretation quiz"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Spontaneous_Reactions",
+    "topic": "Spontaneous Reactions",
+    "subTopics": "Conditions favoring spontaneous reactions: enthalpy and entropy considerations (qualitative)",
+    "nyssls": "—",
+    "phenomenon": "Why does a messy room never tidy itself, but a tidy room becomes messy on its own?",
+    "labs": "Entropy demonstrations (gas diffusion, dissolving, mixing); spontaneity card sort",
+    "assessments": "Spontaneity prediction check"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_Chemical_Equilibrium",
+    "topic": "Chemical Equilibrium",
+    "subTopics": "Dynamic equilibrium; reversible reactions; characteristics at equilibrium (rates equal, concentrations constant)",
+    "nyssls": "PS1-B: In many situations, a dynamic and condition-dependent balance between a reaction and the reverse reaction determines the numbers of all types of molecules present.",
+    "phenomenon": "Why does a sealed bottle of soda maintain its fizz indefinitely, but goes flat once opened?",
+    "labs": "Cup-transfer equilibrium simulation; CoCl₂ equilibrium color change",
+    "assessments": "Equilibrium concept quiz"
+   },
+   {
+    "topicIdx": 5,
+    "lessonDir": "06_Le_Chatelier_s_Principle",
+    "topic": "Le Châtelier's Principle",
+    "subTopics": "Predicting equilibrium shifts due to changes in concentration, pressure, temperature; effect of catalysts",
+    "nyssls": "HS-PS1-6: Refine the design of a chemical system by specifying a change in conditions that would produce increased amounts of products at equilibrium. Emphasis on changes at the macroscopic and molecular level; refining designs of chemical reactions.",
+    "phenomenon": "How do industrial chemists optimize ammonia production (Haber process)?",
+    "labs": "Le Châtelier color-change investigations (CoCl₂, FeSCN²⁺); Haber process case study",
+    "assessments": "Le Châtelier shift prediction assessment"
+   }
+  ]
+ },
+ {
+  "unitIdx": 12,
+  "unitDir": "12_Acids_and_Bases",
+  "unitName": "Acids & Bases",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Arrhenius_Theory",
+    "topic": "Arrhenius Theory",
+    "subTopics": "Arrhenius definition of acids (H⁺ producers) and bases (OH⁻ producers); identifying acids and bases from formulas",
+    "nyssls": "—",
+    "phenomenon": "Why do all acids share certain properties (sour taste, react with metals) regardless of identity?",
+    "labs": "Acid/base identification practice; properties of acids and bases stations lab",
+    "assessments": "State Lab (acids and bases)"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Neutralization",
+    "topic": "Neutralization",
+    "subTopics": "Acid + base → salt + water; writing and balancing neutralization equations",
+    "nyssls": "Neutralization capability and conductivity, reactions with other substances.",
+    "phenomenon": "Why do we take antacids for heartburn?",
+    "labs": "Antacid effectiveness lab; neutralization color-change demonstrations",
+    "assessments": "Neutralization equation writing quiz"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Titration",
+    "topic": "Titration",
+    "subTopics": "Titration procedures; equivalence point; calculations using M_a V_a = M_b V_b",
+    "nyssls": "PS1-11: Acids and Bases — Plan and conduct an investigation to compare properties and behaviors of acids and bases.",
+    "phenomenon": "How can chemists determine the exact concentration of an unknown acid or base?",
+    "labs": "Acid-base titration lab (NaOH + HCl with phenolphthalein); titration calculation practice",
+    "assessments": "Titration lab report; calculation quiz"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Brnsted_Lowry_Theory",
+    "topic": "Brønsted-Lowry Theory",
+    "subTopics": "Proton donors and acceptors; conjugate acid-base pairs",
+    "nyssls": "PS1-11 Reactions are limited to Arrhenius and Brønsted-Lowry acid-base reactions.",
+    "phenomenon": "How can ammonia (NH₃) be a base when it doesn't contain OH⁻?",
+    "labs": "Conjugate pair identification practice; comparison of Arrhenius vs. Brønsted-Lowry models",
+    "assessments": "Brønsted-Lowry conjugate pair quiz"
+   },
+   {
+    "topicIdx": 4,
+    "lessonDir": "05_pH_and_Indicators",
+    "topic": "pH & Indicators",
+    "subTopics": "The pH scale; relationship between [H⁺] and pH; common indicators and color changes",
+    "nyssls": "PS1-11 Examples of properties could include pH values (concentration). Observations of behaviors could include the effects on indicators. PS1-11 Acids and bases play an important role in the daily lives of humans and other organisms (agricultural applications, environmental impact (acid rain), and animal and plant physiology).",
+    "phenomenon": "Why does a hydrangea plant produce blue flowers in some yards and pink in others?",
+    "labs": "Red cabbage indicator lab; pH of household substances; acid rain investigation",
+    "assessments": "pH calculation and interpretation quiz"
+   }
+  ]
+ },
+ {
+  "unitIdx": 13,
+  "unitDir": "13_Redox_and_Electrochemistry",
+  "unitName": "Redox & Electrochemistry",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Assigning_Oxidation_Numbers",
+    "topic": "Assigning Oxidation Numbers",
+    "subTopics": "Rules for assigning oxidation states; identifying changes in oxidation number",
+    "nyssls": "—",
+    "phenomenon": "Why does a shiny new copper penny eventually turn green?",
+    "labs": "Oxidation number practice; tarnishing of copper / silver demonstration",
+    "assessments": "Oxidation number assignment quiz"
+   },
+   {
+    "topicIdx": 1,
+    "lessonDir": "02_Identifying_Reduction_and_Oxidation",
+    "topic": "Identifying Reduction & Oxidation",
+    "subTopics": "OIL RIG / LEO the lion; identifying which species is oxidized and which is reduced",
+    "nyssls": "—",
+    "phenomenon": "Why does an iron nail rust faster in salt water than in fresh water?",
+    "labs": "Rusting nails investigation (variables: water, salt, oil); identifying redox in everyday reactions",
+    "assessments": "Redox identification quiz"
+   },
+   {
+    "topicIdx": 2,
+    "lessonDir": "03_Writing_Half_Reactions",
+    "topic": "Writing Half-Reactions",
+    "subTopics": "Splitting redox into oxidation and reduction half-reactions; balancing electrons; net ionic equations",
+    "nyssls": "PS1-12 Evidence could include half-reactions, net ionic equations, and electrochemical cells to illustrate the mechanism of electron transfer.",
+    "phenomenon": "How can we 'see' the invisible flow of electrons in a chemical reaction?",
+    "labs": "Half-reaction balancing practice; single-replacement reaction half-reaction modeling",
+    "assessments": "Half-reaction balancing quiz"
+   },
+   {
+    "topicIdx": 3,
+    "lessonDir": "04_Electrochemical_Cells",
+    "topic": "Electrochemical Cells",
+    "subTopics": "Voltaic and electrolytic cells; anode, cathode, salt bridge; predicting cell potential and direction of electron flow",
+    "nyssls": "PS1-12 Transfer of Electrons — Use evidence to illustrate that some chemical reactions involve the transfer of electrons as an energy conversion occurs within a system. PS1-12 Oxidation reduction is the prevailing source of power for many of today's modern conveniences. HS-PS2-6: Communicate scientific and technical information about why the molecular-level structure is important in the functioning of designed materials.",
+    "phenomenon": "How does a battery actually produce electricity? Why do batteries eventually die?",
+    "labs": "Lemon / potato battery lab; Cu/Zn voltaic cell construction; electroplating demonstration",
+    "assessments": "Voltaic cell diagram & explanation assessment"
+   }
+  ]
+ },
+ {
+  "unitIdx": 14,
+  "unitDir": "14_Regents_Review",
+  "unitName": "REGENTS REVIEW",
+  "topics": [
+   {
+    "topicIdx": 0,
+    "lessonDir": "01_Cumulative_Review",
+    "topic": "Cumulative Review",
+    "subTopics": "Mixed-topic problem sets; review of high-frequency Regents topics; reference table fluency",
+    "nyssls": "All HS-PS standards covered in the course.",
+    "phenomenon": "How do all the units of chemistry connect into one understanding of matter and energy?",
+    "labs": "Regents past-exam practice; reference table speed drills; topic-specific review stations; mock Regents exam",
+    "assessments": "Practice Regents exams; topic mastery checks"
+   }
+  ]
+ }
+]
