@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Doppler Effect · Waves &amp; Sound · Lesson 06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Waves &amp; Sound</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 06 · Unit: Waves &amp; Sound</div>
+    <h1>The Doppler Effect</h1>
+    <p class="lede">If the siren makes the same pitch the whole time, why do you hear it change?</p>
+    <div class="chips"><span class="chip hochman">Hochman</span></div>
+    <a href="../teacher_guides/06-the-doppler-effect-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>An ambulance races past you. The driver hears one steady siren the whole time — but you, on the curb, hear the pitch drop the instant it passes. Out in space, astronomers see the light from distant galaxies "shifted" toward red. The source never changed its note.</p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>If the siren makes the same pitch the whole time, why do <em>you</em> hear it change?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<p>Listen to a siren pass by. Write two things you notice and two things you wonder about the pitch you hear before and after it passes.</p>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">Share with your partner: if the siren's pitch is constant, why does the listener on the curb hear it change?</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Draw a source sitting still, making circular wavefronts. Then draw the same source <strong>moving to the right</strong>. Show what happens to the spacing of the wavefronts <em>ahead</em> of it and <em>behind</em> it.</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>The source (orange) emits circular wavefronts at a steady rate. Drag the <strong>source speed</strong> slider. Watch the wavefronts <strong>bunch up ahead</strong> (shorter wavelength → higher observed frequency) and <strong>stretch out behind</strong> (longer wavelength → lower observed frequency). The listeners' frequency read-outs update live.</p>
+<div data-interactive="true">
+<svg aria-label="Doppler effect wavefronts" height="240" id="dp-canvas" role="img" viewbox="0 0 480 240" width="480">
+<g fill="none" id="dp-fronts" stroke="#662e80" stroke-width="1.5"></g>
+<circle cx="240" cy="120" fill="#e67e22" id="dp-source" r="7"></circle>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="11" x="20" y="20">← behind (lower f, redshift)</text>
+<text fill="#d33" font-family="Inter, sans-serif" font-size="11" x="300" y="20">ahead (higher f, blueshift) →</text>
+</svg>
+<div class="controls">
+<label>Source speed (fraction of wave speed): <input id="dp-speed" max="80" min="0" type="range" value="40"/> <span class="readout" id="dp-sr">0.40</span> v</label>
+<button id="dp-play" type="button">Pause</button>
+<p>Observer ahead hears f ≈ <span class="readout" id="dp-fa">—</span> · Observer behind hears f ≈ <span class="readout" id="dp-fb">—</span> (source emits 1.00)</p>
+</div>
+<script>
+      (function () {
+        const NS = "http://www.w3.org/2000/svg";
+        const fronts = document.getElementById("dp-fronts");
+        const source = document.getElementById("dp-source");
+        const speedS = document.getElementById("dp-speed");
+        const W = 480, MIDY = 120, C = 1.4;     // wave-front growth px per tick
+        const EMIT = 26;                          // ticks between emissions
+        let playing = true, t = 0, raf = null;
+        let waves = [];                           // {x0, born}
+        let sx = 120;                             // source x
+        function step() {
+          const beta = +speedS.value / 100;       // source speed as fraction of wave speed
+          document.getElementById("dp-sr").textContent = beta.toFixed(2);
+          const srcV = beta * C;
+          sx += srcV;
+          if (sx > W - 40) { sx = 40; waves = []; }  // wrap & reset for clarity
+          source.setAttribute("cx", sx);
+          if (t % EMIT === 0) waves.push({ x0: sx, born: t });
+          fronts.innerHTML = "";
+          for (const w of waves) {
+            const r = (t - w.born) * C;
+            if (r > W) continue;
+            const c = document.createElementNS(NS, "circle");
+            c.setAttribute("cx", w.x0); c.setAttribute("cy", MIDY);
+            c.setAttribute("r", r); c.setAttribute("fill", "none");
+            c.setAttribute("stroke", "#662e80"); c.setAttribute("stroke-width", 1.5);
+            c.setAttribute("opacity", Math.max(0.15, 1 - r / W));
+            fronts.appendChild(c);
+          }
+          waves = waves.filter(w => (t - w.born) * C <= W);
+          // observed frequency factors: ahead 1/(1-beta), behind 1/(1+beta)
+          const fa = 1 / (1 - Math.min(0.95, beta));
+          const fb = 1 / (1 + beta);
+          document.getElementById("dp-fa").textContent = fa.toFixed(2);
+          document.getElementById("dp-fb").textContent = fb.toFixed(2);
+          t++;
+          if (playing) raf = requestAnimationFrame(step);
+        }
+        speedS.oninput = () => { if (!playing) step(); };
+        document.getElementById("dp-play").onclick = (e) => {
+          playing = !playing;
+          e.target.textContent = playing ? "Pause" : "Play";
+          if (playing) raf = requestAnimationFrame(step);
+          else if (raf) cancelAnimationFrame(raf);
+        };
+        step();
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> A stationary source emits evenly spaced circular wavefronts in all directions. Every observer hears the same frequency the source emits.</p>
+<svg height="160" viewbox="0 0 200 160" width="200">
+<circle cx="100" cy="80" fill="none" r="20" stroke="#662e80"></circle>
+<circle cx="100" cy="80" fill="none" r="40" stroke="#662e80"></circle>
+<circle cx="100" cy="80" fill="none" r="60" stroke="#662e80"></circle>
+<circle cx="100" cy="80" fill="#e67e22" r="6"></circle>
+</svg>
+<p><strong>Storyboard frame 2.</strong> A source moving to the right "catches up" to its own wavefronts ahead — they bunch together (shorter wavelength, higher frequency, blueshift) — and falls away from those behind — they stretch out (longer wavelength, lower frequency, redshift).</p>
+<svg height="160" viewbox="0 0 240 160" width="240">
+<circle cx="80" cy="80" fill="none" r="55" stroke="#2ea3f2"></circle>
+<circle cx="110" cy="80" fill="none" r="38" stroke="#662e80"></circle>
+<circle cx="135" cy="80" fill="none" r="22" stroke="#d33"></circle>
+<circle cx="150" cy="80" fill="#e67e22" r="6"></circle>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="10" x="10" y="150">stretched (behind)</text>
+<text fill="#d33" font-family="Inter, sans-serif" font-size="10" x="150" y="150">bunched (ahead)</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> The wave's speed in the medium never changes — only the wavelength the observer receives. A galaxy whose light is redshifted is moving away from us, which is evidence the universe is expanding.</p>
+<svg height="120" viewbox="0 0 240 120" width="240">
+<text fill="#d33" font-family="Inter, sans-serif" font-size="11" x="10" y="50">redshift = moving away</text>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="11" x="10" y="80">blueshift = moving toward</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">When the source moves toward an observer, what happens to the wavelength they receive — and therefore to the frequency they hear? Use the slider to show your partner.</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>Why does an approaching source sound <em>higher</em> in pitch? Use the word <em>wavelength</em>.</li>
+<li>A star's light is redshifted. Is it moving toward us or away from us? How do you know?</li>
+<li>Does the Doppler effect change the <em>speed</em> of the wave in the medium? Explain.</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"As the source approaches, the wavefronts ahead ___, so the wavelength is ___ and the frequency I hear is ___."</p>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>Doppler effect</strong> — the change in observed frequency/wavelength when a wave source and observer move relative to each other</li>
+<li><strong>frequency shift</strong> — the difference between the frequency a source emits and the frequency an observer receives because of relative motion</li>
+<li><strong>redshift</strong> — a shift of light toward longer wavelengths (lower frequency), indicating the source is moving away; a <em>blueshift</em> is the opposite</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Return to your moving-source drawing. Label the bunched side "higher frequency (blueshift)" and the stretched side "lower frequency (redshift)." Then write a <strong>Because / But / So</strong> sentence.</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>Back to the ambulance: in one sentence, explain why you hear the pitch drop the instant it passes, even though the driver hears a steady siren.</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A race car drives past a spectator.
+      <br/>(a) Does the engine sound <em>higher</em> or <em>lower</em> as it approaches? Explain using wavelength. (b) After it passes, what happens to the pitch and why? (c) Astronomers see the light from a distant galaxy redshifted. What does this tell us about the galaxy's motion, and what does that suggest about the universe?
+    </li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://javalab.org/en/doppler_effect_en/" rel="noopener" target="_blank">Javalab — Doppler Effect (move the source and watch the fronts)</a></li>
+<li><a href="https://www.youtube.com/watch?v=imoxDcn2Sgo" rel="noopener" target="_blank">The Doppler effect: why a siren changes pitch (video)</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="05-interference-constructive-and-destructive.html"><span class="label">← Previous lesson</span><span class="target">Interference: Constructive and Destructive</span></a>
+        <a class="next" href="07-the-electromagnetic-spectrum.html"><span class="label">Next lesson →</span><span class="target">The Electromagnetic Spectrum</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 06 of 10 · Unit: Waves &amp; Sound</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>

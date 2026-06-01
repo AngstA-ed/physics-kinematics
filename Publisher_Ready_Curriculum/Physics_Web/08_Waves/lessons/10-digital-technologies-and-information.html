@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Technologies and Information · Waves &amp; Sound · Lesson 10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Waves &amp; Sound</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 10 · Unit: Waves &amp; Sound</div>
+    <h1>Digital Technologies and Information</h1>
+    <p class="lede">Why does a digital copy survive perfectly while an analog copy degrades?</p>
+    <div class="chips"><span class="chip btc">BTC</span></div>
+    <a href="../teacher_guides/10-digital-technologies-and-information-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>A vinyl record gets scratchier every time it's played, and a copy of a copy of a photocopy turns to mush. But you can stream the same song a million times, or copy a PDF endlessly, and the last copy is identical to the first. Numbers survive copying; smooth waves do not.</p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>Why does a digital copy survive perfectly while an analog copy degrades?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<p>Compare a worn record to a streamed song. Write two things you notice and two things you wonder about why one degrades and the other does not.</p>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">Share with your partner: what is it about storing something as <em>numbers</em> (digital) that lets it survive copying perfectly?</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Draw a smooth wave (analog). Now show how you would store it using only a few measured points (samples). What information do you lose? What do you gain?</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>The smooth purple curve is the <strong>analog</strong> signal. The orange stair-step is its <strong>digital</strong> version — measured (sampled) at regular intervals and rounded to discrete levels. Drag the <strong>sampling rate</strong> slider: more samples means a stair-step that hugs the curve more closely.</p>
+<div data-interactive="true">
+<svg aria-label="Analog vs digital sampling explorer" height="220" id="dg-canvas" role="img" viewbox="0 0 480 220" width="480">
+<g id="dg-levels" stroke="#eee"></g>
+<path d="" fill="none" id="dg-analog" stroke="#662e80" stroke-width="2.5"></path>
+<path d="" fill="none" id="dg-digital" stroke="#e67e22" stroke-width="2.5"></path>
+<g fill="#e67e22" id="dg-dots"></g>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="11" x="24" y="20">analog (smooth)</text>
+<text fill="#e67e22" font-family="Inter, sans-serif" font-size="11" x="24" y="208">digital (sampled + rounded)</text>
+</svg>
+<div class="controls">
+<label>Sampling rate: <input id="dg-rate" max="48" min="4" step="2" type="range" value="12"/> <span class="readout" id="dg-rr">12</span> samples</label>
+<p>Levels (quantization): 8 (= 3 bits) · more samples → digital hugs analog · fewer samples → blocky stair-step</p>
+</div>
+<script>
+      (function () {
+        const NS = "http://www.w3.org/2000/svg";
+        const analog = document.getElementById("dg-analog");
+        const digital = document.getElementById("dg-digital");
+        const dots = document.getElementById("dg-dots");
+        const levelsG = document.getElementById("dg-levels");
+        const rateS = document.getElementById("dg-rate");
+        const X0 = 20, X1 = 460, MIDY = 110, AMP = 70, LEVELS = 8;
+        // quantization grid lines
+        for (let i = 0; i <= LEVELS; i++) {
+          const y = MIDY - AMP + (2 * AMP) * i / LEVELS;
+          const l = document.createElementNS(NS, "line");
+          l.setAttribute("x1", X0); l.setAttribute("y1", y);
+          l.setAttribute("x2", X1); l.setAttribute("y2", y);
+          levelsG.appendChild(l);
+        }
+        function sig(x) {          // the underlying analog signal, value -1..1
+          const p = (x - X0) / (X1 - X0);
+          return Math.sin(p * 2 * Math.PI * 1.5) * 0.8;
+        }
+        function quantize(v) {     // round to nearest of LEVELS levels
+          const n = Math.round((v + 1) / 2 * LEVELS);
+          return (n / LEVELS) * 2 - 1;
+        }
+        function draw() {
+          const rate = +rateS.value;
+          document.getElementById("dg-rr").textContent = rate;
+          let da = "";
+          for (let x = X0; x <= X1; x += 2) {
+            const y = MIDY - AMP * sig(x);
+            da += (x === X0 ? "M" : "L") + x + " " + y.toFixed(1) + " ";
+          }
+          analog.setAttribute("d", da);
+          // sampling
+          dots.innerHTML = "";
+          let dd = "";
+          let prevY = null;
+          for (let i = 0; i <= rate; i++) {
+            const x = X0 + (X1 - X0) * i / rate;
+            const q = quantize(sig(x));
+            const y = MIDY - AMP * q;
+            if (prevY === null) { dd += "M" + x + " " + y.toFixed(1) + " "; }
+            else { dd += "L" + x + " " + prevY.toFixed(1) + " L" + x + " " + y.toFixed(1) + " "; }
+            // continue flat to next sample
+            const nx = X0 + (X1 - X0) * (i + 1) / rate;
+            if (i < rate) dd += "L" + Math.min(nx, X1) + " " + y.toFixed(1) + " ";
+            prevY = y;
+            const c = document.createElementNS(NS, "circle");
+            c.setAttribute("cx", x); c.setAttribute("cy", y); c.setAttribute("r", 2.5);
+            dots.appendChild(c);
+          }
+          digital.setAttribute("d", dd);
+        }
+        rateS.oninput = draw; draw();
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> An analog signal is a smooth, continuous wave — it can take any value at any instant. A vinyl groove or a tape's magnetism is a physical copy of that shape.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<path d="M10 45 Q 50 5 90 45 T 170 45 T 250 45" fill="none" stroke="#662e80" stroke-width="2.5"></path>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="10" x="100" y="85">analog: smooth, continuous</text>
+</svg>
+<p><strong>Storyboard frame 2.</strong> A digital signal samples the wave at regular intervals and rounds each sample to one of a fixed set of levels (here 8 levels = 3 bits). The result is a stair-step of numbers. More samples and more levels make it hug the original.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<path d="M10 30 L40 30 L40 15 L80 15 L80 30 L120 30 L120 60 L160 60 L160 75 L200 75 L200 60 L240 60 L240 45 L270 45" fill="none" stroke="#e67e22" stroke-width="2.5"></path>
+<text fill="#e67e22" font-family="Inter, sans-serif" font-size="10" x="80" y="88">digital: sampled + rounded</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> Why digital survives copying: a number is either a clean 1 or 0. Add noise and you can still round each value back to the nearest exact level, erasing the noise — so copy #1000 equals copy #1. Analog noise is part of the wave and cannot be cleanly removed. The trade-off: sampling throws away the in-between detail of the smooth curve.</p>
+<svg height="80" viewbox="0 0 280 80" width="280">
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="11" x="10" y="35">noise → round to nearest level → clean copy</text>
+<text fill="#d33" font-family="Inter, sans-serif" font-size="11" x="10" y="60">cost: lost detail between samples</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">After you add noise to both signals, which one can you clean back to the original exactly — analog or digital? Tell your partner why rounding to the nearest level rescues the digital copy.</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>Define analog and digital signals in your own words.</li>
+<li>Why does a digital photo copied 100 times look identical, but a photocopied photo degrades?</li>
+<li>Name one disadvantage of digital — what gets lost when you sample a smooth wave?</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"A digital copy survives because each value is rounded to a clean ___, so noise can be ___."</p>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>analog signal</strong> — a smooth, continuous signal that can take any value (e.g., a vinyl groove, a sound wave in air)</li>
+<li><strong>digital signal</strong> — a signal stored as discrete numbers, sampled at intervals and rounded to set levels, so it can be copied without loss</li>
+<li><strong>bit</strong> — a single binary digit (0 or 1); the basic unit of digital information; 3 bits encode 2³ = 8 levels</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Return to your sampled wave. Label the smooth curve <strong>analog</strong> and the stair-step <strong>digital</strong>. Add a one-sentence evaluation: why is digital better for sending a song across the world?</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>Back to the worn record versus the streamed song: in one sentence, explain why the digital copy never degrades, using <em>sample</em> and <em>bit</em>.</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A friend says, "Records sound warmer, so analog must be better in every way."
+      <br/>(a) Define analog and digital signals. (b) Give two advantages of digital for transmitting and storing music. (c) Evaluate the friend's claim: name one thing analog might do well and one clear advantage of digital they're overlooking.
+    </li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://javalab.org/en/analog_digital_signal_en/" rel="noopener" target="_blank">Javalab — Analog and Digital Signal (sample and quantize a wave)</a></li>
+<li><a href="https://www.youtube.com/watch?v=Hh-qWaMG6Sw" rel="noopener" target="_blank">Analog vs. digital signals explained (video)</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="09-optics-lenses-and-mirrors.html"><span class="label">← Previous lesson</span><span class="target">Optics: Lenses and Mirrors</span></a>
+        <a class="next" href="../index.html"><span class="label">Back to unit →</span><span class="target">Waves &amp; Sound</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 10 of 10 · Unit: Waves &amp; Sound</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>

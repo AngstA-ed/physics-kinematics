@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freefall · Kinematics · Lesson 06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Kinematics</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 06 · Unit: Kinematics</div>
+    <h1>Freefall</h1>
+    <p class="lede">If gravity pulls everything the same way, why does a feather fall slower than a rock?</p>
+    <div class="chips"><span class="chip hochman">Hochman</span></div>
+    <a href="../teacher_guides/06-freefall-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>Watch <a href="https://youtu.be/E9oKEJ1pXPw?si=oplOl_4-JpEXc2kW" rel="noopener" target="_blank">"Jumping from Space!"</a> A skydiver leaps from the edge of space and falls for several minutes before opening a parachute. He starts in near-vacuum and ends in air. How does the same body fall <em>differently</em> in those two regimes?</p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>If gravity pulls everything the same way, why does a feather fall slower than a rock?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">Predict: if your teacher drops a heavy textbook and a flat sheet of paper at the same time, which hits first? What if she crumples the paper into a tight ball? Defend your prediction.</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Sketch v-t graphs for a falling rock and a falling feather (both released from rest, in air). Are they the same shape?</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>Press <strong>Drop</strong>. The ball falls under gravity (g = 9.8 m/s²). Velocity and distance update every 0.5 seconds. The "no air resistance" toggle is on; you can turn it off to see what air resistance does to a low-mass, high-surface-area object.</p>
+<div data-interactive="true">
+<svg aria-label="Freefall explorer" height="380" id="ff-canvas" role="img" viewbox="0 0 320 380" width="320">
+<line stroke="#1a1a1a" stroke-width="1" x1="60" x2="60" y1="20" y2="340"></line>
+<line stroke="#1a1a1a" stroke-width="1" x1="40" x2="280" y1="340" y2="340"></line>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="11" x="20" y="25">0 m</text>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="11" x="14" y="345">−45 m</text>
+<line stroke="#999" stroke-dasharray="2 4" stroke-width="0.5" x1="60" x2="280" y1="20" y2="20"></line>
+<line stroke="#999" stroke-dasharray="2 4" stroke-width="0.5" x1="60" x2="280" y1="92" y2="92"></line>
+<line stroke="#999" stroke-dasharray="2 4" stroke-width="0.5" x1="60" x2="280" y1="164" y2="164"></line>
+<line stroke="#999" stroke-dasharray="2 4" stroke-width="0.5" x1="60" x2="280" y1="236" y2="236"></line>
+<line stroke="#999" stroke-dasharray="2 4" stroke-width="0.5" x1="60" x2="280" y1="308" y2="308"></line>
+<text fill="#999" font-family="Inter, sans-serif" font-size="9" x="285" y="24">0 s</text>
+<text fill="#999" font-family="Inter, sans-serif" font-size="9" x="285" y="96">1 s</text>
+<text fill="#999" font-family="Inter, sans-serif" font-size="9" x="285" y="168">2 s</text>
+<text fill="#999" font-family="Inter, sans-serif" font-size="9" x="285" y="240">3 s</text>
+<circle cx="170" cy="20" fill="#662e80" id="ff-ball" r="10"></circle>
+</svg>
+<div class="controls">
+<label><input id="ff-airres" type="checkbox"/> Add air resistance (small object, large surface area — feather)</label>
+<button id="ff-drop" type="button">Drop</button>
+<button id="ff-reset" type="button">Reset</button>
+<p>Time: <span class="readout" id="ff-t">0.0</span> s · velocity: <span class="readout" id="ff-v">0.0</span> m/s · fallen: <span class="readout" id="ff-y">0.0</span> m</p>
+</div>
+<script>
+      (function () {
+        const ball = document.getElementById("ff-ball");
+        const Y_TOP = 20, Y_BOTTOM = 340;
+        const G = 9.8;
+        const H_MAX = 45;
+        let raf = null;
+        function reset() {
+          if (raf) cancelAnimationFrame(raf);
+          ball.setAttribute("cy", Y_TOP);
+          ["ff-t","ff-v","ff-y"].forEach(id => document.getElementById(id).textContent = "0.0");
+        }
+        document.getElementById("ff-reset").onclick = reset;
+        document.getElementById("ff-drop").onclick = () => {
+          reset();
+          const air = document.getElementById("ff-airres").checked;
+          // Simple terminal-velocity model when air resistance is on
+          const vTerm = 5;       // a featherlike object
+          const tau = 0.5;       // time-constant; how quickly it approaches terminal v
+          const t0 = performance.now();
+          function frame(now) {
+            let t = (now - t0) / 1000;
+            if (t > 4) t = 4;
+            let v, y;
+            if (!air) {
+              v = G * t;
+              y = 0.5 * G * t * t;
+            } else {
+              // v(t) = vTerm * (1 - e^{-t/tau})
+              v = vTerm * (1 - Math.exp(-t / tau));
+              // y(t) = vTerm * (t - tau * (1 - e^{-t/tau}))
+              y = vTerm * (t - tau * (1 - Math.exp(-t / tau)));
+            }
+            const yClamped = Math.min(H_MAX, y);
+            const cy = Y_TOP + (yClamped / H_MAX) * (Y_BOTTOM - Y_TOP);
+            ball.setAttribute("cy", cy);
+            document.getElementById("ff-t").textContent = t.toFixed(1);
+            document.getElementById("ff-v").textContent = v.toFixed(1);
+            document.getElementById("ff-y").textContent = yClamped.toFixed(1);
+            if (yClamped < H_MAX && t < 4) raf = requestAnimationFrame(frame);
+          }
+          raf = requestAnimationFrame(frame);
+        };
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> t = 0 s — ball released from rest. Velocity = 0, distance fallen = 0.</p>
+<p><strong>Storyboard frame 2.</strong> t = 1 s — velocity = 9.8 m/s downward; distance fallen = ½ × 9.8 × 1² = 4.9 m.</p>
+<p><strong>Storyboard frame 3.</strong> t = 2 s — velocity = 19.6 m/s downward; distance fallen = ½ × 9.8 × 4 = 19.6 m. The velocity grew by g for every additional second; the distance grew by *more* than the previous second's distance because the average speed during each second is higher.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<line stroke="#1a1a1a" stroke-width="1" x1="20" x2="260" y1="100" y2="100"></line>
+<line stroke="#1a1a1a" stroke-width="1" x1="20" x2="20" y1="20" y2="100"></line>
+<text font-family="Inter, sans-serif" font-size="10" x="245" y="115">t</text>
+<text font-family="Inter, sans-serif" font-size="10" x="5" y="22">v</text>
+<line stroke="#2ea3f2" stroke-width="2.5" x1="20" x2="260" y1="100" y2="20"></line>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="11" x="160" y="40">slope = g ≈ 9.8</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">Toggle "air resistance" on. The ball quickly stops accelerating and reaches a steady (low) speed. Why? What does that mean for our skydiver?</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>Press Drop. After 2.0 seconds, what is the ball's velocity? How far has it fallen?</li>
+<li>Use because/but/so to refute the claim "heavier objects always fall faster."</li>
+<li>A small rock and a large rock are dropped together from a low height (1 m). Which hits first?</li>
+</ol>
+<details>
+<summary>Hochman because/but/so scaffold</summary>
+<ol>
+<li>Heavier objects fall faster than lighter ones, <em>because</em> ___.</li>
+<li>… <em>but</em> ___ (counter-evidence).</li>
+<li>… <em>so</em> ___ (corrected conclusion).</li>
+</ol>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>freefall</strong> — motion under the influence of gravity alone (air resistance negligible)</li>
+<li><strong>gravity (g)</strong> — Earth-surface acceleration ≈ 9.8 m/s² downward</li>
+<li><strong>terminal velocity</strong> — the maximum steady speed reached when air resistance equals gravity</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Update your initial v-t sketches. Use a different color for the rock and the feather, and label where (if at all) the curves diverge.</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>In the Jumping from Space video, what was the skydiver's motion in near-vacuum vs. lower in the atmosphere? Use the words <em>freefall</em> and <em>terminal velocity</em> in your answer.</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A pebble dropped from rest from a 45 m cliff (no air resistance, g = 9.8 m/s²). (a) Velocity after 1 s? After 2 s? (b) How long until it hits the ground? (c) Use because/but/so to explain why a feather dropped from the same cliff in air takes longer.</li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://youtu.be/E9oKEJ1pXPw?si=oplOl_4-JpEXc2kW" rel="noopener" target="_blank">Jumping from Space! (YouTube)</a></li>
+<li><a href="https://javalab.org/en/projectile_en/" rel="noopener" target="_blank">Java Lab — Freefall</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="05-motion-graphs.html"><span class="label">← Previous lesson</span><span class="target">Motion Graphs</span></a>
+        <a class="next" href="07-thrown-upwards-vertical-projectiles.html"><span class="label">Next lesson →</span><span class="target">Thrown Upwards / Vertical Projectiles</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 06 of 9 · Unit: Kinematics</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>

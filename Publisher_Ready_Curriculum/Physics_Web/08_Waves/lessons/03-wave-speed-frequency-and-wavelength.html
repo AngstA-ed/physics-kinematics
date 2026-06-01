@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wave Speed, Frequency, and Wavelength · Waves &amp; Sound · Lesson 03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Waves &amp; Sound</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 03 · Unit: Waves &amp; Sound</div>
+    <h1>Wave Speed, Frequency, and Wavelength</h1>
+    <p class="lede">If two notes travel at the same speed, what must be different about their waves?</p>
+    <div class="chips"><span class="chip hochman">Hochman</span></div>
+    <a href="../teacher_guides/03-wave-speed-frequency-and-wavelength-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>Your teacher plucks a thick low string and a thin high string the same way — they sound like completely different notes. The wave speed on each string is fixed by the string itself, yet the pitches are not the same. The fast, high note and the slow, low note are both racing along at the same speed.</p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>If two notes travel at the same speed, what must be different about their waves?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<p>Listen to the two notes and watch the strings. Write two things you notice and two things you wonder about frequency and wavelength.</p>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">Share with your partner: if two waves on a string travel at the same speed but have different frequencies, what has to be different about their wavelengths?</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Predict: if you keep the wave speed the same but <strong>double the frequency</strong>, what happens to the wavelength? Write your prediction and a reason.</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>The medium fixes the wave speed at <strong>v = 6 m/s</strong>. Drag the <strong>frequency</strong> slider — watch the wavelength change automatically so that v = f·λ stays constant. You cannot change f and λ independently at a fixed speed.</p>
+<div data-interactive="true">
+<svg aria-label="v = f lambda explorer" height="220" id="vf-canvas" role="img" viewbox="0 0 480 220" width="480">
+<line stroke="#999" stroke-dasharray="4 4" stroke-width="1" x1="20" x2="460" y1="110" y2="110"></line>
+<path d="" fill="none" id="vf-wave" stroke="#662e80" stroke-width="3"></path>
+<g id="vf-wl"></g>
+</svg>
+<div class="controls">
+<label>Frequency f: <input id="vf-f" max="6" min="1" step="0.5" type="range" value="3"/> <span class="readout" id="vf-fr">3.0</span> Hz</label>
+<p>Fixed speed v = <span class="readout">6.0</span> m/s · Wavelength λ = v ÷ f = <span class="readout" id="vf-wlr">2.0</span> m · Check: v = f·λ = <span class="readout" id="vf-vr">6.0</span> m/s</p>
+</div>
+<script>
+      (function () {
+        const V = 6;             // fixed medium speed (m/s)
+        const wave = document.getElementById("vf-wave");
+        const wlG = document.getElementById("vf-wl");
+        const fS = document.getElementById("vf-f");
+        const X0 = 20, X1 = 460, MIDY = 110, AMP = 60;
+        const PX_PER_M = 60;     // 1 m = 60 px on screen
+        function draw() {
+          const f = +fS.value;
+          const lambda = V / f;            // metres
+          const wlPx = lambda * PX_PER_M;
+          document.getElementById("vf-fr").textContent = f.toFixed(1);
+          document.getElementById("vf-wlr").textContent = lambda.toFixed(2);
+          document.getElementById("vf-vr").textContent = (f * lambda).toFixed(1);
+          const k = 2 * Math.PI / wlPx;
+          let d = "";
+          for (let x = X0; x <= X1; x += 2) {
+            const y = MIDY - AMP * Math.sin(k * (x - X0));
+            d += (x === X0 ? "M" : "L") + x + " " + y.toFixed(1) + " ";
+          }
+          wave.setAttribute("d", d);
+          // wavelength bracket on first full cycle
+          wlG.innerHTML = "";
+          const x1 = X0, x2 = X0 + wlPx;
+          if (x2 <= X1) {
+            const ln = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            ln.setAttribute("x1", x1); ln.setAttribute("y1", 30);
+            ln.setAttribute("x2", x2); ln.setAttribute("y2", 30);
+            ln.setAttribute("stroke", "#2ea3f2"); ln.setAttribute("stroke-width", 2);
+            wlG.appendChild(ln);
+            const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            t.setAttribute("x", (x1 + x2) / 2 - 18); t.setAttribute("y", 24);
+            t.setAttribute("font-family", "Inter, sans-serif"); t.setAttribute("font-size", "11");
+            t.setAttribute("fill", "#2ea3f2"); t.textContent = "λ = " + lambda.toFixed(2) + " m";
+            wlG.appendChild(t);
+          }
+        }
+        fS.oninput = draw; draw();
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> At f = 3 Hz on a medium where v = 6 m/s, the wavelength is λ = v/f = 2 m. The wave shows a moderate crest spacing.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<line stroke="#999" stroke-dasharray="4 4" x1="10" x2="270" y1="45" y2="45"></line>
+<path d="M10 45 Q 50 5 90 45 T 170 45 T 250 45" fill="none" stroke="#662e80" stroke-width="2.5"></path>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="10" x="100" y="85">f=3 Hz, λ=2 m</text>
+</svg>
+<p><strong>Storyboard frame 2.</strong> Double the frequency to f = 6 Hz at the same speed and the wavelength is halved to λ = 1 m — the crests crowd together. The product f·λ = 6·1 = 6 m/s is unchanged.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<line stroke="#999" stroke-dasharray="4 4" x1="10" x2="270" y1="45" y2="45"></line>
+<path d="M10 45 Q 30 15 50 45 T 90 45 T 130 45 T 170 45 T 210 45 T 250 45" fill="none" stroke="#662e80" stroke-width="2.5"></path>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="10" x="100" y="85">f=6 Hz, λ=1 m</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> Frequency and wavelength are inversely related at a fixed speed: f·λ = v is always the same. A 340 m/s sound wave at 256 Hz has λ = 340/256 ≈ 1.33 m; at 512 Hz the wavelength is half as long.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="13" x="10" y="40">v = f · λ   (constant)</text>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="11" x="10" y="65">f up → λ down, by the same factor</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">Drag the slider so f doubles. By what factor did the wavelength change? Tell your partner why v = f·λ forces that trade-off.</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>A wave travels at 340 m/s with a frequency of 170 Hz. Find its wavelength. Show v = f·λ rearranged.</li>
+<li>At a fixed wave speed, you triple the frequency. What happens to the wavelength, and by what factor?</li>
+<li>Write a Because/But/So sentence explaining why frequency and wavelength are inversely related at a constant wave speed.</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"Because the speed is fixed, but the frequency went up, so the wavelength must ___."</p>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>wave speed</strong> — how fast a wave's energy travels through a medium (v); set by the medium, not by amplitude or frequency</li>
+<li><strong>period</strong> — the time for one complete cycle to pass a point (T), the reciprocal of frequency (T = 1/f)</li>
+<li><strong>hertz</strong> — the unit of frequency, equal to one cycle per second (Hz)</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Return to your prediction. Was it right? Rewrite it as a <strong>Because / But / So</strong> sentence using v = f·λ and the words <em>wave speed</em>, <em>frequency</em>, and <em>wavelength</em>.</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>Back to the two notes: both travel at the same speed on their strings, yet sound different. In one sentence, explain what is different about the high note's wave versus the low note's wave.</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A sound wave in air travels at 340 m/s.
+      <br/>(a) A note has a frequency of 256 Hz. Find its wavelength. Show v = f·λ rearranged. (b) A higher note has a frequency of 512 Hz at the same speed. Without a calculator, is its wavelength longer or shorter, and by what factor? (c) What is the period of the 256 Hz note?
+    </li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://phet.colorado.edu/en/simulations/wave-on-a-string" rel="noopener" target="_blank">PhET — Wave on a String (oscillate mode, measure λ with the ruler)</a></li>
+<li><a href="https://www.youtube.com/watch?v=DLOmHViGqYY" rel="noopener" target="_blank">Wave speed, frequency, and wavelength explained (video)</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="02-transverse-and-longitudinal-waves.html"><span class="label">← Previous lesson</span><span class="target">Transverse and Longitudinal Waves</span></a>
+        <a class="next" href="04-standing-waves-and-resonance.html"><span class="label">Next lesson →</span><span class="target">Standing Waves and Resonance</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 03 of 10 · Unit: Waves &amp; Sound</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>

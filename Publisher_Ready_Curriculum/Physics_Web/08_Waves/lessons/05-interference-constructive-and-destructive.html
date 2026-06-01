@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interference: Constructive and Destructive · Waves &amp; Sound · Lesson 05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Waves &amp; Sound</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 05 · Unit: Waves &amp; Sound</div>
+    <h1>Interference: Constructive and Destructive</h1>
+    <p class="lede">How can adding a second wave make a spot quieter ?</p>
+    <div class="chips"><span class="chip btc">BTC</span></div>
+    <a href="../teacher_guides/05-interference-constructive-and-destructive-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>Two speakers play the exact same steady tone. As you walk across the room, the volume rises and falls — some spots are loud, some are nearly silent — and nobody touched the volume knob. Noise-canceling headphones do something even stranger: they add sound to create silence.</p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>How can adding a second wave make a spot <em>quieter</em>?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<p>Walk the room between two speakers. Write two things you notice and two things you wonder about the loud and quiet spots.</p>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">Share with your partner: what would have to be true about two waves arriving at a quiet spot for them to cancel?</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Draw two waves arriving at the same point. Draw one version that makes a <strong>LOUD</strong> spot and one that makes a <strong>QUIET</strong> spot. What is different about how the crests line up?</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>Two source waves (purple and blue) have the same amplitude and wavelength. Drag the <strong>phase</strong> slider to shift the second wave. The thick orange wave is their <strong>sum</strong> (superposition). Find the phase for the loudest sum (in phase) and the silent sum (out of phase).</p>
+<div data-interactive="true">
+<svg aria-label="Interference superposition explorer" height="260" id="in-canvas" role="img" viewbox="0 0 480 260" width="480">
+<line stroke="#eee" x1="20" x2="460" y1="80" y2="80"></line>
+<line stroke="#eee" x1="20" x2="460" y1="200" y2="200"></line>
+<path d="" fill="none" id="in-w1" stroke="#662e80" stroke-width="2"></path>
+<path d="" fill="none" id="in-w2" stroke="#2ea3f2" stroke-width="2"></path>
+<path d="" fill="none" id="in-sum" stroke="#e67e22" stroke-width="3.5"></path>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="11" x="24" y="40">two source waves</text>
+<text fill="#e67e22" font-family="Inter, sans-serif" font-size="11" x="24" y="170">sum (superposition)</text>
+</svg>
+<div class="controls">
+<label>Phase shift: <input id="in-phase" max="360" min="0" type="range" value="0"/> <span class="readout" id="in-pr">0</span>°</label>
+<p>Result: <span class="readout" id="in-res">fully constructive (amplitude doubles)</span></p>
+</div>
+<script>
+      (function () {
+        const w1 = document.getElementById("in-w1");
+        const w2 = document.getElementById("in-w2");
+        const sum = document.getElementById("in-sum");
+        const ph = document.getElementById("in-phase");
+        const X0 = 20, X1 = 460, TOPY = 80, BOTY = 200, A = 36;
+        const k = 2 * Math.PI / 160;        // wavelength 160 px
+        function draw() {
+          const deg = +ph.value;
+          const rad = deg * Math.PI / 180;
+          document.getElementById("in-pr").textContent = deg;
+          let d1 = "", d2 = "", ds = "";
+          for (let x = X0; x <= X1; x += 2) {
+            const p = k * (x - X0);
+            const y1 = A * Math.sin(p);
+            const y2 = A * Math.sin(p + rad);
+            d1 += (x === X0 ? "M" : "L") + x + " " + (TOPY - y1).toFixed(1) + " ";
+            d2 += (x === X0 ? "M" : "L") + x + " " + (TOPY - y2).toFixed(1) + " ";
+            ds += (x === X0 ? "M" : "L") + x + " " + (BOTY - (y1 + y2)).toFixed(1) + " ";
+          }
+          w1.setAttribute("d", d1); w2.setAttribute("d", d2); sum.setAttribute("d", ds);
+          // resultant amplitude for equal-amplitude waves: 2A|cos(Δφ/2)|
+          const sumAmp = Math.abs(2 * Math.cos(rad / 2));
+          let txt;
+          if (sumAmp > 1.8) txt = "constructive — amplitude nearly doubles (louder)";
+          else if (sumAmp < 0.2) txt = "destructive — waves cancel (silent)";
+          else txt = "partial — amplitude = " + sumAmp.toFixed(2) + "× one wave";
+          document.getElementById("in-res").textContent = txt;
+        }
+        ph.oninput = draw; draw();
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> In phase (phase shift 0°): crest lines up with crest. The two waves add — the sum is a wave twice as tall. This is constructive interference: a loud spot.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<path d="M10 40 Q 50 10 90 40 T 170 40 T 250 40" fill="none" stroke="#662e80" stroke-width="2"></path>
+<path d="M10 90 Q 50 30 90 90 T 170 90 T 250 90" fill="none" stroke="#e67e22" stroke-width="3"></path>
+<text fill="#e67e22" font-family="Inter, sans-serif" font-size="10" x="120" y="110">sum = 2× taller</text>
+</svg>
+<p><strong>Storyboard frame 2.</strong> Out of phase by half a wavelength (180°): crest lines up with trough. The waves cancel — the sum is a flat line. This is destructive interference: a quiet spot.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<path d="M10 30 Q 50 5 90 30 T 170 30 T 250 30" fill="none" stroke="#662e80" stroke-width="2"></path>
+<path d="M10 30 Q 50 55 90 30 T 170 30 T 250 30" fill="none" stroke="#2ea3f2" stroke-width="2"></path>
+<line stroke="#e67e22" stroke-width="3" x1="10" x2="250" y1="90" y2="90"></line>
+<text fill="#e67e22" font-family="Inter, sans-serif" font-size="10" x="110" y="110">sum = flat (silent)</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> The principle of superposition: at every point, the total displacement is the sum of the individual waves. Noise-canceling headphones create a wave exactly out of phase with the hum, so the two cancel. Two 4 cm waves in phase make 8 cm; exactly out of phase make 0 cm.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="12" x="10" y="50">in phase: 4 + 4 = 8 cm</text>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="12" x="10" y="80">out of phase: 4 − 4 = 0 cm</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">When the two waves cancel at a quiet spot, where did the energy go? Is it gone everywhere, or moved to the loud spots? Convince your partner.</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>State the principle of <strong>superposition</strong> in your own words.</li>
+<li>Two waves of amplitude 3 cm meet exactly in phase. What is the resulting amplitude? What if they meet exactly out of phase?</li>
+<li>Explain how noise-canceling headphones make a hum disappear. Use the term <em>destructive interference</em>.</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"When crest meets ___ the waves add (constructive); when crest meets ___ the waves cancel (destructive)."</p>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>superposition</strong> — the principle that when waves overlap, the total displacement at each point is the sum of the individual displacements</li>
+<li><strong>constructive interference</strong> — when waves combine in phase (crest on crest) to make a larger amplitude</li>
+<li><strong>destructive interference</strong> — when waves combine out of phase (crest on trough) to make a smaller amplitude, or cancel completely</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Return to your loud-spot and quiet-spot drawings. Label one <strong>constructive</strong> and one <strong>destructive</strong>. Add a sentence using the word <em>superposition</em>.</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>Back to the two speakers: in one sentence, explain why some spots in the room are loud and some nearly silent, using <em>constructive</em> and <em>destructive interference</em>.</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>Two speakers play the same tone. At one point in the room a listener hears almost nothing.
+      <br/>(a) Is this constructive or destructive interference? (b) Describe how the two waves are arriving at that point (in phase or out of phase?). (c) Two waves of amplitude 4 cm meet exactly in phase. What is the resulting amplitude?
+    </li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://javalab.org/en/wave_synthesis_en/" rel="noopener" target="_blank">Javalab — Wave Synthesis (add two waves and watch the sum)</a></li>
+<li><a href="https://www.youtube.com/watch?v=ImoQqDyHd1Y" rel="noopener" target="_blank">Constructive and destructive interference explained (video)</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="04-standing-waves-and-resonance.html"><span class="label">← Previous lesson</span><span class="target">Standing Waves and Resonance</span></a>
+        <a class="next" href="06-the-doppler-effect.html"><span class="label">Next lesson →</span><span class="target">The Doppler Effect</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 05 of 10 · Unit: Waves &amp; Sound</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>

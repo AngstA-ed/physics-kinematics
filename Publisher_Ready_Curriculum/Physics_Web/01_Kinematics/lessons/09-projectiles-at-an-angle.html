@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projectiles at an Angle · Kinematics · Lesson 09</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Kinematics</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 09 · Unit: Kinematics</div>
+    <h1>Projectiles at an Angle</h1>
+    <p class="lede">What launch angle produces the maximum horizontal range — and why?</p>
+    <div class="chips"><span class="chip active">Active Learning</span></div>
+    <a href="../teacher_guides/09-projectiles-at-an-angle-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>Watch <a href="https://www.youtube.com/watch?v=YyekCd0g8B8" rel="noopener" target="_blank">Jamaal Murray catches his own hail mary</a>. The player tosses the ball with one hand, sprints around the defender, and catches the same ball before it hits the ground. He has internalized — without equations — the launch angle and air-time that bring the ball back to him.</p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>What launch angle produces the maximum horizontal range — and why?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">If you had to throw a softball as far as possible (same speed every time), what angle would you choose? Why?</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Sketch trajectories for three launches at the same v₀: 20°, 45°, and 70°. Predict which lands farthest.</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>Slide v₀ and θ. Press <strong>Launch</strong>. The trajectory traces in real time, and the readouts show range and time-of-flight. Toggle <em>show optimal angle</em> to highlight the 45° prediction.</p>
+<div data-interactive="true">
+<svg aria-label="Projectiles at an angle explorer" height="320" id="pa-canvas" role="img" viewbox="0 0 480 320" width="480">
+<line stroke="#1a1a1a" stroke-width="1" x1="40" x2="460" y1="280" y2="280"></line>
+<line stroke="#1a1a1a" stroke-width="1" x1="40" x2="40" y1="20" y2="280"></line>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="10" x="20" y="280">0</text>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="10" x="455" y="295">x</text>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="10" x="22" y="22">y</text>
+<polyline fill="none" id="pa-path" points="" stroke="#662e80" stroke-width="2.5"></polyline>
+<polyline fill="none" id="pa-optimal" points="" stroke="#f37366" stroke-dasharray="4 3" stroke-width="2" visibility="hidden"></polyline>
+<circle cx="40" cy="280" fill="#662e80" id="pa-ball" r="7"></circle>
+</svg>
+<div class="controls">
+<label>Initial speed v₀ (m/s): <input id="pa-v0" max="20" min="5" step="1" type="range" value="12"/> <span class="readout" id="pa-v0-r">12</span></label>
+<label>Launch angle θ (degrees): <input id="pa-theta" max="85" min="5" step="5" type="range" value="45"/> <span class="readout" id="pa-theta-r">45</span></label>
+<button id="pa-launch" type="button">Launch</button>
+<button id="pa-reset" type="button">Reset</button>
+<label><input id="pa-show-optimal" type="checkbox"/> Show optimal-angle (45°) trajectory at same v₀</label>
+<p>v_x = <span class="readout" id="pa-vx">—</span> m/s · v_y = <span class="readout" id="pa-vy">—</span> m/s</p>
+<p>Range: <span class="readout" id="pa-range">—</span> m · time-of-flight: <span class="readout" id="pa-tof">—</span> s · max height: <span class="readout" id="pa-hpk">—</span> m</p>
+</div>
+<script>
+      (function () {
+        const G = 9.8;
+        const X0 = 40, Y0 = 280;
+        const X_PX = 460 - X0;
+        const Y_PX = Y0 - 20;
+        const X_RANGE_M = 50, Y_RANGE_M = 30;
+        const ball = document.getElementById("pa-ball");
+        const path = document.getElementById("pa-path");
+        const optimal = document.getElementById("pa-optimal");
+        const v0In = document.getElementById("pa-v0");
+        const thetaIn = document.getElementById("pa-theta");
+        const showOpt = document.getElementById("pa-show-optimal");
+        function refresh() {
+          document.getElementById("pa-v0-r").textContent = v0In.value;
+          document.getElementById("pa-theta-r").textContent = thetaIn.value;
+        }
+        v0In.addEventListener("input", refresh);
+        thetaIn.addEventListener("input", refresh);
+        refresh();
+        function trajectory(v0, thetaDeg) {
+          const theta = thetaDeg * Math.PI / 180;
+          const vx = v0 * Math.cos(theta);
+          const vy = v0 * Math.sin(theta);
+          const tof = 2 * vy / G;
+          const range = vx * tof;
+          const hpk = vy * vy / (2 * G);
+          return { vx, vy, tof, range, hpk };
+        }
+        function project(x, y) {
+          return [X0 + (x / X_RANGE_M) * X_PX, Y0 - (y / Y_RANGE_M) * Y_PX];
+        }
+        let raf = null;
+        function reset() {
+          if (raf) cancelAnimationFrame(raf);
+          ball.setAttribute("cx", X0); ball.setAttribute("cy", Y0);
+          path.setAttribute("points", "");
+          optimal.setAttribute("points", "");
+          optimal.setAttribute("visibility", "hidden");
+          ["pa-vx","pa-vy","pa-range","pa-tof","pa-hpk"].forEach(id => document.getElementById(id).textContent = "—");
+        }
+        document.getElementById("pa-reset").onclick = reset;
+        showOpt.addEventListener("change", () => {
+          if (!showOpt.checked) {
+            optimal.setAttribute("visibility", "hidden");
+            return;
+          }
+          const v0 = parseFloat(v0In.value);
+          const traj = trajectory(v0, 45);
+          const pts = [];
+          for (let i = 0; i <= 60; i++) {
+            const t = (i / 60) * traj.tof;
+            const x = traj.vx * t;
+            const y = traj.vy * t - 0.5 * G * t * t;
+            const [px, py] = project(x, y);
+            pts.push(px + "," + py);
+          }
+          optimal.setAttribute("points", pts.join(" "));
+          optimal.setAttribute("visibility", "visible");
+        });
+        document.getElementById("pa-launch").onclick = () => {
+          reset();
+          const v0 = parseFloat(v0In.value);
+          const thetaDeg = parseFloat(thetaIn.value);
+          const t = trajectory(v0, thetaDeg);
+          document.getElementById("pa-vx").textContent = t.vx.toFixed(2);
+          document.getElementById("pa-vy").textContent = t.vy.toFixed(2);
+          document.getElementById("pa-range").textContent = t.range.toFixed(2);
+          document.getElementById("pa-tof").textContent = t.tof.toFixed(2);
+          document.getElementById("pa-hpk").textContent = t.hpk.toFixed(2);
+          if (showOpt.checked) showOpt.dispatchEvent(new Event("change"));
+          const tStart = performance.now();
+          const pts = [];
+          function frame(now) {
+            let cur = (now - tStart) / 1000;
+            if (cur > t.tof) cur = t.tof;
+            const x = t.vx * cur;
+            const y = t.vy * cur - 0.5 * G * cur * cur;
+            const [px, py] = project(x, Math.max(0, y));
+            pts.push(px + "," + py);
+            path.setAttribute("points", pts.join(" "));
+            ball.setAttribute("cx", px); ball.setAttribute("cy", py);
+            if (cur < t.tof) raf = requestAnimationFrame(frame);
+          }
+          raf = requestAnimationFrame(frame);
+        };
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> Low launch angle (20°) at v₀ = 12 m/s — short range (~9.5 m), short air-time (~0.84 s), low arc.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<line stroke="#1a1a1a" stroke-width="1" x1="20" x2="260" y1="100" y2="100"></line>
+<path d="M 20 100 Q 140 40 240 100" fill="none" stroke="#662e80" stroke-width="2" transform="scale(1, 0.4) translate(0, 150)"></path>
+</svg>
+<p><strong>Storyboard frame 2.</strong> Optimal launch angle (45°) at the same v₀ — maximum range (~14.7 m). The arc reaches a moderate peak height. This is the *optimal angle*.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<line stroke="#1a1a1a" stroke-width="1" x1="20" x2="260" y1="100" y2="100"></line>
+<path d="M 20 100 Q 140 20 260 100" fill="none" stroke="#662e80" stroke-width="2"></path>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="11" x="120" y="50">θ = 45°, R_max</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> High launch angle (70°) at the same v₀ — shorter range (~9.5 m, same as 20° by *symmetry*), much longer air-time (~2.30 s), high peak. 20° and 70° give the same range because they are symmetric around 45°.</p>
+<svg height="120" viewbox="0 0 280 120" width="280">
+<line stroke="#1a1a1a" stroke-width="1" x1="20" x2="260" y1="100" y2="100"></line>
+<path d="M 20 100 Q 80 10 140 100" fill="none" stroke="#662e80" stroke-width="2"></path>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="11" x="20" y="20">θ = 70°: high arc, same range as 20°</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">Try θ = 30° and θ = 60° at the same v₀. The ranges are the same! Why? Use today's vocabulary in your answer.</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>Set v₀ = 12 m/s and θ = 30°. What is the range? What is the time-of-flight?</li>
+<li>At the same v₀ = 12 m/s, set θ = 60°. Compare its range and time-of-flight to the 30° launch.</li>
+<li>At what launch angle is the range maximized? What is the maximum range at v₀ = 12 m/s?</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"At a launch angle of ___°, the range is ___ m because v_x = ___ and v_y = ___."</p>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>launch angle (θ)</strong> — the angle above horizontal at which the projectile is launched</li>
+<li><strong>range equation</strong> — R = v₀² sin(2θ) / g, valid for level ground and no air resistance</li>
+<li><strong>optimal angle</strong> — 45° on level ground (in vacuum); the angle that produces maximum range</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Update your initial trajectory sketches. Add the *range* and *time-of-flight* values for each angle. Highlight the symmetric pairs (15°/75°, 30°/60°).</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>Use today's tools to estimate Jamaal Murray's hail mary throw. If the ball was airborne for ~2.5 s and traveled ~25 m horizontally, what was the launch angle and launch speed (approximately)?</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A soccer player kicks the ball at 14 m/s at 35° above horizontal. (a) v_x and v_y components? (b) Time-of-flight? (c) Range? (d) Predict whether kicking at 55° (same speed) lands closer or farther. Explain.</li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=YyekCd0g8B8" rel="noopener" target="_blank">Jamaal Murray hail mary (YouTube)</a></li>
+<li><a href="https://phet.colorado.edu/en/simulations/projectile-motion" rel="noopener" target="_blank">PhET — Projectile Motion</a></li>
+<li><a href="https://docs.google.com/document/d/1urBrkxMU0f61gNARBEiuZELhE-vlfjjvFCr-GhaDq5I/edit?tab=t.0" rel="noopener" target="_blank">Projectile Lab worksheet (Google Doc)</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="08-horizontal-projectile-motion.html"><span class="label">← Previous lesson</span><span class="target">Horizontal Projectile Motion</span></a>
+        <a class="next" href="../index.html"><span class="label">Back to unit →</span><span class="target">Kinematics</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 09 of 9 · Unit: Kinematics</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refraction and Snell&#x27;s Law · Waves &amp; Sound · Lesson 08</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Waves &amp; Sound</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 08 · Unit: Waves &amp; Sound</div>
+    <h1>Refraction and Snell&#x27;s Law</h1>
+    <p class="lede">What changes for the light right at the surface that makes it bend?</p>
+    <div class="chips"><span class="chip hochman">Hochman</span></div>
+    <a href="../teacher_guides/08-refraction-and-snell-s-law-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>A pencil standing in a glass of water looks broken at the surface. A laser beam fired into a tank of water kinks the instant it hits the water. And a Pyrex stirrer placed in oil of just the right kind seems to vanish completely. The light bends only at the boundary.</p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>What changes for the light right at the surface that makes it bend?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<p>Watch a laser kink at the water's surface. Write two things you notice and two things you wonder about where and why it bends.</p>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">Share with your partner: the laser bends only <em>at the boundary</em>, not inside the water. What does that tell you about what causes the bend?</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Draw a ray hitting the water at an angle. Draw the <strong>normal</strong> (perpendicular to the surface). Predict: when the light slows down, does the ray bend <em>toward</em> the normal or <em>away</em> from it?</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>Light travels from air (n₁ = 1.00) into water (n₂ = 1.33). Drag the <strong>incidence angle</strong> slider. The refracted angle is computed live from <strong>n₁ sin θ₁ = n₂ sin θ₂</strong>. Notice the ray bends <em>toward</em> the normal when it enters the slower medium.</p>
+<div data-interactive="true">
+<svg aria-label="Refraction Snell's law explorer" height="300" id="rf-canvas" role="img" viewbox="0 0 480 300" width="480">
+<rect fill="#eaf4fb" height="150" width="480" x="0" y="0"></rect>
+<rect fill="#cfe6f5" height="150" width="480" x="0" y="150"></rect>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="11" x="10" y="20">air (n₁ = 1.00)</text>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="11" x="10" y="295">water (n₂ = 1.33)</text>
+<line stroke="#1a1a1a" stroke-width="1.5" x1="0" x2="480" y1="150" y2="150"></line>
+<line stroke="#999" stroke-dasharray="5 5" stroke-width="1" x1="240" x2="240" y1="30" y2="270"></line>
+<text fill="#999" font-family="Inter, sans-serif" font-size="10" x="246" y="44">normal</text>
+<line id="rf-incident" stroke="#e67e22" stroke-width="3" x1="240" x2="240" y1="150" y2="30"></line>
+<line id="rf-refracted" stroke="#662e80" stroke-width="3" x1="240" x2="240" y1="150" y2="270"></line>
+</svg>
+<div class="controls">
+<label>Incidence angle θ₁: <input id="rf-theta" max="85" min="0" type="range" value="40"/> <span class="readout" id="rf-tr">40</span>°</label>
+<p>Snell: (1.00)·sin θ₁ = (1.33)·sin θ₂ → θ₂ = <span class="readout" id="rf-t2">—</span>° · the ray bends <span class="readout" id="rf-dir">toward the normal</span></p>
+</div>
+<script>
+      (function () {
+        const inc = document.getElementById("rf-incident");
+        const ref = document.getElementById("rf-refracted");
+        const thS = document.getElementById("rf-theta");
+        const N1 = 1.00, N2 = 1.33;
+        const OX = 240, OY = 150, LEN = 120;
+        function draw() {
+          const t1 = +thS.value;
+          document.getElementById("rf-tr").textContent = t1;
+          const r1 = t1 * Math.PI / 180;
+          // incident ray comes from upper-left, measured from the normal
+          inc.setAttribute("x1", OX - LEN * Math.sin(r1));
+          inc.setAttribute("y1", OY - LEN * Math.cos(r1));
+          inc.setAttribute("x2", OX); inc.setAttribute("y2", OY);
+          // Snell's law
+          const s2 = (N1 / N2) * Math.sin(r1);
+          const r2 = Math.asin(Math.min(1, s2));
+          const t2 = r2 * 180 / Math.PI;
+          ref.setAttribute("x1", OX); ref.setAttribute("y1", OY);
+          ref.setAttribute("x2", OX + LEN * Math.sin(r2));
+          ref.setAttribute("y2", OY + LEN * Math.cos(r2));
+          document.getElementById("rf-t2").textContent = t2.toFixed(1);
+          document.getElementById("rf-dir").textContent =
+            t2 < t1 ? "toward the normal (entering a slower medium)" : "along the normal";
+        }
+        thS.oninput = draw; draw();
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> A ray in air strikes the water surface at incidence angle θ₁, measured from the normal (the dashed perpendicular line at the boundary).</p>
+<svg height="140" viewbox="0 0 240 140" width="240">
+<rect fill="#eaf4fb" height="70" width="240" x="0" y="0"></rect>
+<rect fill="#cfe6f5" height="70" width="240" x="0" y="70"></rect>
+<line stroke="#1a1a1a" x1="0" x2="240" y1="70" y2="70"></line>
+<line stroke="#999" stroke-dasharray="4 4" x1="120" x2="120" y1="10" y2="130"></line>
+<line stroke="#e67e22" stroke-width="2.5" x1="60" x2="120" y1="20" y2="70"></line>
+<text fill="#e67e22" font-family="Inter, sans-serif" font-size="10" x="50" y="15">θ₁</text>
+</svg>
+<p><strong>Storyboard frame 2.</strong> Entering the slower (higher-n) water, the ray bends toward the normal: θ₂ &lt; θ₁. With n₁ = 1.00, n₂ = 1.33 and θ₁ = 40°: sin θ₂ = (1.00/1.33)·sin 40° ≈ 0.483, so θ₂ ≈ 28.9°.</p>
+<svg height="140" viewbox="0 0 240 140" width="240">
+<rect fill="#eaf4fb" height="70" width="240" x="0" y="0"></rect>
+<rect fill="#cfe6f5" height="70" width="240" x="0" y="70"></rect>
+<line stroke="#1a1a1a" x1="0" x2="240" y1="70" y2="70"></line>
+<line stroke="#999" stroke-dasharray="4 4" x1="120" x2="120" y1="10" y2="130"></line>
+<line stroke="#e67e22" stroke-width="2.5" x1="60" x2="120" y1="20" y2="70"></line>
+<line stroke="#662e80" stroke-width="2.5" x1="120" x2="150" y1="70" y2="125"></line>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="10" x="125" y="120">θ₂ ≈ 29°</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> Snell's law: n₁ sin θ₁ = n₂ sin θ₂. The ray bends toward the normal entering a slower medium, away from it leaving one. If a Pyrex stirrer sits in oil of the same index, there is no boundary in n — no bending — so it seems to disappear.</p>
+<svg height="100" viewbox="0 0 240 100" width="240">
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="13" x="10" y="50">n₁ sin θ₁ = n₂ sin θ₂</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">Set the incidence angle large, then small. How does θ₂ compare to θ₁ each time? Tell your partner why entering a slower medium bends the ray toward the normal.</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>Light goes from air (n = 1.00) into glass (n = 1.50) at θ₁ = 30°. Use Snell's law to find θ₂. Show your work.</li>
+<li>Why does light bend <em>toward</em> the normal when it enters a slower (higher-n) medium? Write a Because/But/So sentence.</li>
+<li>Total internal reflection: under what conditions can light <em>not</em> escape a medium, reflecting entirely instead?</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"Because the water has a higher index, but the light slowed down at the boundary, so the ray bent ___ the normal."</p>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>refraction</strong> — the bending of a wave as it crosses a boundary where its speed changes</li>
+<li><strong>index of refraction</strong> — n = c/v, a number telling how much a medium slows light; larger n means slower light and more bending</li>
+<li><strong>Snell's law</strong> — n₁ sin θ₁ = n₂ sin θ₂, relating the incident and refracted angles to the two indices</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Return to your prediction. Label the incident angle θ₁, the refracted angle θ₂, and the normal. Confirm: into a slower medium, the ray bends toward the normal. Write your Because/But/So sentence.</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>Back to the broken-looking pencil: in one sentence, explain why the part underwater looks shifted, using <em>refraction</em> and <em>index of refraction</em>.</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>Light travels from air (n = 1.00) into water (n = 1.33).
+      <br/>(a) The incident angle is 40°. Use Snell's law to find the angle of refraction. Show your work. (b) Does the ray bend toward or away from the normal? Why? (c) The Pyrex stirrer "disappears" in oil of the same index. Explain why, in one sentence.
+    </li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://phet.colorado.edu/en/simulations/bending-light" rel="noopener" target="_blank">PhET — Bending Light (fire rays and measure angles)</a></li>
+<li><a href="https://www.youtube.com/watch?v=y55tzg_jW9I" rel="noopener" target="_blank">Refraction and Snell's law explained (video)</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="07-the-electromagnetic-spectrum.html"><span class="label">← Previous lesson</span><span class="target">The Electromagnetic Spectrum</span></a>
+        <a class="next" href="09-optics-lenses-and-mirrors.html"><span class="label">Next lesson →</span><span class="target">Optics: Lenses and Mirrors</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 08 of 10 · Unit: Waves &amp; Sound</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>

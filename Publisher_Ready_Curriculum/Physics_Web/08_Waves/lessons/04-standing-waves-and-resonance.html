@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Standing Waves and Resonance · Waves &amp; Sound · Lesson 04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Waves &amp; Sound</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 04 · Unit: Waves &amp; Sound</div>
+    <h1>Standing Waves and Resonance</h1>
+    <p class="lede">What is special about the one frequency that makes a clean, standing pattern?</p>
+    <div class="chips"><span class="chip active">Active Learning</span></div>
+    <a href="../teacher_guides/04-standing-waves-and-resonance-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>An opera singer holds one steady note and a wine glass shatters. On a shaken rope, most hand-speeds make a messy mess — but at one special speed the rope locks into a clean, big pattern that seems to stand still. Only certain frequencies "work."</p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>What is special about the one frequency that makes a clean, standing pattern?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<p>Watch the rope lock into a clean pattern at one frequency. Write two things you notice and two things you wonder.</p>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">Share with your partner: on the rope at the special frequency, where is there no motion at all, and where is the motion biggest?</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Sketch the rope at the special frequency. Mark with an <strong>X</strong> every point that does not move, and a <strong>star</strong> at every point that moves the most. Predict: what happens to the number of loops if you shake faster?</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>Pick a <strong>harmonic number</strong>. The string is fixed at both ends, so only whole numbers of loops fit. Watch the still <strong>nodes</strong> (red) and the big-swing <strong>antinodes</strong> (orange) — and count how the harmonic number sets the number of loops.</p>
+<div data-interactive="true">
+<svg aria-label="Standing wave harmonics" height="220" id="sw-canvas" role="img" viewbox="0 0 480 220" width="480">
+<line stroke="#999" stroke-dasharray="4 4" stroke-width="1" x1="40" x2="440" y1="110" y2="110"></line>
+<line stroke="#1a1a1a" stroke-width="3" x1="40" x2="40" y1="60" y2="160"></line>
+<line stroke="#1a1a1a" stroke-width="3" x1="440" x2="440" y1="60" y2="160"></line>
+<path d="" fill="none" id="sw-wave" stroke="#662e80" stroke-width="3"></path>
+<g id="sw-markers"></g>
+</svg>
+<div class="controls">
+<label>Harmonic n:
+        <select id="sw-n">
+<option value="1">1 — fundamental</option>
+<option value="2">2 — second harmonic</option>
+<option value="3">3 — third harmonic</option>
+<option value="4">4 — fourth harmonic</option>
+</select>
+</label>
+<button id="sw-play" type="button">Pause</button>
+<p>Loops: <span class="readout" id="sw-loops">1</span> · Nodes (incl. ends): <span class="readout" id="sw-nodes">2</span> · Antinodes: <span class="readout" id="sw-anti">1</span></p>
+</div>
+<script>
+      (function () {
+        const NS = "http://www.w3.org/2000/svg";
+        const wave = document.getElementById("sw-wave");
+        const markers = document.getElementById("sw-markers");
+        const sel = document.getElementById("sw-n");
+        const X0 = 40, X1 = 440, MIDY = 110, AMP = 45, L = X1 - X0;
+        let playing = true, t = 0, raf = null;
+        function draw() {
+          const n = +sel.value;
+          const env = Math.sin(t);              // time oscillation of antinodes
+          let d = "";
+          for (let x = X0; x <= X1; x += 2) {
+            const s = (x - X0) / L;             // 0..1 along string
+            const y = MIDY - AMP * Math.sin(n * Math.PI * s) * env;
+            d += (x === X0 ? "M" : "L") + x + " " + y.toFixed(1) + " ";
+          }
+          wave.setAttribute("d", d);
+          // markers (drawn once per harmonic change, but cheap to redraw)
+          markers.innerHTML = "";
+          for (let i = 0; i <= n; i++) {        // nodes incl. ends: n+1
+            const nx = X0 + (i / n) * L;
+            const c = document.createElementNS(NS, "circle");
+            c.setAttribute("cx", nx); c.setAttribute("cy", MIDY);
+            c.setAttribute("r", 4); c.setAttribute("fill", "#d33");
+            markers.appendChild(c);
+          }
+          for (let i = 0; i < n; i++) {          // antinodes: n
+            const ax = X0 + ((i + 0.5) / n) * L;
+            const c = document.createElementNS(NS, "circle");
+            c.setAttribute("cx", ax); c.setAttribute("cy", MIDY - AMP * env);
+            c.setAttribute("r", 4); c.setAttribute("fill", "#e67e22");
+            markers.appendChild(c);
+          }
+          document.getElementById("sw-loops").textContent = n;
+          document.getElementById("sw-nodes").textContent = n + 1;
+          document.getElementById("sw-anti").textContent = n;
+          if (playing) { t += 0.08; raf = requestAnimationFrame(draw); }
+        }
+        sel.onchange = () => { if (!playing) draw(); };
+        document.getElementById("sw-play").onclick = (e) => {
+          playing = !playing;
+          e.target.textContent = playing ? "Pause" : "Play";
+          if (playing) raf = requestAnimationFrame(draw);
+          else if (raf) cancelAnimationFrame(raf);
+        };
+        draw();
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> The fundamental (n = 1): one big loop. The two fixed ends are nodes (no motion). One antinode swings in the middle. Nodes = 2, antinodes = 1.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<line stroke="#999" stroke-dasharray="4 4" x1="20" x2="260" y1="45" y2="45"></line>
+<path d="M20 45 Q 140 5 260 45" fill="none" stroke="#662e80" stroke-width="2.5"></path>
+<circle cx="20" cy="45" fill="#d33" r="4"></circle><circle cx="260" cy="45" fill="#d33" r="4"></circle>
+<circle cx="140" cy="15" fill="#e67e22" r="4"></circle>
+</svg>
+<p><strong>Storyboard frame 2.</strong> The third harmonic (n = 3): three loops. Four nodes (including the ends) and three antinodes. Shaking faster fits more whole loops.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<line stroke="#999" stroke-dasharray="4 4" x1="20" x2="260" y1="45" y2="45"></line>
+<path d="M20 45 Q 60 10 100 45 T 180 45 T 260 45" fill="none" stroke="#662e80" stroke-width="2.5"></path>
+<circle cx="20" cy="45" fill="#d33" r="4"></circle><circle cx="100" cy="45" fill="#d33" r="4"></circle>
+<circle cx="180" cy="45" fill="#d33" r="4"></circle><circle cx="260" cy="45" fill="#d33" r="4"></circle>
+</svg>
+<p><strong>Storyboard frame 3.</strong> Resonance: only frequencies that fit whole loops "work." A wine glass has a natural frequency; when a singer matches it, the glass resonates and shatters. Off-resonance, the rope is just a messy jumble.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="11" x="10" y="40">match the natural frequency → resonance</text>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="11" x="10" y="65">in between → no standing pattern</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">Switch between harmonics. As n goes up, how do the number of nodes and antinodes change? Tell your partner the rule (nodes = n + 1, antinodes = n).</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>How does a standing wave form? Use the words <em>reflection</em> and <em>interfere</em>.</li>
+<li>The 3rd harmonic on a fixed-end string has how many nodes (including the ends) and how many antinodes?</li>
+<li>Why did the wine glass shatter at only one specific pitch? Use the word <em>natural frequency</em>.</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"A node is a point that ___; an antinode is a point that ___."</p>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>standing wave</strong> — a wave pattern that appears to stand still, formed when a wave and its reflection interfere so that nodes and antinodes stay in fixed positions</li>
+<li><strong>node</strong> — a point on a standing wave that never moves (zero amplitude); an <em>antinode</em> is a point of maximum swing</li>
+<li><strong>resonance</strong> — the large response that occurs when a driving frequency matches an object's natural frequency</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Return to your rope sketch. Re-label the X's as <strong>nodes</strong> and the stars as <strong>antinodes</strong>. Add a one-sentence definition of <em>resonance</em> using the words <em>natural frequency</em>.</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>Back to the wine glass: in one sentence, explain why it shatters at only one specific pitch and not at others, using <em>resonance</em> and <em>natural frequency</em>.</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A standing wave on a string shows 2 full loops between the fixed ends.
+      <br/>(a) How many nodes are there in total (including the ends)? How many antinodes? (b) Define resonance in one sentence. (c) A bridge can sway dangerously if wind or marching feet hit a certain frequency. Which idea from today explains this?
+    </li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://javalab.org/en/standing_wave_en/" rel="noopener" target="_blank">Javalab — Standing Wave (find each harmonic)</a></li>
+<li><a href="https://www.youtube.com/watch?v=PHRO_d0M5wo" rel="noopener" target="_blank">Standing waves and resonance demonstrated (video)</a></li>
+<li><a href="https://www.youtube.com/watch?v=BE827gwnnk4" rel="noopener" target="_blank">Shattering a wine glass with resonance (video)</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="03-wave-speed-frequency-and-wavelength.html"><span class="label">← Previous lesson</span><span class="target">Wave Speed, Frequency, and Wavelength</span></a>
+        <a class="next" href="05-interference-constructive-and-destructive.html"><span class="label">Next lesson →</span><span class="target">Interference: Constructive and Destructive</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 04 of 10 · Unit: Waves &amp; Sound</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>

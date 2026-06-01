@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electric Current and Ohm&#x27;s Law · Current Electricity · Lesson 01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../_assets/site.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="ink-wobble" x="-2%" y="-2%" width="104%" height="104%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+  </filter></defs>
+</svg>
+<div class="progress-bar"></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="../../index.html">
+      <span class="logos">
+        <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+        <span class="x">×</span>
+        <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+      </span>
+      <span class="label">Physics · Current Electricity</span>
+    </a>
+    <nav>
+      <a href="../../index.html">Course</a>
+      <a href="../index.html">Unit</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Lesson 01 · Unit: Current Electricity</div>
+    <h1>Electric Current and Ohm&#x27;s Law</h1>
+    <p class="lede">What has to be true for electric charge to flow, and what controls how much flows?</p>
+    <div class="chips"><span class="chip hochman">Hochman</span></div>
+    <a href="../teacher_guides/01-electric-current-and-ohm-s-law-teacher-guide.docx" class="teacher-download" download>Download teacher guide (DOCX)</a>
+  </div>
+</section>
+<main>
+  <div class="shell with-toc">
+    <div>
+<section id="phenomenon" class="section">
+<h2>Phenomenon</h2>
+<p>Your teacher holds an "energy stick." Nothing happens — until two people grab the metal ends and complete the loop with their hands. Then it lights up and buzzes. Break the loop, and it goes dark again. Add more people to the hand-chain and it gets <em>harder</em> to light.</p>
+<p><img alt="Schematic of a simple circuit: a battery labeled V = 6 V on the left drives a current I = 2 A clockwise through a single resistor R = 3 Ω on the bottom wire." src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHUCAYAAACqOplfAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjEwLjksIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmcvJkbTWQAAAAlwSFlzAAAXEgAAFxIBZ5/SUgAAPb1JREFUeJzt3QWYHPX9x/Hvnkfu4oGQIEmAAElwp7hrS/9AC5RSrEgL1IBChQpSSilQ2iJFC8GhFHdpg4YEDRYiBI3Lue3+n8+ke5mdm73b3Vu7+71fz3NPcnu3e7OzI5/5yXcisVgsZgAAAHBGSaEXAAAAAPlFAAQAAHAMARAAAMAxBEAAAADHEAABAAAcQwAEAABwDAEQAADAMQRAAAAAxxAAAQAAHEMABAAAcAwBEAAAwDEEQAAAAMcQAAEAABxDAAQAAHBMWTZfrL293Z5++ml77LHH7N1337VFixZZU1OTDRw40Gpqamzw4ME2btw423jjjb2vLbbYwvr375/wGp999pntuuuuCY9985vftEsvvdT6ir76HnfZZRf7/PPPO74fPXq0/ec//7G+xpX32VecddZZdv/99yc89sILL9iYMWMKtkwAMnPvvffaOeeck/DYJZdcYocddhirtFABUKHmhz/8ob3zzjudfrZ8+XLva/78+fb222/bAw884D3+17/+1fbff/9sLQJQNPpqyEf2XHnllfaXv/wl4bEpU6bY9ttvn9XnAMjP/ulkAKyrq7NjjjnGC3gAAABwIADedNNNncLfOuusYwceeKCttdZaVlVVZStWrLBZs2bZG2+8YR999FHS1xo6dKhdccUVCY+tvfba2VhM5Nj5559vDQ0NHd8Hu/f7ClfeJwAUm+22265TRth8880LtjzmegB84oknEr7X2JqHHnrIG/uXrHvsvvvusyFDhnT6mU6mBx98cDYWC3m25557OrHOXXmfAFBs1CBEo1ARBcBPPvkk4ftNNtkkafiLB8QzzzyzR2Onkg3E//DDD+26666zl19+2Rt3uMYaa9jee+9t3//+92348OHe77a0tHh9+f/6179s3rx5FolEbIMNNrD/+7//s29961tWUlKS8niArbfe2u644w578MEHbfbs2dbc3OxtnPvss4+ddNJJVl1dbT3V2tpqjz76qD3zzDPeGMulS5d670EBWutagUTLXlFRYdmg13788cftueee8/7ekiVLrLGx0ZvEM2LECG/yzk477WT77rtv2pMjkg3I13q6/vrrvUlEX3zxhTesIGxgrz5TPV+f7wcffOB9r8lHw4YNszXXXNO7Otxrr70SrghfeeUVO/rooxNe54wzzui0DfZ020u2ncRpuYPvPbgcuZpgolZ3DZ6eNm2a9z5ra2utsrLS+zw322wz22+//bztKGzbl6OOOspeffXVhMe0vWv933DDDd7nptfVvjR+/Hhvvek5paWlXS7XzJkzvYvB6dOne5+7lmvAgAHeMWLHHXe073znO946yAXtq7fddpt3sTp37lyLRqM2duxYO+igg+zYY4/11k9QW1ubPfvss95y60vveeXKlV4Ph56vZdf+v+mmm3oXsjo+BAU/Y7/gdhrfP7Qu031OcJKL9mEd87Q9vffee7Zs2bKOfUfLq21AvTbJtoF09t2LLrrI2w+++uqrjt+dOHGid5wM8/7773vr3e/EE0+0c88913JB25m2u6lTp3p/W9txLBbzjnEbbriht+0dccQR3vfpTkTQe9Rrax1rXWgf03HltNNOs1GjRnW5XNqO7rnnHnvxxRe9fVafkT6P+HH3kEMOsd12261H772r46F/2bVOttlmG7v99tuzfj5avHix3XnnnfbSSy95+57et9a/XkNf2nY1UXSrrbayHXbYwcrKytKeBKJtW8v55JNPep/xwoULvUmp2l71N0aOHOl91jr+7bzzzh35IJP9M7iv5Wr7OvTQQ731ps/p448/9tabHst0bHlWAqBWtJ82Xn0pJOTT3Xffbb/+9a+9DTROXdM6QWlm8q233uodoHVg0SxlP3VN60s7h07iqdDOqY0uOPFFXd360sHyn//8pzfzOVM6Mf70pz+1Tz/9tNPPFixY4H0pqF1zzTXepJrJkydbT2iD/fnPf25ffvllp59pVre+dHBQ+FUAyAatq/POO8/bQZPRznPzzTfbn/70J28nDtKJR18zZszwvoIHLVepq/p3v/udd1IJ0n6iE5QOwJqYpQOutn0FuFS89tpr9oMf/MA7Afhpope+dHD/+9//7oXCIIWmX/ziF94BOtmkMe2jGl7yox/9yE455RTLJu03ukALDkeJBzutD+278ZOCf7lPPfXUpK+rE6GOC3r/CpcKVDo4h4XJfFI4U5gKflb+fUcXfddee6397W9/s3XXXbdH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" style="max-width:100%;height:auto;"/></p>
+</section>
+<section id="driving" class="section driver">
+<h2>Driving Question</h2>
+<p><strong>What has to be true for electric charge to flow, and what controls how much flows?</strong></p>
+</section>
+<section id="notice" class="section notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<p>Watch the energy-stick loop open and close. List two things you notice and two things you wonder.</p>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="tt">Turn to your partner: what has to be true for the charge to flow? Use the word <em>path</em> in your answer.</aside>
+<section id="initial" class="section">
+<h2>Initial Model</h2>
+<p>Draw the energy-stick loop with two people holding hands. Mark where the <strong>push</strong> comes from and draw arrows showing which way the charge moves around the loop. Then predict: what would make the light brighter?</p>
+</section>
+<section id="investigate" class="section">
+<h2>Investigate</h2>
+<p>This is a single battery + resistor loop. Drag the sliders to change the voltage <em>V</em> (the push) and the resistance <em>R</em> (the opposition). Watch the current <em>I = V ÷ R</em> update, and watch the point trace out the V–I line for the resistor you set.</p>
+<div data-interactive="true">
+<svg aria-label="Voltage versus current graph for Ohm's Law" height="320" id="ohm-canvas" role="img" viewbox="0 0 480 320" width="480">
+<!-- axes -->
+<line stroke="#1a1a1a" stroke-width="2" x1="60" x2="460" y1="280" y2="280"></line>
+<line stroke="#1a1a1a" stroke-width="2" x1="60" x2="60" y1="280" y2="20"></line>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="13" text-anchor="middle" x="250" y="312">Current I (A)</text>
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="13" text-anchor="middle" transform="rotate(-90 18 150)" x="18" y="150">Voltage V (V)</text>
+<!-- the V-I line for the current resistance (slope = R) -->
+<line id="ohm-line" stroke="#662e80" stroke-width="3" x1="60" x2="60" y1="280" y2="280"></line>
+<!-- operating point -->
+<circle cx="60" cy="280" fill="#2ea3f2" id="ohm-point" r="6"></circle>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="12" font-weight="700" id="ohm-slope-lab" x="0" y="0"></text>
+</svg>
+<div class="controls">
+<label>Voltage V: <input id="ohm-v" max="30" min="1" step="1" type="range" value="12"/> <span class="readout" id="ohm-v-r">12</span> V</label>
+<label>Resistance R: <input id="ohm-r" max="12" min="1" step="1" type="range" value="3"/> <span class="readout" id="ohm-r-r">3</span> Ω</label>
+<p>Current I = V ÷ R = <span class="readout" id="ohm-i">4.0</span> A · The slope of the purple line <em>is</em> the resistance.</p>
+</div>
+<script>
+      (function () {
+        // Graph maps current 0..10 A across x:60..460, voltage 0..30 V up y:280..20.
+        const X0 = 60, Y0 = 280, XMAX = 460, YTOP = 20;
+        const I_FULL = 10, V_FULL = 30;
+        const xPerI = (XMAX - X0) / I_FULL;
+        const yPerV = (Y0 - YTOP) / V_FULL;
+        const vEl = document.getElementById("ohm-v");
+        const rEl = document.getElementById("ohm-r");
+        const line = document.getElementById("ohm-line");
+        const point = document.getElementById("ohm-point");
+        const slopeLab = document.getElementById("ohm-slope-lab");
+        function update() {
+          const V = parseFloat(vEl.value), R = parseFloat(rEl.value);
+          const I = V / R;
+          // The V-I line for this R passes through origin with slope R (volts per amp).
+          // Draw it out to the right edge of the current axis (I = 10).
+          const lineX = X0 + I_FULL * xPerI;
+          const lineV = I_FULL * R;                 // volts at I = 10 for this R
+          const lineY = Y0 - Math.min(lineV, V_FULL) * yPerV;
+          // clamp the line to the top of the graph if it would run off
+          let endX = lineX, endY = lineY;
+          if (lineV > V_FULL) {
+            const cappedI = V_FULL / R;
+            endX = X0 + cappedI * xPerI;
+            endY = YTOP;
+          }
+          line.setAttribute("x2", endX);
+          line.setAttribute("y2", endY);
+          // operating point at (I, V)
+          const px = X0 + Math.min(I, I_FULL) * xPerI;
+          const py = Y0 - Math.min(V, V_FULL) * yPerV;
+          point.setAttribute("cx", px);
+          point.setAttribute("cy", py);
+          slopeLab.setAttribute("x", endX - 70);
+          slopeLab.setAttribute("y", endY + 16);
+          slopeLab.textContent = "slope = R = " + R + " Ω";
+          document.getElementById("ohm-v-r").textContent = V;
+          document.getElementById("ohm-r-r").textContent = R;
+          document.getElementById("ohm-i").textContent = I.toFixed(1);
+        }
+        vEl.addEventListener("input", update);
+        rEl.addEventListener("input", update);
+        update();
+      })();
+    </script>
+</div>
+<noscript class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> A 12 V battery drives a 3 Ω resistor. Ohm's Law gives I = V ÷ R = 12 ÷ 3 = 4 A. The operating point sits at (4 A, 12 V) on the V–I graph.</p>
+<svg height="180" viewbox="0 0 260 180" width="260">
+<line stroke="#1a1a1a" stroke-width="2" x1="40" x2="240" y1="150" y2="150"></line>
+<line stroke="#1a1a1a" stroke-width="2" x1="40" x2="40" y1="150" y2="20"></line>
+<line stroke="#662e80" stroke-width="3" x1="40" x2="200" y1="150" y2="30"></line>
+<circle cx="120" cy="90" fill="#2ea3f2" r="5"></circle>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="11" x="125" y="86">(4 A, 12 V)</text>
+</svg>
+<p><strong>Storyboard frame 2.</strong> Keep R = 3 Ω and double the voltage to 24 V. The current doubles to 8 A — the point slides up the <em>same</em> line. The line's steepness (its slope) equals the resistance and does not change.</p>
+<svg height="180" viewbox="0 0 260 180" width="260">
+<line stroke="#1a1a1a" stroke-width="2" x1="40" x2="240" y1="150" y2="150"></line>
+<line stroke="#1a1a1a" stroke-width="2" x1="40" x2="40" y1="150" y2="20"></line>
+<line stroke="#662e80" stroke-width="3" x1="40" x2="200" y1="150" y2="30"></line>
+<circle cx="180" cy="48" fill="#2ea3f2" r="5"></circle>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="11" x="120" y="44">(8 A, 24 V)</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> Now raise the resistance to 6 Ω at 12 V. The current falls to I = 12 ÷ 6 = 2 A. A bigger resistance makes a <em>steeper</em> line and lets less current through for the same push.</p>
+<svg height="180" viewbox="0 0 260 180" width="260">
+<line stroke="#1a1a1a" stroke-width="2" x1="40" x2="240" y1="150" y2="150"></line>
+<line stroke="#1a1a1a" stroke-width="2" x1="40" x2="40" y1="150" y2="20"></line>
+<line stroke="#662e80" stroke-width="3" x1="40" x2="130" y1="150" y2="25"></line>
+<circle cx="85" cy="88" fill="#2ea3f2" r="5"></circle>
+<text fill="#2ea3f2" font-family="Inter, sans-serif" font-size="11" x="90" y="84">(2 A, 12 V)</text>
+</svg>
+</noscript>
+</section>
+<aside class="tt">Across your data, how did the current respond when you raised the voltage but kept the same resistor? What does the steepness (slope) of the line tell you?</aside>
+<section id="mims" class="section">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>A resistor has 12 V across it and 3 A flowing through it. Use V = I·R to find its resistance.</li>
+<li>A 4 Ω resistor is connected to a 24 V battery. How much current flows?</li>
+<li>The slope of your V-vs-I line was 3. What physical quantity does that slope represent, and what are its units?</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"The current is ___ A because the voltage is ___ V and the resistance is ___ Ω, so I = V ÷ R."</p>
+</details>
+</section>
+<section id="vocab" class="section vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>current</strong> — the rate of flow of electric charge through a conductor (charge ÷ time), measured in amperes (A)</li>
+<li><strong>voltage</strong> — the potential difference, or electrical "push," between two points that drives current around a circuit, measured in volts (V)</li>
+<li><strong>resistance</strong> — the opposition a material offers to the flow of charge; the slope of a V-vs-I graph, measured in ohms (Ω)</li>
+</ul>
+</section>
+<section id="revise" class="section">
+<h2>Revise Your Model</h2>
+<p>Return to your Initial Model and add the energy-stick hand-chain. Explain, using <em>resistance</em> and <em>current</em>, why adding more people makes the stick harder to light.</p>
+</section>
+<section id="return" class="section">
+<h2>Return to the Phenomenon</h2>
+<p>On the energy stick, why does adding more people in the hand-chain make it harder to light? Answer in one sentence using <em>resistance</em> and <em>current</em>: each person adds resistance, so for the same small voltage the current drops below what the stick needs to light.</p>
+</section>
+<section id="exit" class="section exit">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A resistor has 6 V across it and carries 2 A of current.
+      <br/>(a) What is its resistance? Show V = I·R. (b) The voltage is raised to 12 V with the same resistor — what is the new current? (c) In one sentence, what does the slope of a V-vs-I graph represent?
+    </li>
+<li><em>Reflection:</em> What is one thing about electricity you understand now that you didn't this morning? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section id="explore" class="section">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc" rel="noopener" target="_blank">PhET — Circuit Construction Kit: DC (build a battery + resistor loop, read the ammeter and voltmeter)</a></li>
+<li><a href="https://javalab.org/en/electric_current_en/" rel="noopener" target="_blank">Javalab — Electric Current (charge flowing through a conductor)</a></li>
+<li><a href="https://www.khanacademy.org/science/physics/circuits-topic/circuits-resistance/a/ee-voltage-and-current" rel="noopener" target="_blank">Khan Academy — Voltage and Current (Ohm's Law)</a></li>
+</ul>
+</section>
+
+      <nav class="pager">
+        <a class="prev" href="../index.html"><span class="label">← Unit index</span><span class="target">Current Electricity</span></a>
+        <a class="next" href="02-resistance-in-a-wire.html"><span class="label">Next lesson →</span><span class="target">Resistance in a Wire</span></a>
+      </nav>
+    </div>
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol>
+        <li><a href="#phenomenon">Phenomenon</a></li>
+        <li><a href="#driving">Driving question</a></li>
+        <li><a href="#notice">Notice &amp; wonder</a></li>
+        <li><a href="#initial">Initial model</a></li>
+        <li><a href="#investigate">Investigate</a></li>
+        <li><a href="#mims">Make it make sense</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+        <li><a href="#revise">Revise</a></li>
+        <li><a href="#return">Return to phenomenon</a></li>
+        <li><a href="#exit">Exit ticket</a></li>
+        <li><a href="#explore">Explore further</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span class="tagline">Learning, Achieving, Succeeding!</span>
+    <span>Lesson 01 of 5 · Unit: Current Electricity</span>
+  </div>
+</footer>
+<script type="module" src="../../_assets/site.js"></script>
+</body>
+</html>
