@@ -1,4 +1,4 @@
-# Pressure–Volume Relationship (Boyle's Law) — Student Notes
+# Pressure–Volume Relationship — Student Notes
 
 **Unit: Gas Laws — Lesson 03**
 Name: _______________________  Date: __________  Period: ____
@@ -10,7 +10,7 @@ Name: _______________________  Date: __________  Period: ____
 By the end of today's 42 minutes I can:
 
 - Describe how the **gas pressure** of a trapped gas changes as its volume changes at constant temperature (volume down → pressure ____).
-- State **Boyle's Law** in words and as the equation P₁V₁ = P₂V₂.
+- State the **pressure–volume relationship** in words and as the equation P₁V₁ = P₂V₂.
 - Solve for an unknown pressure or volume using P₁V₁ = P₂V₂, carrying correct units.
 - Explain, using Scale, Proportion, and Quantity and the particle model, *why* pressure and volume are an **inverse proportion**.
 
@@ -18,7 +18,7 @@ By the end of today's 42 minutes I can:
 
 ## Key Vocabulary
 
-- **Boyle's Law** — _______________________________________________
+- **pressure–volume relationship** — _______________________________________________
   _______________________________________________
 
 - **inverse proportion** — _______________________________________________
@@ -33,7 +33,7 @@ By the end of today's 42 minutes I can:
 
 **The big idea — Scale, Proportion, and Quantity:** At constant temperature and a fixed amount of gas, pressure and volume are ______________ proportional. When volume goes __________, pressure goes __________. Their product, P × V, stays ______________ .
 
-**Boyle's Law — how it works:**
+**The pressure–volume relationship — how it works:**
 
 - In words: for a fixed amount of gas at constant temperature, pressure and volume are __________ proportional.
 - As an equation: __________ = __________  (read: "pressure-one times volume-one equals pressure-two times volume-two").
@@ -66,7 +66,7 @@ From the figure above, fill in the blanks:
 
 P₁ = ____ kPa   V₁ = ____ mL   V₂ = ____ mL   P₂ = ?
 
-**Step 2 — Write Boyle's Law:**
+**Step 2 — Write the equation P₁V₁ = P₂V₂:**
 
 ____________ = ____________
 
@@ -87,7 +87,7 @@ The pressure doubled when the volume was halved
 **but** _______________________________________________,
 **so** _______________________________________________.
 
-*Check your reasoning:* "because" should explain the particle collisions; "but" should name what stayed constant (temperature and amount); "so" should state that P × V stays constant — Boyle's Law.
+*Check your reasoning:* "because" should explain the particle collisions; "but" should name what stayed constant (temperature and amount); "so" should state that P × V stays constant — the pressure–volume relationship.
 
 ---
 
@@ -95,7 +95,7 @@ The pressure doubled when the volume was halved
 
 Complete the sentence:
 
-> Boyle's Law states that, at constant temperature, the __________ and __________ of a fixed amount of gas are __________ proportional, so P₁V₁ = __________ .
+> The pressure–volume relationship states that, at constant temperature, the __________ and __________ of a fixed amount of gas are __________ proportional, so P₁V₁ = __________ .
 
 Complete the Because / But / So sentence:
 
@@ -104,8 +104,8 @@ Complete the Because / But / So sentence:
 > but __________________________________________,
 > so __________________________________________.
 
-**Reminder:** Boyle's Law holds **only** when temperature *and* the amount of gas stay constant. The equation conserves the *product* P × V — you **multiply** pressure by volume on each side, you do not add them.
+**Reminder:** The pressure–volume relationship holds **only** when temperature *and* the amount of gas stay constant. The equation conserves the *product* P × V — you **multiply** pressure by volume on each side, you do not add them.
 
 **Key reference:**
-Boyle's Law: P₁V₁ = P₂V₂ (constant T, constant amount of gas)
+Pressure–volume relationship: P₁V₁ = P₂V₂ (constant T, constant amount of gas)
 Inverse proportion: volume × factor → pressure ÷ same factor → product unchanged

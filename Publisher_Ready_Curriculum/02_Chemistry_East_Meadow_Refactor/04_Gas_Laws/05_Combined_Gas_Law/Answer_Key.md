@@ -82,7 +82,7 @@ The volume quadruples: halving the pressure (101.3 → 50.65 kPa) doubles the vo
 
 The closing reflection is formative, not graded. Award full credit for any genuine, specific response. Look for:
 
-- Any mention of how the three earlier gas laws (Boyle's, Charles's, Gay-Lussac's) fold into the single combined equation — students who articulate that they no longer need three separate formulas are showing the conceptual consolidation the lesson targets.
+- Any mention of how the three earlier relationships (pressure–volume, temperature–volume, temperature–pressure) fold into the single combined equation — students who articulate that they no longer need three separate formulas are showing the conceptual consolidation the lesson targets.
 - Responses that use the appositive structure ("the combined gas law — P₁V₁/T₁ = P₂V₂/T₂ — relates...") are demonstrating the Hochman writing move from Phase 3 and Phase 4. Note these students as having integrated the equation into their active sentence structure.
 - Students who name a partner who helped them catch a Kelvin-conversion or STP-lookup error are signaling that the group investigation supported their learning — note this as evidence the collaborative structure is working.
 

@@ -60,4 +60,4 @@ The closing reflection is formative, not graded. Award full credit for any genui
 - Responses that use the appositive structure ("the kinetic molecular theory — a model of a gas as moving particles — explains...") show the Hochman writing move from Phase 3 and Phase 4 has landed; note these students.
 - Naming a partner who helped them see particles as the cause of pressure signals that the group investigation (marshmallow syringe, particle simulation) supported their learning.
 
-If a student's Initial Model still shows gas particles packed tightly together (the solid-arrangement misconception) or describes pressure as a fixed property rather than the result of collisions, schedule a brief one-on-one before Lesson 03 (Boyle's Law), which assumes the collision model is secure.
+If a student's Initial Model still shows gas particles packed tightly together (the solid-arrangement misconception) or describes pressure as a fixed property rather than the result of collisions, schedule a brief one-on-one before Lesson 03 (Pressure–Volume Relationship), which assumes the collision model is secure.

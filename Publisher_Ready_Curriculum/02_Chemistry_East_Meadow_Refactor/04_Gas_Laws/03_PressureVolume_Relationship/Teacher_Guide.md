@@ -1,8 +1,8 @@
-# Pressure–Volume Relationship (Boyle's Law) — Teacher Guide
+# Pressure–Volume Relationship — Teacher Guide
 
 ## Cover
 
-**Unit: Gas Laws — Lesson 03: Pressure–Volume Relationship (Boyle's Law)**
+**Unit: Gas Laws — Lesson 03: Pressure–Volume Relationship**
 East Meadow Schools × Valley Stream Central High School District
 Strategy chips: BTC
 
@@ -12,7 +12,7 @@ Strategy chips: BTC
 
 ### NYSSLS Standards
 
-This lesson sits inside the Gas Laws unit and develops the kinetic-molecular account of gas behavior that the 2025 NYSSLS-aligned Regents expects students to reason with quantitatively. Students model the inverse relationship between pressure and volume at constant temperature — Boyle's Law — both qualitatively (a syringe gets harder to push as the trapped air is squeezed) and quantitatively (P₁V₁ = P₂V₂). The Science and Engineering Practices in play are **Analyzing and Interpreting Data** (reading a P–V curve and recognizing that PV stays constant) and **Using Mathematics and Computational Thinking** (solving for an unknown pressure or volume with the Boyle's Law equation). No single content performance expectation is assigned in the East Meadow Scope & Sequence for this day; the lesson builds the gas-law fluency that later combined-gas-law and stoichiometry work depend on.
+This lesson sits inside the Gas Laws unit and develops the kinetic-molecular account of gas behavior that the 2025 NYSSLS-aligned Regents expects students to reason with quantitatively. Students model the inverse relationship between pressure and volume at constant temperature — the pressure–volume relationship — both qualitatively (a syringe gets harder to push as the trapped air is squeezed) and quantitatively (P₁V₁ = P₂V₂). The Science and Engineering Practices in play are **Analyzing and Interpreting Data** (reading a P–V curve and recognizing that PV stays constant) and **Using Mathematics and Computational Thinking** (solving for an unknown pressure or volume with the equation P₁V₁ = P₂V₂). No single content performance expectation is assigned in the East Meadow Scope & Sequence for this day; the lesson builds the gas-law fluency that later combined-gas-law and stoichiometry work depend on.
 
 The Cross-Cutting Concept of **Scale, Proportion, and Quantity** is the explicit lens: when temperature and the amount of gas are held constant, pressure and volume are *inversely proportional* — halve the volume and the pressure doubles, so their product stays the same. Students learn to distinguish an inverse proportion (P up, V down, product fixed) from the direct proportions they have met before.
 
@@ -31,7 +31,7 @@ Cap a plastic syringe full of air by sealing the tip (a finger over the nozzle, 
 ### Assessments
 
 - **P–V graphing & calculation problem set** (district checkpoint, following lesson; see `Assessments/` folder once created): students solve for an unknown P or V using P₁V₁ = P₂V₂, sketch or read a P–V curve, and write one sentence explaining why pressure and volume are inversely related.
-- **Exit Ticket** (Phase 5): two Boyle's-Law calculations (one solving for pressure, one solving for volume) using values **distinct** from the worksheet practice, plus a one-sentence particle-level explanation of the syringe phenomenon. See `Answer_Key.docx`.
+- **Exit Ticket** (Phase 5): two pressure–volume calculations (one solving for pressure, one solving for volume) using values **distinct** from the worksheet practice, plus a one-sentence particle-level explanation of the syringe phenomenon. See `Answer_Key.docx`.
 
 ---
 
@@ -40,7 +40,7 @@ Cap a plastic syringe full of air by sealing the tip (a finger over the nozzle, 
 | | |
 |---|---|
 | **Duration** | 42 minutes (1 period) |
-| **NYSSLS link** | Gas Laws — Boyle's Law (P–V inverse relationship at constant T); SEP Analyzing Data + Using Mathematics; no single content PE assigned for this day |
+| **NYSSLS link** | Gas Laws — pressure–volume relationship (P–V inverse relationship at constant T); SEP Analyzing Data + Using Mathematics; no single content PE assigned for this day |
 | **CCC focus** | Scale, Proportion, and Quantity — at constant temperature and amount, pressure and volume are inversely proportional, so their product P × V stays constant; halving V doubles P |
 | **Strategy chips** | BTC — visibly random groups, vertical non-permanent surfaces, a thinking task launched with minimal instructions (Phase 2 syringe + PhET exploration) |
 | **Materials** | One sealable plastic syringe (30–60 mL) per group, rubber stoppers or caps to seal the tip, whiteboards / windows / chart paper for vertical surfaces and markers (BTC), devices for the PhET Gas Properties simulation, calculators, `figures/pressure_volume_curve.png` projected |
@@ -50,7 +50,7 @@ Cap a plastic syringe full of air by sealing the tip (a finger over the nozzle, 
 **Lesson objectives — students can:**
 
 - Describe qualitatively how the pressure of a trapped gas changes as its volume changes at constant temperature (volume down → pressure up).
-- State Boyle's Law in words and as an equation (P₁V₁ = P₂V₂; equivalently PV = constant at fixed T and amount).
+- State the pressure–volume relationship in words and as an equation (P₁V₁ = P₂V₂; equivalently PV = constant at fixed T and amount).
 - Solve for an unknown pressure or volume using P₁V₁ = P₂V₂, carrying correct units.
 - Explain, using Scale, Proportion, and Quantity and the particle model, *why* pressure and volume are inversely proportional.
 
@@ -106,7 +106,7 @@ Target insight (leave open if no one lands it yet): as volume decreases, pressur
 
 ### 10–13 min · BTC launch — visibly random groups + the thinking task
 
-**Before any vocabulary or equation is introduced**, launch the Explore as a **Building Thinking Classrooms** task (see Strategy Spotlight). Form **visibly random groups of three** (deal cards or use a randomizer on screen), send each group to a **vertical non-permanent surface** (whiteboard, window, or chart paper), and give **one marker per group**. Launch the task verbally with minimal instructions — do not pre-teach Boyle's Law or the equation:
+**Before any vocabulary or equation is introduced**, launch the Explore as a **Building Thinking Classrooms** task (see Strategy Spotlight). Form **visibly random groups of three** (deal cards or use a randomizer on screen), send each group to a **vertical non-permanent surface** (whiteboard, window, or chart paper), and give **one marker per group**. Launch the task verbally with minimal instructions — do not pre-teach the equation:
 
 > "Each group has a sealed syringe and the PhET Gas Properties simulation. Change the volume of the trapped gas — by hand on the syringe and by dragging the wall in the simulation — and record what happens to the pressure. Find the *rule*. Write any pattern you can find between the two numbers on your surface."
 
@@ -154,7 +154,7 @@ Bring groups back. Ask one group to read their (V, P) table and their product co
 
 > "Across every group, two things happened: pressure went *up* when volume went *down*, and their *product* stayed about the same. Those two statements are actually one rule. Let's name it."
 
-Surface the key idea without yet giving the term: at constant temperature and amount of gas, P and V move in opposite directions and their product is constant. That sentence *is* Boyle's Law — we name it next.
+Surface the key idea without yet giving the term: at constant temperature and amount of gas, P and V move in opposite directions and their product is constant. That sentence *is* the pressure–volume relationship — we name it next.
 
 ---
 
@@ -174,9 +174,9 @@ Target: pressure is divided by three (6.0 → 2.0 kPa). The product is still 120
 
 **Sample teacher language:**
 
-> "Let's name what you discovered. The rule that pressure and volume move in opposite directions at constant temperature — and that their product stays constant — is **Boyle's Law**. In words: for a fixed amount of gas at constant temperature, pressure and volume are inversely proportional. As an equation we write **P₁V₁ = P₂V₂** — the product before a change equals the product after the change."
+> "Let's name what you discovered. The rule that pressure and volume move in opposite directions at constant temperature — and that their product stays constant — is the **pressure–volume relationship**. In words: for a fixed amount of gas at constant temperature, pressure and volume are inversely proportional. As an equation we write **P₁V₁ = P₂V₂** — the product before a change equals the product after the change."
 
-> "The pattern itself — when one quantity goes up by a factor and the other goes down by the *same* factor, so the product is constant — is called an **inverse proportion** (or inverse relationship). That is different from the direct proportions you've seen, where both quantities rise together. Boyle's Law is the inverse proportion between pressure and volume."
+> "The pattern itself — when one quantity goes up by a factor and the other goes down by the *same* factor, so the product is constant — is called an **inverse proportion** (or inverse relationship). That is different from the direct proportions you've seen, where both quantities rise together. The pressure–volume relationship is the inverse proportion between pressure and volume."
 
 > "And the reason behind it lives in the third term: **gas pressure**. Gas pressure is the force per area that gas particles exert by colliding with the walls of their container. When you shrink the volume, the same number of particles are packed into less space, so they hit the walls *more often* per second — and more collisions per area means higher pressure. That is *why* the syringe fights back harder: you've crowded the particles, so they strike back more frequently."
 
@@ -184,8 +184,8 @@ Post the three terms on the board. Students fill them in on their notes.
 
 **Discussion prompts to deploy here:**
 
-- "If I push the syringe to half its volume, the equation says the pressure doubles. Using particles, why does it double?" — *Expected response:* the same number of particles in half the space hit the walls about twice as often per second, so the force per area roughly doubles. That's Boyle's Law from the particle view.
-- "Why does Boyle's Law require constant temperature?" — *Expected response:* if temperature changed, the particle speeds would change too, and pressure would shift for a second reason. Holding temperature fixed isolates the volume effect so the inverse proportion is clean. (Accept partial answers; this previews the next gas law.)
+- "If I push the syringe to half its volume, the equation says the pressure doubles. Using particles, why does it double?" — *Expected response:* the same number of particles in half the space hit the walls about twice as often per second, so the force per area roughly doubles. That's the pressure–volume relationship from the particle view.
+- "Why does this relationship require constant temperature?" — *Expected response:* if temperature changed, the particle speeds would change too, and pressure would shift for a second reason. Holding temperature fixed isolates the volume effect so the inverse proportion is clean. (Accept partial answers; this previews the next gas law.)
 
 ---
 
@@ -209,7 +209,7 @@ Then run a **Because / But / So** sentence (Hochman support inside the BTC frame
 
 Model one aloud:
 
-> "When you squeeze a sealed syringe to half its volume, the pressure doubles **because** the same number of gas particles are now packed into half the space, so they collide with the walls about twice as often per second — **but** the temperature and the amount of gas never changed — **so** pressure and volume stay inversely proportional and their product P × V holds constant, which is exactly Boyle's Law."
+> "When you squeeze a sealed syringe to half its volume, the pressure doubles **because** the same number of gas particles are now packed into half the space, so they collide with the walls about twice as often per second — **but** the temperature and the amount of gas never changed — **so** pressure and volume stay inversely proportional and their product P × V holds constant, which is exactly the pressure–volume relationship."
 
 Then have students write their own B/B/S using one of these starters:
 
@@ -252,18 +252,18 @@ Collect the vertical-surface photos or worksheets; note which students wrote pre
 ## Common Misconceptions
 
 - **Misconception:** "When you compress a gas, you are squeezing the particles themselves smaller." → **Correction:** The particles do not shrink. Compressing reduces the *empty space between* particles, so the same number of particles occupy less volume. Gas is mostly empty space, which is why it compresses; the particles themselves keep their size.
-- **Misconception:** "Pressure and volume go up together (a direct relationship)." → **Correction:** Boyle's Law is an *inverse* relationship. When volume goes down, pressure goes *up*. The product P × V stays constant. Students who graph or describe both rising together have the direction reversed — point them back to the syringe (less room, more push-back).
-- **Misconception:** "Boyle's Law works no matter what." → **Correction:** Boyle's Law holds only when temperature *and* the amount of gas are constant. Change the temperature, and pressure shifts for a separate reason; add or remove gas, and the count of particles changes. The inverse P–V proportion is specifically the constant-temperature, fixed-amount case.
-- **Misconception:** "If you keep compressing, the pressure eventually stops rising / the volume can reach zero." → **Correction:** On the ideal P–V curve, pressure keeps climbing as volume shrinks and never reaches zero volume — the curve bends but never touches the axes. (Real gases eventually liquefy, but that is beyond Boyle's Law.) The relationship is a smooth inverse curve, not a line that flattens out.
+- **Misconception:** "Pressure and volume go up together (a direct relationship)." → **Correction:** The pressure–volume relationship is an *inverse* relationship. When volume goes down, pressure goes *up*. The product P × V stays constant. Students who graph or describe both rising together have the direction reversed — point them back to the syringe (less room, more push-back).
+- **Misconception:** "The pressure–volume relationship works no matter what." → **Correction:** The pressure–volume relationship (P₁V₁ = P₂V₂) holds only when temperature *and* the amount of gas are constant. Change the temperature, and pressure shifts for a separate reason; add or remove gas, and the count of particles changes. The inverse P–V proportion is specifically the constant-temperature, fixed-amount case.
+- **Misconception:** "If you keep compressing, the pressure eventually stops rising / the volume can reach zero." → **Correction:** On the ideal P–V curve, pressure keeps climbing as volume shrinks and never reaches zero volume — the curve bends but never touches the axes. (Real gases eventually liquefy, but that is beyond the pressure–volume relationship.) The relationship is a smooth inverse curve, not a line that flattens out.
 - **Misconception:** "P₁V₁ = P₂V₂ means you add the pressure and volume." → **Correction:** You *multiply* pressure by volume on each side, then solve for the unknown. The equation is a statement that the *product* is conserved, not a sum.
 
 ---
 
 ## Access & Differentiation
 
-- **ELL/ENL supports:** Sentence frames for the BTC task and Exit Ticket: *"When the volume ___, the pressure ___ because ___ ."* and *"P times V stays ___ because ___ ."* Word-choice box displayed throughout: {pressure, volume, inverse, inversely proportional, compress, constant, product, collide, particles, Boyle's Law}. Pair each idea with a gesture: hands moving together for "compress / pressure up," hands moving apart for "expand / pressure down." Allow students to draw the particle picture (fewer dots in a smaller box) on the vertical surface, not only words.
+- **ELL/ENL supports:** Sentence frames for the BTC task and Exit Ticket: *"When the volume ___, the pressure ___ because ___ ."* and *"P times V stays ___ because ___ ."* Word-choice box displayed throughout: {pressure, volume, inverse, inversely proportional, compress, constant, product, collide, particles, pressure–volume relationship}. Pair each idea with a gesture: hands moving together for "compress / pressure up," hands moving apart for "expand / pressure down." Allow students to draw the particle picture (fewer dots in a smaller box) on the vertical surface, not only words.
 - **IEP/SPED supports:** Provide a pre-printed data table with the volume column already filled (120, 60, 40, 30, 20) so the student records only the pressure and the product. Give a worked P₁V₁ = P₂V₂ template with the equation and the substitution boxes pre-drawn, so the task is the reasoning and arithmetic, not recalling the formula. Assign clear BTC group roles: one operates the syringe/simulation, one reads numbers, one writes on the surface. Calculator use expected for all arithmetic.
-- **Extensions:** (1) On the P–V curve, prove algebraically that doubling V always halves P by showing P × V is constant — pick three pairs of points and compute. (2) Real-world transfer: explain why a sealed bag of chips puffs up at high altitude (lower outside pressure → bag's trapped gas expands). (3) Research and explain how Boyle's Law sets a hard rule for scuba divers ("never hold your breath while ascending") — connect rising volume to falling pressure as a diver surfaces.
+- **Extensions:** (1) On the P–V curve, prove algebraically that doubling V always halves P by showing P × V is constant — pick three pairs of points and compute. (2) Real-world transfer: explain why a sealed bag of chips puffs up at high altitude (lower outside pressure → bag's trapped gas expands). (3) Research and explain how the inverse pressure–volume relationship sets a hard rule for scuba divers ("never hold your breath while ascending") — connect rising volume to falling pressure as a diver surfaces.
 
 ---
 
@@ -274,9 +274,9 @@ Collect the vertical-surface photos or worksheets; note which students wrote pre
 **How to run it in this lesson (Phase 2):**
 
 1. Form visibly random groups of three (deal cards / randomizer on screen). Each group gets one marker, one syringe, the PhET simulation, and one vertical surface.
-2. Launch the task verbally in one sentence: *"Change the volume of the trapped gas, record the pressure, and find the rule that connects them."* Resist the urge to state Boyle's Law or write P₁V₁ = P₂V₂ first — the whole point is that students build the rule from their own data.
+2. Launch the task verbally in one sentence: *"Change the volume of the trapped gas, record the pressure, and find the rule that connects them."* Resist the urge to write P₁V₁ = P₂V₂ first — the whole point is that students build the rule from their own data.
 3. Circulate and ask, never tell: *"Do pressure and volume move the same way or opposite ways?" "Find a number that doesn't change — try multiplying them." "You halved the volume; what happened to the pressure exactly?"* When a group is stuck, give a hint that keeps the thinking with them.
-4. Use the vertical surfaces as the class's shared thinking record in Phase 3 — groups literally point to their (V, P) products as the constant that becomes Boyle's Law.
+4. Use the vertical surfaces as the class's shared thinking record in Phase 3 — groups literally point to their (V, P) products as the constant that becomes the pressure–volume relationship.
 
 Because the surfaces are non-permanent and public, students revise freely in Phase 4 — turning their discovered pattern into the equation P₁V₁ = P₂V₂ is a low-stakes edit on a board, not a crossed-out mess on private paper. Research on BTC (Liljedahl, *Building Thinking Classrooms in Mathematics*, and its cross-disciplinary extensions) finds that random groups + vertical surfaces sharply increase the proportion of students actively reasoning rather than copying.
 
@@ -294,7 +294,7 @@ Because the surfaces are non-permanent and public, students revise freely in Pha
 | 2 | Turn and Talk (2–3×) | Phase 1 (TT#1 — what happens to pressure as volume drops?); Phase 3 (TT#2 — halve the volume, what doubles, what stays constant?) |
 | 3 | Students develop questions/models/procedures | Phase 2 BTC task on vertical surfaces (collect (V, P) data from syringe + PhET, discover the rule before any equation); Phase 4 apply P₁V₁ = P₂V₂ to a new case |
 | 4 | CCC defined and used | Lesson Overview · *Scale, Proportion, and Quantity*; explicit in Phase 3 (inverse proportion, halve V → double P) and Phase 4 (B/B/S) |
-| 5 | ENL — ≤ 3 vocab, second half | Phase 3 — vocabulary introduced at 33–36 min: Boyle's Law / inverse proportion / gas pressure |
+| 5 | ENL — ≤ 3 vocab, second half | Phase 3 — vocabulary introduced at 33–36 min: pressure–volume relationship / inverse proportion / gas pressure |
 | 6 | Revisit phenomenon with evidence | Phase 4 — students return to the syringe armed with their data, the curve, and the particle model to explain the rising resistance |
 | 7 | ENL/SPED supports | Access & Differentiation block: sentence frames, word-choice box, gestures, pre-filled data table, P₁V₁ = P₂V₂ template, BTC group roles, calculator |
 | 8 | Assessment check | Phase 5 — Exit Ticket (solve for P; solve for V; particle-model sentence), values distinct from worksheet |
@@ -304,13 +304,13 @@ Because the surfaces are non-permanent and public, students revise freely in Pha
 ## Companion Materials
 
 - `Student_Worksheet.docx` — the 5E student investigation (hand out at start of Phase 2)
-- `Student_Notes.docx` — guided note-guide for vocabulary and the worked Boyle's-Law example
+- `Student_Notes.docx` — guided note-guide for vocabulary and the worked pressure–volume example
 - `Answer_Key.docx` — answers to "Make It Make Sense" prompts and the Exit Ticket
 
 ---
 
 ## Key Vocabulary (max 3)
 
-- **Boyle's Law** — for a fixed amount of gas at constant temperature, pressure and volume are inversely proportional, so their product is constant; written P₁V₁ = P₂V₂. Halving the volume doubles the pressure.
+- **pressure–volume relationship** — for a fixed amount of gas at constant temperature, pressure and volume are inversely proportional, so their product is constant; written P₁V₁ = P₂V₂. Halving the volume doubles the pressure.
 - **inverse proportion (inverse relationship)** — a relationship in which one quantity is multiplied by a factor exactly as the other is divided by that same factor, so their product stays constant; pressure and volume relate this way at constant temperature (P up, V down).
 - **gas pressure** — the force per unit area that gas particles exert by colliding with the walls of their container; packing the same particles into a smaller volume means more collisions per second per area, so the pressure rises.

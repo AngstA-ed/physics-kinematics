@@ -12,7 +12,7 @@ Strategy chips: ACTIVE LEARNING
 
 ### NYSSLS Standards
 
-This lesson develops the **direct relationships** between the temperature of a fixed sample of gas and its volume (at constant pressure, Charles's Law) and between temperature and pressure (at constant volume, Gay-Lussac's Law). Per the East Meadow Scope & Sequence for the Gas Laws unit, students learn that volume and pressure each rise and fall *directly* with **absolute (Kelvin) temperature** — not with Celsius temperature — and they practice both qualitative reasoning and quantitative T–V and T–P calculations. No discrete content performance expectation is tagged in the Scope & Sequence for this lesson; it builds the proportional-reasoning toolkit that later combined-gas-law and ideal-gas work depends on.
+This lesson develops the **direct relationships** between the temperature of a fixed sample of gas and its volume (at constant pressure, the temperature–volume relationship) and between temperature and pressure (at constant volume, the temperature–pressure relationship). Per the East Meadow Scope & Sequence for the Gas Laws unit, students learn that volume and pressure each rise and fall *directly* with **absolute (Kelvin) temperature** — not with Celsius temperature — and they practice both qualitative reasoning and quantitative T–V and T–P calculations. No discrete content performance expectation is tagged in the Scope & Sequence for this lesson; it builds the proportional-reasoning toolkit that later combined-gas-law and ideal-gas work depends on.
 
 The Cross-Cutting Concept of **Scale, Proportion, and Quantity** is the explicit lens: when temperature is measured on the absolute (Kelvin) scale, doubling the temperature of a trapped gas doubles its volume (constant P) or doubles its pressure (constant V). The proportionality only works because the Kelvin scale starts at **absolute zero** — the temperature at which the extrapolated volume and pressure of an ideal gas both reach zero. Students see that *the choice of temperature scale changes whether the relationship looks proportional*, which is why chemists always convert to Kelvin before reasoning about gases.
 
@@ -48,7 +48,7 @@ For a vivid in-class version, run two demos. **Balloon in liquid nitrogen:** an 
 | **Strategy chips** | ACTIVE LEARNING — students predict each demo's outcome, then test their prediction by reading and extrapolating the graphs and running the calculations themselves before any formula is named |
 | **Materials** | `figures/volume_vs_temperature.png` and `figures/pressure_vs_temperature.png` projected; calculators; demo materials (inflated balloon + liquid nitrogen with cryo-PPE; empty soda can, hot plate, tongs, ice-water bath); the 2025 NYS Chemistry Reference Tables |
 | **Safety** | **Both demos are teacher-led only.** Liquid nitrogen: cryo-gloves, goggles, face shield; never seal LN₂ in a closed container. Collapsing can: boiling water and steam burns; handle the can with tongs; keep students back. |
-| **Prior knowledge** | Earlier Gas Laws lessons — pressure as collisions of gas particles with container walls (kinetic molecular theory); Pressure–Volume (Boyle's Law) inverse relationship. Students should recognize that gas particles move faster at higher temperature. Celsius temperature is familiar; Kelvin is introduced here. |
+| **Prior knowledge** | Earlier Gas Laws lessons — pressure as collisions of gas particles with container walls (kinetic molecular theory); the pressure–volume inverse relationship (P₁V₁ = P₂V₂). Students should recognize that gas particles move faster at higher temperature. Celsius temperature is familiar; Kelvin is introduced here. |
 
 **Lesson objectives — students can:**
 
@@ -226,7 +226,7 @@ Post the three terms on the board. Students fill them in on their notes.
 
 **Discussion prompts to deploy here:**
 
-- "We said volume and temperature have a *direct* relationship. Earlier in the unit, pressure and volume had an *inverse* relationship (Boyle). How is a direct relationship different from an inverse one on a graph?" — *Expected response:* direct = straight line sloping up (both increase together); inverse = a curve where one rises as the other falls. Accept either described in words.
+- "We said volume and temperature have a *direct* relationship. Earlier in the unit, pressure and volume had an *inverse* relationship (Lesson 03). How is a direct relationship different from an inverse one on a graph?" — *Expected response:* direct = straight line sloping up (both increase together); inverse = a curve where one rises as the other falls. Accept either described in words.
 - "If absolute zero is −273 °C, what is room temperature (about 25 °C) on the Kelvin scale?" — *Expected response:* 25 + 273 = 298 K. There is no negative number; everything is positive on the Kelvin scale, which is part of why it works for proportions.
 
 ---

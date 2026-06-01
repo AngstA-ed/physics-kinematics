@@ -9,7 +9,7 @@ Name: _______________________  Date: __________  Period: ____
 
 By the end of today's 42 minutes I can:
 
-- State the **combined gas law**, P₁V₁/T₁ = P₂V₂/T₂, and explain that it merges Boyle's, Charles's, and Gay-Lussac's laws into one equation.
+- State the **combined gas law**, P₁V₁/T₁ = P₂V₂/T₂, and explain that it merges the pressure–volume, temperature–volume, and temperature–pressure relationships into one equation.
 - Convert all temperatures to **Kelvin** (K = °C + 273) and write down **STP** (273 K, 101.3 kPa) when a problem says a gas is "at STP."
 - Rearrange the combined gas law to solve for any one unknown (V₂, P₂, or T₂) and carry the correct units.
 - Explain, using Scale, Proportion, and Quantity, why volume increases with absolute temperature but decreases with pressure.

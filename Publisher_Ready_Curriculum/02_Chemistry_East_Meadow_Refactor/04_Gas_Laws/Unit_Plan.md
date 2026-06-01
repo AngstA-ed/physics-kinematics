@@ -66,6 +66,6 @@ Three terms maximum per lesson, introduced in the second half (NYSSLS observatio
 |---|---|
 | 01 | ideal gas · real gas · model |
 | 02 | kinetic molecular theory · temperature · pressure |
-| 03 | Boyle's Law · inverse proportion · gas pressure |
+| 03 | pressure–volume relationship · inverse proportion · gas pressure |
 | 04 | absolute zero · Kelvin scale · direct relationship |
 | 05 | combined gas law · absolute temperature · STP |

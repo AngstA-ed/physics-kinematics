@@ -12,7 +12,7 @@ Strategy chips: HOCHMAN
 
 ### NYSSLS Standards
 
-Foundational particle-model reasoning for the Gas Laws unit (HS-PS3 / HS-PS1 crosswalk). The Kinetic Molecular Theory (KMT) is the conceptual model that every quantitative gas law in this unit rests on: before students can use Boyle's, Charles's, Gay-Lussac's, or the combined gas law, they need a mental picture of a gas as a swarm of tiny particles in constant, random motion. This lesson establishes that picture and connects it to the two macroscopic quantities students will measure all unit long — **pressure** and **temperature**. Students practice SEP-2 (Developing and Using Models) by drawing and revising a particle model of a gas, and they use the Cross-Cutting Concept of **Cause and Effect** to explain how a change at the particle scale (faster motion, more frequent collisions) produces a change they can feel and measure (higher pressure, a puffed-up bag).
+Foundational particle-model reasoning for the Gas Laws unit (HS-PS3 / HS-PS1 crosswalk). The Kinetic Molecular Theory (KMT) is the conceptual model that every quantitative gas law in this unit rests on: before students can use the pressure–volume, temperature–volume, temperature–pressure, or combined gas law relationships, they need a mental picture of a gas as a swarm of tiny particles in constant, random motion. This lesson establishes that picture and connects it to the two macroscopic quantities students will measure all unit long — **pressure** and **temperature**. Students practice SEP-2 (Developing and Using Models) by drawing and revising a particle model of a gas, and they use the Cross-Cutting Concept of **Cause and Effect** to explain how a change at the particle scale (faster motion, more frequent collisions) produces a change they can feel and measure (higher pressure, a puffed-up bag).
 
 The explicit CCC lens is **Cause and Effect: Mechanism and Prediction**. Pressure is not a property a gas simply "has" — it is *caused* by countless particle collisions with the container walls. Temperature is not "hotness" — it is a direct readout of the *average kinetic energy* of the particles. Once students see these two cause→effect links, the gas laws stop being formulas to memorize and become predictable consequences of moving particles.
 
@@ -283,7 +283,7 @@ Expected answers are in `Answer_Key.docx`. (The syringe-compression scenario in 
 
 > "Today we explained things you can feel — a popping ear, a puffed bag — using particles you cannot see. In one sentence: what is one everyday thing you now think you could explain with moving particles, and who helped you see it that way?"
 
-Collect worksheets; note which students still draw gas particles packed together (the solid-arrangement misconception) versus far apart, and which students can articulate pressure as *collisions* rather than as a property the gas simply "has." Target the first group for a brief one-on-one before Lesson 03 (Boyle's Law), which assumes the collision model.
+Collect worksheets; note which students still draw gas particles packed together (the solid-arrangement misconception) versus far apart, and which students can articulate pressure as *collisions* rather than as a property the gas simply "has." Target the first group for a brief one-on-one before Lesson 03 (Pressure–Volume Relationship), which assumes the collision model.
 
 ---
 

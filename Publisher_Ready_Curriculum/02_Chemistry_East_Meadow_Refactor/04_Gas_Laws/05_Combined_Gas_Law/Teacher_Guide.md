@@ -12,7 +12,7 @@ Strategy chips: HOCHMAN
 
 ### NYSSLS Standards
 
-**HS-PS1-9** — *"Analyze data to support the claim that the combined gas law describes the relationships among volume, pressure, and temperature for a sample of an ideal gas."* The combined gas law, P₁V₁/T₁ = P₂V₂/T₂, fuses Boyle's law (P–V), Charles's law (V–T), and Gay-Lussac's law (P–T) into one expression that handles a change in all three variables at once. For the 2025 NYSSLS-aligned Regents, students are expected to rearrange and solve the combined gas law for any one unknown, to convert all temperatures to Kelvin before substituting, and to use standard temperature and pressure (STP: 273 K and 101.3 kPa, from the 2025 NYS Chemistry Reference Tables) as a fixed reference state. Per East Meadow guidance, this lesson is the analytical capstone of the gas-law sequence: students stop memorizing three separate equations and start reasoning from one.
+**HS-PS1-9** — *"Analyze data to support the claim that the combined gas law describes the relationships among volume, pressure, and temperature for a sample of an ideal gas."* The combined gas law, P₁V₁/T₁ = P₂V₂/T₂, fuses the pressure–volume relationship (P–V), the temperature–volume relationship (V–T), and the temperature–pressure relationship (P–T) into one expression that handles a change in all three variables at once. For the 2025 NYSSLS-aligned Regents, students are expected to rearrange and solve the combined gas law for any one unknown, to convert all temperatures to Kelvin before substituting, and to use standard temperature and pressure (STP: 273 K and 101.3 kPa, from the 2025 NYS Chemistry Reference Tables) as a fixed reference state. Per East Meadow guidance, this lesson is the analytical capstone of the gas-law sequence: students stop memorizing three separate equations and start reasoning from one.
 
 The Cross-Cutting Concept of **Scale, Proportion, and Quantity** is the explicit lens. Volume responds *proportionally* to absolute temperature and *inversely* to pressure. When two factors push in opposite directions — pressure rising while temperature also rises — students must track the proportional effect of each to predict whether the gas expands or contracts. The combined gas law is the bookkeeping system that keeps those competing proportions straight.
 
@@ -46,11 +46,11 @@ A scuba diver fills a 12-liter tank with compressed air and descends to 30 meter
 | **Strategy chips** | HOCHMAN — appositive sentence to define the combined gas law crisply; Because/But/So sentence in Phase 4 to reconcile competing P and T effects |
 | **Materials** | 2025 NYS Chemistry Reference Tables (Table A — Standard Temperature and Pressure), calculators, `figures/scuba_volume_vs_depth.png` and `figures/pressure_volume_inverse.png` projected, the combined-gas-law data table (projected or half-sheet) |
 | **Safety** | No hazardous materials in this lesson; it is a data-analysis and calculation lesson. Standard classroom expectations apply. |
-| **Prior knowledge** | Boyle's law (P₁V₁ = P₂V₂), Charles's law (V₁/T₁ = V₂/T₂), and Gay-Lussac's law (P₁/T₁ = P₂/T₂) from earlier lessons in this unit; students must already convert °C to K (K = °C + 273) and read STP from Reference Table A. |
+| **Prior knowledge** | The pressure–volume relationship (P₁V₁ = P₂V₂), the temperature–volume relationship (V₁/T₁ = V₂/T₂), and the temperature–pressure relationship (P₁/T₁ = P₂/T₂) from earlier lessons in this unit; students must already convert °C to K (K = °C + 273) and read STP from Reference Table A. |
 
 **Lesson objectives — students can:**
 
-- State the combined gas law, P₁V₁/T₁ = P₂V₂/T₂, and explain that it merges Boyle's, Charles's, and Gay-Lussac's laws into one expression.
+- State the combined gas law, P₁V₁/T₁ = P₂V₂/T₂, and explain that it merges the pressure–volume, temperature–volume, and temperature–pressure relationships into one expression.
 - Convert all temperatures to Kelvin and substitute STP (273 K, 101.3 kPa) as a reference state when a problem specifies "at STP."
 - Rearrange the combined gas law to solve for any one unknown (V₂, P₂, or T₂) and carry correct units.
 - Analyze a (P, V, T) data table by computing P·V/T per row and use Scale, Proportion, and Quantity to argue whether the data support the combined gas law.
@@ -87,8 +87,8 @@ Give students 2 minutes to write silently, then take two or three responses.
 
 **Anticipated student responses:**
 
-- "So if pressure goes up, volume goes down?" — yes — that is the inverse relationship from Boyle's law; today we combine it with temperature.
-- "Does the cold water make the gas shrink too?" — exactly; colder gas occupies less volume (Charles's law). The two effects can push in opposite directions.
+- "So if pressure goes up, volume goes down?" — yes — that is the inverse pressure–volume relationship from Lesson 03; today we combine it with temperature.
+- "Does the cold water make the gas shrink too?" — exactly; colder gas occupies less volume (the temperature–volume relationship). The two effects can push in opposite directions.
 - "Is there one formula for all of this?" — there is, and you already know its three pieces. We are going to fuse them in Phase 2.
 
 **Driving question** (post on the board and leave it there):
@@ -152,7 +152,7 @@ Target answer:
 
 > "If the first state gives P·V/T = 2.0 and the second state also gives P·V/T = 2.0, then the two expressions equal each other. Set state 1's P·V/T equal to state 2's. What does that look like?"
 
-> "This single equation is doing the work of three separate laws you already learned. If temperature never changes, the T's cancel and you're left with Boyle's law. If pressure never changes, you get Charles's law. If volume never changes, you get Gay-Lussac's law. One equation, three special cases."
+> "This single equation is doing the work of three separate relationships you already learned. If temperature never changes, the T's cancel and you're left with the pressure–volume relationship (P₁V₁ = P₂V₂). If pressure never changes, you get the temperature–volume relationship (V₁/T₁ = V₂/T₂). If volume never changes, you get the temperature–pressure relationship (P₁/T₁ = P₂/T₂). One equation, three special cases."
 
 **Anticipated student responses:**
 
@@ -221,7 +221,7 @@ Target: the law says volume is *proportional* to temperature, which only holds o
 
 **Sample teacher language:**
 
-> "Let's name what we built. The equation P₁V₁/T₁ = P₂V₂/T₂ is the **combined gas law** — the single relationship that merges Boyle's, Charles's, and Gay-Lussac's laws so we can change pressure, volume, and temperature all at once."
+> "Let's name what we built. The equation P₁V₁/T₁ = P₂V₂/T₂ is the **combined gas law** — the single relationship that merges the pressure–volume and temperature–volume and temperature–pressure relationships so we can change pressure, volume, and temperature all at once."
 
 > "Here is the Hochman appositive move that will help you write and remember it. An appositive is a phrase set off by dashes that renames or explains the noun next to it. Say this with me:
 >
@@ -238,7 +238,7 @@ Post the three terms on the board. Students fill them in on their notes.
 **Discussion prompts to deploy here:**
 
 - "If a problem tells you a gas starts 'at STP,' which two numbers do you immediately write down?" — *Expected response:* P₁ = 101.3 kPa and T₁ = 273 K, from Reference Table A.
-- "Why does the combined gas law reduce to Boyle's law when temperature is held constant?" — *Expected response:* if T₁ = T₂, the temperatures cancel from both sides, leaving P₁V₁ = P₂V₂, which is Boyle's law. The combined law contains all three simpler laws as special cases.
+- "Why does the combined gas law reduce to just P₁V₁ = P₂V₂ when temperature is held constant?" — *Expected response:* if T₁ = T₂, the temperatures cancel from both sides, leaving P₁V₁ = P₂V₂ — the pressure–volume relationship. The combined law contains all three simpler relationships as special cases.
 
 ---
 
@@ -307,7 +307,7 @@ Collect worksheets; note which students converted temperatures to Kelvin before 
 ## Common Misconceptions
 
 - **Misconception:** "I can plug temperatures in as Celsius — they're temperatures either way." → **Correction:** The combined gas law requires *absolute* temperature (Kelvin). Volume is proportional to temperature only on a scale that starts at absolute zero. Substituting Celsius gives wrong answers and can produce negative or undefined volumes (e.g., dividing by a temperature near 0 °C). Always convert first: K = °C + 273.
-- **Misconception:** "The combined gas law is a brand-new fourth equation I have to memorize separately." → **Correction:** It is the *fusion* of the three laws students already know. Hold temperature constant and it becomes Boyle's law (P₁V₁ = P₂V₂); hold pressure constant and it becomes Charles's law (V₁/T₁ = V₂/T₂); hold volume constant and it becomes Gay-Lussac's law (P₁/T₁ = P₂/T₂). Learning the combined law *replaces* memorizing three.
+- **Misconception:** "The combined gas law is a brand-new fourth equation I have to memorize separately." → **Correction:** It is the *fusion* of the three relationships students already know. Hold temperature constant and it becomes the pressure–volume relationship (P₁V₁ = P₂V₂); hold pressure constant and it becomes the temperature–volume relationship (V₁/T₁ = V₂/T₂); hold volume constant and it becomes the temperature–pressure relationship (P₁/T₁ = P₂/T₂). Learning the combined law *replaces* memorizing three.
 - **Misconception:** "If pressure and temperature both increase, the volume must increase." → **Correction:** The two effects oppose each other. Higher pressure *shrinks* volume (inverse), while higher temperature *expands* it (direct). Only the equation can tell you which wins — you cannot predict the direction by intuition. This is exactly why HS-PS1-9 asks students to *analyze data* rather than guess.
 - **Misconception:** "STP is just a vague phrase for 'normal conditions.'" → **Correction:** STP is a precise, defined reference state on Reference Table A: 273 K and 101.3 kPa. When a problem says "at STP," it is supplying exact values for one of your two states. Students who treat STP as approximate will fail to write down the correct P and T.
 - **Misconception:** "I have to convert kPa to atm (or vice versa) before I can solve." → **Correction:** Pressure units cancel as long as P₁ and P₂ use the *same* unit. The ratio P₁/P₂ is unitless. You must not *mix* units within one problem, but you never need to convert to a single "official" unit. The same is true for volume units.
@@ -318,7 +318,7 @@ Collect worksheets; note which students converted temperatures to Kelvin before 
 
 - **ELL/ENL supports:** A pre-printed solution scaffold with the steps labeled in order: (1) convert all T to Kelvin, (2) write down knowns and the unknown, (3) write the rearranged equation, (4) substitute, (5) solve, (6) label the unit. Sentence frame: *"As the pressure ___, the volume ___, because volume is ___ proportional to pressure."* Word-choice box displayed throughout: {combined gas law, absolute temperature, Kelvin, STP, directly proportional, inversely proportional}. Pair each problem with the relevant figure so students can sanity-check the *direction* of change (does the gas get bigger or smaller?) against the bar chart.
 - **IEP/SPED supports:** Provide the rearranged forms of the equation pre-derived on a reference card (V₂ = P₁V₁T₂ ÷ T₁P₂; P₂ = P₁V₁T₂ ÷ T₁V₂; T₂ = P₂V₂T₁ ÷ P₁V₁) so the algebra is removed as a barrier and the conceptual work — identifying knowns, converting to Kelvin, substituting — remains the skill target. Pre-fill the Kelvin conversions for any Celsius values in the practice set. Offer one step at a time: the student completes the Kelvin conversion before seeing the substitution row. Calculator use expected for all arithmetic.
-- **Extensions:** (1) Derive the combined gas law from the three individual laws algebraically — show how Boyle's, Charles's, and Gay-Lussac's laws multiply together to give P·V/T = constant. (2) A diver at 30 m (4 atm, 283 K) takes a full breath of 6.0 L and ascends to the surface (1 atm, 293 K) *holding their breath* — calculate the lung volume at the surface and explain why dive training forbids this. (3) Look up the *ideal gas law* (PV = nRT) and explain how the combined gas law is the special case where the amount of gas (n) stays constant.
+- **Extensions:** (1) Derive the combined gas law from the three individual relationships algebraically — show how the pressure–volume, temperature–volume, and temperature–pressure relationships combine to give P·V/T = constant. (2) A diver at 30 m (4 atm, 283 K) takes a full breath of 6.0 L and ascends to the surface (1 atm, 293 K) *holding their breath* — calculate the lung volume at the surface and explain why dive training forbids this. (3) Look up the *ideal gas law* (PV = nRT) and explain how the combined gas law is the special case where the amount of gas (n) stays constant.
 
 ---
 
@@ -369,6 +369,6 @@ This sentence does three things simultaneously: (1) names the law, (2) states th
 
 ## Key Vocabulary (max 3)
 
-- **combined gas law** — the equation P₁V₁/T₁ = P₂V₂/T₂, which merges Boyle's, Charles's, and Gay-Lussac's laws to relate the pressure, volume, and absolute temperature of a fixed sample of gas at two different states; for a fixed gas sample the quantity P·V/T is constant
+- **combined gas law** — the equation P₁V₁/T₁ = P₂V₂/T₂, which merges the pressure–volume and temperature–volume and temperature–pressure relationships to relate the pressure, volume, and absolute temperature of a fixed sample of gas at two different states; for a fixed gas sample the quantity P·V/T is constant
 - **absolute temperature** — temperature measured in Kelvin from absolute zero (K = °C + 273); the combined gas law requires absolute temperature because volume is directly proportional to temperature only on a scale whose zero is true zero
 - **STP (standard temperature and pressure)** — the defined reference state of 273 K and 101.3 kPa (Reference Table A); when a gas-law problem specifies "at STP," it supplies the pressure and temperature for one of the two states

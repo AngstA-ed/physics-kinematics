@@ -1,4 +1,4 @@
-# Pressure–Volume Relationship (Boyle's Law) — Student Worksheet
+# Pressure–Volume Relationship — Student Worksheet
 
 **Unit: Gas Laws — Lesson 03**
 Name: _______________________  Date: __________  Period: ____
@@ -86,7 +86,7 @@ Look at `figures/pressure_volume_curve.png`:
 
 ## Make It Make Sense
 
-Use **Boyle's Law, P₁V₁ = P₂V₂**, for each problem. Show your substitution and your answer with units. *(These are the practice problems you will confirm against the Answer Key.)*
+Use **the pressure–volume relationship, P₁V₁ = P₂V₂**, for each problem. Show your substitution and your answer with units. *(These are the practice problems you will confirm against the Answer Key.)*
 
 **1.** A trapped gas occupies 50.0 mL at 100. kPa. At constant temperature it is compressed to 25.0 mL. Find the new pressure.
 
@@ -109,7 +109,7 @@ Use **Boyle's Law, P₁V₁ = P₂V₂**, for each problem. Show your substituti
 
 Use each term in a sentence about today's investigation. Do not copy the definition — describe something you actually did, felt, or observed.
 
-- **Boyle's Law:** _______________________________________________
+- **pressure–volume relationship:** _______________________________________________
   _______________________________________________
 
 - **inverse proportion:** _______________________________________________
