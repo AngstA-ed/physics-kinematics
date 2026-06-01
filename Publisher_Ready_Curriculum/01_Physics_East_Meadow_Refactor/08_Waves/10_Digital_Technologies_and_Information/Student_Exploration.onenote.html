@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Digital Technologies and Information — Unit: Waves &amp; Sound</title>
+
+</head>
+<body>
+<div class="lesson-shell">
+<header class="brand-header">
+<img alt="East Meadow Schools" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgNDAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRWFzdCBNZWFkb3cgU2Nob29scyBwbGFjZWhvbGRlciBsb2dvIj4KICA8cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iIzY2MmU4MCIvPgogIDx0ZXh0IHg9IjgwIiB5PSIyNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjcwMCIgZm9udC1zaXplPSIxNCI+RWFzdCBNZWFkb3c8L3RleHQ+Cjwvc3ZnPgo="/>
+<div class="divider"></div>
+<img alt="Valley Stream Central HSD" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNDAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVmFsbGV5IFN0cmVhbSBDZW50cmFsIEhTRCBwbGFjZWhvbGRlciBsb2dvIj4KICA8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iIzJlYTNmMiIvPgogIDx0ZXh0IHg9IjEwMCIgeT0iMjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTQiPlZhbGxleSBTdHJlYW0gQ2VudHJhbDwvdGV4dD4KPC9zdmc+Cg=="/>
+<div>
+<div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+<h1>Unit: Waves &amp; Sound — Lesson 10: Digital Technologies and Information</h1>
+<div><span class="strategy-chip btc">BTC</span></div>
+</div>
+</header>
+<section class="lesson-section" data-section="phenomenon">
+<h2>Phenomenon</h2>
+<p>A vinyl record gets scratchier every time it's played, and a copy of a copy of a photocopy turns to mush. But you can stream the same song a million times, or copy a PDF endlessly, and the last copy is identical to the first. Numbers survive copying; smooth waves do not.</p>
+</section>
+<section class="lesson-section" data-section="driving-question">
+<h2>Driving Question</h2>
+<p><strong>Why does a digital copy survive perfectly while an analog copy degrades?</strong></p>
+</section>
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+<h2>Notice &amp; Wonder</h2>
+<p>Compare a worn record to a streamed song. Write two things you notice and two things you wonder about why one degrades and the other does not.</p>
+<textarea placeholder="What I notice / What I wonder…" rows="6"></textarea>
+</section>
+<aside class="turn-and-talk">Share with your partner: what is it about storing something as <em>numbers</em> (digital) that lets it survive copying perfectly?</aside>
+<section class="lesson-section initial-model" data-section="initial-model">
+<h2>Initial Model</h2>
+<p>Draw a smooth wave (analog). Now show how you would store it using only a few measured points (samples). What information do you lose? What do you gain?</p>
+</section>
+<section class="lesson-section" data-section="interactive">
+<h2>Investigate</h2>
+<p>The smooth purple curve is the <strong>analog</strong> signal. The orange stair-step is its <strong>digital</strong> version — measured (sampled) at regular intervals and rounded to discrete levels. Drag the <strong>sampling rate</strong> slider: more samples means a stair-step that hugs the curve more closely.</p>
+<div class="noscript-storyboard">
+<p><strong>Storyboard frame 1.</strong> An analog signal is a smooth, continuous wave — it can take any value at any instant. A vinyl groove or a tape's magnetism is a physical copy of that shape.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<path d="M10 45 Q 50 5 90 45 T 170 45 T 250 45" fill="none" stroke="#662e80" stroke-width="2.5"></path>
+<text fill="#662e80" font-family="Inter, sans-serif" font-size="10" x="100" y="85">analog: smooth, continuous</text>
+</svg>
+<p><strong>Storyboard frame 2.</strong> A digital signal samples the wave at regular intervals and rounds each sample to one of a fixed set of levels (here 8 levels = 3 bits). The result is a stair-step of numbers. More samples and more levels make it hug the original.</p>
+<svg height="90" viewbox="0 0 280 90" width="280">
+<path d="M10 30 L40 30 L40 15 L80 15 L80 30 L120 30 L120 60 L160 60 L160 75 L200 75 L200 60 L240 60 L240 45 L270 45" fill="none" stroke="#e67e22" stroke-width="2.5"></path>
+<text fill="#e67e22" font-family="Inter, sans-serif" font-size="10" x="80" y="88">digital: sampled + rounded</text>
+</svg>
+<p><strong>Storyboard frame 3.</strong> Why digital survives copying: a number is either a clean 1 or 0. Add noise and you can still round each value back to the nearest exact level, erasing the noise — so copy #1000 equals copy #1. Analog noise is part of the wave and cannot be cleanly removed. The trade-off: sampling throws away the in-between detail of the smooth curve.</p>
+<svg height="80" viewbox="0 0 280 80" width="280">
+<text fill="#1a1a1a" font-family="Inter, sans-serif" font-size="11" x="10" y="35">noise → round to nearest level → clean copy</text>
+<text fill="#d33" font-family="Inter, sans-serif" font-size="11" x="10" y="60">cost: lost detail between samples</text>
+</svg>
+</div>
+
+</section>
+<aside class="turn-and-talk">After you add noise to both signals, which one can you clean back to the original exactly — analog or digital? Tell your partner why rounding to the nearest level rescues the digital copy.</aside>
+<section class="lesson-section" data-section="make-it-make-sense">
+<h2>Make It Make Sense</h2>
+<ol>
+<li>Define analog and digital signals in your own words.</li>
+<li>Why does a digital photo copied 100 times look identical, but a photocopied photo degrades?</li>
+<li>Name one disadvantage of digital — what gets lost when you sample a smooth wave?</li>
+</ol>
+<details>
+<summary>Stuck? Sentence frame</summary>
+<p>"A digital copy survives because each value is rounded to a clean ___, so noise can be ___."</p>
+</details>
+</section>
+<section class="lesson-section vocab-box" data-section="vocab">
+<h2>Key Vocabulary (max 3)</h2>
+<ul>
+<li><strong>analog signal</strong> — a smooth, continuous signal that can take any value (e.g., a vinyl groove, a sound wave in air)</li>
+<li><strong>digital signal</strong> — a signal stored as discrete numbers, sampled at intervals and rounded to set levels, so it can be copied without loss</li>
+<li><strong>bit</strong> — a single binary digit (0 or 1); the basic unit of digital information; 3 bits encode 2³ = 8 levels</li>
+</ul>
+</section>
+<section class="lesson-section revise-model" data-section="revise-model">
+<h2>Revise Your Model</h2>
+<p>Return to your sampled wave. Label the smooth curve <strong>analog</strong> and the stair-step <strong>digital</strong>. Add a one-sentence evaluation: why is digital better for sending a song across the world?</p>
+</section>
+<section class="lesson-section" data-section="return-to-phenomenon">
+<h2>Return to the Phenomenon</h2>
+<p>Back to the worn record versus the streamed song: in one sentence, explain why the digital copy never degrades, using <em>sample</em> and <em>bit</em>.</p>
+</section>
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+<h2>Exit Ticket + Closing Reflection</h2>
+<ol>
+<li>A friend says, "Records sound warmer, so analog must be better in every way."
+      <br/>(a) Define analog and digital signals. (b) Give two advantages of digital for transmitting and storing music. (c) Evaluate the friend's claim: name one thing analog might do well and one clear advantage of digital they're overlooking.
+    </li>
+<li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+</ol>
+</section>
+<section class="lesson-section" data-section="explore-further">
+<h2>Explore Further</h2>
+<ul>
+<li><a href="https://javalab.org/en/analog_digital_signal_en/" rel="noopener" target="_blank">Javalab — Analog and Digital Signal (sample and quantize a wave)</a></li>
+<li><a href="https://www.youtube.com/watch?v=Hh-qWaMG6Sw" rel="noopener" target="_blank">Analog vs. digital signals explained (video)</a></li>
+</ul>
+</section>
+<footer>
+<p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · waves-10</p>
+</footer>
+</div>
+</body>
+</html>

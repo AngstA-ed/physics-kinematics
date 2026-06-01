@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conductors, Insulators, and Charging by Conduction — Unit: Electrostatics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Electrostatics — Lesson 02: Conductors, Insulators, and Charging by Conduction</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher touches a charged rod to the metal knob of an electroscope. The thin metal leaves at the <em>bottom</em> spring apart — and stay apart even after the rod is taken away. A touch of a finger makes them collapse.</p>
+  <img src="figures/conductor_vs_insulator.png" alt="Two panels: in a conductor, minus signs spread evenly across the block; in an insulator, minus signs stay clustered where they were placed." style="max-width:380px;width:100%;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What decides whether charge spreads through an object or stays stuck in one spot?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the leaves spread and stay. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: the rod touched only the <em>top</em> knob, but the <em>bottom</em> leaves moved. How did the charge get all the way down?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the electroscope. Show where the charge is right after the rod touches the knob, and which way it moves. Predict: would a <em>wooden ruler</em> touched to the knob do the same thing?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Pick a material for the sphere, then press <strong>Touch rod</strong> to bring the charged rod to its surface. In a <em>conductor</em> the charge spreads evenly across the whole sphere; in an <em>insulator</em> it stays clustered right where the rod touched.</p>
+  <div data-interactive="true">
+    <svg id="cd-canvas" width="480" height="260" viewBox="0 0 480 260" role="img" aria-label="Charging a sphere by conduction">
+      <circle id="cd-sphere" cx="300" cy="140" r="70" fill="#e9e9ef" stroke="#1a1a1a" stroke-width="2"/>
+      <rect id="cd-rod" x="80" y="124" width="120" height="20" rx="6" fill="#7a5230" stroke="#1a1a1a" stroke-width="1.5"/>
+      <g id="cd-rod-charge" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#2ea3f2"></g>
+      <g id="cd-sphere-charge" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#2ea3f2"></g>
+      <text x="300" y="232" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#555">sphere</text>
+      <text x="140" y="112" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#555">negative rod</text>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="cd-metal" type="button" aria-pressed="true">Material: Metal (conductor)</button>
+        <button id="cd-touch" type="button">Touch rod</button>
+        <button id="cd-reset" type="button">Reset</button>
+      </div>
+      <p>Material: <span id="cd-mat" class="readout">conductor</span> · Sphere charge: <span id="cd-state" class="readout">neutral</span></p>
+    </div>
+    <script>
+      (function () {
+        const svgNS = "http://www.w3.org/2000/svg";
+        const sphere = document.getElementById("cd-sphere");
+        const sCharge = document.getElementById("cd-sphere-charge");
+        const rCharge = document.getElementById("cd-rod-charge");
+        const cx = 300, cy = 140, R = 70;
+        let isConductor = true, touched = false;
+        function clear(g) { while (g.firstChild) g.removeChild(g.firstChild); }
+        function minus(g, x, y) {
+          const t = document.createElementNS(svgNS, "text");
+          t.setAttribute("x", x); t.setAttribute("y", y);
+          t.setAttribute("text-anchor", "middle");
+          t.textContent = "−";
+          g.appendChild(t);
+        }
+        function draw() {
+          clear(rCharge); clear(sCharge);
+          // rod always shows some negatives near its tip
+          if (!touched) { minus(rCharge, 170, 130); minus(rCharge, 185, 148); }
+          if (touched) {
+            sphere.setAttribute("fill", "#dbe9f6");
+            if (isConductor) {
+              // spread evenly around the rim
+              const n = 8;
+              for (let i = 0; i < n; i++) {
+                const ang = (i / n) * 2 * Math.PI;
+                minus(sCharge, cx + (R - 16) * Math.cos(ang), cy + (R - 16) * Math.sin(ang) + 5);
+              }
+              document.getElementById("cd-state").textContent = "negative — spread evenly (conduction)";
+            } else {
+              // stays clustered on the near (left) side
+              minus(sCharge, cx - R + 18, cy - 8);
+              minus(sCharge, cx - R + 14, cy + 12);
+              minus(sCharge, cx - R + 30, cy + 2);
+              document.getElementById("cd-state").textContent = "negative — clustered at contact point only";
+            }
+          } else {
+            sphere.setAttribute("fill", "#e9e9ef");
+            document.getElementById("cd-state").textContent = "neutral";
+          }
+          document.getElementById("cd-mat").textContent = isConductor ? "conductor" : "insulator";
+        }
+        document.getElementById("cd-metal").onclick = (e) => {
+          isConductor = !isConductor;
+          e.target.textContent = isConductor ? "Material: Metal (conductor)" : "Material: Rubber (insulator)";
+          e.target.setAttribute("aria-pressed", isConductor);
+          touched = false; draw();
+        };
+        document.getElementById("cd-touch").onclick = () => { touched = true; draw(); };
+        document.getElementById("cd-reset").onclick = () => { touched = false; draw(); };
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A negatively charged rod approaches a neutral metal sphere. The rod carries a cluster of extra electrons (− signs) near its tip; the sphere is still neutral.</p>
+    <svg width="300" height="120" viewBox="0 0 300 120">
+      <rect x="20" y="52" width="90" height="16" rx="5" fill="#7a5230"/>
+      <text x="95" y="48" font-family="Inter, sans-serif" font-size="12" fill="#2ea3f2">−−</text>
+      <circle cx="210" cy="60" r="44" fill="#e9e9ef" stroke="#1a1a1a"/>
+    </svg>
+    <p><strong>Storyboard frame 2 (conductor).</strong> The rod touches the metal sphere. Because metal lets charge move freely, the electrons spread evenly over the whole sphere. Both rod and sphere now carry the <em>same</em> (negative) sign — this is charging by conduction.</p>
+    <svg width="300" height="120" viewBox="0 0 300 120">
+      <circle cx="180" cy="60" r="44" fill="#dbe9f6" stroke="#1a1a1a"/>
+      <text x="150" y="40" font-family="Inter, sans-serif" font-size="12" fill="#2ea3f2">− − −</text>
+      <text x="150" y="90" font-family="Inter, sans-serif" font-size="12" fill="#2ea3f2">− − −</text>
+    </svg>
+    <p><strong>Storyboard frame 3 (insulator).</strong> If the sphere is rubber instead, the electrons cannot migrate. They stay clustered exactly where the rod touched; the rest of the sphere stays neutral.</p>
+    <svg width="300" height="120" viewBox="0 0 300 120">
+      <circle cx="180" cy="60" r="44" fill="#dbe9f6" stroke="#1a1a1a"/>
+      <text x="136" y="64" font-family="Inter, sans-serif" font-size="12" fill="#2ea3f2">−−</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Switch the material to rubber and touch the rod again. Compare it to the metal case: which material let the charge travel, and what do all the "charge moves" materials have in common?</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A negatively charged rod is touched to a neutral metal sphere. What sign is the sphere afterward, and what is this charging method called?</li>
+    <li>Why does touching a charged metal object with your bare hand make its charge disappear?</li>
+    <li>A charged balloon (an insulator) is pressed against a wooden block. Will the block become charged all over? Why or why not?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"A ___ (conductor / insulator) lets charge ___ (move / stay), so when it touches a charged object the charge ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>conductor</strong> — a material (such as a metal) in which charge moves freely, because some electrons are not bound to single atoms</li>
+    <li><strong>insulator</strong> — a material (such as rubber, glass, or plastic) in which charge stays put, because electrons are bound and cannot migrate</li>
+    <li><strong>charging by conduction</strong> — transferring charge by direct contact with a charged object; both objects end up with the same sign</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your electroscope drawing. Re-label it: is the metal a conductor or an insulator? Using <em>conduction</em>, write one sentence explaining why the leaves stayed spread after the rod was removed.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>On a Van de Graaff generator, why does <em>every</em> hair stand up, not just the ones near the dome? Predict in one sentence: the dome is a conductor, so the charge spreads to every strand; all the hairs get the same sign and repel each other.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) Classify each as a conductor or insulator: copper wire, rubber band, aluminum foil, glass rod.
+      <br>(b) A negatively charged rod is touched directly to a neutral metal sphere. What sign is the sphere afterward? Name the charging method.
+      <br>(c) Explain in one sentence why a charged comb shares its charge with a metal doorknob, but not with a dry plastic cup.
+    </li>
+    <li><em>Reflection:</em> What did a groupmate notice during the sort that changed your sorting? Name one thing you'd test differently next time.</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/conductor_and_insulator_en/" target="_blank" rel="noopener">Javalab — Conductor and Insulator (where does charge go?)</a></li>
+    <li><a href="https://javalab.org/en/electroscope_en/" target="_blank" rel="noopener">Javalab — Electroscope (charge by touching)</a></li>
+    <li><a href="https://phet.colorado.edu/en/simulations/balloons-and-static-electricity" target="_blank" rel="noopener">PhET — Balloons and Static Electricity</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · electrostatics-02</p>
+</footer>
+
+</div>
+</body>
+</html>

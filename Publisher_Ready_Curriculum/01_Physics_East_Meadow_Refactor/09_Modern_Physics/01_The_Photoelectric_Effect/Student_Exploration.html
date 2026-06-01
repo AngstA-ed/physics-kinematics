@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Photoelectric Effect — Unit: Modern Physics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Modern Physics — Lesson 01: The Photoelectric Effect</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A very bright <strong>red</strong> laser shines on a metal surface — and nothing happens. Turn it brighter: still nothing. Then a <em>dim</em> <strong>violet</strong> light hits the same surface and electrons fly off instantly. Brightness lost to color.</p>
+  <img src="figures/photon_ejects_electron.png" alt="A single photon of energy E = h·f strikes a metal surface and ejects one electron." style="max-width:420px;width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What decides whether light can knock electrons off a surface — how bright it is, or its color (frequency)?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the dim violet light eject electrons while the bright red light cannot. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: what does changing the <em>brightness</em> of light do, and what does changing its <em>color</em> do? Predict which one controls whether electrons leave.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the light hitting the metal. Show what you think "brighter" does and what "higher frequency (more violet)" does. Then predict: which change will start ejecting electrons?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Slide the <strong>frequency</strong> up and down to see when electrons begin to eject. Then change the <strong>intensity</strong> (brightness) and watch what it controls — the <em>number</em> of electrons or their <em>energy</em>. Predict before you slide.</p>
+  <div data-interactive="true">
+    <svg id="pe-canvas" width="480" height="300" viewBox="0 0 480 300" role="img" aria-label="Photoelectric effect simulation">
+      <rect x="0" y="0" width="480" height="300" fill="#fbfaff"/>
+      <!-- metal surface -->
+      <rect x="20" y="200" width="160" height="80" fill="#9aa0a6"/>
+      <text x="100" y="245" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">metal</text>
+      <!-- incoming photon -->
+      <line id="pe-photon" x1="40" y1="40" x2="120" y2="190" stroke="#662e80" stroke-width="3" stroke-dasharray="6 4" marker-end="url(#pe-arrow)"/>
+      <defs>
+        <marker id="pe-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#662e80"/>
+        </marker>
+      </defs>
+      <text id="pe-photon-label" x="60" y="35" font-family="Inter, sans-serif" font-size="11" fill="#662e80">photon</text>
+      <g id="pe-electrons"></g>
+      <text id="pe-status" x="300" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">—</text>
+    </svg>
+    <div class="controls">
+      <label>Frequency: <input id="pe-freq" type="range" min="3" max="9" step="0.1" value="4"> <span id="pe-freq-r" class="readout">4.0 ×10¹⁴ Hz</span></label>
+      <label>Intensity (brightness): <input id="pe-int" type="range" min="1" max="6" step="1" value="3"> <span id="pe-int-r" class="readout">3</span></label>
+      <p>Threshold frequency = 5.0 ×10¹⁴ Hz · Photon energy E = h·f = <span id="pe-energy" class="readout">2.65</span> ×10⁻¹⁹ J · Electron KE = <span id="pe-ke" class="readout">0.00</span> ×10⁻¹⁹ J · Electrons ejected: <span id="pe-count" class="readout">0</span></p>
+    </div>
+    <script>
+      (function () {
+        const H = 6.63e-34;
+        const THRESH = 5.0; // ×10^14 Hz
+        const freq = document.getElementById("pe-freq");
+        const inten = document.getElementById("pe-int");
+        const eGroup = document.getElementById("pe-electrons");
+        const status = document.getElementById("pe-status");
+        const photon = document.getElementById("pe-photon");
+        function update() {
+          const f = parseFloat(freq.value);      // ×10^14 Hz
+          const I = parseInt(inten.value, 10);
+          document.getElementById("pe-freq-r").textContent = f.toFixed(1) + " ×10¹⁴ Hz";
+          document.getElementById("pe-int-r").textContent = I;
+          const energyJ = H * f * 1e14;           // joules
+          document.getElementById("pe-energy").textContent = (energyJ * 1e19).toFixed(2);
+          // KE = E_photon - E_threshold (only if above threshold)
+          const above = f >= THRESH;
+          const keJ = above ? H * (f - THRESH) * 1e14 : 0;
+          document.getElementById("pe-ke").textContent = (keJ * 1e19).toFixed(2);
+          // photon color shifts red (below threshold) -> violet (above)
+          const col = above ? "#7a2fb0" : "#c0392b";
+          photon.setAttribute("stroke", col);
+          // draw electrons: count = intensity if above threshold, else 0
+          eGroup.innerHTML = "";
+          const count = above ? I : 0;
+          document.getElementById("pe-count").textContent = count;
+          for (let i = 0; i < count; i++) {
+            const e = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            const startX = 120 + (i % 3) * 12;
+            // higher KE -> electrons travel further/higher
+            const reach = 30 + keJ * 1e19 * 90;
+            const ex = startX + 120 + i * 18;
+            const ey = 200 - reach - (i % 2) * 14;
+            e.setAttribute("cx", Math.min(ex, 470));
+            e.setAttribute("cy", Math.max(ey, 20));
+            e.setAttribute("r", 5);
+            e.setAttribute("fill", "#2ea3f2");
+            eGroup.appendChild(e);
+          }
+          if (!above) {
+            status.textContent = "No electrons ejected";
+            status.setAttribute("fill", "#c0392b");
+          } else {
+            status.textContent = "Electrons ejected! KE rises with frequency";
+            status.setAttribute("fill", "#1a8a3a");
+          }
+        }
+        freq.addEventListener("input", update);
+        inten.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A bright red beam (low frequency, below threshold) strikes the metal. Many photons arrive, but each is too weak — <em>zero</em> electrons are ejected, no matter how bright.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <rect x="20" y="80" width="120" height="30" fill="#9aa0a6"/>
+      <line x1="40" y1="20" x2="80" y2="75" stroke="#c0392b" stroke-width="3"/>
+      <line x1="60" y1="20" x2="100" y2="75" stroke="#c0392b" stroke-width="3"/>
+      <text x="150" y="60" font-family="Inter, sans-serif" font-size="11" fill="#c0392b">red · 0 electrons</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> A dim violet beam (above threshold) strikes the metal. Even though it is dimmer, each photon carries enough energy (E = h·f) — electrons fly off immediately.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <rect x="20" y="80" width="120" height="30" fill="#9aa0a6"/>
+      <line x1="50" y1="20" x2="90" y2="75" stroke="#7a2fb0" stroke-width="3"/>
+      <circle cx="150" cy="50" r="5" fill="#2ea3f2"/>
+      <circle cx="180" cy="40" r="5" fill="#2ea3f2"/>
+      <text x="150" y="100" font-family="Inter, sans-serif" font-size="11" fill="#7a2fb0">violet · ejects electrons</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Raising the <em>frequency</em> above threshold makes each ejected electron faster (more kinetic energy, KE = h·f − h·f₀).</p>
+    <p><strong>Storyboard frame 4.</strong> Raising the <em>intensity</em> (brightness) above threshold adds <em>more</em> electrons but does not change their speed — intensity controls count, frequency controls energy.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Below the threshold frequency, slide the intensity all the way up. Convince your partner why turning up the brightness still ejects <em>zero</em> electrons.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A bright red beam ejects no electrons, but a dim violet beam does. What does this tell you about how light delivers its energy?</li>
+    <li>Above the threshold, turning up the brightness adds more electrons but does not speed them up, while turning up the frequency speeds them up. Explain why, using the idea of a photon.</li>
+    <li>A photon's energy is E = h·f. If you wanted to give each photon more energy, what would you change — and what would <em>not</em> work?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"A bright red light cannot eject electrons <em>because</em> ___, <em>but</em> a dim violet light can <em>because</em> ___, <em>so</em> the deciding factor is ___ , not ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>photon</strong> — a single packet (particle) of light energy; its energy is E = h·f, where h = 6.63×10⁻³⁴ J·s</li>
+    <li><strong>photoelectric effect</strong> — the ejection of electrons from a surface when light of high enough frequency strikes it</li>
+    <li><strong>threshold frequency</strong> — the lowest frequency of light that can eject electrons from a given surface; below it, no electrons leave regardless of intensity</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model. Using the words <em>photon</em> and <em>threshold frequency</em>, rewrite your explanation of why brightness failed but color succeeded.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Restate the laser demo in one sentence using <em>photon</em> and <em>threshold frequency</em>. (Target: "Violet photons cleared the threshold frequency and ejected electrons; red photons — even many of them — each fell below it.")</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A metal has a threshold frequency of 5.0×10¹⁴ Hz. (Reference: E = h·f, h = 6.63×10⁻³⁴ J·s.)
+      <br>(a) Find the energy of one photon of light at 6.0×10¹⁴ Hz. (b) Will that light eject electrons? Explain. (c) Light at 4.0×10¹⁴ Hz is made twice as bright — what happens, and why?
+    </li>
+    <li><em>Reflection:</em> What is one idea about light that changed for you today? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/photoelectric" target="_blank" rel="noopener">PhET — Photoelectric Effect Simulation</a></li>
+    <li><a href="https://www.youtube.com/watch?v=kcSYV8bMQzg" target="_blank" rel="noopener">Colored lasers on a photo surface (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · modern-physics-01</p>
+</footer>
+
+</div>
+</body>
+</html>

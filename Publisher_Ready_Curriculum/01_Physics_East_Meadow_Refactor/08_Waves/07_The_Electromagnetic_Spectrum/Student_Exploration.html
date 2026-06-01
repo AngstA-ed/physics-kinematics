@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Electromagnetic Spectrum — Unit: Waves &amp; Sound</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Waves &amp; Sound — Lesson 07: The Electromagnetic Spectrum</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Look around the room. The speaker plays music (radio waves), the microwave heats lunch (microwaves), the remote changes the channel (infrared), your eyes read the board (visible light), sunscreen blocks sunburn (ultraviolet), and a nurse can take an X-ray. Every one of these is the <em>same kind</em> of wave, all traveling at the same speed.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>If all these waves travel at the same speed, what makes a radio wave different from an X-ray?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Look at all the everyday EM waves around you. Write two things you notice and two things you wonder about how they differ.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Share with your partner: if all these waves travel at the same speed, what must be different between a radio wave and a gamma ray?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Make your best guess at the order of the spectrum from <strong>longest wavelength to shortest</strong>. Where does visible light fall? Where would the highest-energy waves go?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Drag the slider across the spectrum. Every band travels at the <strong>speed of light, c = 3.0 × 10⁸ m/s</strong>. Watch how the <strong>wavelength</strong> and <strong>frequency</strong> trade off (since c = f·λ): radio has long wavelength / low frequency; gamma has short wavelength / high frequency.</p>
+  <div data-interactive="true">
+    <svg id="em-canvas" width="480" height="170" viewBox="0 0 480 170" role="img" aria-label="Electromagnetic spectrum explorer">
+      <defs>
+        <linearGradient id="em-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#7a1f1f"/>
+          <stop offset="0.4" stop-color="#d33"/>
+          <stop offset="0.55" stop-color="#e67e22"/>
+          <stop offset="0.62" stop-color="#3a7d3a"/>
+          <stop offset="0.7" stop-color="#2ea3f2"/>
+          <stop offset="0.82" stop-color="#662e80"/>
+          <stop offset="1" stop-color="#22113a"/>
+        </linearGradient>
+      </defs>
+      <rect x="20" y="40" width="440" height="36" fill="url(#em-grad)" rx="4"/>
+      <text x="20" y="32" font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a">long λ / low f</text>
+      <text x="380" y="32" font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a">short λ / high f</text>
+      <line id="em-needle" x1="20" y1="34" x2="20" y2="82" stroke="#1a1a1a" stroke-width="3"/>
+    </svg>
+    <div class="controls">
+      <label>Across the spectrum: <input id="em-slider" type="range" min="0" max="100" value="65"></label>
+      <p>Band: <span id="em-band" class="readout">visible light</span> · Wavelength ≈ <span id="em-wl" class="readout">—</span> · Frequency ≈ <span id="em-f" class="readout">—</span> · Speed = c = 3.0 × 10⁸ m/s (always)</p>
+    </div>
+    <script>
+      (function () {
+        // Each band: name, representative wavelength (m). All share c.
+        const bands = [
+          { name: "radio waves",  pos: 0.05, lambda: 1e3 },
+          { name: "microwaves",   pos: 0.22, lambda: 1e-2 },
+          { name: "infrared",     pos: 0.42, lambda: 1e-5 },
+          { name: "visible light",pos: 0.60, lambda: 5e-7 },
+          { name: "ultraviolet",  pos: 0.72, lambda: 1e-8 },
+          { name: "X-rays",       pos: 0.86, lambda: 1e-10 },
+          { name: "gamma rays",   pos: 0.97, lambda: 1e-12 }
+        ];
+        const C = 3.0e8;
+        const slider = document.getElementById("em-slider");
+        const needle = document.getElementById("em-needle");
+        function fmt(x) {
+          const e = Math.floor(Math.log10(x));
+          const m = (x / Math.pow(10, e)).toFixed(1);
+          return m + " × 10^" + e;
+        }
+        function draw() {
+          const p = +slider.value / 100;
+          needle.setAttribute("x1", 20 + p * 440);
+          needle.setAttribute("x2", 20 + p * 440);
+          // nearest band by position
+          let best = bands[0], bd = 1;
+          for (const b of bands) { const d = Math.abs(b.pos - p); if (d < bd) { bd = d; best = b; } }
+          const f = C / best.lambda;
+          document.getElementById("em-band").textContent = best.name;
+          document.getElementById("em-wl").textContent = fmt(best.lambda) + " m";
+          document.getElementById("em-f").textContent = fmt(f) + " Hz";
+        }
+        slider.oninput = draw; draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> The electromagnetic spectrum, ordered from longest wavelength to shortest: radio, microwave, infrared, visible, ultraviolet, X-ray, gamma. Frequency increases the opposite way.</p>
+    <svg width="280" height="70" viewBox="0 0 280 70">
+      <rect x="10" y="20" width="260" height="20" fill="#888"/>
+      <text x="10" y="15" font-family="Inter, sans-serif" font-size="9" fill="#1a1a1a">radio →→→ gamma</text>
+      <text x="10" y="60" font-family="Inter, sans-serif" font-size="9" fill="#2ea3f2">λ decreases, f increases →</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Every band travels at the same speed in a vacuum, c = 3.0 × 10⁸ m/s. Because c = f·λ is fixed, a longer wavelength must mean a lower frequency. Radio: long λ, low f. Gamma: short λ, high f.</p>
+    <svg width="280" height="70" viewBox="0 0 280 70">
+      <text x="10" y="35" font-family="Inter, sans-serif" font-size="13" fill="#662e80">c = f · λ (always 3×10⁸ m/s)</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> An FM station at f = 1.0 × 10⁸ Hz has λ = c/f = (3.0 × 10⁸)/(1.0 × 10⁸) = 3 m. Visible light's wavelength is about a millionth of that. Ultraviolet has a higher frequency — and so a shorter wavelength — than visible light.</p>
+    <svg width="280" height="70" viewBox="0 0 280 70">
+      <text x="10" y="35" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">λ = c / f = 3.0×10⁸ / 1.0×10⁸ = 3 m</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Since v = c is the same for every band, what must be true about frequency and wavelength as you move from radio toward gamma? Use the slider to convince your partner.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Which has the longer wavelength: a radio wave or an X-ray? Use v = f·λ to justify your answer.</li>
+    <li>Do microwaves travel faster than visible light in a vacuum? Explain.</li>
+    <li>An FM radio station broadcasts at 100 MHz (1.0 × 10⁸ Hz). Use λ = c/f to find its wavelength. (c = 3.0 × 10⁸ m/s)</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"Because c is fixed, a band with a longer wavelength must have a ___ frequency."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>electromagnetic wave</strong> — a transverse wave of oscillating electric and magnetic fields that needs no medium and travels at the speed of light in a vacuum</li>
+    <li><strong>spectrum</strong> — the full range of electromagnetic waves ordered by wavelength/frequency, from radio to gamma rays</li>
+    <li><strong>speed of light</strong> — c = 3.0 × 10⁸ m/s, the speed of every electromagnetic wave in a vacuum</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your guessed order. Correct it using the spectrum. Add an arrow for "increasing frequency" and one for "increasing wavelength," pointing opposite ways.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Back to the room full of EM waves: in one sentence, explain what makes a radio wave different from an X-ray, even though both travel at c.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>Use the EM spectrum.
+      <br>(a) List these in order of increasing frequency: visible light, radio, X-ray, infrared. (b) A microwave and a gamma ray both travel through a vacuum. Which is faster? Explain. (c) Ultraviolet light has a higher frequency than visible light. Compare their wavelengths.
+    </li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/electromagnetic_wave_en/" target="_blank" rel="noopener">Javalab — Electromagnetic Wave (oscillating E and B fields)</a></li>
+    <li><a href="https://www.youtube.com/watch?v=cfXzwh3KadE" target="_blank" rel="noopener">The electromagnetic spectrum explained (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · waves-07</p>
+</footer>
+
+</div>
+</body>
+</html>

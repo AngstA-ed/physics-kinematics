@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Coulomb's Law — Unit: Electrostatics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Electrostatics — Lesson 04: Coulomb's Law</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher drags two charged spheres in the PhET "Coulomb's Law" simulation. Doubling one charge doubles the force — no surprise. But <strong>halving the distance quadruples the force</strong>, and the readout looks just like the gravity behavior from the Forces unit.</p>
+  <img src="figures/fe_vs_r_inverse_square.png" alt="A line graph of electrostatic force versus separation distance: the curve starts high at small r and falls off steeply, flattening as r grows." style="max-width:360px;width:100%;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>How exactly does the force between two charges depend on the charges and on the distance between them?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the force readout change as the charges and distance change. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: halving the distance made the force <em>four</em> times bigger, not two. What relationship between force and distance would do that?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch two charges a distance <em>r</em> apart. Predict, in words, what happens to the force if you (a) triple one charge, (b) double the distance.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Drag the sliders for the two charges and their separation. The readout computes <strong>F<sub>e</sub> = k·q<sub>1</sub>·q<sub>2</sub> / r²</strong> live (k = 8.99 × 10⁹ N·m²/C², charges in µC). The arrows on each charge scale with the force — and watch how strongly the force changes when you move <em>r</em>.</p>
+  <div data-interactive="true">
+    <svg id="cl-canvas" width="480" height="200" viewBox="0 0 480 200" role="img" aria-label="Coulomb's law force between two charges">
+      <defs>
+        <marker id="cl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+        </marker>
+      </defs>
+      <line id="cl-r" x1="120" y1="150" x2="360" y2="150" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text id="cl-rlabel" x="240" y="170" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#555">r</text>
+      <line id="cl-f1" x1="120" y1="100" x2="80" y2="100" stroke="#1a1a1a" stroke-width="3" marker-end="url(#cl-arrow)"/>
+      <line id="cl-f2" x1="360" y1="100" x2="400" y2="100" stroke="#1a1a1a" stroke-width="3" marker-end="url(#cl-arrow)"/>
+      <circle id="cl-c1" cx="120" cy="100" r="26" fill="#d9534f" stroke="#1a1a1a" stroke-width="2"/>
+      <circle id="cl-c2" cx="360" cy="100" r="26" fill="#d9534f" stroke="#1a1a1a" stroke-width="2"/>
+      <text id="cl-t1" x="120" y="108" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#fff">+</text>
+      <text id="cl-t2" x="360" y="108" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#fff">+</text>
+    </svg>
+    <div class="controls">
+      <label>q₁ (µC): <input id="cl-q1" type="range" min="-5" max="5" step="1" value="3"> <span id="cl-q1r" class="readout">+3</span></label>
+      <label>q₂ (µC): <input id="cl-q2" type="range" min="-5" max="5" step="1" value="3"> <span id="cl-q2r" class="readout">+3</span></label>
+      <label>r (cm): <input id="cl-rr" type="range" min="5" max="40" step="1" value="20"> <span id="cl-rrr" class="readout">20</span></label>
+      <p>F<sub>e</sub> = <span id="cl-force" class="readout">2.0</span> N · <span id="cl-type" class="readout">repulsive</span></p>
+    </div>
+    <script>
+      (function () {
+        const K = 8.99e9;
+        const q1s = document.getElementById("cl-q1");
+        const q2s = document.getElementById("cl-q2");
+        const rs  = document.getElementById("cl-rr");
+        const c1 = document.getElementById("cl-c1"), c2 = document.getElementById("cl-c2");
+        const t1 = document.getElementById("cl-t1"), t2 = document.getElementById("cl-t2");
+        const f1 = document.getElementById("cl-f1"), f2 = document.getElementById("cl-f2");
+        const X1 = 120, X2 = 360, Y = 100;
+        function update() {
+          let q1 = parseInt(q1s.value), q2 = parseInt(q2s.value), r = parseInt(rs.value);
+          document.getElementById("cl-q1r").textContent = (q1 >= 0 ? "+" : "") + q1;
+          document.getElementById("cl-q2r").textContent = (q2 >= 0 ? "+" : "") + q2;
+          document.getElementById("cl-rrr").textContent = r;
+          t1.textContent = q1 >= 0 ? "+" : "−";
+          t2.textContent = q2 >= 0 ? "+" : "−";
+          c1.setAttribute("fill", q1 >= 0 ? "#d9534f" : "#2ea3f2");
+          c2.setAttribute("fill", q2 >= 0 ? "#d9534f" : "#2ea3f2");
+          // physics in SI
+          const Q1 = q1 * 1e-6, Q2 = q2 * 1e-6, R = r / 100;
+          let F = (R > 0) ? K * Math.abs(Q1 * Q2) / (R * R) : 0;
+          document.getElementById("cl-force").textContent = F.toFixed(F < 10 ? 2 : 0);
+          const like = (q1 * q2 > 0);
+          const zero = (q1 === 0 || q2 === 0);
+          document.getElementById("cl-type").textContent =
+            zero ? "no force (a charge is zero)" : (like ? "repulsive (like signs)" : "attractive (unlike signs)");
+          // arrow length scales with sqrt of force, capped
+          let L = zero ? 0 : Math.min(60, 8 + 6 * Math.sqrt(F));
+          if (zero || like) {            // repel: arrows outward
+            f1.setAttribute("x2", X1 - L); f2.setAttribute("x2", X2 + L);
+          } else {                       // attract: arrows inward
+            f1.setAttribute("x2", X1 + L); f2.setAttribute("x2", X2 - L);
+          }
+          f1.setAttribute("visibility", zero ? "hidden" : "visible");
+          f2.setAttribute("visibility", zero ? "hidden" : "visible");
+        }
+        [q1s, q2s, rs].forEach(s => s.addEventListener("input", update));
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Two +3 µC charges sit 20 cm apart. Coulomb's law gives F<sub>e</sub> = (8.99×10⁹)(3×10⁻⁶)(3×10⁻⁶)/(0.20)² ≈ 2.0 N, repulsive — the arrows point outward.</p>
+    <svg width="300" height="90" viewBox="0 0 300 90">
+      <line x1="80" y1="45" x2="50" y2="45" stroke="#1a1a1a" stroke-width="3"/>
+      <line x1="220" y1="45" x2="250" y2="45" stroke="#1a1a1a" stroke-width="3"/>
+      <circle cx="80" cy="45" r="20" fill="#d9534f"/><circle cx="220" cy="45" r="20" fill="#d9534f"/>
+      <text x="80" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#fff">+</text>
+      <text x="220" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#fff">+</text>
+    </svg>
+    <p><strong>Storyboard frame 2 (inverse square).</strong> Halve the distance to 10 cm and the force is not double but <em>four</em> times bigger (≈ 8.1 N), because r² appears in the denominator. The arrows grow much longer.</p>
+    <svg width="300" height="90" viewBox="0 0 300 90">
+      <line x1="120" y1="45" x2="70" y2="45" stroke="#1a1a1a" stroke-width="4"/>
+      <line x1="180" y1="45" x2="230" y2="45" stroke="#1a1a1a" stroke-width="4"/>
+      <circle cx="120" cy="45" r="20" fill="#d9534f"/><circle cx="180" cy="45" r="20" fill="#d9534f"/>
+    </svg>
+    <p><strong>Storyboard frame 3 (unlike signs attract).</strong> Make one charge negative and the force flips direction: the arrows point inward, toward each other. The size of F<sub>e</sub> still follows k·q₁·q₂/r².</p>
+    <svg width="300" height="90" viewBox="0 0 300 90">
+      <line x1="60" y1="45" x2="90" y2="45" stroke="#1a1a1a" stroke-width="3"/>
+      <line x1="240" y1="45" x2="210" y2="45" stroke="#1a1a1a" stroke-width="3"/>
+      <circle cx="80" cy="45" r="20" fill="#d9534f"/><circle cx="220" cy="45" r="20" fill="#2ea3f2"/>
+      <text x="80" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#fff">+</text>
+      <text x="220" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#fff">−</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Set both charges equal, then halve r and watch the force quadruple. Use a Because/But/So sentence to explain to your partner why the force grows four times, not two.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>The two charges in the sim can have very different sizes. Which one feels the bigger force? Explain using the force-pair idea.</li>
+    <li>If you triple <em>both</em> charges, what happens to the force? Show your reasoning.</li>
+    <li>Coulomb's law has the same 1/r² shape as which force from the Forces unit? What does that tell you about how nature works?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Because/But/So frame</summary>
+    <p>"The electrostatic force gets stronger <em>because</em> ___, <em>but</em> ___, <em>so</em> ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>Coulomb's law</strong> — the rule that the electrostatic force between two charges is F<sub>e</sub> = k·q₁·q₂ / r², with k = 8.99 × 10⁹ N·m²/C²</li>
+    <li><strong>electrostatic force</strong> — the attractive or repulsive force (F<sub>e</sub>) between charged objects</li>
+    <li><strong>inverse-square law</strong> — a relationship in which a quantity falls off as 1/r²; shared by Coulomb's law and Newton's law of gravitation</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Two charges of +2.0 × 10⁻⁶ C each sit 0.30 m apart. Use F<sub>e</sub> = k·q₁·q₂ / r² to find the force (≈ 0.40 N, repulsive). Then state what happens to it if the distance is doubled (the force drops to one-quarter, ≈ 0.10 N). Set the sliders to check.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In the sim, why did halving the distance quadruple the force? Answer in one Because/But/So sentence: halving r made r² one-quarter as big, <em>but</em> r² is in the denominator, <em>so</em> the force became four times larger.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>Use F<sub>e</sub> = k·q₁·q₂ / r², k = 8.99 × 10⁹ N·m²/C².
+      <br>(a) Two charges, q₁ = +3.0 × 10⁻⁶ C and q₂ = +3.0 × 10⁻⁶ C, are 0.20 m apart. Calculate the electrostatic force. Is it attractive or repulsive?
+      <br>(b) Without recalculating from scratch, state what happens to the force if the distance is tripled.
+      <br>(c) Coulomb's law shares its 1/r² shape with which force from the Forces unit?
+    </li>
+    <li><em>Reflection:</em> Which sentence stem (because / but / so) made the math click for you today, and why?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/coulombs-law" target="_blank" rel="noopener">PhET — Coulomb's Law (drag two charges, read the force)</a></li>
+    <li><a href="https://javalab.org/en/coulombs_law_en/" target="_blank" rel="noopener">Javalab — Coulomb Force Between Two Charges</a></li>
+    <li><a href="https://www.khanacademy.org/science/physics/electric-charge-electric-force-and-voltage" target="_blank" rel="noopener">Khan Academy — Coulomb's Law and Electric Force</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · electrostatics-04</p>
+</footer>
+
+</div>
+</body>
+</html>

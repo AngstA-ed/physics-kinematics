@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Series Circuits — Unit: Current Electricity</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Current Electricity — Lesson 03: Series Circuits</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>An old string of holiday lights has fifty bulbs. You remove just one bulb — and the <em>entire</em> string goes dark. On a newer string, removing one bulb leaves the rest glowing.</p>
+  <p><img src="figures/series_circuit.png" alt="Schematic of a series circuit: a 20-volt battery drives one current through three resistors in a row, R-one 2 ohms, R-two 3 ohms, R-three 5 ohms; the current is the same everywhere." style="max-width:100%;height:auto;"></p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>Why can a single missing bulb shut down an entire string of lights?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch one bulb come out of the old string and the whole string go dark. List two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: in a single-loop circuit, if you removed one resistor, what happens to the current everywhere else? Use the word <em>path</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch three bulbs wired in a single loop with a battery. Draw one arrow for the current. Predict: is the current the <strong>same</strong> at every bulb, or does it shrink as it passes each one?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>This is a single-loop series circuit driven by a 20 V battery. Set the three resistor values. The current is the <em>same</em> everywhere (I = V ÷ R_total), and each resistor's voltage drop (V = I·R) is shown — watch the three drops add up to the source.</p>
+  <div data-interactive="true">
+    <svg id="ser-canvas" width="480" height="260" viewBox="0 0 480 260" role="img" aria-label="Series circuit loop with one battery and three resistors">
+      <!-- loop wires -->
+      <rect x="40" y="40" width="400" height="180" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+      <!-- battery on the left side -->
+      <line x1="40" y1="110" x2="40" y2="100" stroke="#fff" stroke-width="6"/>
+      <line x1="32" y1="110" x2="48" y2="110" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="28" y1="100" x2="52" y2="100" stroke="#1a1a1a" stroke-width="4"/>
+      <line x1="32" y1="150" x2="48" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="28" y1="140" x2="52" y2="140" stroke="#1a1a1a" stroke-width="4"/>
+      <text x="12" y="130" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">20 V</text>
+      <!-- three resistors along the top wire -->
+      <rect id="ser-r1-box" x="110" y="28" width="60" height="24" fill="#fff" stroke="#662e80" stroke-width="2"/>
+      <rect id="ser-r2-box" x="210" y="28" width="60" height="24" fill="#fff" stroke="#662e80" stroke-width="2"/>
+      <rect id="ser-r3-box" x="310" y="28" width="60" height="24" fill="#fff" stroke="#662e80" stroke-width="2"/>
+      <text id="ser-r1-lab" x="140" y="20" font-family="Inter, sans-serif" font-size="11" fill="#662e80" text-anchor="middle">R₁</text>
+      <text id="ser-r2-lab" x="240" y="20" font-family="Inter, sans-serif" font-size="11" fill="#662e80" text-anchor="middle">R₂</text>
+      <text id="ser-r3-lab" x="340" y="20" font-family="Inter, sans-serif" font-size="11" fill="#662e80" text-anchor="middle">R₃</text>
+      <text id="ser-v1" x="140" y="68" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2" text-anchor="middle"></text>
+      <text id="ser-v2" x="240" y="68" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2" text-anchor="middle"></text>
+      <text id="ser-v3" x="340" y="68" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2" text-anchor="middle"></text>
+      <!-- current label on the bottom wire -->
+      <text id="ser-i" x="240" y="240" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"></text>
+    </svg>
+    <div class="controls">
+      <label>R₁: <input id="ser-r1" type="range" min="1" max="10" step="1" value="2"> <span id="ser-r1-r" class="readout">2</span> Ω</label>
+      <label>R₂: <input id="ser-r2" type="range" min="1" max="10" step="1" value="3"> <span id="ser-r2-r" class="readout">3</span> Ω</label>
+      <label>R₃: <input id="ser-r3" type="range" min="1" max="10" step="1" value="5"> <span id="ser-r3-r" class="readout">5</span> Ω</label>
+      <p>R_total = R₁ + R₂ + R₃ = <span id="ser-rtot" class="readout">10</span> Ω · current everywhere I = <span id="ser-itot" class="readout">2.0</span> A · drops add to <span id="ser-vsum" class="readout">20.0</span> V</p>
+    </div>
+    <script>
+      (function () {
+        const V = 20;
+        const r1 = document.getElementById("ser-r1");
+        const r2 = document.getElementById("ser-r2");
+        const r3 = document.getElementById("ser-r3");
+        function update() {
+          const R1 = +r1.value, R2 = +r2.value, R3 = +r3.value;
+          const Rtot = R1 + R2 + R3;
+          const I = V / Rtot;                       // same current everywhere
+          const v1 = I * R1, v2 = I * R2, v3 = I * R3;
+          document.getElementById("ser-r1-lab").textContent = "R₁ " + R1 + "Ω";
+          document.getElementById("ser-r2-lab").textContent = "R₂ " + R2 + "Ω";
+          document.getElementById("ser-r3-lab").textContent = "R₃ " + R3 + "Ω";
+          document.getElementById("ser-v1").textContent = v1.toFixed(1) + " V";
+          document.getElementById("ser-v2").textContent = v2.toFixed(1) + " V";
+          document.getElementById("ser-v3").textContent = v3.toFixed(1) + " V";
+          document.getElementById("ser-i").textContent = "same current I = " + I.toFixed(1) + " A all the way around";
+          document.getElementById("ser-r1-r").textContent = R1;
+          document.getElementById("ser-r2-r").textContent = R2;
+          document.getElementById("ser-r3-r").textContent = R3;
+          document.getElementById("ser-rtot").textContent = Rtot;
+          document.getElementById("ser-itot").textContent = I.toFixed(1);
+          document.getElementById("ser-vsum").textContent = (v1 + v2 + v3).toFixed(1);
+        }
+        [r1, r2, r3].forEach(el => el.addEventListener("input", update));
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A 20 V battery drives a single loop with three resistors in a row: R₁ = 2 Ω, R₂ = 3 Ω, R₃ = 5 Ω. There is only one path for the charge.</p>
+    <svg width="260" height="120" viewBox="0 0 260 120">
+      <rect x="20" y="20" width="220" height="70" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+      <rect x="60" y="8" width="36" height="20" fill="#fff" stroke="#662e80" stroke-width="2"/>
+      <rect x="110" y="8" width="36" height="20" fill="#fff" stroke="#662e80" stroke-width="2"/>
+      <rect x="160" y="8" width="36" height="20" fill="#fff" stroke="#662e80" stroke-width="2"/>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Resistances add: R_total = 2 + 3 + 5 = 10 Ω. The current is the same everywhere: I = V ÷ R_total = 20 ÷ 10 = 2 A. The ammeter reads 2 A before R₁, between R₂ and R₃, and after R₃.</p>
+    <svg width="260" height="80" viewBox="0 0 260 80">
+      <text x="10" y="30" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">R_total = 10 Ω</text>
+      <text x="10" y="55" font-family="Inter, sans-serif" font-size="12" fill="#2ea3f2">I = 2 A everywhere</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Each voltage drop is V = I·R: 2 A × 2 Ω = 4 V, 2 A × 3 Ω = 6 V, 2 A × 5 Ω = 10 V. The three drops add to 4 + 6 + 10 = 20 V — exactly the source. Remove any one resistor and the single path breaks, so the current stops everywhere.</p>
+    <svg width="260" height="80" viewBox="0 0 260 80">
+      <rect x="20" y="40" width="40" height="20" fill="#2ea3f2"/><text x="22" y="34" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">4 V</text>
+      <rect x="80" y="30" width="40" height="30" fill="#2ea3f2"/><text x="82" y="24" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">6 V</text>
+      <rect x="140" y="10" width="40" height="50" fill="#2ea3f2"/><text x="142" y="6" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">10 V</text>
+    </svg>
+  </noscript>
+  <p style="margin-top:1rem;"><img src="figures/series_voltage_drops.png" alt="Bar chart of voltage drops in a series circuit: 4 volts across R-one, 6 volts across R-two, 10 volts across R-three, summing to the 20-volt source." style="max-width:100%;height:auto;"></p>
+</section>
+
+<aside class="turn-and-talk">Across your measurements, what three rules describe a series circuit? Build a case for each one using the slider model above.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Three resistors (1 Ω, 2 Ω, 3 Ω) are in series with a 12 V battery. Find the equivalent resistance and the current.</li>
+    <li>In a series circuit the current is 2 A everywhere. The resistors are 3 Ω and 5 Ω. Find the voltage drop across each.</li>
+    <li>You add a fourth resistor in series. Does the current go up or down? Why?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"In a series circuit the current is ___ everywhere because ___, so adding a resistor makes the current ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>series circuit</strong> — a circuit with a single path for charge, so the current is the same at every point</li>
+    <li><strong>equivalent resistance</strong> — the single resistance that could replace a group of resistors; in series, R_total = R₁ + R₂ + …</li>
+    <li><strong>current</strong> — the rate of flow of charge (amperes); in a series circuit it is identical everywhere in the loop</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model. Was the current actually the same at every bulb? Rewrite your explanation for why one missing bulb kills the whole old string, using <em>series</em> and <em>path</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Explain, in one sentence using <em>series</em> and <em>path</em>, why one missing bulb kills the whole old light string: the bulbs are in series — one path — so a missing bulb breaks the only path and stops the current everywhere.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A 24 V battery is connected in series to a 4 Ω and an 8 Ω resistor.
+      <br>(a) Find the equivalent (total) resistance. (b) Find the current in the circuit. (c) Find the voltage drop across the 8 Ω resistor and check that the two drops add to 24 V.
+    </li>
+    <li><em>Reflection:</em> What's one prediction you made today that the measurements proved wrong — and what changed your mind?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc" target="_blank" rel="noopener">PhET — Circuit Construction Kit: DC (build a one-loop series circuit and measure current and voltage)</a></li>
+    <li><a href="https://www.khanacademy.org/science/physics/circuits-topic/circuits-resistance/a/ee-series-resistors" target="_blank" rel="noopener">Khan Academy — Series Resistors</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · current-electricity-03</p>
+</footer>
+
+</div>
+</body>
+</html>

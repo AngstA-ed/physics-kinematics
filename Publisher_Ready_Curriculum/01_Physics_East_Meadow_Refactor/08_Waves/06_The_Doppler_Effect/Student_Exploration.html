@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Doppler Effect — Unit: Waves &amp; Sound</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Waves &amp; Sound — Lesson 06: The Doppler Effect</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>An ambulance races past you. The driver hears one steady siren the whole time — but you, on the curb, hear the pitch drop the instant it passes. Out in space, astronomers see the light from distant galaxies "shifted" toward red. The source never changed its note.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>If the siren makes the same pitch the whole time, why do <em>you</em> hear it change?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Listen to a siren pass by. Write two things you notice and two things you wonder about the pitch you hear before and after it passes.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Share with your partner: if the siren's pitch is constant, why does the listener on the curb hear it change?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw a source sitting still, making circular wavefronts. Then draw the same source <strong>moving to the right</strong>. Show what happens to the spacing of the wavefronts <em>ahead</em> of it and <em>behind</em> it.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>The source (orange) emits circular wavefronts at a steady rate. Drag the <strong>source speed</strong> slider. Watch the wavefronts <strong>bunch up ahead</strong> (shorter wavelength → higher observed frequency) and <strong>stretch out behind</strong> (longer wavelength → lower observed frequency). The listeners' frequency read-outs update live.</p>
+  <div data-interactive="true">
+    <svg id="dp-canvas" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="Doppler effect wavefronts">
+      <g id="dp-fronts" fill="none" stroke="#662e80" stroke-width="1.5"></g>
+      <circle id="dp-source" cx="240" cy="120" r="7" fill="#e67e22"/>
+      <text x="20" y="20" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">← behind (lower f, redshift)</text>
+      <text x="300" y="20" font-family="Inter, sans-serif" font-size="11" fill="#d33">ahead (higher f, blueshift) →</text>
+    </svg>
+    <div class="controls">
+      <label>Source speed (fraction of wave speed): <input id="dp-speed" type="range" min="0" max="80" value="40"> <span id="dp-sr" class="readout">0.40</span> v</label>
+      <button id="dp-play" type="button">Pause</button>
+      <p>Observer ahead hears f ≈ <span id="dp-fa" class="readout">—</span> · Observer behind hears f ≈ <span id="dp-fb" class="readout">—</span> (source emits 1.00)</p>
+    </div>
+    <script>
+      (function () {
+        const NS = "http://www.w3.org/2000/svg";
+        const fronts = document.getElementById("dp-fronts");
+        const source = document.getElementById("dp-source");
+        const speedS = document.getElementById("dp-speed");
+        const W = 480, MIDY = 120, C = 1.4;     // wave-front growth px per tick
+        const EMIT = 26;                          // ticks between emissions
+        let playing = true, t = 0, raf = null;
+        let waves = [];                           // {x0, born}
+        let sx = 120;                             // source x
+        function step() {
+          const beta = +speedS.value / 100;       // source speed as fraction of wave speed
+          document.getElementById("dp-sr").textContent = beta.toFixed(2);
+          const srcV = beta * C;
+          sx += srcV;
+          if (sx > W - 40) { sx = 40; waves = []; }  // wrap & reset for clarity
+          source.setAttribute("cx", sx);
+          if (t % EMIT === 0) waves.push({ x0: sx, born: t });
+          fronts.innerHTML = "";
+          for (const w of waves) {
+            const r = (t - w.born) * C;
+            if (r > W) continue;
+            const c = document.createElementNS(NS, "circle");
+            c.setAttribute("cx", w.x0); c.setAttribute("cy", MIDY);
+            c.setAttribute("r", r); c.setAttribute("fill", "none");
+            c.setAttribute("stroke", "#662e80"); c.setAttribute("stroke-width", 1.5);
+            c.setAttribute("opacity", Math.max(0.15, 1 - r / W));
+            fronts.appendChild(c);
+          }
+          waves = waves.filter(w => (t - w.born) * C <= W);
+          // observed frequency factors: ahead 1/(1-beta), behind 1/(1+beta)
+          const fa = 1 / (1 - Math.min(0.95, beta));
+          const fb = 1 / (1 + beta);
+          document.getElementById("dp-fa").textContent = fa.toFixed(2);
+          document.getElementById("dp-fb").textContent = fb.toFixed(2);
+          t++;
+          if (playing) raf = requestAnimationFrame(step);
+        }
+        speedS.oninput = () => { if (!playing) step(); };
+        document.getElementById("dp-play").onclick = (e) => {
+          playing = !playing;
+          e.target.textContent = playing ? "Pause" : "Play";
+          if (playing) raf = requestAnimationFrame(step);
+          else if (raf) cancelAnimationFrame(raf);
+        };
+        step();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A stationary source emits evenly spaced circular wavefronts in all directions. Every observer hears the same frequency the source emits.</p>
+    <svg width="200" height="160" viewBox="0 0 200 160">
+      <circle cx="100" cy="80" r="20" fill="none" stroke="#662e80"/>
+      <circle cx="100" cy="80" r="40" fill="none" stroke="#662e80"/>
+      <circle cx="100" cy="80" r="60" fill="none" stroke="#662e80"/>
+      <circle cx="100" cy="80" r="6" fill="#e67e22"/>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> A source moving to the right "catches up" to its own wavefronts ahead — they bunch together (shorter wavelength, higher frequency, blueshift) — and falls away from those behind — they stretch out (longer wavelength, lower frequency, redshift).</p>
+    <svg width="240" height="160" viewBox="0 0 240 160">
+      <circle cx="80" cy="80" r="55" fill="none" stroke="#2ea3f2"/>
+      <circle cx="110" cy="80" r="38" fill="none" stroke="#662e80"/>
+      <circle cx="135" cy="80" r="22" fill="none" stroke="#d33"/>
+      <circle cx="150" cy="80" r="6" fill="#e67e22"/>
+      <text x="10" y="150" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">stretched (behind)</text>
+      <text x="150" y="150" font-family="Inter, sans-serif" font-size="10" fill="#d33">bunched (ahead)</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> The wave's speed in the medium never changes — only the wavelength the observer receives. A galaxy whose light is redshifted is moving away from us, which is evidence the universe is expanding.</p>
+    <svg width="240" height="120" viewBox="0 0 240 120">
+      <text x="10" y="50" font-family="Inter, sans-serif" font-size="11" fill="#d33">redshift = moving away</text>
+      <text x="10" y="80" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">blueshift = moving toward</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">When the source moves toward an observer, what happens to the wavelength they receive — and therefore to the frequency they hear? Use the slider to show your partner.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Why does an approaching source sound <em>higher</em> in pitch? Use the word <em>wavelength</em>.</li>
+    <li>A star's light is redshifted. Is it moving toward us or away from us? How do you know?</li>
+    <li>Does the Doppler effect change the <em>speed</em> of the wave in the medium? Explain.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"As the source approaches, the wavefronts ahead ___, so the wavelength is ___ and the frequency I hear is ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>Doppler effect</strong> — the change in observed frequency/wavelength when a wave source and observer move relative to each other</li>
+    <li><strong>frequency shift</strong> — the difference between the frequency a source emits and the frequency an observer receives because of relative motion</li>
+    <li><strong>redshift</strong> — a shift of light toward longer wavelengths (lower frequency), indicating the source is moving away; a <em>blueshift</em> is the opposite</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your moving-source drawing. Label the bunched side "higher frequency (blueshift)" and the stretched side "lower frequency (redshift)." Then write a <strong>Because / But / So</strong> sentence.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Back to the ambulance: in one sentence, explain why you hear the pitch drop the instant it passes, even though the driver hears a steady siren.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A race car drives past a spectator.
+      <br>(a) Does the engine sound <em>higher</em> or <em>lower</em> as it approaches? Explain using wavelength. (b) After it passes, what happens to the pitch and why? (c) Astronomers see the light from a distant galaxy redshifted. What does this tell us about the galaxy's motion, and what does that suggest about the universe?
+    </li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/doppler_effect_en/" target="_blank" rel="noopener">Javalab — Doppler Effect (move the source and watch the fronts)</a></li>
+    <li><a href="https://www.youtube.com/watch?v=imoxDcn2Sgo" target="_blank" rel="noopener">The Doppler effect: why a siren changes pitch (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · waves-06</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fusion, Fission, and Radioactive Decay — Unit: Modern Physics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Modern Physics — Lesson 05: Fusion, Fission, and Radioactive Decay</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A campfire burns out overnight. The <strong>Sun</strong> has blazed for about five billion years — and is barely halfway done. No chemical fire could last that long. The same word, <em>nuclear</em>, shows up in the Sun, in power plants, and in carbon-14 dating of ancient bones.</p>
+  <img src="figures/fission_fusion_diagram.png" alt="Side-by-side diagram: fission splits a heavy nucleus into two lighter nuclei plus neutrons and energy; fusion combines light nuclei into a heavier nucleus plus enormous energy." style="max-width:460px;width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>Where does nuclear energy come from, why is it so enormous, and how does the nucleus change in each case?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>One word — <em>nuclear</em> — covers the Sun, power plants, and carbon dating. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn and talk: predict how the <em>nucleus</em> might change differently in the Sun, in a power plant, and in carbon dating.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw a nucleus (protons + neutrons). Show one way you think it could change to release energy.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Toggle between <strong>Fission</strong>, <strong>Fusion</strong>, and <strong>Radioactive Decay</strong> (α, β, γ). Press <em>Run</em> to animate how the nucleus changes — splitting, combining, or emitting a particle — and read what comes out and where you see it in the real world.</p>
+  <div data-interactive="true">
+    <svg id="nu-canvas" width="460" height="260" viewBox="0 0 460 260" role="img" aria-label="Nuclear change animation">
+      <rect x="0" y="0" width="460" height="260" fill="#fbfaff"/>
+      <g id="nu-stage"></g>
+      <text id="nu-caption" x="230" y="240" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a"></text>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="nu-fission" type="button" aria-pressed="true">Fission</button>
+        <button id="nu-fusion" type="button" aria-pressed="false">Fusion</button>
+        <button id="nu-decay" type="button" aria-pressed="false">Decay (α/β/γ)</button>
+        <button id="nu-run" type="button">▶ Run</button>
+      </div>
+      <p id="nu-info">Fission: a heavy nucleus splits into lighter ones — how nuclear power plants work.</p>
+    </div>
+    <script>
+      (function () {
+        const SVGNS = "http://www.w3.org/2000/svg";
+        const stage = document.getElementById("nu-stage");
+        const caption = document.getElementById("nu-caption");
+        const info = document.getElementById("nu-info");
+        let mode = "fission", anim = null, t = 0;
+        function el(tag, attrs) {
+          const n = document.createElementNS(SVGNS, tag);
+          for (const k in attrs) n.setAttribute(k, attrs[k]);
+          return n;
+        }
+        function nucleon(cx, cy, charge) {
+          return el("circle", { cx, cy, r: 7, fill: charge ? "#c0392b" : "#9aa0a6" });
+        }
+        function clump(cx, cy, count, spread) {
+          const g = el("g", {});
+          for (let i = 0; i < count; i++) {
+            const a = (i / count) * Math.PI * 2;
+            const r = spread * (0.3 + 0.7 * ((i % 3) / 2));
+            g.appendChild(nucleon(cx + Math.cos(a) * r, cy + Math.sin(a) * r, i % 2 === 0));
+          }
+          return g;
+        }
+        const modes = {
+          fission: {
+            info: "Fission: a heavy nucleus splits into lighter ones — how nuclear power plants work.",
+            render(p) {
+              stage.innerHTML = "";
+              // incoming neutron
+              const nx = 60 + p * 100;
+              if (p < 0.5) {
+                stage.appendChild(nucleon(Math.min(nx, 200), 110, false));
+                stage.appendChild(clump(230, 110, 12, 26));
+                caption.textContent = "A neutron speeds toward a heavy uranium nucleus…";
+              } else {
+                const split = (p - 0.5) * 2;
+                stage.appendChild(clump(230 - split * 90, 110, 6, 18));
+                stage.appendChild(clump(230 + split * 90, 110, 6, 18));
+                // extra neutrons fly out
+                stage.appendChild(nucleon(230, 110 - split * 70, false));
+                stage.appendChild(nucleon(230 + split * 30, 110 + split * 70, false));
+                stage.appendChild(el("text", { x: 230, y: 60, "text-anchor": "middle", "font-family": "Inter, sans-serif", "font-size": "12", fill: "#1a8a3a" })).textContent = split > 0.5 ? "+ energy + extra neutrons → chain reaction" : "";
+                caption.textContent = "…it SPLITS into two lighter nuclei + neutrons + energy.";
+              }
+            }
+          },
+          fusion: {
+            info: "Fusion: light nuclei combine into a heavier one — what powers the Sun and forms elements in stars.",
+            render(p) {
+              stage.innerHTML = "";
+              if (p < 0.6) {
+                const d = (0.6 - p) / 0.6 * 90;
+                stage.appendChild(clump(170 - d, 110, 2, 12));
+                stage.appendChild(clump(290 + d, 110, 2, 12));
+                caption.textContent = "Two light hydrogen nuclei are forced together…";
+              } else {
+                stage.appendChild(clump(230, 110, 4, 16));
+                stage.appendChild(el("circle", { cx: 230, cy: 110, r: 38 + (p-0.6)*40, fill: "none", stroke: "#e0a800", "stroke-width": 3, opacity: 1 - (p-0.6) }));
+                caption.textContent = "…they FUSE into a heavier nucleus + enormous energy (powers the Sun).";
+              }
+            }
+          },
+          decay: {
+            info: "Radioactive decay: an unstable nucleus emits radiation on its own — α (helium nucleus), β (electron), or γ (photon). Used in carbon-14 dating.",
+            render(p) {
+              stage.innerHTML = "";
+              stage.appendChild(clump(180, 110, 9, 22));
+              // alpha
+              const ax = 180 + p * 90;
+              stage.appendChild(el("g", {})).appendChild(nucleon(ax, 70, true));
+              stage.lastChild.appendChild(nucleon(ax + 14, 70, false));
+              stage.appendChild(el("text", { x: ax, y: 56, "font-family": "Inter, sans-serif", "font-size": "11", fill: "#c0392b" })).textContent = p > 0.3 ? "α (He nucleus)" : "";
+              // beta
+              const bx = 180 + p * 110;
+              stage.appendChild(el("circle", { cx: bx, cy: 120, r: 4, fill: "#2ea3f2" }));
+              stage.appendChild(el("text", { x: bx, y: 140, "font-family": "Inter, sans-serif", "font-size": "11", fill: "#2ea3f2" })).textContent = p > 0.3 ? "β (electron)" : "";
+              // gamma
+              const gx = 180 + p * 100;
+              stage.appendChild(el("path", { d: "M" + (gx) + " 150 q 8 -8 16 0 q 8 8 16 0", stroke: "#e0a800", "stroke-width": 2.5, fill: "none" }));
+              stage.appendChild(el("text", { x: gx, y: 175, "font-family": "Inter, sans-serif", "font-size": "11", fill: "#e0a800" })).textContent = p > 0.3 ? "γ (photon)" : "";
+              caption.textContent = "An unstable nucleus EMITS α, β, or γ radiation.";
+            }
+          }
+        };
+        function setMode(m) {
+          mode = m;
+          ["fission","fusion","decay"].forEach(k => {
+            document.getElementById("nu-" + k).setAttribute("aria-pressed", String(k === m));
+          });
+          info.textContent = modes[m].info;
+          t = 0; if (anim) cancelAnimationFrame(anim);
+          modes[m].render(0);
+          caption.textContent = "Press Run to animate.";
+        }
+        function run() {
+          if (anim) cancelAnimationFrame(anim);
+          t = 0;
+          function frame() {
+            t += 0.02;
+            const p = Math.min(t, 1);
+            modes[mode].render(p);
+            if (p < 1) anim = requestAnimationFrame(frame);
+          }
+          anim = requestAnimationFrame(frame);
+        }
+        document.getElementById("nu-fission").onclick = () => setMode("fission");
+        document.getElementById("nu-fusion").onclick = () => setMode("fusion");
+        document.getElementById("nu-decay").onclick = () => setMode("decay");
+        document.getElementById("nu-run").onclick = run;
+        setMode("fission");
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> <em>Fission</em> — a neutron strikes a heavy uranium nucleus, which splits into two lighter nuclei plus more neutrons and energy. The extra neutrons can start a chain reaction (nuclear power plants).</p>
+    <svg width="240" height="100" viewBox="0 0 240 100">
+      <circle cx="60" cy="50" r="22" fill="#b48ec9"/>
+      <circle cx="150" cy="35" r="14" fill="#b48ec9"/><circle cx="160" cy="70" r="14" fill="#b48ec9"/>
+      <circle cx="200" cy="50" r="5" fill="#9aa0a6"/>
+      <text x="120" y="95" font-family="Inter, sans-serif" font-size="10">heavy → two lighter + neutrons</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> <em>Fusion</em> — two light hydrogen nuclei are forced together into a heavier nucleus, releasing enormous energy. This is what powers the Sun and forms elements in stars.</p>
+    <svg width="240" height="100" viewBox="0 0 240 100">
+      <circle cx="50" cy="50" r="12" fill="#c0392b"/><circle cx="90" cy="50" r="12" fill="#c0392b"/>
+      <circle cx="170" cy="50" r="20" fill="#e0a800"/>
+      <text x="110" y="95" font-family="Inter, sans-serif" font-size="10">light + light → heavier + energy</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> <em>Radioactive decay</em> — an unstable nucleus spontaneously emits radiation: alpha (a helium nucleus), beta (an electron, as a neutron becomes a proton), or gamma (a high-energy photon). Carbon-14 dating uses decay.</p>
+    <p><strong>Storyboard frame 4.</strong> All three rearrange the nucleus and release energy. Because a tiny bit of mass becomes energy (E = mc², and c is enormous), the energy is far larger than any chemical reaction — no calculation needed, just the scale.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Run all three. What do fission, fusion, and decay all have in common — and why is the energy released so much larger than burning fuel? Convince your partner using E = mc² as a <em>scale</em> idea.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A heavy uranium nucleus is hit by a neutron and breaks into two lighter nuclei. Is this fission, fusion, or decay? How do you know?</li>
+    <li>The Sun combines hydrogen nuclei into helium. Which process is this, and what does it have to do with how stars and elements form?</li>
+    <li>Why is the energy released by a nuclear change so much larger than the energy from burning fuel? (Use E = mc² as a <em>scale</em> idea — no calculation.)</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"In ___, a heavy nucleus splits; in ___, light nuclei combine; in ___, a nucleus emits radiation."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>fission</strong> — the splitting of a heavy nucleus into lighter nuclei, releasing energy (used in nuclear power plants)</li>
+    <li><strong>fusion</strong> — the combining of light nuclei into a heavier nucleus, releasing enormous energy (powers the Sun and forms elements in stars)</li>
+    <li><strong>radioactive decay</strong> — the spontaneous emission of radiation (alpha, beta, or gamma) from an unstable nucleus</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model. Redraw it as one of the three changes — fission, fusion, or decay — and label where the enormous energy comes from (mass → energy, E = mc², scale only).</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence, explain what powers the Sun, using <em>fusion</em>. (Target: "The Sun is powered by fusion — light hydrogen nuclei combine into heavier nuclei, releasing enormous energy and forming new elements.")</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) A heavy uranium nucleus is struck by a neutron and splits into two lighter nuclei — is this fission, fusion, or decay? (b) The Sun combines hydrogen nuclei into helium — which process is this, and what does it have to do with star formation? (c) Why is the energy from a nuclear change so much larger than from burning fuel? (Use E = mc² as a scale idea — no calculation.)</li>
+    <li><em>Reflection:</em> What's one place in your life that nuclear physics quietly shows up?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/nuclear_fission_en/" target="_blank" rel="noopener">Javalab — Nuclear Fission / Chain Reaction (interactive)</a></li>
+    <li><a href="https://www.youtube.com/watch?v=KWAsz59F8gA" target="_blank" rel="noopener">Fusion, fission, and decay in the real world (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · modern-physics-05</p>
+</footer>
+
+</div>
+</body>
+</html>

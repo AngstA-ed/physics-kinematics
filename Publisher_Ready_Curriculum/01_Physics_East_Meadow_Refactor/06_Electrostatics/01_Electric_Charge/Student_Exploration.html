@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Electric Charge — Unit: Electrostatics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Electrostatics — Lesson 01: Electric Charge</h1>
+    <div><span class="strategy-chip circle">RESTORATIVE CIRCLE</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher rubs a balloon on their hair and presses it to the wall — and it sticks, with no glue. Held near your head, the balloon makes strands of hair rise toward it. Small bits of paper leap up to meet it.</p>
+  <img src="figures/charged_balloon.png" alt="A negatively charged balloon held against a neutral wall; minus signs cover the balloon's near face and plus signs appear on the wall surface closest to it, with an arrow showing the attraction." style="max-width:340px;width:100%;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What invisible change does rubbing make, and why does it cause objects to pull together or push apart?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the balloon, the wall, and the hair. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: the balloon and the wall were both ordinary before. What changed, and why would they now pull on each other?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the rubbed balloon next to the wall. Show what you think <em>moved</em> (and which way) when the balloon was rubbed. Then predict: will the balloon stick to a <em>second</em> rubbed balloon, or push it away?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Each circle below is a charged object. Click a charge to flip its sign between <strong>+</strong> and <strong>−</strong>. Watch the arrows: like charges <em>repel</em> (push apart), unlike charges <em>attract</em> (pull together).</p>
+  <div data-interactive="true">
+    <svg id="ec-canvas" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="Two charges that attract or repel">
+      <defs>
+        <marker id="ec-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+        </marker>
+      </defs>
+      <line id="ec-fa" x1="150" y1="120" x2="90" y2="120" stroke="#1a1a1a" stroke-width="3" marker-end="url(#ec-arrow)"/>
+      <line id="ec-fb" x1="330" y1="120" x2="390" y2="120" stroke="#1a1a1a" stroke-width="3" marker-end="url(#ec-arrow)"/>
+      <circle id="ec-a" cx="150" cy="120" r="36" fill="#d9534f" stroke="#1a1a1a" stroke-width="2" style="cursor:pointer"/>
+      <circle id="ec-b" cx="330" cy="120" r="36" fill="#2ea3f2" stroke="#1a1a1a" stroke-width="2" style="cursor:pointer"/>
+      <text id="ec-ta" x="150" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#fff" style="pointer-events:none">+</text>
+      <text id="ec-tb" x="330" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="34" font-weight="700" fill="#fff" style="pointer-events:none">−</text>
+    </svg>
+    <div class="controls">
+      <p>Charge A: <span id="ec-sa" class="readout">+</span> · Charge B: <span id="ec-sb" class="readout">−</span> · Result: <span id="ec-res" class="readout">attract</span></p>
+      <p style="font-size:.85rem;color:#555;">Click either charge to flip its sign.</p>
+    </div>
+    <script>
+      (function () {
+        let a = 1, b = -1;            // +1 or -1
+        const cA = document.getElementById("ec-a");
+        const cB = document.getElementById("ec-b");
+        const tA = document.getElementById("ec-ta");
+        const tB = document.getElementById("ec-tb");
+        const fA = document.getElementById("ec-fa");
+        const fB = document.getElementById("ec-fb");
+        const RED = "#d9534f", BLUE = "#2ea3f2";
+        function draw() {
+          tA.textContent = a > 0 ? "+" : "−";
+          tB.textContent = b > 0 ? "+" : "−";
+          cA.setAttribute("fill", a > 0 ? RED : BLUE);
+          cB.setAttribute("fill", b > 0 ? RED : BLUE);
+          document.getElementById("ec-sa").textContent = a > 0 ? "+" : "−";
+          document.getElementById("ec-sb").textContent = b > 0 ? "+" : "−";
+          const repel = (a === b);          // like charges repel
+          // A is at x=150, B at x=330. Repel: arrows point outward; attract: inward.
+          if (repel) {
+            fA.setAttribute("x2", 90);  fB.setAttribute("x2", 390);
+            document.getElementById("ec-res").textContent = "repel (like charges)";
+          } else {
+            fA.setAttribute("x2", 210); fB.setAttribute("x2", 270);
+            document.getElementById("ec-res").textContent = "attract (unlike charges)";
+          }
+        }
+        cA.addEventListener("click", () => { a = -a; draw(); });
+        cB.addEventListener("click", () => { b = -b; draw(); });
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Two positive charges sit side by side. The force arrows on each point <em>outward</em> — like charges repel, so they push apart.</p>
+    <svg width="260" height="120" viewBox="0 0 260 120">
+      <line x1="90" y1="60" x2="50" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+      <line x1="170" y1="60" x2="210" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+      <circle cx="90" cy="60" r="26" fill="#d9534f"/><circle cx="170" cy="60" r="26" fill="#d9534f"/>
+      <text x="90" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" fill="#fff">+</text>
+      <text x="170" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" fill="#fff">+</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Two negative charges also repel — the arrows again point outward. The <em>sign</em> of the pair doesn't matter, only that they are the same.</p>
+    <svg width="260" height="120" viewBox="0 0 260 120">
+      <line x1="90" y1="60" x2="50" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+      <line x1="170" y1="60" x2="210" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+      <circle cx="90" cy="60" r="26" fill="#2ea3f2"/><circle cx="170" cy="60" r="26" fill="#2ea3f2"/>
+      <text x="90" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" fill="#fff">−</text>
+      <text x="170" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" fill="#fff">−</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> A positive and a negative charge attract — the arrows point <em>inward</em>, toward each other. Unlike charges pull together. This is why the rubbed balloon (negative) clings to the wall (positive on its near side).</p>
+    <svg width="260" height="120" viewBox="0 0 260 120">
+      <line x1="64" y1="60" x2="104" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+      <line x1="196" y1="60" x2="156" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+      <circle cx="90" cy="60" r="26" fill="#d9534f"/><circle cx="170" cy="60" r="26" fill="#2ea3f2"/>
+      <text x="90" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" fill="#fff">+</text>
+      <text x="170" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" fill="#fff">−</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Two balloons are rubbed the same way on the same sweater. Will they attract or repel? Set both charges to the same sign above to test your reasoning, then convince your partner.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Two balloons are each rubbed on the same wool sweater, then brought close. Do they attract or repel? How do you know?</li>
+    <li>A balloon is rubbed and gains a negative charge. Where did that charge come from, and what sign is the object it was rubbed on?</li>
+    <li>A neutral scrap of paper is pulled toward a charged balloon. Was the paper given a charge, or is something else going on?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The two objects ___ (attracted / repelled) because they have ___ (the same / opposite) charge."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>electric charge</strong> — a basic property of matter that causes electric forces; it comes in two kinds (positive and negative) and only in whole multiples of <em>e</em> = 1.6 × 10⁻¹⁹ C</li>
+    <li><strong>positive charge</strong> — the kind of charge carried by protons; two positives repel</li>
+    <li><strong>negative charge</strong> — the kind of charge carried by electrons; a positive and a negative attract</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model. Re-label what moved using <em>electric charge</em> and <em>positive/negative</em>. Rewrite your explanation of why the balloon sticks, using the idea that <strong>charge is conserved</strong> — only moved, never made.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why do you get a shock at a metal doorknob after walking across carpet? Predict in one sentence using the word <em>charge</em>, then check: walking rubbed extra electrons onto you, and touching the metal lets that built-up charge jump across as a spark.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>Two small spheres hang side by side.
+      <br>(a) When both are rubbed with the same cloth, they swing apart. What does that tell you about their charges?
+      <br>(b) A third sphere is brought near and the first swings toward it. What sign is the third sphere?
+      <br>(c) A balloon gains a charge of −8 units after being rubbed on a wool sock. What is the charge on the sock, and why?
+    </li>
+    <li><em>Reflection:</em> What is one everyday "shock or cling" moment you now understand differently? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/electroscope_en/" target="_blank" rel="noopener">Javalab — Electroscope (charge detector)</a></li>
+    <li><a href="https://javalab.org/en/charging_by_friction_en/" target="_blank" rel="noopener">Javalab — Charging by Friction</a></li>
+    <li><a href="https://www.khanacademy.org/science/physics/electric-charge-electric-force-and-voltage" target="_blank" rel="noopener">Khan Academy — Charge and Electric Force</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · electrostatics-01</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Electric Field Lines — Unit: Electrostatics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Electrostatics — Lesson 06: Electric Field Lines</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher switches on two electrodes in a dish of semolina grains in oil. The grains snap into curved chains running between the electrodes — an invisible field suddenly made visible.</p>
+  <img src="figures/field_lines_dipole.png" alt="Dipole field lines: curved lines that start on the positive charge and end on the negative charge, none of them crossing." style="max-width:340px;width:100%;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What rules do field lines follow, and how do they show us the direction and strength of an electric field?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the grains snap into chains between the electrodes. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: from the semolina chains, write <em>two rules</em> the field lines seem to obey.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw a single <strong>+</strong> charge and sketch how you think the field lines leave it. Then draw a <strong>+</strong> and a <strong>−</strong> near each other and sketch the lines between them.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Pick a configuration and the field-line pattern is drawn for you. Notice: lines <em>start on +</em> and <em>end on −</em>, they <em>never cross</em>, and where they are <em>closer together</em> the field is stronger.</p>
+  <div data-interactive="true">
+    <svg id="fl-canvas" width="480" height="320" viewBox="0 0 480 320" role="img" aria-label="Electric field line patterns">
+      <defs>
+        <marker id="fl-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#662e80"/>
+        </marker>
+      </defs>
+      <g id="fl-lines" stroke="#662e80" stroke-width="2" fill="none"></g>
+      <g id="fl-charges"></g>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="fl-pos" type="button" aria-pressed="true">Single +</button>
+        <button id="fl-neg" type="button" aria-pressed="false">Single −</button>
+        <button id="fl-dip" type="button" aria-pressed="false">Dipole (+ and −)</button>
+      </div>
+      <p>Pattern: <span id="fl-desc" class="readout">Single positive — lines point straight out, away from the charge.</span></p>
+    </div>
+    <script>
+      (function () {
+        const svgNS = "http://www.w3.org/2000/svg";
+        const linesG = document.getElementById("fl-lines");
+        const chargeG = document.getElementById("fl-charges");
+        const CX = 240, CY = 160;
+        function clear(g) { while (g.firstChild) g.removeChild(g.firstChild); }
+        function charge(x, y, sign) {
+          const c = document.createElementNS(svgNS, "circle");
+          c.setAttribute("cx", x); c.setAttribute("cy", y); c.setAttribute("r", 20);
+          c.setAttribute("fill", sign > 0 ? "#d9534f" : "#2ea3f2");
+          c.setAttribute("stroke", "#1a1a1a"); c.setAttribute("stroke-width", 2);
+          chargeG.appendChild(c);
+          const t = document.createElementNS(svgNS, "text");
+          t.setAttribute("x", x); t.setAttribute("y", y + 7);
+          t.setAttribute("text-anchor", "middle");
+          t.setAttribute("font-family", "Inter, sans-serif");
+          t.setAttribute("font-size", "22"); t.setAttribute("font-weight", "700");
+          t.setAttribute("fill", "#fff");
+          t.textContent = sign > 0 ? "+" : "−";
+          chargeG.appendChild(t);
+        }
+        function radial(x, y, sign) {
+          // straight lines out (sign>0) or in (sign<0)
+          const n = 12;
+          for (let i = 0; i < n; i++) {
+            const a = (i / n) * 2 * Math.PI;
+            const r0 = 22, r1 = 120;
+            let x1, y1, x2, y2;
+            if (sign > 0) { x1 = x + r0 * Math.cos(a); y1 = y + r0 * Math.sin(a);
+                            x2 = x + r1 * Math.cos(a); y2 = y + r1 * Math.sin(a); }
+            else          { x1 = x + r1 * Math.cos(a); y1 = y + r1 * Math.sin(a);
+                            x2 = x + r0 * Math.cos(a); y2 = y + r0 * Math.sin(a); }
+            const ln = document.createElementNS(svgNS, "line");
+            ln.setAttribute("x1", x1); ln.setAttribute("y1", y1);
+            ln.setAttribute("x2", x2); ln.setAttribute("y2", y2);
+            ln.setAttribute("marker-end", "url(#fl-arrow)");
+            linesG.appendChild(ln);
+          }
+        }
+        function dipole() {
+          const px = CX - 90, nx = CX + 90, y = CY;        // + on left, − on right
+          // family of curved arcs from + to − at several launch angles
+          const angles = [-70, -45, -22, 0, 22, 45, 70];
+          angles.forEach(deg => {
+            const a = deg * Math.PI / 180;
+            const sx = px + 20 * Math.cos(a), sy = y + 20 * Math.sin(a);
+            const ex = nx - 20 * Math.cos(a), ey = y + 20 * Math.sin(a);
+            // control point bows outward proportional to angle
+            const bow = 1.6 * deg;
+            const cx1 = px + 70, cy1 = y + bow;
+            const cx2 = nx - 70, cy2 = y + bow;
+            const p = document.createElementNS(svgNS, "path");
+            p.setAttribute("d", `M ${sx} ${sy} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${ex} ${ey}`);
+            p.setAttribute("marker-end", "url(#fl-arrow)");
+            linesG.appendChild(p);
+          });
+        }
+        function render(mode) {
+          clear(linesG); clear(chargeG);
+          if (mode === "pos") { radial(CX, CY, +1); charge(CX, CY, +1);
+            document.getElementById("fl-desc").textContent = "Single positive — lines point straight out, away from the charge."; }
+          else if (mode === "neg") { radial(CX, CY, -1); charge(CX, CY, -1);
+            document.getElementById("fl-desc").textContent = "Single negative — lines point straight in, toward the charge (lines end on −)."; }
+          else { dipole(); charge(CX - 90, CY, +1); charge(CX + 90, CY, -1);
+            document.getElementById("fl-desc").textContent = "Dipole — lines start on + and curve to −, never crossing; densest between the charges where the field is strongest."; }
+          ["fl-pos","fl-neg","fl-dip"].forEach(id => document.getElementById(id).setAttribute("aria-pressed", "false"));
+          document.getElementById(mode === "pos" ? "fl-pos" : mode === "neg" ? "fl-neg" : "fl-dip").setAttribute("aria-pressed", "true");
+        }
+        document.getElementById("fl-pos").onclick = () => render("pos");
+        document.getElementById("fl-neg").onclick = () => render("neg");
+        document.getElementById("fl-dip").onclick = () => render("dip");
+        render("pos");
+      })();
+    </script>
+  </div>
+  <img src="figures/field_lines_single.png" alt="Field lines for a single positive charge: straight lines radiating outward, each with an arrow pointing away from the charge." style="max-width:240px;width:48%;display:inline-block;margin-top:10px;">
+  <img src="figures/field_lines_parallel_plates.png" alt="Parallel-plate field: a positive top plate and a negative bottom plate with straight, evenly spaced field lines — a uniform field." style="max-width:240px;width:48%;display:inline-block;margin-top:10px;">
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1 (single +).</strong> Around a single positive charge, field lines are straight and point outward in every direction. They are closer together near the charge (strong field) and spread apart far away (weak field).</p>
+    <svg width="200" height="160" viewBox="0 0 200 160">
+      <circle cx="100" cy="80" r="16" fill="#d9534f"/>
+      <line x1="116" y1="80" x2="170" y2="80" stroke="#662e80" stroke-width="2"/>
+      <line x1="84" y1="80" x2="30" y2="80" stroke="#662e80" stroke-width="2"/>
+      <line x1="100" y1="64" x2="100" y2="14" stroke="#662e80" stroke-width="2"/>
+      <line x1="100" y1="96" x2="100" y2="146" stroke="#662e80" stroke-width="2"/>
+    </svg>
+    <p><strong>Storyboard frame 2 (single −).</strong> Around a single negative charge the lines reverse — they point straight inward, ending on the charge. Field lines always end on negative charges.</p>
+    <svg width="200" height="160" viewBox="0 0 200 160">
+      <circle cx="100" cy="80" r="16" fill="#2ea3f2"/>
+      <line x1="170" y1="80" x2="116" y2="80" stroke="#662e80" stroke-width="2"/>
+      <line x1="30" y1="80" x2="84" y2="80" stroke="#662e80" stroke-width="2"/>
+      <line x1="100" y1="14" x2="100" y2="64" stroke="#662e80" stroke-width="2"/>
+      <line x1="100" y1="146" x2="100" y2="96" stroke="#662e80" stroke-width="2"/>
+    </svg>
+    <p><strong>Storyboard frame 3 (dipole).</strong> A positive and a negative charge form a dipole. Lines start on the + charge and curve over to the − charge without ever crossing; they bunch up between the two charges, where the field is strongest.</p>
+    <svg width="240" height="120" viewBox="0 0 240 120">
+      <circle cx="70" cy="60" r="14" fill="#d9534f"/><circle cx="170" cy="60" r="14" fill="#2ea3f2"/>
+      <path d="M 84 60 C 110 40, 130 40, 156 60" stroke="#662e80" stroke-width="2" fill="none"/>
+      <path d="M 84 60 C 120 60, 120 60, 156 60" stroke="#662e80" stroke-width="2" fill="none"/>
+      <path d="M 84 60 C 110 80, 130 80, 156 60" stroke="#662e80" stroke-width="2" fill="none"/>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Switch between the single − and the dipole. Why can two field lines never cross? Explain to your partner what would be wrong if they did.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>List the four rules for drawing electric field lines.</li>
+    <li>Two diagrams show field lines: in Diagram A the lines are close together; in Diagram B they are far apart. Where is the field stronger, and how do you know?</li>
+    <li>How is the field between parallel plates different from the field around a single charge?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"Field lines start on the ___ charge and end on the ___ charge; where they are ___ (close / far), the field is ___ (strong / weak)."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>field line</strong> — a line drawn to represent an electric field: it starts on a positive charge, ends on a negative charge, never crosses another, and shows the field's strength by how closely spaced it is</li>
+    <li><strong>dipole</strong> — a pair of equal and opposite charges set close together; its field lines curve from the + charge to the − charge</li>
+    <li><strong>uniform field</strong> — a field of constant strength and direction, shown by straight, evenly spaced field lines (as between parallel plates)</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your dipole sketch. Re-draw it to obey all four rules: lines start on +, end on −, don't cross, and crowd where the field is strong. Label where the field is strongest.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why did the semolina grains line up exactly along the field lines? Answer in one sentence: each grain became polarized and lined up end-to-end along the field's direction, tracing the lines we'd draw.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) State <strong>two</strong> rules for drawing electric field lines.
+      <br>(b) Two diagrams show field lines: in Diagram A the lines are close together; in Diagram B they are spread far apart. Where is the field stronger, and how do you know?
+      <br>(c) Sketch the field lines for a single <strong>negative</strong> charge. Which way do the arrows point, and where do they end?
+    </li>
+    <li><em>Reflection:</em> Which Hochman sentence (the appositive or a Because/But/So) best captured a rule for you today?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/electric_field_line_en/" target="_blank" rel="noopener">Javalab — Electric Field Line (single charge, dipole, plates)</a></li>
+    <li><a href="https://javalab.org/en/electric_field_en/" target="_blank" rel="noopener">Javalab — Electric Field of Point Charges</a></li>
+    <li><a href="https://phet.colorado.edu/en/simulations/charges-and-fields" target="_blank" rel="noopener">PhET — Charges and Fields (map the lines yourself)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · electrostatics-06</p>
+</footer>
+
+</div>
+</body>
+</html>

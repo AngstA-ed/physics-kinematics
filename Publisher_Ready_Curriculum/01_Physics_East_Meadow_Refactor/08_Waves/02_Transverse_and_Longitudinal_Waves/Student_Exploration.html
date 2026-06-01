@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Transverse and Longitudinal Waves — Unit: Waves &amp; Sound</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Waves &amp; Sound — Lesson 02: Transverse and Longitudinal Waves</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher takes one slinky and makes two completely different-looking waves with it. First they shake the end <strong>side to side</strong> — a wiggle travels across the room. Then they <strong>push and pull</strong> the same end along its length — a squeeze races down the coils. Same slinky, same energy. Two different waves.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What did the teacher change about <em>how</em> they moved their hand to make two different wave types?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch both slinky waves. Write two things you notice and two things you wonder about how a single coil moves.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Share with your partner: in each case, which way did a single coil move compared to the way the wave traveled?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw both slinky waves. For each, draw one arrow for the <strong>wave's travel</strong> direction and one arrow for how a <strong>single coil</strong> moves. Circle the case where the two arrows are perpendicular.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Press <strong>Play</strong>, then toggle between the two wave types. One highlighted particle is tracked in each. Watch which way that particle moves compared to the rightward travel arrow — <em>across</em> the travel (transverse) or <em>along</em> it (longitudinal).</p>
+  <div data-interactive="true">
+    <svg id="tl-canvas" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="Transverse vs longitudinal animation">
+      <defs>
+        <marker id="tl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1a1a1a"/>
+        </marker>
+      </defs>
+      <line x1="40" y1="210" x2="440" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#tl-arrow)"/>
+      <text x="200" y="230" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">wave travel direction →</text>
+      <g id="tl-particles"></g>
+      <circle id="tl-tracked" cx="0" cy="0" r="6" fill="#e67e22"/>
+    </svg>
+    <div class="controls">
+      <button id="tl-toggle" type="button">Show: Longitudinal</button>
+      <button id="tl-play" type="button">Pause</button>
+      <p>Mode: <span id="tl-mode" class="readout">Transverse</span> · tracked particle (orange) moves <span id="tl-dir" class="readout">up &amp; down — perpendicular</span></p>
+    </div>
+    <script>
+      (function () {
+        const NS = "http://www.w3.org/2000/svg";
+        const group = document.getElementById("tl-particles");
+        const tracked = document.getElementById("tl-tracked");
+        const N = 28, X0 = 40, X1 = 440, MIDY = 110, AMP = 50;
+        const spacing = (X1 - X0) / (N - 1);
+        const dots = [];
+        for (let i = 0; i < N; i++) {
+          const c = document.createElementNS(NS, "circle");
+          c.setAttribute("r", 4);
+          c.setAttribute("fill", i === 8 ? "transparent" : "#662e80");
+          group.appendChild(c);
+          dots.push(c);
+        }
+        let transverse = true, playing = true, t = 0, raf = null;
+        const k = 2 * Math.PI / 6;        // particles per cycle ~6
+        function frame() {
+          for (let i = 0; i < N; i++) {
+            const phase = k * i - t;
+            const x0 = X0 + i * spacing;
+            let x, y;
+            if (transverse) {
+              x = x0; y = MIDY - AMP * Math.sin(phase);
+            } else {
+              x = x0 + 14 * Math.sin(phase); y = MIDY;
+            }
+            dots[i].setAttribute("cx", x);
+            dots[i].setAttribute("cy", y);
+            if (i === 8) { tracked.setAttribute("cx", x); tracked.setAttribute("cy", y); }
+          }
+          if (playing) { t += 0.06; raf = requestAnimationFrame(frame); }
+        }
+        document.getElementById("tl-toggle").onclick = (e) => {
+          transverse = !transverse;
+          e.target.textContent = "Show: " + (transverse ? "Longitudinal" : "Transverse");
+          document.getElementById("tl-mode").textContent = transverse ? "Transverse" : "Longitudinal";
+          document.getElementById("tl-dir").textContent = transverse
+            ? "up & down — perpendicular" : "back & forth — parallel (compressions/rarefactions)";
+          if (!playing) frame();
+        };
+        document.getElementById("tl-play").onclick = (e) => {
+          playing = !playing;
+          e.target.textContent = playing ? "Pause" : "Play";
+          if (playing) { raf = requestAnimationFrame(frame); }
+          else if (raf) cancelAnimationFrame(raf);
+        };
+        frame();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A transverse wave on a string. The wave travels to the right, but each particle moves up and down — perpendicular to the travel direction.</p>
+    <svg width="280" height="100" viewBox="0 0 280 100">
+      <path d="M10 60 Q 50 20 90 60 T 170 60 T 250 60" fill="none" stroke="#662e80" stroke-width="2.5"/>
+      <line x1="50" y1="60" x2="50" y2="25" stroke="#e67e22" stroke-width="2"/>
+      <text x="40" y="90" font-family="Inter, sans-serif" font-size="10" fill="#e67e22">particle ↕</text>
+      <text x="170" y="30" font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a">travel →</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> A longitudinal wave (like sound). The wave travels right; particles move back and forth along the travel direction, bunching into compressions and spreading into rarefactions.</p>
+    <svg width="280" height="100" viewBox="0 0 280 100">
+      <g fill="#662e80">
+        <circle cx="20" cy="50" r="3"/><circle cx="30" cy="50" r="3"/><circle cx="36" cy="50" r="3"/>
+        <circle cx="60" cy="50" r="3"/><circle cx="90" cy="50" r="3"/><circle cx="120" cy="50" r="3"/>
+        <circle cx="150" cy="50" r="3"/><circle cx="156" cy="50" r="3"/><circle cx="166" cy="50" r="3"/>
+        <circle cx="200" cy="50" r="3"/><circle cx="240" cy="50" r="3"/>
+      </g>
+      <text x="20" y="80" font-family="Inter, sans-serif" font-size="9" fill="#662e80">compression / rarefaction</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Sound is longitudinal: air molecules push the next ones forward and back, so sound needs a medium. Light is transverse and needs no medium. A guitar string is transverse — it bobs up and down while the wave runs along its length.</p>
+    <svg width="280" height="100" viewBox="0 0 280 100">
+      <text x="10" y="30" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">sound = longitudinal (needs air)</text>
+      <text x="10" y="60" font-family="Inter, sans-serif" font-size="11" fill="#662e80">light = transverse (no medium)</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Sound needs air, water, or a solid to travel. Using the longitudinal mode above, explain to your partner <em>why</em> sound needs a medium but light does not.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Light is a transverse wave. Describe how the wave "oscillates" compared to the direction the light travels.</li>
+    <li>Sound is a longitudinal wave. Why does it need a medium (air, water, or a solid) to travel?</li>
+    <li>A wave on a guitar string — transverse or longitudinal? Justify your answer with the direction the string moves.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"In a ___ wave the medium moves ___ to the direction the wave travels."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>transverse wave</strong> — a wave in which the medium oscillates perpendicular to the direction the wave travels (e.g., light, a wave on a string)</li>
+    <li><strong>longitudinal wave</strong> — a wave in which the medium oscillates parallel to the direction the wave travels, forming compressions and rarefactions (e.g., sound)</li>
+    <li><strong>medium</strong> — the matter (solid, liquid, or gas) through which a mechanical wave travels</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your two slinky drawings. Label one <em>transverse</em> and one <em>longitudinal</em>. On the longitudinal one, mark a <strong>compression</strong> and a <strong>rarefaction</strong>. Rewrite your rule using both vocabulary words.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>If a friend asks why the side-to-side slinky and the push-pull slinky look so different, what's your one-sentence answer using <em>transverse</em> and <em>longitudinal</em>?</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A sound wave travels through air toward your ear.
+      <br>(a) Is sound a transverse or longitudinal wave? (b) Describe how the air molecules move compared to the direction the sound travels. (c) Name the bunched-up regions and the spread-out regions of a sound wave.
+    </li>
+    <li><em>Reflection:</em> Which hands-on station made the idea click for you, and who in your group made it work?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/transverse_longitudinal_wave_en/" target="_blank" rel="noopener">Javalab — Transverse and Longitudinal Waves (animated particle motion)</a></li>
+    <li><a href="https://www.youtube.com/watch?v=Rbuhdo0AZDU" target="_blank" rel="noopener">One slinky, two waves — side-to-side vs. push-pull (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · waves-02</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Energy-Level Diagrams and Spectra — Unit: Modern Physics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Modern Physics — Lesson 03: Energy-Level Diagrams and Spectra</h1>
+    <div><span class="strategy-chip btc">BTC</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Sunlight through a diffraction grating spreads into a smooth, continuous rainbow — every color. But a glowing tube of hydrogen gas through the same grating shows only <strong>a few sharp colored lines</strong> — always the same ones. Helium glows with a completely different set of lines.</p>
+  <img src="figures/line_spectrum_strip.png" alt="Top: a continuous rainbow from white light. Bottom: hydrogen's emission line spectrum — a few bright lines on black." style="max-width:460px;width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>Why does a glowing gas emit only certain colors, and how can that fingerprint tell us what a distant star is made of?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>A rainbow has <em>every</em> color, but hydrogen shows only a few. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn and talk: using last lesson's idea of electron energy levels, why would only certain colors come out of a glowing gas?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw a few horizontal lines as electron "energy steps." Show an electron and use an arrow to show what you think it does to release light.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Click any pair of energy levels to make an electron <strong>drop</strong> from a higher level to a lower one. It emits a photon whose color depends on the size of the gap — a bigger drop makes a bluer photon. Each emission adds a line to the spectrum strip below. Build hydrogen's fingerprint.</p>
+  <div data-interactive="true">
+    <svg id="el-canvas" width="460" height="320" viewBox="0 0 460 320" role="img" aria-label="Energy level transitions and emission spectrum">
+      <rect x="0" y="0" width="460" height="320" fill="#fbfaff"/>
+      <text x="20" y="20" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">Click a higher level, then a lower level (electron drops, emits a photon)</text>
+      <g id="el-levels"></g>
+      <line id="el-arrow" x1="0" y1="0" x2="0" y2="0" stroke="#662e80" stroke-width="3" marker-end="url(#el-ar)" visibility="hidden"/>
+      <defs>
+        <marker id="el-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#662e80"/>
+        </marker>
+      </defs>
+      <!-- spectrum strip -->
+      <text x="250" y="250" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">Emission spectrum (your fingerprint):</text>
+      <rect x="250" y="258" width="190" height="44" fill="#111"/>
+      <g id="el-spectrum"></g>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="el-clear" type="button">Clear spectrum</button>
+      </div>
+      <p id="el-readout">Pick a starting (higher) level, then a lower level to drop to.</p>
+    </div>
+    <script>
+      (function () {
+        const SVGNS = "http://www.w3.org/2000/svg";
+        const levelsG = document.getElementById("el-levels");
+        const arrow = document.getElementById("el-arrow");
+        const spec = document.getElementById("el-spectrum");
+        const readout = document.getElementById("el-readout");
+        // n=1 (bottom, lowest energy) up to n=4 (top). y positions:
+        const LV = [
+          { n: 1, y: 220, label: "n = 1" },
+          { n: 2, y: 160, label: "n = 2" },
+          { n: 3, y: 110, label: "n = 3" },
+          { n: 4, y: 70,  label: "n = 4" },
+        ];
+        const X1 = 40, X2 = 220;
+        // map a transition energy (gap) to a visible color
+        function gapColor(gap) {
+          // gap ranges roughly 1..3 in arbitrary units; bigger gap -> bluer/violet
+          if (gap >= 2.6) return "#7a2fb0";      // violet
+          if (gap >= 2.0) return "#2e5fd0";      // blue
+          if (gap >= 1.4) return "#1aa64b";      // green
+          if (gap >= 0.9) return "#e0a800";      // yellow/orange
+          return "#c0392b";                      // red
+        }
+        // energy of a level (arbitrary, monotonic): closer levels for higher n
+        function energy(n) { return -3.4 / (n * n) * 4; } // negative, deeper for n=1
+        let sel = null;
+        function drawLevels() {
+          levelsG.innerHTML = "";
+          LV.forEach(l => {
+            const ln = document.createElementNS(SVGNS, "line");
+            ln.setAttribute("x1", X1); ln.setAttribute("y1", l.y);
+            ln.setAttribute("x2", X2); ln.setAttribute("y2", l.y);
+            ln.setAttribute("stroke", sel === l.n ? "#c0392b" : "#1a1a1a");
+            ln.setAttribute("stroke-width", sel === l.n ? 4 : 2);
+            ln.style.cursor = "pointer";
+            ln.addEventListener("click", () => pick(l.n));
+            levelsG.appendChild(ln);
+            const t = document.createElementNS(SVGNS, "text");
+            t.setAttribute("x", X2 + 8); t.setAttribute("y", l.y + 4);
+            t.setAttribute("font-family", "Inter, sans-serif");
+            t.setAttribute("font-size", "12"); t.setAttribute("fill", "#1a1a1a");
+            t.textContent = l.label;
+            levelsG.appendChild(t);
+          });
+        }
+        function yOf(n) { return LV.find(l => l.n === n).y; }
+        function pick(n) {
+          if (sel === null) {
+            sel = n;
+            arrow.setAttribute("visibility", "hidden");
+            readout.textContent = "Now click a LOWER level for the electron to drop to.";
+            drawLevels();
+            return;
+          }
+          if (n >= sel) {
+            // must drop to a lower level (larger y / smaller n)
+            sel = n;
+            readout.textContent = "Pick a level BELOW that one (smaller n) to make it drop and emit.";
+            drawLevels();
+            return;
+          }
+          // valid drop from sel -> n
+          const high = sel, low = n;
+          const gap = Math.abs(energy(high) - energy(low));
+          const col = gapColor(gap);
+          arrow.setAttribute("x1", (X1 + X2) / 2);
+          arrow.setAttribute("y1", yOf(high));
+          arrow.setAttribute("x2", (X1 + X2) / 2);
+          arrow.setAttribute("y2", yOf(low));
+          arrow.setAttribute("stroke", col);
+          arrow.setAttribute("visibility", "visible");
+          addLine(col);
+          readout.textContent = "Electron dropped n = " + high + " → n = " + low +
+            ". Gap = " + gap.toFixed(2) + " units → emitted a photon of this color. Bigger drop = bluer.";
+          sel = null;
+          drawLevels();
+        }
+        function addLine(col) {
+          // position the spectral line by hue: red left, violet right (440..610 px? strip is 250..440)
+          const order = { "#c0392b": 0.12, "#e0a800": 0.32, "#1aa64b": 0.52, "#2e5fd0": 0.72, "#7a2fb0": 0.9 };
+          const frac = order[col] !== undefined ? order[col] : 0.5;
+          const x = 250 + frac * 190;
+          const l = document.createElementNS(SVGNS, "line");
+          l.setAttribute("x1", x); l.setAttribute("y1", 258);
+          l.setAttribute("x2", x); l.setAttribute("y2", 302);
+          l.setAttribute("stroke", col); l.setAttribute("stroke-width", 4);
+          spec.appendChild(l);
+        }
+        document.getElementById("el-clear").onclick = () => {
+          spec.innerHTML = ""; arrow.setAttribute("visibility", "hidden"); sel = null;
+          readout.textContent = "Pick a starting (higher) level, then a lower level to drop to.";
+          drawLevels();
+        };
+        drawLevels();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Four horizontal energy levels are drawn (n = 1 lowest, n = 4 highest). An electron sits on a high level.</p>
+    <svg width="200" height="160" viewBox="0 0 200 160">
+      <line x1="20" y1="130" x2="120" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="20" y1="95" x2="120" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="20" y1="65" x2="120" y2="65" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="20" y1="40" x2="120" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+      <circle cx="70" cy="40" r="5" fill="#2ea3f2"/>
+      <text x="128" y="44" font-family="Inter, sans-serif" font-size="10">n=4</text>
+      <text x="128" y="134" font-family="Inter, sans-serif" font-size="10">n=1</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> The electron drops from n = 4 to n = 1 — a big gap. It emits a high-energy, high-frequency violet/blue photon (E = h·f equals the gap).</p>
+    <svg width="200" height="160" viewBox="0 0 200 160">
+      <line x1="20" y1="130" x2="120" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="20" y1="40" x2="120" y2="40" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="70" y1="40" x2="70" y2="130" stroke="#7a2fb0" stroke-width="3"/>
+      <text x="78" y="90" font-family="Inter, sans-serif" font-size="10" fill="#7a2fb0">big drop = violet</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> A small drop (n = 3 → n = 2) emits a low-energy red photon. Each possible drop adds one sharp colored line to the spectrum strip.</p>
+    <p><strong>Storyboard frame 4.</strong> Because electrons can only sit on fixed levels, only certain gaps — and only certain colors — are possible. The set of lines is the element's unique fingerprint; astronomers match it in starlight to identify what a star is made of.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Make the biggest drop and the smallest drop. Which gave the bluer line? Convince your partner why a bigger energy gap means a higher-frequency (bluer) photon.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>White light makes a continuous rainbow, but glowing hydrogen makes only a few sharp lines. Explain why, using energy levels.</li>
+    <li>A big electron drop and a small electron drop both emit photons. Which photon has the higher frequency (bluer color)? Why?</li>
+    <li>How can astronomers know what a distant star is made of without going there?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"When an electron drops to a ___ energy level, it ___ a photon; a bigger drop makes a ___-frequency color."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>energy level</strong> — one of the fixed, allowed energies an electron can have in an atom (its allowed "steps")</li>
+    <li><strong>photon emission</strong> — the release of a photon when an electron drops to a lower energy level; the photon's energy equals the gap (E = h·f)</li>
+    <li><strong>line spectrum</strong> — the unique set of sharp colored lines a glowing element emits; it acts as the element's fingerprint</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your energy-step drawing. Label which arrow direction emits a photon and which color comes from the biggest drop. Connect one line in the spectrum strip to one jump in your diagram.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence, explain why hydrogen shows only a few lines, using <em>energy level</em> and <em>line spectrum</em>. (Target: "Hydrogen's electrons can only jump between fixed energy levels, so only a few photon energies are possible — producing hydrogen's unique line spectrum.")</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) White light makes a continuous rainbow, but glowing hydrogen makes only a few sharp lines — explain why, using energy levels. (b) An electron drops from n = 4 → n = 1 (a big drop) and from n = 2 → n = 1 (a small drop). Which emitted photon has the higher frequency? Why? (c) How can astronomers tell what a distant star is made of?</li>
+    <li><em>Reflection:</em> What clicked for you at the boards today, and who helped it click?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://ophysics.com/modern2.html" target="_blank" rel="noopener">ophysics — Hydrogen Spectrum / Energy Levels</a></li>
+    <li><a href="https://www.youtube.com/watch?v=byp3KFwMjW8" target="_blank" rel="noopener">Gas-discharge tubes through a grating (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · modern-physics-03</p>
+</footer>
+
+</div>
+</body>
+</html>

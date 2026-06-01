@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Charging by Induction and Polarization — Unit: Electrostatics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Electrostatics — Lesson 03: Charging by Induction and Polarization</h1>
+    <div><span class="strategy-chip btc">BTC</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher holds a charged rod near a thin stream of water — the stream bends toward it. The rod never touches the water, and the water started out neutral. Held over tiny scraps of neutral paper, the rod makes them jump up to meet it.</p>
+  <img src="figures/polarization.png" alt="A positive rod near neutral atoms; in each atom the negative end has shifted toward the rod and the positive end away, so the near side is negative and the object is pulled toward the rod." style="max-width:360px;width:100%;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>How can a charged object pull on a neutral object it never even touches?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the rod attract neutral paper and bend neutral water. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: the paper is neutral, yet it's attracted. What could the charged rod be doing to the <em>inside</em> of the paper?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw a scrap of neutral paper with a charged rod held above it. Show what you think happens to the charges <em>inside</em> the paper. Predict whether the paper is pulled up, pushed down, or unaffected.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Step through the BTC thin-slice task: leave a neutral sphere with a <em>lasting</em> charge using a negative rod you may <strong>not</strong> touch to it. Press <strong>Next step</strong> to advance: bring the rod near (polarize), ground the far side, remove the ground, then remove the rod. Watch what the sphere is left with.</p>
+  <div data-interactive="true">
+    <svg id="in-canvas" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="Charging a sphere by induction, step by step">
+      <rect x="40" y="120" width="90" height="16" rx="5" fill="#7a5230" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="85" y="110" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#555">negative rod</text>
+      <text x="60" y="138" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#2ea3f2">− −</text>
+      <circle id="in-sphere" cx="300" cy="128" r="62" fill="#e9e9ef" stroke="#1a1a1a" stroke-width="2"/>
+      <line id="in-stand" x1="300" y1="190" x2="300" y2="220" stroke="#888" stroke-width="4"/>
+      <rect x="270" y="220" width="60" height="8" fill="#888"/>
+      <line id="in-ground" x1="362" y1="128" x2="430" y2="128" stroke="#3a8a3a" stroke-width="4" visibility="hidden"/>
+      <line x1="424" y1="120" x2="436" y2="120" stroke="#3a8a3a" stroke-width="3" id="in-gnd1" visibility="hidden"/>
+      <line x1="427" y1="128" x2="433" y2="128" stroke="#3a8a3a" stroke-width="3" id="in-gnd2" visibility="hidden"/>
+      <g id="in-near" font-family="Inter, sans-serif" font-size="16" font-weight="700"></g>
+      <g id="in-far" font-family="Inter, sans-serif" font-size="16" font-weight="700"></g>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="in-next" type="button">Next step</button>
+        <button id="in-reset" type="button">Reset</button>
+      </div>
+      <p>Step <span id="in-step" class="readout">0</span> of 4: <span id="in-desc" class="readout">Neutral sphere on an insulating stand.</span></p>
+    </div>
+    <script>
+      (function () {
+        const svgNS = "http://www.w3.org/2000/svg";
+        const sphere = document.getElementById("in-sphere");
+        const ground = document.getElementById("in-ground");
+        const g1 = document.getElementById("in-gnd1"), g2 = document.getElementById("in-gnd2");
+        const near = document.getElementById("in-near");
+        const far = document.getElementById("in-far");
+        const cx = 300, cy = 128;
+        let step = 0;
+        const desc = [
+          "Neutral sphere on an insulating stand.",
+          "Rod brought near: charges shift — positives gather on the near side, negatives pushed to the far side. The sphere is still neutral overall (polarization).",
+          "Ground the far side: the rod-repelled electrons drain off to the ground, leaving the sphere short of electrons.",
+          "Remove the ground FIRST (while the rod is still near): the missing electrons can't return. The sphere now has a net positive charge.",
+          "Remove the rod: the net positive charge spreads evenly over the sphere — a lasting positive charge, opposite the rod, with no contact (induction)."
+        ];
+        function sym(g, x, y, s, color) {
+          const t = document.createElementNS(svgNS, "text");
+          t.setAttribute("x", x); t.setAttribute("y", y);
+          t.setAttribute("text-anchor", "middle");
+          t.setAttribute("fill", color);
+          t.textContent = s;
+          g.appendChild(t);
+        }
+        function clear(g) { while (g.firstChild) g.removeChild(g.firstChild); }
+        function draw() {
+          clear(near); clear(far);
+          ground.setAttribute("visibility", "hidden");
+          g1.setAttribute("visibility", "hidden");
+          g2.setAttribute("visibility", "hidden");
+          sphere.setAttribute("fill", "#e9e9ef");
+          if (step === 1) {
+            sym(near, cx - 34, cy - 8, "+", "#d9534f"); sym(near, cx - 34, cy + 14, "+", "#d9534f");
+            sym(far, cx + 34, cy - 8, "−", "#2ea3f2"); sym(far, cx + 34, cy + 14, "−", "#2ea3f2");
+          } else if (step === 2) {
+            sym(near, cx - 34, cy - 8, "+", "#d9534f"); sym(near, cx - 34, cy + 14, "+", "#d9534f");
+            ground.setAttribute("visibility", "visible");
+            g1.setAttribute("visibility", "visible"); g2.setAttribute("visibility", "visible");
+            sphere.setAttribute("fill", "#fdeaea");
+          } else if (step === 3) {
+            sphere.setAttribute("fill", "#fdeaea");
+            sym(near, cx - 30, cy - 8, "+", "#d9534f"); sym(near, cx + 30, cy - 8, "+", "#d9534f");
+            sym(near, cx, cy + 18, "+", "#d9534f");
+          } else if (step === 4) {
+            sphere.setAttribute("fill", "#fdeaea");
+            const n = 6;
+            for (let i = 0; i < n; i++) {
+              const a = (i / n) * 2 * Math.PI;
+              sym(near, cx + 40 * Math.cos(a), cy + 40 * Math.sin(a) + 5, "+", "#d9534f");
+            }
+          }
+          document.getElementById("in-step").textContent = step;
+          document.getElementById("in-desc").textContent = desc[step];
+        }
+        document.getElementById("in-next").onclick = () => { if (step < 4) step++; draw(); };
+        document.getElementById("in-reset").onclick = () => { step = 0; draw(); };
+        draw();
+      })();
+    </script>
+  </div>
+  <img src="figures/induction_steps.png" alt="A four-panel reference sequence of charging a neutral metal sphere by induction with a negative rod: polarize, ground the far side, remove the ground, then remove the rod, leaving the sphere positive." style="max-width:440px;width:100%;margin-top:10px;">
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A neutral metal sphere sits on an insulating stand. A negative rod is brought near but does not touch it.</p>
+    <svg width="300" height="120" viewBox="0 0 300 120">
+      <rect x="20" y="52" width="70" height="14" rx="4" fill="#7a5230"/>
+      <circle cx="190" cy="60" r="40" fill="#e9e9ef" stroke="#1a1a1a"/>
+    </svg>
+    <p><strong>Storyboard frame 2 (polarize).</strong> The negative rod repels the sphere's electrons to the far side, leaving positive on the near side. The sphere is still neutral overall — this shift is polarization, and it explains the attracted paper.</p>
+    <svg width="300" height="120" viewBox="0 0 300 120">
+      <rect x="20" y="52" width="70" height="14" rx="4" fill="#7a5230"/>
+      <circle cx="190" cy="60" r="40" fill="#e9e9ef" stroke="#1a1a1a"/>
+      <text x="158" y="65" font-family="Inter, sans-serif" font-size="16" fill="#d9534f">+</text>
+      <text x="216" y="65" font-family="Inter, sans-serif" font-size="16" fill="#2ea3f2">−</text>
+    </svg>
+    <p><strong>Storyboard frame 3 (ground, then remove ground BEFORE the rod).</strong> Touching the far side to the ground lets the repelled electrons drain away. Removing the ground first traps the deficit, so when the rod finally leaves, the sphere is left with a net positive charge — opposite the rod, with no contact. This is charging by induction.</p>
+    <svg width="300" height="120" viewBox="0 0 300 120">
+      <circle cx="160" cy="60" r="40" fill="#fdeaea" stroke="#1a1a1a"/>
+      <text x="146" y="50" font-family="Inter, sans-serif" font-size="16" fill="#d9534f">+ +</text>
+      <text x="150" y="80" font-family="Inter, sans-serif" font-size="16" fill="#d9534f">+</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">In the simulation, why must you remove the <em>ground</em> before you remove the <em>rod</em>? Advance the steps in the wrong order in your head and explain to your partner what would go wrong.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A charged rod attracts a neutral piece of paper. Explain what happens to the paper's charges (use the word <em>polarization</em>).</li>
+    <li>A negative rod is used to charge a metal sphere by induction. What sign does the sphere end up with, and why?</li>
+    <li>A student lets the rod <em>touch</em> the sphere instead. Now what charging method is it, and what sign does the sphere get?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"When the rod comes near, the ___ charges move to the ___ side, so the object becomes ___ (polarized / charged by induction)."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>polarization</strong> — the shift of charge <em>within</em> a neutral object when a charged object is brought near; the near side becomes oppositely charged, so the object is attracted (it stays overall neutral)</li>
+    <li><strong>induction</strong> — charging an object <em>without contact</em> by bringing a charge near, grounding, then removing the ground and the charge; the object is left with the opposite sign</li>
+    <li><strong>grounding</strong> — connecting an object to the Earth (or a large conductor) so charge can flow off to or from it</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your paper-bits drawing. Re-label it using <em>polarization</em>: which side of the paper is attracted, and why? Then write one sentence stating the final sign if you instead charged a metal sphere by induction with a <strong>positive</strong> rod.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why does the water stream bend toward <em>either</em> a positive or a negative rod? Predict in one sentence using <em>polarization</em>: water molecules are polar and rotate so their attracted end faces the rod, so the stream bends toward a rod of either sign.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A <strong>positive</strong> rod is brought near (not touching) a neutral metal sphere on an insulating stand.
+      <br>(a) Sketch where the + and − charges sit on the sphere while the rod is near. What is this called?
+      <br>(b) You ground the sphere, remove the ground, then remove the rod. What sign is the sphere's net charge? Name the method.
+      <br>(c) In one sentence, state the key difference between charging by induction and charging by conduction.
+    </li>
+    <li><em>Reflection:</em> Which groupmate's board move helped you see the grounding step? Name one idea you changed your mind about.</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/electrostatic_induction_en/" target="_blank" rel="noopener">Javalab — Electrostatic Induction (charge a sphere without contact)</a></li>
+    <li><a href="https://javalab.org/en/electroscope_en/" target="_blank" rel="noopener">Javalab — Electroscope (induction vs. conduction)</a></li>
+    <li><a href="https://phet.colorado.edu/en/simulations/balloons-and-static-electricity" target="_blank" rel="noopener">PhET — Balloons and Static Electricity (watch the wall polarize)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · electrostatics-03</p>
+</footer>
+
+</div>
+</body>
+</html>

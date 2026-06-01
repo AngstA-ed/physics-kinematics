@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Resistance in a Wire — Unit: Current Electricity</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Current Electricity — Lesson 02: Resistance in a Wire</h1>
+    <div><span class="strategy-chip btc">BTC</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>The same battery and the same bulb are connected first with a long, thin wire — the bulb glows dim. Then they're connected with a short, thick wire — the bulb glows bright. The only thing that changed was the wire.</p>
+  <p><img src="figures/wire_dimensions.png" alt="Diagram of a wire showing its length L along the long dimension, a circular end cap labeled cross-sectional area A, and a label for the material's resistivity rho." style="max-width:100%;height:auto;"></p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What properties of a wire decide how much it resists the flow of charge?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Compare the dim bulb (long, thin wire) with the bright bulb (short, thick wire). List two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: list every property of the <em>wire</em> that you think could change the brightness. Use the word <em>resistance</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>At your group's board, predict <em>before</em> you touch the simulation: if you make a wire twice as long (same thickness), what happens to its resistance R? If you make it twice as thick — double the cross-sectional area, same length — what happens to R?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>This models a wire of one material (fixed resistivity ρ). Drag the sliders to change the <em>length</em> L and the <em>cross-sectional area</em> A. Watch the resistance update — and watch the wire stretch and thicken. Change one slider at a time, just like at the boards.</p>
+  <div data-interactive="true">
+    <svg id="wire-canvas" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="Wire whose length and thickness change with the sliders">
+      <text x="240" y="24" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">R = ρ · L ÷ A   (ρ fixed)</text>
+      <!-- the wire: a rectangle whose width = length, height = thickness (∝ √A) -->
+      <rect id="wire-body" x="40" y="100" width="200" height="40" rx="6" fill="#c77dff" stroke="#662e80" stroke-width="2"/>
+      <!-- circular end cap showing cross-sectional area A -->
+      <ellipse id="wire-cap" cx="40" cy="120" rx="8" ry="20" fill="#662e80"/>
+      <text id="wire-len-lab" x="140" y="190" font-family="Inter, sans-serif" font-size="12" fill="#662e80" text-anchor="middle">length L</text>
+      <text id="wire-area-lab" x="40" y="170" font-family="Inter, sans-serif" font-size="12" fill="#662e80" text-anchor="middle">area A</text>
+    </svg>
+    <div class="controls">
+      <label>Length L: <input id="wire-l" type="range" min="1" max="5" step="1" value="2"> <span id="wire-l-r" class="readout">2</span> (relative units)</label>
+      <label>Cross-sectional area A: <input id="wire-a" type="range" min="1" max="4" step="1" value="1"> <span id="wire-a-r" class="readout">1</span> (relative units)</label>
+      <p>Resistance R ∝ L ÷ A = <span id="wire-r" class="readout">2.0</span> (relative Ω) · Double L → R doubles. Double A → R halves.</p>
+    </div>
+    <script>
+      (function () {
+        const lEl = document.getElementById("wire-l");
+        const aEl = document.getElementById("wire-a");
+        const body = document.getElementById("wire-body");
+        const cap = document.getElementById("wire-cap");
+        const lenLab = document.getElementById("wire-len-lab");
+        const areaLab = document.getElementById("wire-area-lab");
+        const X0 = 40, CY = 120;
+        function update() {
+          const L = parseFloat(lEl.value), A = parseFloat(aEl.value);
+          // R is proportional to L/A (resistivity held constant).
+          const R = L / A;
+          // Draw width proportional to length; height (thickness) proportional to
+          // the diameter, which scales as the square root of area.
+          const w = 60 * L;                         // 60..300 px
+          const thickness = 18 * Math.sqrt(A);      // taller for bigger area
+          body.setAttribute("x", X0);
+          body.setAttribute("width", w);
+          body.setAttribute("y", CY - thickness / 2);
+          body.setAttribute("height", thickness);
+          cap.setAttribute("cx", X0);
+          cap.setAttribute("cy", CY);
+          cap.setAttribute("ry", thickness / 2);
+          cap.setAttribute("rx", 6 + 2 * Math.sqrt(A));
+          lenLab.setAttribute("x", X0 + w / 2);
+          lenLab.setAttribute("y", CY + thickness / 2 + 30);
+          areaLab.setAttribute("y", CY - thickness / 2 - 8);
+          document.getElementById("wire-l-r").textContent = L;
+          document.getElementById("wire-a-r").textContent = A;
+          document.getElementById("wire-r").textContent = R.toFixed(1);
+        }
+        lEl.addEventListener("input", update);
+        aEl.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Start with a wire of length L = 2 and area A = 1, so R ∝ L ÷ A = 2 units. This is the baseline wire.</p>
+    <svg width="260" height="90" viewBox="0 0 260 90">
+      <rect x="20" y="35" width="120" height="20" rx="4" fill="#c77dff" stroke="#662e80" stroke-width="2"/>
+      <text x="80" y="78" font-family="Inter, sans-serif" font-size="11" fill="#662e80" text-anchor="middle">L = 2, A = 1 → R = 2</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Double the length to L = 4 (same thickness). The charge must fight resistance over twice the distance, so R doubles to 4 units. Resistance is <em>proportional</em> to length.</p>
+    <svg width="260" height="90" viewBox="0 0 260 90">
+      <rect x="20" y="35" width="220" height="20" rx="4" fill="#c77dff" stroke="#662e80" stroke-width="2"/>
+      <text x="120" y="78" font-family="Inter, sans-serif" font-size="11" fill="#662e80" text-anchor="middle">L = 4, A = 1 → R = 4</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Go back to L = 2 but double the area to A = 2. The wider wire gives charge more room to flow, so R <em>halves</em> to 1 unit. Resistance is <em>inversely</em> proportional to area.</p>
+    <svg width="260" height="90" viewBox="0 0 260 90">
+      <rect x="20" y="25" width="120" height="40" rx="6" fill="#c77dff" stroke="#662e80" stroke-width="2"/>
+      <text x="80" y="82" font-family="Inter, sans-serif" font-size="11" fill="#662e80" text-anchor="middle">L = 2, A = 2 → R = 1</text>
+    </svg>
+  </noscript>
+  <p style="margin-top:1rem;"><img src="figures/r_vs_length.png" alt="Line graph of resistance R versus wire length L: the points rise on a straight line, showing resistance is proportional to length." style="max-width:48%;height:auto;"> <img src="figures/r_vs_area.png" alt="Bar chart of resistance versus cross-sectional area for areas A, 2A, 3A, and 4A: the bars fall as area increases, showing resistance is inversely proportional to area." style="max-width:48%;height:auto;"></p>
+</section>
+
+<aside class="turn-and-talk">At your board, write one sentence each for length and for area: "When ___ increases, R ___ because ___." Convince your group whether area is in the top or the bottom of the resistance relationship.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A wire is made twice as long with the same thickness. By what factor does its resistance change?</li>
+    <li>A wire is made twice as thick (double the area) with the same length. By what factor does its resistance change?</li>
+    <li>Copper has a low resistivity and nichrome has a high resistivity. Which makes a better connecting wire, and why?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"When the wire's ___ doubles, the resistance ___ because R is ___ proportional to ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>resistance</strong> — the opposition a wire offers to the flow of charge, set by its length, area, material, and temperature, measured in ohms (Ω)</li>
+    <li><strong>resistivity</strong> — a property of the material itself (symbol ρ) describing how strongly it opposes current; copper is low, nichrome is high</li>
+    <li><strong>cross-sectional area</strong> — the area of the wire's circular end face (A); a larger area gives charge more room to flow, lowering resistance</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model. Rewrite your explanation for why the long, thin wire dimmed the bulb, using <em>length</em>, <em>cross-sectional area</em>, and <em>resistance</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Back to our two wires and the bulb: in one sentence, why did the short, thick wire make the bulb brighter? The short, thick wire has lower resistance, so more current reaches the bulb (I = V ÷ R).</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>Two wires are made of the same material.
+      <br>(a) Wire B is twice as long as Wire A (same thickness) — how does B's resistance compare to A's? (b) Wire C is twice as thick as Wire A (same length, double the cross-sectional area) — how does C's resistance compare to A's? (c) Name one property of the material itself that affects resistance.
+    </li>
+    <li><em>Reflection:</em> Whose explanation at the boards today helped you see the area pattern? Name them.</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/resistance-in-a-wire" target="_blank" rel="noopener">PhET — Resistance in a Wire (drag sliders for resistivity ρ, length L, and area A)</a></li>
+    <li><a href="https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc" target="_blank" rel="noopener">PhET — Circuit Construction Kit: DC (swap wires of different length to see current change)</a></li>
+    <li><a href="https://www.khanacademy.org/science/physics/circuits-topic/circuits-resistance/a/resistivity-and-conductivity" target="_blank" rel="noopener">Khan Academy — Resistivity and Conductivity</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · current-electricity-02</p>
+</footer>
+
+</div>
+</body>
+</html>

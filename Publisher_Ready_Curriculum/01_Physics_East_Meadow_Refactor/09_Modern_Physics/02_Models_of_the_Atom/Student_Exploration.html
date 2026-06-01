@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Models of the Atom — Unit: Modern Physics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Modern Physics — Lesson 02: Models of the Atom</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Scientists fired tiny positive "bullets" (alpha particles) at an ultra-thin sheet of gold. They expected all of them to sail straight through a soft "pudding" of charge. Almost all did — but a tiny fraction bounced <strong>straight back</strong>, as if they had hit something small and hard. Rutherford said it was "as if you fired a 15-inch shell at a piece of tissue paper and it came back and hit you."</p>
+  <img src="figures/gold_foil_scattering.png" alt="Gold-foil scattering: most alpha particles pass straight through while a few deflect sharply off the tiny dense nucleus." style="max-width:440px;width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What does the gold-foil result tell us about what is inside an atom — and why did the atomic model keep changing?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Most bullets pass through; a few bounce hard. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn and talk: if MOST pass through but a FEW bounce hard, what must the inside of the atom look like — solid, empty, or something in between?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw what you think the inside of a gold atom looks like, based on the scattering result. Mark where the "hard" part is and how much of the atom is empty.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Step through the history of the atomic model. At each step the picture is redrawn, and you can read the <em>evidence</em> that supported it — and the new evidence that <em>broke</em> it and forced the next model.</p>
+  <div data-interactive="true">
+    <svg id="am-canvas" width="420" height="300" viewBox="0 0 420 300" role="img" aria-label="Atomic model drawing">
+      <rect x="0" y="0" width="420" height="300" fill="#fbfaff"/>
+      <g id="am-draw"></g>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="am-prev" type="button">◀ Previous</button>
+        <button id="am-next" type="button">Next ▶</button>
+      </div>
+      <p><strong id="am-name">Dalton</strong> (<span id="am-year" class="readout">1803</span>)</p>
+      <p id="am-desc">A model is the best picture that fits the evidence of its time.</p>
+      <p><em>Evidence that supported it:</em> <span id="am-support" class="readout"></span></p>
+      <p><em>Evidence that broke it:</em> <span id="am-broke" class="readout"></span></p>
+    </div>
+    <script>
+      (function () {
+        const SVGNS = "http://www.w3.org/2000/svg";
+        const draw = document.getElementById("am-draw");
+        function el(tag, attrs) {
+          const n = document.createElementNS(SVGNS, tag);
+          for (const k in attrs) n.setAttribute(k, attrs[k]);
+          return n;
+        }
+        const CX = 210, CY = 150;
+        const models = [
+          { name: "Dalton", year: "1803",
+            desc: "Solid, indivisible sphere — a tiny featureless ball.",
+            support: "Elements combine in fixed whole-number ratios.",
+            broke: "Cathode rays revealed atoms contain smaller charged parts.",
+            render: () => { draw.appendChild(el("circle", { cx: CX, cy: CY, r: 70, fill: "#b48ec9", stroke: "#662e80", "stroke-width": 3 })); } },
+          { name: "Thomson", year: "1904",
+            desc: "Plum pudding — negative electrons embedded in a spread-out positive charge.",
+            support: "Cathode rays bend toward + plate, so negative particles (electrons) exist.",
+            broke: "Gold-foil: a few alphas bounce straight back — impossible for soft charge.",
+            render: () => {
+              draw.appendChild(el("circle", { cx: CX, cy: CY, r: 70, fill: "#d8c1e6", stroke: "#662e80", "stroke-width": 2 }));
+              const pts = [[-30,-20],[25,-30],[-10,25],[35,15],[-40,10],[10,-5]];
+              pts.forEach(p => draw.appendChild(el("circle", { cx: CX+p[0], cy: CY+p[1], r: 7, fill: "#2ea3f2" })));
+            } },
+          { name: "Rutherford", year: "1911",
+            desc: "Tiny dense positive nucleus; electrons in the surrounding empty space.",
+            support: "Gold-foil scattering: a tiny dense center deflects the rare alphas.",
+            broke: "No reason given for why orbiting electrons don't spiral in and crash.",
+            render: () => {
+              draw.appendChild(el("circle", { cx: CX, cy: CY, r: 75, fill: "none", stroke: "#ccc", "stroke-width": 1, "stroke-dasharray": "3 3" }));
+              draw.appendChild(el("circle", { cx: CX, cy: CY, r: 10, fill: "#c0392b" }));
+              [[-55,0],[40,30],[15,-55]].forEach(p => draw.appendChild(el("circle", { cx: CX+p[0], cy: CY+p[1], r: 6, fill: "#2ea3f2" })));
+            } },
+          { name: "Bohr", year: "1913",
+            desc: "Electrons orbit only on fixed energy levels (shells).",
+            support: "Atoms emit only specific colors of light (line spectra).",
+            broke: "Could not explain larger atoms; electrons aren't really on neat tracks.",
+            render: () => {
+              [40, 62].forEach(r => draw.appendChild(el("circle", { cx: CX, cy: CY, r: r, fill: "none", stroke: "#662e80", "stroke-width": 1.5 })));
+              draw.appendChild(el("circle", { cx: CX, cy: CY, r: 9, fill: "#c0392b" }));
+              draw.appendChild(el("circle", { cx: CX+40, cy: CY, r: 6, fill: "#2ea3f2" }));
+              draw.appendChild(el("circle", { cx: CX, cy: CY-62, r: 6, fill: "#2ea3f2" }));
+            } },
+          { name: "Quantum (electron cloud)", year: "1926",
+            desc: "Electrons are probability clouds, not fixed paths — the current best model.",
+            support: "Quantum mechanics predicts spectra and chemistry precisely.",
+            broke: "(Current best model — still tested against new evidence today.)",
+            render: () => {
+              for (let i = 0; i < 120; i++) {
+                const ang = Math.random() * Math.PI * 2;
+                const rad = Math.abs((Math.random() + Math.random() - 1)) * 70;
+                draw.appendChild(el("circle", { cx: CX + Math.cos(ang)*rad, cy: CY + Math.sin(ang)*rad, r: 2.2, fill: "#2ea3f2", opacity: 0.5 }));
+              }
+              draw.appendChild(el("circle", { cx: CX, cy: CY, r: 8, fill: "#c0392b" }));
+            } },
+        ];
+        let i = 0;
+        function show() {
+          draw.innerHTML = "";
+          const m = models[i];
+          m.render();
+          document.getElementById("am-name").textContent = m.name;
+          document.getElementById("am-year").textContent = m.year;
+          document.getElementById("am-desc").textContent = m.desc;
+          document.getElementById("am-support").textContent = m.support;
+          document.getElementById("am-broke").textContent = m.broke;
+          document.getElementById("am-prev").disabled = (i === 0);
+          document.getElementById("am-next").disabled = (i === models.length - 1);
+        }
+        document.getElementById("am-next").onclick = () => { if (i < models.length - 1) { i++; show(); } };
+        document.getElementById("am-prev").onclick = () => { if (i > 0) { i--; show(); } };
+        show();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> <em>Dalton (1803)</em> — a solid, indivisible sphere. Supported by elements combining in fixed ratios; broken when cathode rays showed atoms have smaller charged parts.</p>
+    <p><strong>Storyboard frame 2.</strong> <em>Thomson (1904)</em> — "plum pudding," negative electrons embedded in spread-out positive charge. Broken by the gold-foil bounce-back.</p>
+    <svg width="200" height="120" viewBox="0 0 200 120">
+      <circle cx="100" cy="60" r="45" fill="#d8c1e6" stroke="#662e80"/>
+      <circle cx="80" cy="50" r="6" fill="#2ea3f2"/><circle cx="115" cy="70" r="6" fill="#2ea3f2"/>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> <em>Rutherford (1911)</em> — a tiny dense positive nucleus in mostly empty space; the gold-foil turning point.</p>
+    <svg width="200" height="120" viewBox="0 0 200 120">
+      <circle cx="100" cy="60" r="45" fill="none" stroke="#ccc" stroke-dasharray="3 3"/>
+      <circle cx="100" cy="60" r="8" fill="#c0392b"/><circle cx="60" cy="60" r="5" fill="#2ea3f2"/>
+    </svg>
+    <p><strong>Storyboard frame 4.</strong> <em>Bohr (1913)</em> — electrons on fixed energy-level orbits; explains line spectra.</p>
+    <p><strong>Storyboard frame 5.</strong> <em>Quantum (1926)</em> — electrons as probability clouds; the current best model, still revised as new evidence arrives.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">What always triggered a new model? Find the one common cause across all five steps and convince your partner.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Why couldn't Thomson's plum-pudding model explain the alpha particles that bounced straight back?</li>
+    <li>The atom is mostly empty space, yet nearly all its mass sits in one tiny spot. Where is that mass, and what is that spot called?</li>
+    <li>Is the quantum (electron-cloud) model "the final truth," or could it change? Explain.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The ___ model changed to the ___ model because of evidence from ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>nucleus</strong> — the tiny, dense, positively charged center of an atom; it holds nearly all the atom's mass</li>
+    <li><strong>electron</strong> — a light, negatively charged particle found in the space around the nucleus</li>
+    <li><strong>atomic model</strong> — a scientific picture of the atom's structure, revised as new evidence appears</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model. Redraw the gold atom using the words <em>nucleus</em> and <em>electron</em>, with the correct proportions (tiny dense center, lots of empty space).</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence, explain the gold-foil result using <em>nucleus</em>. (Target: "Most alphas pass through the empty space, but the few that hit the tiny dense nucleus are pushed sharply back.")</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) Which atomic model first included a tiny, dense nucleus, and what experiment supported it? (b) Name one thing the Thomson (plum-pudding) model got right. (c) Why do scientists change a model like the atom over time?</li>
+    <li><em>Reflection:</em> Whose idea in your group helped you make sense of the timeline today?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/rutherford_scattering_en/" target="_blank" rel="noopener">Javalab — Rutherford Scattering (interactive)</a></li>
+    <li><a href="https://www.youtube.com/watch?v=XBqHkraf8iE" target="_blank" rel="noopener">The Gold-Foil Experiment (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · modern-physics-02</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Standard Model — Unit: Modern Physics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Modern Physics — Lesson 04: The Standard Model</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Zoom in on a chair: it's made of atoms. An atom is a nucleus plus electrons. The nucleus is protons and neutrons. So what is a <em>proton</em> made of? Scientists kept zooming — and found the zoom finally <strong>stops</strong> at a small set of particles that everything else is built from.</p>
+  <img src="figures/standard_model_chart.png" alt="Standard-Model chart: a grid of quarks and leptons (matter particles) plus bosons (force carriers)." style="max-width:460px;width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What are the smallest building blocks of matter, and how do scientists organize them?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>The zoom finally stops at a small set of particles. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn and talk: scientists found a <em>small set</em> of particles that everything is built from. Why might it help to organize them into a chart, like the periodic table?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw a proton. If you think it has smaller parts inside, draw them and label what you would call them.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Click any particle tile to read its properties — its type, charge, and whether it is <em>fundamental</em>. Then click quark tiles to <strong>build a proton</strong>: add up + up + down (uud) and watch the charges add to +1.</p>
+  <div data-interactive="true">
+    <div id="sm-grid" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;"></div>
+    <div class="controls">
+      <p id="sm-info"><strong>Click a tile</strong> to see its properties.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <button id="sm-add-up" type="button">+ up quark</button>
+        <button id="sm-add-down" type="button">+ down quark</button>
+        <button id="sm-reset" type="button">Reset builder</button>
+      </div>
+      <p>Proton builder: <span id="sm-build" class="readout">(empty)</span> · total charge = <span id="sm-charge" class="readout">0</span> <span id="sm-verdict"></span></p>
+    </div>
+    <script>
+      (function () {
+        const particles = [
+          { sym: "u", name: "up quark", type: "quark", q: "+2/3", fund: true,  color: "#662e80" },
+          { sym: "d", name: "down quark", type: "quark", q: "−1/3", fund: true, color: "#662e80" },
+          { sym: "c", name: "charm quark", type: "quark", q: "+2/3", fund: true, color: "#7a4ba0" },
+          { sym: "s", name: "strange quark", type: "quark", q: "−1/3", fund: true, color: "#7a4ba0" },
+          { sym: "e", name: "electron (lepton)", type: "lepton", q: "−1", fund: true, color: "#2ea3f2" },
+          { sym: "ν", name: "neutrino (lepton)", type: "lepton", q: "0", fund: true, color: "#2ea3f2" },
+          { sym: "μ", name: "muon (lepton)", type: "lepton", q: "−1", fund: true, color: "#4cb6f7" },
+          { sym: "γ", name: "photon (boson)", type: "boson · force carrier", q: "0", fund: true, color: "#e0a800" },
+          { sym: "g", name: "gluon (boson)", type: "boson · force carrier", q: "0", fund: true, color: "#e0a800" },
+        ];
+        const grid = document.getElementById("sm-grid");
+        const info = document.getElementById("sm-info");
+        particles.forEach(p => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.textContent = p.sym;
+          b.title = p.name;
+          b.setAttribute("aria-label", p.name);
+          b.style.cssText = "width:54px;height:54px;font-size:20px;font-weight:700;color:#fff;border:none;border-radius:8px;cursor:pointer;background:" + p.color + ";";
+          b.onclick = () => {
+            info.innerHTML = "<strong>" + p.name + "</strong> — type: " + p.type +
+              "; charge: " + p.q + "; " + (p.fund ? "this IS a fundamental particle (no smaller parts inside)." : "not fundamental.");
+          };
+          grid.appendChild(b);
+        });
+        // proton builder
+        let build = [];
+        const fracToNum = { "+2/3": 2/3, "−1/3": -1/3 };
+        function refresh() {
+          const buildEl = document.getElementById("sm-build");
+          const chargeEl = document.getElementById("sm-charge");
+          const verdict = document.getElementById("sm-verdict");
+          buildEl.textContent = build.length ? build.join(" + ") : "(empty)";
+          let total = 0;
+          build.forEach(q => { total += (q === "up") ? 2/3 : -1/3; });
+          chargeEl.textContent = (Math.round(total * 100) / 100);
+          const isProton = build.length === 3 &&
+            build.filter(x => x === "up").length === 2 &&
+            build.filter(x => x === "down").length === 1;
+          const isNeutron = build.length === 3 &&
+            build.filter(x => x === "up").length === 1 &&
+            build.filter(x => x === "down").length === 2;
+          if (isProton) verdict.textContent = "✓ That's a PROTON (uud, charge +1)!";
+          else if (isNeutron) verdict.textContent = "✓ That's a NEUTRON (udd, charge 0)!";
+          else verdict.textContent = build.length === 3 ? "(3 quarks, but not a proton or neutron)" : "";
+        }
+        document.getElementById("sm-add-up").onclick = () => { if (build.length < 3) build.push("up"); refresh(); };
+        document.getElementById("sm-add-down").onclick = () => { if (build.length < 3) build.push("down"); refresh(); };
+        document.getElementById("sm-reset").onclick = () => { build = []; refresh(); };
+        refresh();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> All matter is built from two families of fundamental particles: <em>quarks</em> (up, down, …) and <em>leptons</em> (the electron, the neutrino). Forces are carried by <em>bosons</em> like the photon.</p>
+    <p><strong>Storyboard frame 2.</strong> A proton is built from three quarks: up + up + down (uud).</p>
+    <svg width="220" height="120" viewBox="0 0 220 120">
+      <circle cx="60" cy="60" r="20" fill="#662e80"/><text x="60" y="66" text-anchor="middle" fill="#fff" font-size="16">u</text>
+      <circle cx="110" cy="60" r="20" fill="#662e80"/><text x="110" y="66" text-anchor="middle" fill="#fff" font-size="16">u</text>
+      <circle cx="160" cy="60" r="20" fill="#662e80"/><text x="160" y="66" text-anchor="middle" fill="#fff" font-size="16">d</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> The charges add up: (+2/3) + (+2/3) + (−1/3) = +1 — exactly the proton's charge. A neutron is udd, adding to 0.</p>
+    <p><strong>Storyboard frame 4.</strong> The electron is a lepton — already fundamental, with no quarks inside. A proton is NOT fundamental; only its quarks are.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Build a neutron (udd) in the builder. Check the charge lands on 0. Explain to your partner why a proton is <em>not</em> fundamental but an electron <em>is</em>.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A proton is made of two up quarks and one down quark. Is a proton a fundamental particle? Explain.</li>
+    <li>How is the Standard-Model chart similar to the periodic table?</li>
+    <li>The electron is not made of quarks. Which family does it belong to, and what does that tell you about it?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"A ___ is a fundamental particle, but a ___ is made of smaller parts, so the ___ is fundamental and the ___ is not."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>quark</strong> — a fundamental matter particle; protons and neutrons are each built from three quarks (a proton is up-up-down)</li>
+    <li><strong>lepton</strong> — the other family of fundamental matter particles; the electron is a lepton</li>
+    <li><strong>fundamental particle</strong> — a particle with no smaller parts inside, as far as we know (quarks and leptons are fundamental; protons are not)</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model of a proton. Redraw it using quark tiles (up, up, down) and check that the charges add to +1. Label which particles are fundamental.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Restate the "what is everything made of?" zoom in one sentence using <em>quark</em> and <em>fundamental particle</em>. (Target: "Everything is built from fundamental particles — quarks, which make protons and neutrons, and leptons like the electron.")</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) Name the two families of fundamental matter particles. (b) A proton is made of two up quarks and one down quark — is a proton a fundamental particle? Explain. (c) The electron belongs to which family — quarks or leptons?</li>
+    <li><em>Reflection:</em> What's one question about the universe you now want to ask?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://www.particleadventure.org/" target="_blank" rel="noopener">The Particle Adventure — interactive Standard Model explorer</a></li>
+    <li><a href="https://www.youtube.com/watch?v=Unl1jXFnzgo" target="_blank" rel="noopener">Cassiopeia Project — "The Standard Model" (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · modern-physics-04</p>
+</footer>
+
+</div>
+</body>
+</html>

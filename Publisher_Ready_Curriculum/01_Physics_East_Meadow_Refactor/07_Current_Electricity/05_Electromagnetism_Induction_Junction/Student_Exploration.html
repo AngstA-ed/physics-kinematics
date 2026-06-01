@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Electromagnetism: The Induction Junction — Unit: Current Electricity</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Current Electricity — Lesson 05: Electromagnetism (The Induction Junction)</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A magnet held still inside a coil of wire does nothing. But <em>move</em> the magnet in and out, and an LED in the circuit flashes. Across the room, a coil wrapped around a nail picks up paperclips — but only while a battery is connected.</p>
+  <p><img src="figures/coil_field.png" alt="Diagram of current flowing through a wire coil: the loops create a magnetic field B along the coil's axis, with a north pole at one end and a south pole at the other, like a bar magnet." style="max-width:100%;height:auto;"></p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What is the two-way connection between electric current and magnetism?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the LED stay dark with the magnet still, then flash as it moves. List two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: what do the LED demo and the paperclip demo have in common? Use the words <em>magnetic field</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the coil with the magnet inside it and the LED in the loop. Mark when the LED is <strong>ON</strong>. Predict: does it matter how <em>fast</em> you move the magnet? What happens if you stop?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Drag the magnet through the coil with the position slider, or press <em>Play</em> to sweep it back and forth. A galvanometer needle shows the induced current. Try moving it slowly, then fast — and try holding it still. The current depends on how fast the field through the coil is <em>changing</em>, not on where the magnet sits.</p>
+  <div data-interactive="true">
+    <svg id="em-canvas" width="480" height="280" viewBox="0 0 480 280" role="img" aria-label="A magnet moving through a coil with a galvanometer needle showing induced current">
+      <!-- coil drawn as a stack of loops near the center -->
+      <g stroke="#b08968" stroke-width="3" fill="none">
+        <ellipse cx="240" cy="120" rx="14" ry="40"/>
+        <ellipse cx="258" cy="120" rx="14" ry="40"/>
+        <ellipse cx="276" cy="120" rx="14" ry="40"/>
+        <ellipse cx="294" cy="120" rx="14" ry="40"/>
+      </g>
+      <text x="267" y="180" font-family="Inter, sans-serif" font-size="11" fill="#b08968" text-anchor="middle">coil</text>
+      <!-- bar magnet (moves horizontally) -->
+      <g id="em-magnet">
+        <rect x="120" y="105" width="60" height="30" fill="#e63946"/>
+        <rect x="150" y="105" width="30" height="30" fill="#457b9d"/>
+        <text x="135" y="125" font-family="Inter, sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">N</text>
+        <text x="165" y="125" font-family="Inter, sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">S</text>
+      </g>
+      <!-- wires from coil to galvanometer -->
+      <line x1="294" y1="160" x2="294" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="294" y1="230" x2="360" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="240" y1="160" x2="240" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="240" y1="245" x2="360" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+      <!-- galvanometer -->
+      <rect x="360" y="205" width="90" height="60" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="405" y="222" font-family="Inter, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">induced I</text>
+      <line x1="405" y1="255" x2="405" y2="230" stroke="#e63946" stroke-width="2"/>
+      <line id="em-needle" x1="405" y1="255" x2="405" y2="228" stroke="#2ea3f2" stroke-width="3"/>
+      <circle cx="405" cy="255" r="3" fill="#1a1a1a"/>
+      <text id="em-readout" x="240" y="40" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">No motion → no induced current</text>
+    </svg>
+    <div class="controls">
+      <label>Magnet position: <input id="em-pos" type="range" min="0" max="100" step="1" value="0"> <span id="em-pos-r" class="readout">0</span></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="em-play" type="button">Play (sweep back &amp; forth)</button>
+        <button id="em-stop" type="button">Stop</button>
+      </div>
+      <p>Induced current ∝ how fast the magnet moves: <span id="em-current" class="readout">0.0</span> (relative). Hold the magnet still and it drops to zero.</p>
+    </div>
+    <script>
+      (function () {
+        const pos = document.getElementById("em-pos");
+        const magnet = document.getElementById("em-magnet");
+        const needle = document.getElementById("em-needle");
+        const readout = document.getElementById("em-readout");
+        const currentEl = document.getElementById("em-current");
+        let lastPos = +pos.value, lastT = performance.now();
+        let animating = false, dir = 1, rafId = null;
+        const TRAVEL = 260;                  // px the magnet can slide
+        function showCurrent(velocity) {
+          // Induced current is proportional to the RATE of change of position
+          // (a stand-in for the rate of change of flux). Direction flips with
+          // the sign of the velocity.
+          const mag = Math.min(Math.abs(velocity) / 4, 1);   // 0..1
+          const sign = velocity === 0 ? 0 : (velocity > 0 ? 1 : -1);
+          const angle = sign * mag * 60;     // needle deflection up to ±60°
+          needle.setAttribute("transform", "rotate(" + angle + " 405 255)");
+          currentEl.textContent = (sign * mag).toFixed(1);
+          if (mag < 0.02) {
+            readout.textContent = "No motion → no induced current";
+          } else if (mag < 0.5) {
+            readout.textContent = "Moving slowly → small induced current";
+          } else {
+            readout.textContent = "Moving fast → large induced current";
+          }
+        }
+        function placeMagnet(p) {
+          const x = (p / 100) * TRAVEL;      // 0..260 px shift
+          magnet.setAttribute("transform", "translate(" + x + ",0)");
+          document.getElementById("em-pos-r").textContent = Math.round(p);
+        }
+        function onInput() {
+          const now = performance.now();
+          const p = +pos.value;
+          const dt = Math.max(now - lastT, 16) / 16;   // frames
+          const velocity = (p - lastPos) / dt;          // units per frame
+          lastPos = p; lastT = now;
+          placeMagnet(p);
+          showCurrent(velocity);
+        }
+        pos.addEventListener("input", onInput);
+        // when the user stops dragging, the current returns to zero
+        pos.addEventListener("change", () => showCurrent(0));
+        function loop() {
+          let p = +pos.value + dir * 2;
+          if (p >= 100) { p = 100; dir = -1; }
+          if (p <= 0) { p = 0; dir = 1; }
+          pos.value = p;
+          placeMagnet(p);
+          showCurrent(dir * 2 * 2);          // steady sweep speed → steady current
+          if (animating) rafId = requestAnimationFrame(loop);
+        }
+        document.getElementById("em-play").onclick = () => {
+          if (animating) return;
+          animating = true; loop();
+        };
+        document.getElementById("em-stop").onclick = () => {
+          animating = false;
+          if (rafId) cancelAnimationFrame(rafId);
+          showCurrent(0);
+        };
+        placeMagnet(+pos.value);
+        showCurrent(0);
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A bar magnet (north and south poles) sits still inside a coil wired to a galvanometer. The magnetic field through the coil is steady — it is not changing — so the needle reads zero. No induced current.</p>
+    <svg width="260" height="120" viewBox="0 0 260 120">
+      <ellipse cx="150" cy="60" rx="10" ry="30" stroke="#b08968" stroke-width="3" fill="none"/>
+      <rect x="60" y="48" width="40" height="24" fill="#e63946"/><rect x="100" y="48" width="40" height="24" fill="#457b9d"/>
+      <text x="80" y="105" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">still → I = 0</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Push the magnet through the coil <em>slowly</em>. Now the field through the coil is changing, so a small current is induced — the needle deflects a little. This is electromagnetic induction.</p>
+    <svg width="260" height="120" viewBox="0 0 260 120">
+      <ellipse cx="170" cy="60" rx="10" ry="30" stroke="#b08968" stroke-width="3" fill="none"/>
+      <rect x="100" y="48" width="40" height="24" fill="#e63946"/><rect x="140" y="48" width="20" height="24" fill="#457b9d"/>
+      <text x="60" y="100" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">slow → small I</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Move the magnet <em>fast</em>. The field changes more quickly, so a larger current is induced — the needle swings further. Faster motion → bigger induced current.</p>
+    <svg width="260" height="120" viewBox="0 0 260 120">
+      <ellipse cx="180" cy="60" rx="10" ry="30" stroke="#b08968" stroke-width="3" fill="none"/>
+      <rect x="110" y="48" width="40" height="24" fill="#e63946"/><rect x="150" y="48" width="20" height="24" fill="#457b9d"/>
+      <text x="50" y="100" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">fast → large I</text>
+    </svg>
+    <p><strong>Storyboard frame 4.</strong> Pull the magnet back <em>out</em>. The field now changes in the opposite sense, so the induced current reverses direction — the needle swings the other way.</p>
+    <svg width="260" height="120" viewBox="0 0 260 120">
+      <ellipse cx="120" cy="60" rx="10" ry="30" stroke="#b08968" stroke-width="3" fill="none"/>
+      <rect x="150" y="48" width="40" height="24" fill="#e63946"/><rect x="140" y="48" width="10" height="24" fill="#457b9d"/>
+      <text x="40" y="100" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">reverse → I flips</text>
+    </svg>
+  </noscript>
+  <p style="margin-top:1rem;"><img src="figures/induction_diagram.png" alt="Diagram of electromagnetic induction: a bar magnet with north and south poles moves toward a wire coil connected to an LED; the changing magnetic field through the coil induces a current that lights the LED." style="max-width:100%;height:auto;"></p>
+</section>
+
+<aside class="turn-and-talk">Across both demos, what is the two-way relationship between current and magnetic fields? Use the slider to build a case for "it's the <em>change</em> that matters."</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A current flows through a coil of wire. What forms around the coil, and what is the coil now acting like?</li>
+    <li>A magnet is held perfectly still inside a coil connected to an LED. Is there an induced current? Explain.</li>
+    <li>A hand-crank flashlight has no battery. Explain where the light's energy comes from, using <em>electromagnetic induction</em>.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"A current is induced only when the magnetic field through the coil is ___, and a faster change makes the current ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>magnetic field</strong> — the region around a magnet or a current-carrying wire where magnetic forces act, represented by field lines from north to south</li>
+    <li><strong>electromagnet</strong> — a coil of wire that becomes magnetic only while an electric current flows through it; more turns or more current makes it stronger</li>
+    <li><strong>electromagnetic induction</strong> — the production of a current in a coil by a <em>changing</em> magnetic field; the basis of generators (motion → electricity)</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model. Did the speed of the magnet matter? Rewrite your explanation for why the LED only lights while the magnet <em>moves</em>, using <em>electromagnetic induction</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence using <em>electromagnetic induction</em>, explain why the shake-flashlight only makes light while you shake it: shaking keeps moving the magnet through the coil, so the changing field induces a current — stop shaking and the field stops changing, so the current (and light) stops.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) A current flows through a coil of wire — what does it create around the coil? (b) A magnet is held perfectly still inside a coil connected to an LED — is there an induced current? Why or why not? (c) Name one device that uses electromagnetic induction to generate electricity, and explain in one sentence where the energy comes from.</li>
+    <li><em>Reflection:</em> Where in your own life do you now realize electromagnetic induction is quietly working?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/electromagnetic_induction_en/" target="_blank" rel="noopener">Javalab — Electromagnetic Induction (move a magnet through a coil, watch the induced current)</a></li>
+    <li><a href="https://phet.colorado.edu/en/simulations/faradays-law" target="_blank" rel="noopener">PhET — Faraday's Law / Electromagnetic Lab (magnet, coil, light bulb)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · current-electricity-05</p>
+</footer>
+
+</div>
+</body>
+</html>

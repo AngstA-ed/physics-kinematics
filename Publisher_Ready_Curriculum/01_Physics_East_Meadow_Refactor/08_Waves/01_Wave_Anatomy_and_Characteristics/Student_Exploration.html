@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Wave Anatomy and Characteristics — Unit: Waves &amp; Sound</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Waves &amp; Sound — Lesson 01: Wave Anatomy and Characteristics</h1>
+    <div><span class="strategy-chip circle">RESTORATIVE CIRCLE</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A "wave" travels all the way around a packed stadium — but every single fan stays in their own seat, just raising and lowering their arms. On the front bench, a slinky pulse races from one end to the other, yet each coil only jiggles in place. Something clearly travels around the bowl. The fans do not.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>When a wave travels, what actually moves — and what stays put?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the stadium wave and the slinky pulse. Write two things you notice and two things you wonder. Use the word <em>energy</em> somewhere.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Share with your partner: what actually traveled around the stadium, and what stayed put? Use the word <em>energy</em> in your answer.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the slinky at one instant as a wave passes. Mark a high point and a low point. Draw one arrow for the direction the <strong>wave</strong> moves, and a second arrow for the direction a <strong>single coil</strong> moves. Are the two arrows the same direction?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Drag the sliders to change the wave's <strong>amplitude</strong> (height) and <strong>wavelength</strong> (crest-to-crest distance). Watch the labeled crest and trough move. Which slider changes how much energy the wave carries?</p>
+  <div data-interactive="true">
+    <svg id="wa-canvas" width="480" height="280" viewBox="0 0 480 280" role="img" aria-label="Wave anatomy explorer">
+      <line x1="20" y1="140" x2="460" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4 4"/>
+      <text x="22" y="135" font-family="Inter, sans-serif" font-size="10" fill="#999">rest position</text>
+      <path id="wa-wave" d="" fill="none" stroke="#662e80" stroke-width="3"/>
+      <g id="wa-labels"></g>
+    </svg>
+    <div class="controls">
+      <label>Amplitude: <input id="wa-amp" type="range" min="10" max="110" value="60"> <span id="wa-amp-r" class="readout">60</span> px</label>
+      <label>Wavelength: <input id="wa-wl" type="range" min="80" max="440" value="220"> <span id="wa-wl-r" class="readout">220</span> px</label>
+      <p>Energy carried scales with amplitude²: <span id="wa-energy" class="readout">—</span></p>
+    </div>
+    <script>
+      (function () {
+        const wave = document.getElementById("wa-wave");
+        const labels = document.getElementById("wa-labels");
+        const ampS = document.getElementById("wa-amp");
+        const wlS = document.getElementById("wa-wl");
+        const W = 480, MIDX0 = 20, MIDX1 = 460, BASE = 140;
+        function draw() {
+          const A = +ampS.value;
+          const wl = +wlS.value;
+          document.getElementById("wa-amp-r").textContent = A;
+          document.getElementById("wa-wl-r").textContent = wl;
+          const k = 2 * Math.PI / wl;
+          let d = "";
+          for (let x = MIDX0; x <= MIDX1; x += 2) {
+            const y = BASE - A * Math.sin(k * (x - MIDX0));
+            d += (x === MIDX0 ? "M" : "L") + x + " " + y.toFixed(1) + " ";
+          }
+          wave.setAttribute("d", d);
+          // crest at quarter wavelength, trough at three-quarters
+          const crestX = MIDX0 + wl / 4;
+          const troughX = MIDX0 + 3 * wl / 4;
+          labels.innerHTML = "";
+          function tag(x, y, txt, color) {
+            if (x > MIDX1 - 10) return;
+            const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            dot.setAttribute("cx", x); dot.setAttribute("cy", y); dot.setAttribute("r", 4);
+            dot.setAttribute("fill", color);
+            labels.appendChild(dot);
+            const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            t.setAttribute("x", x + 6); t.setAttribute("y", y - 6);
+            t.setAttribute("font-family", "Inter, sans-serif");
+            t.setAttribute("font-size", "11"); t.setAttribute("fill", color);
+            t.textContent = txt; labels.appendChild(t);
+          }
+          tag(crestX, BASE - A, "crest", "#662e80");
+          tag(troughX, BASE + A, "trough", "#2ea3f2");
+          // amplitude bracket
+          const amp = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          amp.setAttribute("x1", crestX); amp.setAttribute("y1", BASE);
+          amp.setAttribute("x2", crestX); amp.setAttribute("y2", BASE - A);
+          amp.setAttribute("stroke", "#e67e22"); amp.setAttribute("stroke-width", 2);
+          labels.appendChild(amp);
+          const at = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          at.setAttribute("x", crestX + 6); at.setAttribute("y", BASE - A / 2);
+          at.setAttribute("font-family", "Inter, sans-serif"); at.setAttribute("font-size", "10");
+          at.setAttribute("fill", "#e67e22"); at.textContent = "amplitude"; labels.appendChild(at);
+          const rel = (A / 60) * (A / 60);
+          document.getElementById("wa-energy").textContent = rel.toFixed(2) + "× (vs. start)";
+        }
+        ampS.oninput = draw; wlS.oninput = draw;
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A sine wave drawn along a dashed rest line. The high points are crests, the low points are troughs. The distance from rest up to a crest is the amplitude.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="10" y1="60" x2="270" y2="60" stroke="#999" stroke-width="1" stroke-dasharray="4 4"/>
+      <path d="M10 60 Q 50 10 90 60 T 170 60 T 250 60" fill="none" stroke="#662e80" stroke-width="2.5"/>
+      <text x="55" y="25" font-family="Inter, sans-serif" font-size="10" fill="#662e80">crest</text>
+      <text x="130" y="105" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">trough</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Raising the amplitude slider makes the crests taller and the troughs deeper. The wave carries more energy — but it does not travel any faster.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="10" y1="60" x2="270" y2="60" stroke="#999" stroke-width="1" stroke-dasharray="4 4"/>
+      <path d="M10 60 Q 50 -5 90 60 T 170 60 T 250 60" fill="none" stroke="#662e80" stroke-width="2.5"/>
+      <text x="100" y="20" font-family="Inter, sans-serif" font-size="10" fill="#e67e22">bigger amplitude = more energy</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Shortening the wavelength packs the crests closer together. At a fixed wave speed, that means more cycles pass each second — a higher frequency. A buoy bobbing 12 times in 6 s has frequency f = 2 Hz and period T = 1/f = 0.5 s.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="10" y1="60" x2="270" y2="60" stroke="#999" stroke-width="1" stroke-dasharray="4 4"/>
+      <path d="M10 60 Q 30 25 50 60 T 90 60 T 130 60 T 170 60 T 210 60 T 250 60" fill="none" stroke="#662e80" stroke-width="2.5"/>
+      <text x="60" y="105" font-family="Inter, sans-serif" font-size="10" fill="#662e80">shorter λ = higher frequency</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">A wave's amplitude doubles. Does it travel faster? Convince your partner using the slider above — change only the amplitude and watch the crest spacing.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>On the wave diagram above, which measurement tells you how much <strong>energy</strong> the wave carries? Explain.</li>
+    <li>A wave's frequency is 5 Hz. What is its period? Show the formula you used.</li>
+    <li>Two ocean waves have the same speed, but Wave A has a larger amplitude than Wave B. Which carries more energy? Does it travel faster? Explain.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"A wave carries ___ but not ___; the ___ moves up and down in place."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>amplitude</strong> — the maximum distance a wave rises from its rest position; larger amplitude means more energy</li>
+    <li><strong>wavelength</strong> — the distance between two matching points on a wave, such as crest to crest (symbol λ)</li>
+    <li><strong>frequency</strong> — the number of complete wave cycles that pass a point each second, measured in hertz (Hz)</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your slinky drawing. Label the crest, trough, amplitude, and one wavelength. Rewrite your one-sentence explanation using the words <em>energy</em>, <em>amplitude</em>, and <em>wavelength</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Back to the stadium: what is the "amplitude" of the stadium wave, and what stayed in place? Answer in one sentence using <em>energy</em> and <em>amplitude</em>.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A buoy bobs up and down 12 times in 6 seconds as ocean waves pass.
+      <br>(a) What is the frequency of the waves? (b) What is the period? (c) Does the water itself travel toward the shore with the wave? Explain in one sentence.
+    </li>
+    <li><em>Reflection:</em> What is one everyday "wave" you now see differently? Who in your group helped you picture it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/wave-on-a-string" target="_blank" rel="noopener">PhET — Wave on a String (drive a string and watch a wave travel)</a></li>
+    <li><a href="https://www.youtube.com/watch?v=njBJW9pStLA" target="_blank" rel="noopener">The stadium wave — fans stay seated while the wave travels (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · waves-01</p>
+</footer>
+
+</div>
+</body>
+</html>

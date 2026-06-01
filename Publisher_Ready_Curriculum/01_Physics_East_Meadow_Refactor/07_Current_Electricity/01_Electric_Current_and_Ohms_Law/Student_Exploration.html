@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Electric Current and Ohm's Law — Unit: Current Electricity</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Current Electricity — Lesson 01: Electric Current and Ohm's Law</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher holds an "energy stick." Nothing happens — until two people grab the metal ends and complete the loop with their hands. Then it lights up and buzzes. Break the loop, and it goes dark again. Add more people to the hand-chain and it gets <em>harder</em> to light.</p>
+  <p><img src="figures/simple_circuit.png" alt="Schematic of a simple circuit: a battery labeled V = 6 V on the left drives a current I = 2 A clockwise through a single resistor R = 3 Ω on the bottom wire." style="max-width:100%;height:auto;"></p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What has to be true for electric charge to flow, and what controls how much flows?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the energy-stick loop open and close. List two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: what has to be true for the charge to flow? Use the word <em>path</em> in your answer.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the energy-stick loop with two people holding hands. Mark where the <strong>push</strong> comes from and draw arrows showing which way the charge moves around the loop. Then predict: what would make the light brighter?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>This is a single battery + resistor loop. Drag the sliders to change the voltage <em>V</em> (the push) and the resistance <em>R</em> (the opposition). Watch the current <em>I = V ÷ R</em> update, and watch the point trace out the V–I line for the resistor you set.</p>
+  <div data-interactive="true">
+    <svg id="ohm-canvas" width="480" height="320" viewBox="0 0 480 320" role="img" aria-label="Voltage versus current graph for Ohm's Law">
+      <!-- axes -->
+      <line x1="60" y1="280" x2="460" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="60" y1="280" x2="60" y2="20" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="250" y="312" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Current I (A)</text>
+      <text x="18" y="150" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" transform="rotate(-90 18 150)" text-anchor="middle">Voltage V (V)</text>
+      <!-- the V-I line for the current resistance (slope = R) -->
+      <line id="ohm-line" x1="60" y1="280" x2="60" y2="280" stroke="#662e80" stroke-width="3"/>
+      <!-- operating point -->
+      <circle id="ohm-point" cx="60" cy="280" r="6" fill="#2ea3f2"/>
+      <text id="ohm-slope-lab" x="0" y="0" font-family="Inter, sans-serif" font-size="12" fill="#662e80" font-weight="700"></text>
+    </svg>
+    <div class="controls">
+      <label>Voltage V: <input id="ohm-v" type="range" min="1" max="30" step="1" value="12"> <span id="ohm-v-r" class="readout">12</span> V</label>
+      <label>Resistance R: <input id="ohm-r" type="range" min="1" max="12" step="1" value="3"> <span id="ohm-r-r" class="readout">3</span> Ω</label>
+      <p>Current I = V ÷ R = <span id="ohm-i" class="readout">4.0</span> A · The slope of the purple line <em>is</em> the resistance.</p>
+    </div>
+    <script>
+      (function () {
+        // Graph maps current 0..10 A across x:60..460, voltage 0..30 V up y:280..20.
+        const X0 = 60, Y0 = 280, XMAX = 460, YTOP = 20;
+        const I_FULL = 10, V_FULL = 30;
+        const xPerI = (XMAX - X0) / I_FULL;
+        const yPerV = (Y0 - YTOP) / V_FULL;
+        const vEl = document.getElementById("ohm-v");
+        const rEl = document.getElementById("ohm-r");
+        const line = document.getElementById("ohm-line");
+        const point = document.getElementById("ohm-point");
+        const slopeLab = document.getElementById("ohm-slope-lab");
+        function update() {
+          const V = parseFloat(vEl.value), R = parseFloat(rEl.value);
+          const I = V / R;
+          // The V-I line for this R passes through origin with slope R (volts per amp).
+          // Draw it out to the right edge of the current axis (I = 10).
+          const lineX = X0 + I_FULL * xPerI;
+          const lineV = I_FULL * R;                 // volts at I = 10 for this R
+          const lineY = Y0 - Math.min(lineV, V_FULL) * yPerV;
+          // clamp the line to the top of the graph if it would run off
+          let endX = lineX, endY = lineY;
+          if (lineV > V_FULL) {
+            const cappedI = V_FULL / R;
+            endX = X0 + cappedI * xPerI;
+            endY = YTOP;
+          }
+          line.setAttribute("x2", endX);
+          line.setAttribute("y2", endY);
+          // operating point at (I, V)
+          const px = X0 + Math.min(I, I_FULL) * xPerI;
+          const py = Y0 - Math.min(V, V_FULL) * yPerV;
+          point.setAttribute("cx", px);
+          point.setAttribute("cy", py);
+          slopeLab.setAttribute("x", endX - 70);
+          slopeLab.setAttribute("y", endY + 16);
+          slopeLab.textContent = "slope = R = " + R + " Ω";
+          document.getElementById("ohm-v-r").textContent = V;
+          document.getElementById("ohm-r-r").textContent = R;
+          document.getElementById("ohm-i").textContent = I.toFixed(1);
+        }
+        vEl.addEventListener("input", update);
+        rEl.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A 12 V battery drives a 3 Ω resistor. Ohm's Law gives I = V ÷ R = 12 ÷ 3 = 4 A. The operating point sits at (4 A, 12 V) on the V–I graph.</p>
+    <svg width="260" height="180" viewBox="0 0 260 180">
+      <line x1="40" y1="150" x2="240" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="40" y1="150" x2="40" y2="20" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="40" y1="150" x2="200" y2="30" stroke="#662e80" stroke-width="3"/>
+      <circle cx="120" cy="90" r="5" fill="#2ea3f2"/>
+      <text x="125" y="86" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">(4 A, 12 V)</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Keep R = 3 Ω and double the voltage to 24 V. The current doubles to 8 A — the point slides up the <em>same</em> line. The line's steepness (its slope) equals the resistance and does not change.</p>
+    <svg width="260" height="180" viewBox="0 0 260 180">
+      <line x1="40" y1="150" x2="240" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="40" y1="150" x2="40" y2="20" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="40" y1="150" x2="200" y2="30" stroke="#662e80" stroke-width="3"/>
+      <circle cx="180" cy="48" r="5" fill="#2ea3f2"/>
+      <text x="120" y="44" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">(8 A, 24 V)</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Now raise the resistance to 6 Ω at 12 V. The current falls to I = 12 ÷ 6 = 2 A. A bigger resistance makes a <em>steeper</em> line and lets less current through for the same push.</p>
+    <svg width="260" height="180" viewBox="0 0 260 180">
+      <line x1="40" y1="150" x2="240" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="40" y1="150" x2="40" y2="20" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="40" y1="150" x2="130" y2="25" stroke="#662e80" stroke-width="3"/>
+      <circle cx="85" cy="88" r="5" fill="#2ea3f2"/>
+      <text x="90" y="84" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">(2 A, 12 V)</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Across your data, how did the current respond when you raised the voltage but kept the same resistor? What does the steepness (slope) of the line tell you?</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A resistor has 12 V across it and 3 A flowing through it. Use V = I·R to find its resistance.</li>
+    <li>A 4 Ω resistor is connected to a 24 V battery. How much current flows?</li>
+    <li>The slope of your V-vs-I line was 3. What physical quantity does that slope represent, and what are its units?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The current is ___ A because the voltage is ___ V and the resistance is ___ Ω, so I = V ÷ R."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>current</strong> — the rate of flow of electric charge through a conductor (charge ÷ time), measured in amperes (A)</li>
+    <li><strong>voltage</strong> — the potential difference, or electrical "push," between two points that drives current around a circuit, measured in volts (V)</li>
+    <li><strong>resistance</strong> — the opposition a material offers to the flow of charge; the slope of a V-vs-I graph, measured in ohms (Ω)</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model and add the energy-stick hand-chain. Explain, using <em>resistance</em> and <em>current</em>, why adding more people makes the stick harder to light.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>On the energy stick, why does adding more people in the hand-chain make it harder to light? Answer in one sentence using <em>resistance</em> and <em>current</em>: each person adds resistance, so for the same small voltage the current drops below what the stick needs to light.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A resistor has 6 V across it and carries 2 A of current.
+      <br>(a) What is its resistance? Show V = I·R. (b) The voltage is raised to 12 V with the same resistor — what is the new current? (c) In one sentence, what does the slope of a V-vs-I graph represent?
+    </li>
+    <li><em>Reflection:</em> What is one thing about electricity you understand now that you didn't this morning? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc" target="_blank" rel="noopener">PhET — Circuit Construction Kit: DC (build a battery + resistor loop, read the ammeter and voltmeter)</a></li>
+    <li><a href="https://javalab.org/en/electric_current_en/" target="_blank" rel="noopener">Javalab — Electric Current (charge flowing through a conductor)</a></li>
+    <li><a href="https://www.khanacademy.org/science/physics/circuits-topic/circuits-resistance/a/ee-voltage-and-current" target="_blank" rel="noopener">Khan Academy — Voltage and Current (Ohm's Law)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · current-electricity-01</p>
+</footer>
+
+</div>
+</body>
+</html>

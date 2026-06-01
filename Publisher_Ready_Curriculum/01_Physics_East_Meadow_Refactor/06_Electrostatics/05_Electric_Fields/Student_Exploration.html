@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Electric Fields — Unit: Electrostatics</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Electrostatics — Lesson 05: Electric Fields</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher holds a fluorescent tube near a plasma ball — it glows, even though it isn't plugged in or touching the ball. Move it away and it dims. Something is filling the space around the ball.</p>
+  <img src="figures/field_point_charge_pos.png" alt="Radial arrows pointing outward in all directions from a single positive charge, representing the electric field around it." style="max-width:320px;width:100%;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What is in the space around a charge, and how can we describe its direction and strength?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the bulb glow and dim as it moves. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: the effect on the bulb got weaker as it moved away. What does that tell you about whatever surrounds the ball?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the plasma ball. Around it, draw arrows showing how it would push or pull on a small <strong>positive</strong> test charge placed at several spots. Mark where the push would be <em>strongest</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>A fixed source charge sits at the center. Faint grey arrows show the electric field (E) at sample points — longer near the source, shorter far away. <strong>Drag the yellow test charge</strong>: its black arrow is the force F = qE, pointing along the field and growing as you move closer. Flip the source sign to reverse every arrow.</p>
+  <div data-interactive="true">
+    <svg id="ef-canvas" width="480" height="320" viewBox="0 0 480 320" role="img" aria-label="Electric field of a point charge with a draggable test charge" style="touch-action:none;cursor:grab">
+      <defs>
+        <marker id="ef-fld" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#aaa"/>
+        </marker>
+        <marker id="ef-frc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+        </marker>
+      </defs>
+      <g id="ef-field" stroke="#aaa" stroke-width="2"></g>
+      <circle id="ef-src" cx="240" cy="160" r="22" fill="#d9534f" stroke="#1a1a1a" stroke-width="2"/>
+      <text id="ef-srct" x="240" y="168" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" font-weight="700" fill="#fff">+</text>
+      <line id="ef-force" x1="0" y1="0" x2="0" y2="0" stroke="#1a1a1a" stroke-width="3" marker-end="url(#ef-frc)"/>
+      <circle id="ef-test" cx="360" cy="160" r="13" fill="#f5c518" stroke="#1a1a1a" stroke-width="2" style="cursor:grab"/>
+      <text x="360" y="165" id="ef-testt" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#1a1a1a" style="pointer-events:none">+</text>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="ef-flip" type="button">Flip source sign</button>
+      </div>
+      <p>Source: <span id="ef-srcs" class="readout">positive</span> · Force on test charge: <span id="ef-mag" class="readout">—</span> (relative) · Direction: <span id="ef-dir" class="readout">away from source</span></p>
+    </div>
+    <script>
+      (function () {
+        const svg = document.getElementById("ef-canvas");
+        const fieldG = document.getElementById("ef-field");
+        const src = document.getElementById("ef-src");
+        const force = document.getElementById("ef-force");
+        const test = document.getElementById("ef-test");
+        const testT = document.getElementById("ef-testt");
+        const SX = 240, SY = 160;
+        let srcPos = true;          // source positive?
+        let tx = 360, ty = 160;     // test charge position (always + test charge)
+        const svgNS = "http://www.w3.org/2000/svg";
+        // sample field points on a ring + grid
+        const samples = [];
+        for (let r = 60; r <= 140; r += 40)
+          for (let a = 0; a < 8; a++)
+            samples.push({ ang: a * Math.PI / 4, r });
+        function drawField() {
+          while (fieldG.firstChild) fieldG.removeChild(fieldG.firstChild);
+          samples.forEach(s => {
+            const px = SX + s.r * Math.cos(s.ang);
+            const py = SY + s.r * Math.sin(s.ang);
+            const len = 26 * (60 / s.r);     // shorter when farther (∝ 1/r feel)
+            const ux = Math.cos(s.ang), uy = Math.sin(s.ang);
+            const sign = srcPos ? 1 : -1;    // away from + , toward −
+            const ln = document.createElementNS(svgNS, "line");
+            ln.setAttribute("x1", px);
+            ln.setAttribute("y1", py);
+            ln.setAttribute("x2", px + sign * ux * len);
+            ln.setAttribute("y2", py + sign * uy * len);
+            ln.setAttribute("marker-end", "url(#ef-fld)");
+            fieldG.appendChild(ln);
+          });
+        }
+        function drawForce() {
+          let dx = tx - SX, dy = ty - SY;
+          let dist = Math.max(20, Math.sqrt(dx * dx + dy * dy));
+          let ux = dx / dist, uy = dy / dist;
+          const sign = srcPos ? 1 : -1;       // + test pushed away from +, toward −
+          const Frel = 4000 / (dist * dist);  // inverse-square feel
+          const L = Math.min(70, 10 + 1600 * Frel);
+          force.setAttribute("x1", tx);
+          force.setAttribute("y1", ty);
+          force.setAttribute("x2", tx + sign * ux * L);
+          force.setAttribute("y2", ty + sign * uy * L);
+          test.setAttribute("cx", tx); test.setAttribute("cy", ty);
+          testT.setAttribute("x", tx); testT.setAttribute("y", ty + 5);
+          document.getElementById("ef-mag").textContent = Frel.toFixed(2);
+          document.getElementById("ef-dir").textContent = srcPos ? "away from source" : "toward source";
+        }
+        function redraw() {
+          src.setAttribute("fill", srcPos ? "#d9534f" : "#2ea3f2");
+          document.getElementById("ef-srct").textContent = srcPos ? "+" : "−";
+          document.getElementById("ef-srcs").textContent = srcPos ? "positive" : "negative";
+          drawField(); drawForce();
+        }
+        // dragging
+        let dragging = false;
+        function pt(evt) {
+          const r = svg.getBoundingClientRect();
+          const e = evt.touches ? evt.touches[0] : evt;
+          return {
+            x: (e.clientX - r.left) * (480 / r.width),
+            y: (e.clientY - r.top) * (320 / r.height)
+          };
+        }
+        function start(e) { dragging = true; svg.style.cursor = "grabbing"; e.preventDefault(); }
+        function move(e) {
+          if (!dragging) return;
+          const p = pt(e);
+          tx = Math.max(20, Math.min(460, p.x));
+          ty = Math.max(20, Math.min(300, p.y));
+          drawForce(); e.preventDefault();
+        }
+        function end() { dragging = false; svg.style.cursor = "grab"; }
+        test.addEventListener("mousedown", start);
+        test.addEventListener("touchstart", start);
+        window.addEventListener("mousemove", move);
+        window.addEventListener("touchmove", move, { passive: false });
+        window.addEventListener("mouseup", end);
+        window.addEventListener("touchend", end);
+        document.getElementById("ef-flip").onclick = () => { srcPos = !srcPos; redraw(); };
+        redraw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A positive source charge fills the space around it with an electric field. Sample arrows point straight <em>away</em> from the charge in every direction.</p>
+    <svg width="220" height="160" viewBox="0 0 220 160">
+      <circle cx="110" cy="80" r="16" fill="#d9534f"/>
+      <line x1="126" y1="80" x2="170" y2="80" stroke="#aaa" stroke-width="2"/>
+      <line x1="94" y1="80" x2="50" y2="80" stroke="#aaa" stroke-width="2"/>
+      <line x1="110" y1="64" x2="110" y2="24" stroke="#aaa" stroke-width="2"/>
+      <line x1="110" y1="96" x2="110" y2="136" stroke="#aaa" stroke-width="2"/>
+    </svg>
+    <p><strong>Storyboard frame 2 (force = qE).</strong> Place a small positive test charge in the field. The force on it (black arrow) points along the field — away from the + source — and grows longer the closer it sits, because the field is stronger near the source.</p>
+    <svg width="220" height="120" viewBox="0 0 220 120">
+      <circle cx="50" cy="60" r="16" fill="#d9534f"/>
+      <circle cx="140" cy="60" r="10" fill="#f5c518" stroke="#1a1a1a"/>
+      <line x1="150" y1="60" x2="195" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+    </svg>
+    <p><strong>Storyboard frame 3 (negative source).</strong> Flip the source to negative and every field arrow reverses — now pointing <em>toward</em> the charge. The positive test charge is pulled inward, the way a + charge is always pushed by the field.</p>
+    <svg width="220" height="120" viewBox="0 0 220 120">
+      <circle cx="50" cy="60" r="16" fill="#2ea3f2"/>
+      <circle cx="140" cy="60" r="10" fill="#f5c518" stroke="#1a1a1a"/>
+      <line x1="130" y1="60" x2="85" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Drag the test charge close to the source, then far away. Which way does the force point near a <em>positive</em> source? Near a <em>negative</em> source? Convince your partner using the word <em>field</em>.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A 2.0 N force acts on a +0.5 C charge placed at a point. What is the electric field strength there? Show E = F<sub>e</sub>/q.</li>
+    <li>The field strength drops as you move away from the source. What shape is that fall-off, and where have you seen it before?</li>
+    <li>Why do we use a <em>positive</em> test charge (and a <em>small</em> one) to define the field's direction?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The electric field points ___ a positive charge and ___ a negative charge, and it is ___ (stronger / weaker) close to the source."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>electric field</strong> — the force per unit charge at a point in space around a charge: E = F<sub>e</sub> / q, measured in newtons per coulomb (N/C)</li>
+    <li><strong>test charge</strong> — a tiny positive charge used to probe a field's direction and strength without disturbing it</li>
+    <li><strong>field strength</strong> — the magnitude of the electric field at a point; larger near the source and falling off as 1/r²</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>A field of 500 N/C exists at a point, pointing east. (a) What force would it exert on a +2.0 × 10⁻⁶ C charge placed there? (b) Which direction? Use F<sub>e</sub> = E·q (≈ 1.0 × 10⁻³ N, east — a positive charge follows the field).</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why does the fluorescent tube glow brighter the closer it is to the plasma ball? Answer in one sentence using <em>field strength</em>: the electric field is stronger closer to the ball, so it pushes the gas's charges harder and the tube glows brighter.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>Use E = F<sub>e</sub> / q.
+      <br>(a) A charge of +4.0 × 10⁻⁶ C feels a force of 0.012 N at a point. Calculate the electric field strength there, with units.
+      <br>(b) Draw the field around a single <strong>negative</strong> charge — which way do the arrows point?
+      <br>(c) In one sentence, explain what a "test charge" is and why it must be small.
+    </li>
+    <li><em>Reflection:</em> What part of the field map helped you "see" the invisible field? Whose idea helped you fix yours?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/electric_field_en/" target="_blank" rel="noopener">Javalab — Electric Field of Point Charges</a></li>
+    <li><a href="https://javalab.org/en/electric_field_line_en/" target="_blank" rel="noopener">Javalab — Electric Field Line</a></li>
+    <li><a href="https://phet.colorado.edu/en/simulations/charges-and-fields" target="_blank" rel="noopener">PhET — Charges and Fields</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · electrostatics-05</p>
+</footer>
+
+</div>
+</body>
+</html>
