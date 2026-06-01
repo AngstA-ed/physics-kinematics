@@ -59,6 +59,8 @@ UNIT_NAMES = {
     "07_Current_Electricity": "Unit 7 · Current Electricity",
     "08_Waves": "Unit 8 · Waves & Sound",
     "09_Modern_Physics": "Unit 9 · Modern Physics",
+    # Chemistry (East Meadow × Valley Stream)
+    "01_Safety_and_Measurement": "Unit 1 · Safety & Measurement",
 }
 
 
@@ -126,7 +128,8 @@ def build_markdown(root: Path, only_units: list[str] | None,
 
 
 def combine_pandoc(root: Path, only_units: list[str] | None,
-                   doc_order: list[str], out: Path, reference: Path | None) -> int:
+                   doc_order: list[str], out: Path, reference: Path | None,
+                   title: str = DOC_TITLE) -> int:
     """Concatenate Markdown sources → one clean DOCX (with TOC) via pandoc.
     Returns the number of documents combined."""
     markdown, ndocs = build_markdown(root, only_units, doc_order)
@@ -136,8 +139,8 @@ def combine_pandoc(root: Path, only_units: list[str] | None,
     try:
         cmd = ["pandoc", str(tmp), "-o", str(out),
                "--toc", "--toc-depth=2",
-               "--metadata", f"title={DOC_TITLE}",
-               f"--resource-path={REFACTOR}"]
+               "--metadata", f"title={title}",
+               f"--resource-path={root}"]
         if reference and reference.is_file():
             cmd.append(f"--reference-doc={reference}")
         subprocess.run(cmd, check=True)
@@ -167,6 +170,8 @@ def main() -> None:
     ap.add_argument("--docs", nargs="*", default=None,
                     help="Per-lesson doc basenames in order (default: Teacher_Guide Student_Worksheet Student_Notes Answer_Key)")
     ap.add_argument("--engine", choices=["pandoc", "docxcompose"], default="pandoc")
+    ap.add_argument("--title", default=None,
+                    help="Document title (default: the physics curriculum title)")
     ap.add_argument("-o", "--out", default=None)
     args = ap.parse_args()
 
@@ -175,11 +180,15 @@ def main() -> None:
                  for d in (args.docs or DEFAULT_DOC_ORDER)]
     out = Path(args.out).resolve() if args.out else \
         root / "Physics_Curriculum_Combined.docx"
-    reference = REFERENCE if REFERENCE.is_file() else None
+    # Prefer the target course's own brand reference; fall back to physics.
+    root_reference = root / "_assets" / "brand" / "reference.docx"
+    reference = root_reference if root_reference.is_file() else \
+        (REFERENCE if REFERENCE.is_file() else None)
+    title = args.title or DOC_TITLE
 
     rel = out.relative_to(ROOT) if out.is_relative_to(ROOT) else out
     if args.engine == "pandoc":
-        ndocs = combine_pandoc(root, args.units, doc_order, out, reference)
+        ndocs = combine_pandoc(root, args.units, doc_order, out, reference, title)
         print(f"Combined {ndocs} documents (with TOC) via pandoc → {rel}")
     else:
         paths = collect(root, args.units, doc_order, ".docx")
