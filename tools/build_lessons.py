@@ -30,6 +30,21 @@ DEFAULT_REFACTOR = ROOT / "Publisher_Ready_Curriculum" / "01_Physics_East_Meadow
 DEFAULT_REFERENCE = DEFAULT_REFACTOR / "_assets" / "brand" / "reference.docx"
 
 
+def resolve_build_root(root_arg: str | None, reference_arg: str | None):
+    """Resolve the course refactor root and its brand reference doc.
+
+    `root_arg` defaults to the physics refactor. When a custom root is given and
+    no explicit `--reference` is passed, the reference defaults to
+    `<root>/_assets/brand/reference.docx`. Returns (root: Path, reference: Path|None).
+    """
+    root = Path(root_arg).resolve() if root_arg else DEFAULT_REFACTOR.resolve()
+    if reference_arg:
+        ref = Path(reference_arg)
+    else:
+        ref = root / "_assets" / "brand" / "reference.docx"
+    return root, (ref if ref.is_file() else None)
+
+
 def build_lesson_folder(
     folder: Path, *, schema_path: Path, reference_doc: Path | None, css_root: Path,
 ) -> list[str]:
@@ -205,21 +220,22 @@ def build_target(target: Path, *, schema_path: Path, reference_doc: Path | None)
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("target", nargs="?", default="", help="Unit or lesson folder (relative to refactor root)")
+    p.add_argument("--root", default=None, help="Course refactor root (default: physics)")
     p.add_argument("--schema", default=str(ROOT / "tools" / "lesson_schema.yaml"))
-    p.add_argument("--reference", default=str(DEFAULT_REFERENCE))
+    p.add_argument("--reference", default=None)
     args = p.parse_args()
 
     schema_path = Path(args.schema)
-    reference = Path(args.reference) if Path(args.reference).is_file() else None
+    refactor_root, reference = resolve_build_root(args.root, args.reference)
 
     if args.target:
-        target = (DEFAULT_REFACTOR / args.target).resolve()
+        target = (refactor_root / args.target).resolve()
     else:
-        target = DEFAULT_REFACTOR.resolve()
+        target = refactor_root.resolve()
 
     if _is_lesson_folder(target):
         report = build_target(target, schema_path=schema_path, reference_doc=reference)
-    elif target == DEFAULT_REFACTOR.resolve():
+    elif target == refactor_root.resolve():
         report = {"built": [], "failed": []}
         for unit in sorted(target.iterdir()):
             if unit.is_dir() and unit.name.startswith(("0", "1")) and unit.name != "_assets":
