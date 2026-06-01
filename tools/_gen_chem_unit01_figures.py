@@ -1,10 +1,14 @@
 """One-off generator: figures for Chemistry Unit 1 (Safety & Measurement).
 
 Run from project root with the venv active:
-    PYTHONPATH=. python tools/_gen_chem_unit01_figures.py
+    python tools/_gen_chem_unit01_figures.py
 """
 from __future__ import annotations
 from pathlib import Path
+import sys
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -70,8 +74,9 @@ def ice_vs_water_particles(path):
     """Particle spacing: open hexagonal ice lattice (less dense) vs. close-packed
     liquid water — why ice floats."""
     fig, axes = plt.subplots(1, 2, figsize=(6.5, 3.2))
+    fig.subplots_adjust(top=0.82)
     for ax, (title, openness) in zip(axes, [("ice (solid)", 0.34), ("water (liquid)", 0.22)]):
-        ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.set_aspect("equal"); ax.axis("off")
+        ax.set_xlim(0, 1.15); ax.set_ylim(0, 1); ax.set_aspect("equal"); ax.axis("off")
         ax.set_title(title, fontsize=11, fontweight="bold")
         ys = np.arange(0.15, 0.95, openness)
         xs = np.arange(0.15, 0.95, openness)
@@ -79,7 +84,8 @@ def ice_vs_water_particles(path):
             for x in xs:
                 ox = (openness / 2) if j % 2 else 0
                 ax.add_patch(Circle((x + ox, y), 0.05, facecolor=BLUE, edgecolor=INK))
-    fig.suptitle("Ice is LESS dense than water (open lattice)", fontsize=11, fontweight="bold")
+    fig.suptitle("Ice is LESS dense than water (open lattice)", fontsize=11, fontweight="bold",
+                 y=1.04)
     return _save(fig, path)
 
 
