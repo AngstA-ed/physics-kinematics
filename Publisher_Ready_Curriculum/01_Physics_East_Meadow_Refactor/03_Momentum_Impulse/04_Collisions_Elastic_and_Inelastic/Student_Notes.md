@@ -40,6 +40,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![In an elastic collision both momentum and kinetic energy are conserved; in an inelastic collision momentum is conserved but kinetic energy is not.](figures/momentum_ke_elastic.png)
+
 ## Worked Example
 
 **Problem.** A 2 kg ball moving at 4 m/s strikes a 2 kg ball at rest. They stick together. Find the final velocity, then check kinetic energy.

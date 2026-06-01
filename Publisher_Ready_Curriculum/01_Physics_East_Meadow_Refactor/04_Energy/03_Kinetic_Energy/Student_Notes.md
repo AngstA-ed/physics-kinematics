@@ -43,6 +43,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Kinetic energy vs. speed (KE = ½mv²): because KE depends on v², doubling the speed gives four times the kinetic energy.](figures/ke_vs_speed.png)
+
 ## Worked Example
 
 **Problem.** A 1200 kg car is moving at 25 m/s. What is its kinetic energy?

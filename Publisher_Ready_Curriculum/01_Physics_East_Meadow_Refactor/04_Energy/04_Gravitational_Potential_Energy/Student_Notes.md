@@ -43,6 +43,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Gravitational potential energy vs. height (PE = mgh): PE increases in direct proportion to height above the reference level.](figures/pe_vs_height.png)
+
 ## Worked Example
 
 **Problem.** A 3.0 kg flowerpot sits on a balcony 5.0 m above the sidewalk. What is its gravitational PE relative to the sidewalk? (g ≈ 9.81 m/s²)

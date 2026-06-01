@@ -44,6 +44,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Input energy vs. useful output energy: the ratio of useful output to input is the efficiency; the rest is transferred to the surroundings.](figures/input_vs_useful.png)
+
 ## Worked Example
 
 **Problem.** A bike generator takes in 500 J of pedaling energy and delivers 350 J of useful electrical energy. Find its efficiency and the wasted energy.

@@ -41,6 +41,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Force vs. time: the area under the curve is the impulse (J = F·Δt). The same impulse can come from a large force over a short time or a small force over a long time.](figures/force_vs_time.png)
+
 ## Worked Example
 
 **Problem.** A 0.5 kg ball moving at 8 m/s is caught and stopped. Compare the force for a glove (Δt = 0.4 s) and a bare hand (Δt = 0.05 s).

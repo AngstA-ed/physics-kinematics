@@ -42,6 +42,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Work vs. displacement at constant force: work (W = F·d) grows in proportion to how far the object moves along the force.](figures/work_vs_displacement.png)
+
 ## Worked Example
 
 **Problem.** A mover pushes a crate with a steady 150 N force and the crate slides 4.0 m in the direction of the push. How much work is done on the crate?

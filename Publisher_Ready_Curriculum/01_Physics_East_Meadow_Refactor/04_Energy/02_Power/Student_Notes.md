@@ -37,6 +37,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Work vs. time: the slope of the line is power (P = W/t). A steeper line means the same work is done faster — more power.](figures/work_vs_time.png)
+
 ## Worked Example
 
 **Problem.** A 600 N student climbs a 5.0 m staircase in 4.0 s. What is the student's power output?

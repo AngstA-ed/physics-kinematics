@@ -43,6 +43,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Energy bar chart at the top, middle, and bottom of a track: PE converts to KE while the total mechanical energy stays constant.](figures/energy_bar_chart.png)
+
 ## Worked Example
 
 **Problem.** A 0.50 kg cart starts at rest at the top of a frictionless 2.0 m track. Find its KE and speed at the bottom. (g ≈ 9.81 m/s²)

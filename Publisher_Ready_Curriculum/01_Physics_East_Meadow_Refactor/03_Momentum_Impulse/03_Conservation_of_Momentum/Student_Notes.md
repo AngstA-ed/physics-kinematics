@@ -38,6 +38,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Total momentum of the system before and after a collision is equal — momentum is conserved when no net external force acts.](figures/total_momentum_before_after.png)
+
 ## Worked Example
 
 **Problem.** A 2 kg cart moving East at 3 m/s collides with a 1 kg cart at rest and they stick together. Find their final velocity.

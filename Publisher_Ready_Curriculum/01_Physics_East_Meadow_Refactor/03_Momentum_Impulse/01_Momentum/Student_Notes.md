@@ -40,6 +40,9 @@ By the end of today's 42 minutes I can:
 
 ---
 
+
+![Momentum (p = m·v) compared for objects of different mass at the same speed — more mass means more momentum.](figures/momentum_compare.png)
+
 ## Worked Example
 
 **Problem.** A 1,200 kg car moves East at 20 m/s. Find its momentum.
