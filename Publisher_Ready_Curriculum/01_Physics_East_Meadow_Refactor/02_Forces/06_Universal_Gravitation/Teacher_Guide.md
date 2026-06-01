@@ -108,6 +108,14 @@ Pairs (or whole-class projection) work the simulation:
 > "Force fell to one-quarter, not one-half. What did we square — the masses or the distance?"
 > "Are the two arrows on the two masses equal or unequal? Even when the masses are very different?"
 
+The "÷4, then ÷9" surprise is the **inverse-square law**. Project the graph below so students see the force falling off steeply — not linearly — as distance grows:
+
+![Line graph of gravitational force versus distance r: a steep inverse-square curve that falls off rapidly as r increases.](figures/fg_vs_r_inverse_square.png)
+
+And no matter how different the two masses are, the pulls are **equal in size and opposite in direction** (a Newton's-third-law cameo):
+
+![Two masses m1 and m2 separated by distance r, each feeling an equal-length attractive force arrow pointing toward the other.](figures/two_mass_gravity.png)
+
 ### Teacher facilitation during Explore
 
 - **What to look for** — students noticing the force changes with the *square* of distance, and that the two pulls are always equal-and-opposite (Newton's Third Law cameo).

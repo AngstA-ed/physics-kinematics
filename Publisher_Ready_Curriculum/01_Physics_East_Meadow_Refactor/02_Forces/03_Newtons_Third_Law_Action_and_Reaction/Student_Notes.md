@@ -40,6 +40,10 @@ By the end of today's 42 minutes I can:
 
 **Same forces, different motion:** If two people push off with equal forces, the one with __________ mass speeds up __________ (recall Lesson 02: a = F/m).
 
+The two forces in a pair are vectors of the **same length** pointing in **opposite directions**:
+
+![Two vectors of equal length pointing in opposite directions, labeled action force A on B and reaction force B on A.](figures/equal_opposite_vectors.png)
+
 ---
 
 ## Worked Example

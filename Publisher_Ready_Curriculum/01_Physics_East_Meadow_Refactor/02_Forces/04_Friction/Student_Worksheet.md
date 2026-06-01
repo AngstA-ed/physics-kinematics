@@ -39,7 +39,10 @@ Draw the sneaker being dragged. Draw an arrow for the **pull** (spring scale) an
 
 ## Investigation
 
-Work at your group's chart-paper station. Complete each level in order.
+Work at your group's chart-paper station. Complete each level in order. The free-body diagram below shows the forces on the sneaker as you pull it — friction always points **opposite** your pull.
+
+![Free-body diagram of a box being dragged: an applied force pulling right, a friction force pushing left, the normal force up, and gravity down.](figures/fbd_friction.png)
+
 
 | Level | What I did | What happened | What it tells me |
 |---|---|---|---|

@@ -60,6 +60,10 @@ Use the force-and-movement simulation (<https://javalab.org/en/force_movement_en
 1. When you doubled the net force (same mass), the acceleration ______________.
 2. When you doubled the mass (same force), the acceleration ______________.
 
+If you plot your Round 1 data, it should look like the graph below — a straight line through the origin, because acceleration is directly proportional to net force.
+
+![Line graph of acceleration versus net force showing a straight line through the origin.](figures/accel_vs_net_force.png)
+
 ---
 
 ## Make It Make Sense

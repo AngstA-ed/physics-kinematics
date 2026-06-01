@@ -47,6 +47,10 @@ By the end of today's 42 minutes I can:
 - Smaller radius r → __________ force needed (sharper turn is harder).
 - More mass m → __________ force needed.
 
+Because Fc depends on v², a graph of centripetal force vs. v² is a straight line — the force grows fast as speed increases:
+
+![Line graph of centripetal force versus velocity squared: a straight line through the origin, showing centripetal force is proportional to v squared.](figures/fc_vs_vsquared.png)
+
 ---
 
 ## Worked Example

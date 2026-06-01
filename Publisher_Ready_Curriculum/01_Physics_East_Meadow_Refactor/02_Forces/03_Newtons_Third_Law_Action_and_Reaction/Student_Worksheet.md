@@ -39,7 +39,10 @@ Draw the two students at the moment of the push. Draw an arrow for **every push*
 
 ## Investigation
 
-Rotate through the three stations (the **Force-Pair Hunt**). At each one, name the **two objects**, draw the **two arrows**, and write the pair.
+Rotate through the three stations (the **Force-Pair Hunt**). At each one, name the **two objects**, draw the **two arrows**, and write the pair. Use the diagram below as your model — equal-length arrows, pointing opposite ways, one on each object.
+
+![Action–reaction pair: two objects A and B, with equal-length force arrows pointing in opposite directions, one drawn on each object.](figures/action_reaction_pair.png)
+
 
 | Station | The two objects | Force pair: "A pushes B → B pushes A back" | Equal & opposite? |
 |---|---|---|---|

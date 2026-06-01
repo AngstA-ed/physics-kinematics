@@ -125,6 +125,10 @@ Target consensus:
 
 > "Every push (or pull) is one half of an **interaction** between two objects. The two forces are equal in size and opposite in direction, and they act on **different** objects — so they never cancel on either object."
 
+Project the diagram below to anchor the consensus: the two arrows are the **same length** (equal size), point **opposite** ways, and sit on **two different bodies** (A and B) — which is exactly why they don't cancel.
+
+![Action–reaction pair: object A and object B side by side, with an equal-length force arrow pushing right on B and an equal-length force arrow pushing left on A.](figures/action_reaction_pair.png)
+
 ### 35–37 min · Vocabulary introduction (≤ 3 terms)
 
 **Sample teacher language:**

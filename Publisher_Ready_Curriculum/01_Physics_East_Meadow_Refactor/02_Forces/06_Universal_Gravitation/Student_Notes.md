@@ -28,6 +28,8 @@ By the end of today's 42 minutes I can:
 
 **Big idea (universal gravitation):** Every mass attracts every __________ mass. The pull is stronger when the masses are __________ and weaker when the distance between them is __________.
 
+![Two masses m1 and m2 a distance r apart, each pulled toward the other by an equal-length attractive force arrow.](figures/two_mass_gravity.png)
+
 The equation (2025 Reference Table):
 
 > **Fg = G · m₁ · m₂ / r²**     where **G = 6.67×10⁻¹¹ N·m²/kg²**
@@ -35,6 +37,8 @@ The equation (2025 Reference Table):
 - The bigger either **mass**, the __________ the gravitational force.
 - The distance **r** is __________ in the formula → distance changes the force more sharply than mass does.
 - **Inverse-square law:** double the distance → force becomes __________ (1/2² = 1/4). Triple the distance → force becomes __________ (1/3² = 1/9).
+
+![Line graph of gravitational force versus distance r showing the inverse-square falloff: the force drops steeply as r increases.](figures/fg_vs_r_inverse_square.png)
 
 **Mass vs. weight:**
 

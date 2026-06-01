@@ -38,6 +38,12 @@ By the end of today's 42 minutes I can:
 - Up: __________ (table pushing up, the *normal* force)
 - Net force = __________ → the book stays __________.
 
+![Free-body diagram of a book on a table with a downward gravity arrow and an equal upward normal-force arrow, showing the net force is zero.](figures/fbd_book_on_table.png)
+
+When the net force is zero, velocity does not change. A moving object simply keeps its velocity — a flat line on a velocity–time graph:
+
+![Velocity–time graph showing a horizontal line at constant velocity, illustrating that zero net force means no change in velocity.](figures/vt_constant_velocity.png)
+
 ---
 
 ## Worked Example

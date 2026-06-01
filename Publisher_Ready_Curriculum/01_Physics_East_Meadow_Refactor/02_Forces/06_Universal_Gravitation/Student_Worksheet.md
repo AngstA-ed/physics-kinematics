@@ -50,6 +50,10 @@ Use the **PhET Gravity Force Lab Basics** simulation. Record what you observe.
 
 > _______________________________________________
 
+Your distance data should trace the curve below. Notice how steeply the force drops as the masses move apart — that is the inverse-square law.
+
+![Line graph of gravitational force versus distance, showing a steep inverse-square curve that falls off rapidly as distance increases.](figures/fg_vs_r_inverse_square.png)
+
 ---
 
 ## Make It Make Sense

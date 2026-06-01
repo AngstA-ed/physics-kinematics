@@ -39,6 +39,10 @@ Draw the cup sitting on the cloth. Draw an arrow for **every push or pull** acti
 
 ## Investigation
 
+When an object stays at rest, the forces on it are **balanced**. The diagram below shows a book on a table — use it as a model for the resting coin/cup in Station 1.
+
+![Free-body diagram of a book on a table: the downward pull of gravity and the upward normal force are equal, so the net force is zero.](figures/fbd_book_on_table.png)
+
 Complete each station. Record what you observe and what it tells you.
 
 | Station | What I did | What happened | What it tells me |

@@ -110,6 +110,14 @@ Form **visibly random groups of 3** (deal playing cards; same suit = same group)
 > "Right before it slips, is the scale still climbing or holding steady?"
 > "What does pull ÷ weight tell you that the raw pull doesn't?"
 
+As students drag the sneaker, the free-body diagram below names the forces in play: the applied pull, the friction force opposing it, and the balanced normal/gravity pair.
+
+![Free-body diagram of a box being dragged: applied force to the right, friction opposing to the left, normal force up, and gravity down.](figures/fbd_friction.png)
+
+The Level-3 "breakaway" pattern shows up clearly when friction force is plotted against applied force — it climbs through the **static** region to a peak, then drops to a steadier **kinetic** plateau:
+
+![Line graph of friction force versus applied force: a rising static region up to a peak, then a lower, flat kinetic plateau once the object is sliding.](figures/friction_vs_applied.png)
+
 ### Teacher facilitation during Explore
 
 - **What to look for** — groups noticing the reading *climbs* before the book/sneaker breaks loose, then *drops and steadies* once sliding.

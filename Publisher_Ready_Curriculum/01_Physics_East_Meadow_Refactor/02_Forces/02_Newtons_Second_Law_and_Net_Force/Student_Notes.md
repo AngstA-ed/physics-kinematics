@@ -34,6 +34,10 @@ By the end of today's 42 minutes I can:
 
 **Cause and Effect:** the net force is the __________ (cause); the acceleration is the __________ (effect).
 
+Because acceleration is directly proportional to net force, a graph of acceleration vs. net force is a straight line through the origin:
+
+![Line graph of acceleration versus net force: a straight line through the origin, illustrating that acceleration is directly proportional to net force.](figures/accel_vs_net_force.png)
+
 ---
 
 ## Worked Example

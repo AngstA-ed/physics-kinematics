@@ -108,6 +108,14 @@ Open <https://javalab.org/en/force_movement_en/> (or the loaded/empty cart if ru
 > "Now keep the force the same and double the mass — which way did the acceleration go?"
 > "Can you write that as a fraction? Acceleration equals what, over what?"
 
+As the data accumulates, sketch (or project) the acceleration-vs-net-force relationship. A straight line through the origin is the visual proof that **a is proportional to net force**:
+
+![Line graph of acceleration versus net force: a straight line through the origin, showing acceleration is directly proportional to net force.](figures/accel_vs_net_force.png)
+
+The reason a cart accelerates at all is that its forces are **unbalanced** — the applied push beats friction, leaving a net force in the direction of motion:
+
+![Free-body diagram of a cart with the applied force larger than friction, plus balanced vertical forces, leaving an unbalanced net force that causes acceleration.](figures/fbd_unbalanced.png)
+
 ### Teacher facilitation during Explore
 
 - **What to look for** — students seeing acceleration **double** when force doubles (direct), and acceleration **halve** when mass doubles (inverse).

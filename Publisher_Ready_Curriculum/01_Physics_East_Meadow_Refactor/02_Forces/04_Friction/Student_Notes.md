@@ -32,6 +32,8 @@ By the end of today's 42 minutes I can:
 - **Kinetic friction** acts when the object __________ sliding. It is roughly __________ (it does not change much with speed).
 - It is usually harder to *start* an object sliding than to *keep* it sliding, because the static maximum is __________ than the kinetic friction.
 
+![Line graph of friction force versus applied force: friction rises with the applied force through the static region up to a peak, then drops to a flat kinetic plateau once the object slides.](figures/friction_vs_applied.png)
+
 **The equation (2025 Reference Table):**
 
 > **Ff = μ·FN**

@@ -107,6 +107,10 @@ Stations (or whole-class with the cart/toy car):
 > "On the smooth floor, what's still slowing it down — is it truly nothing?"
 > "If we removed every push and rub, what would the cart do forever?"
 
+Use the free-body diagram below to make the "balanced forces" idea visible while students model the resting coin/cup: gravity down, the table's normal force up, and a net force of zero.
+
+![Free-body diagram of a book resting on a table: gravity pulls down, the normal force pushes up, and the two are balanced so the net force is zero.](figures/fbd_book_on_table.png)
+
 ### Teacher facilitation during Explore
 
 - **What to look for** — students connecting "it kept going farther on the smooth floor" to "less friction means less force to change its motion."

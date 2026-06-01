@@ -39,7 +39,10 @@ Draw the bike on the curved road **from above**. Draw an arrow for the force tha
 
 ## Investigation
 
-Goggles on. Complete each station with your stopper-on-a-string. Record what you observe.
+Goggles on. Complete each station with your stopper-on-a-string. Record what you observe. The diagram below shows what to look for: the velocity points along the tangent, and the force that keeps the stopper turning points toward the center.
+
+![Diagram of an object moving on a circular path with a tangent velocity arrow and an inward centripetal force arrow pointing to the center.](figures/circular_motion.png)
+
 
 | Station | What I did | What happened | What it tells me |
 |---|---|---|---|

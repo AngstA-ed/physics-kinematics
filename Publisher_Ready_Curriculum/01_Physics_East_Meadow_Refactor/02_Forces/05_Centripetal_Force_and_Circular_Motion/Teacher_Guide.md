@@ -109,6 +109,10 @@ Goggles on. Stopper-on-a-string stations (rotate or run as a carousel):
 > "When you let go, did it curve outward — or go straight in the direction it was already heading?"
 > "Faster swing — what happens to the tension you feel? Shorter string — what happens?"
 
+The diagram below captures both station discoveries at once: the velocity points along the **tangent** (the direction the stopper flies when released), while the centripetal force points **toward the center** (the inward pull your hand feels).
+
+![Diagram of an object on a circular path: a velocity arrow drawn tangent to the circle and a centripetal force arrow pointing inward toward the center.](figures/circular_motion.png)
+
 ### Teacher facilitation during Explore
 
 - **What to look for** — students reporting the *released* stopper flies off on a **tangent** (straight), not radially outward; and that faster/shorter/heavier all *increase* the felt tension.
