@@ -184,11 +184,11 @@ Then finish this Because / But / So sentence:
 
 ## Exit Ticket
 
-*(a) Calculate the gram formula mass of CO₂. Show the atomic mass × subscript add-up.*
+*(a) Calculate the gram formula mass of SO₂. Show the atomic mass × subscript add-up.*
 
 | Element | Atomic mass (g/mol) | Subscript | Mass contribution |
 |---|---|---|---|
-| C |  |  |  |
+| S |  |  |  |
 | O |  |  |  |
 | **GFM** | | | **___ g/mol** |
 

@@ -75,27 +75,29 @@ Connection to the phenomenon (model): If the fertilizer bag with greener grass c
 
 ## Exit Ticket Answer
 
-**(a) Percent hydrogen by mass in H₂O:**
+**GFM of MgO:** Mg = 24.0 g/mol (subscript 1) + O = 16.0 g/mol (subscript 1) = **40.0 g/mol**
 
-% H = (2 × 1.0) ÷ 18.0 × 100 = 2.0/18.0 × 100 = **11.1%**
+**(a) Percent magnesium by mass in MgO:**
 
-Setup: n = 2 (subscript on H); atomic mass of H = 1.0 g/mol; GFM of H₂O = 18.0 g/mol.
-Mass ratio for H = 2/18 = 0.111; × 100 = 11.1%.
+% Mg = (1 × 24.0) ÷ 40.0 × 100 = 24.0/40.0 × 100 = **60.%**
 
-*Rubric:* 1 point for correct answer (accept 11.1% or 11.2%); 1 point for showing the division setup with 18 in the denominator. A student who writes 1/18 × 100 = 5.6% missed the subscript 2 on hydrogen — write: "H appears twice in H₂O (subscript 2), so its mass contribution is 2 × 1.0 = 2.0 g/mol, not 1.0 g/mol." NYSSLS: HS-PS1-2.
+Setup: n = 1 (subscript on Mg); atomic mass of Mg = 24.0 g/mol; GFM of MgO = 40.0 g/mol.
+Mass ratio for Mg = 24/40 = 0.600; × 100 = 60.0%. MgO is not shown on the `water_composition.png` figure — students must derive the answer from the Periodic Table and the percent-composition formula.
 
-**(b) Percent oxygen by mass in H₂O:**
+*Rubric:* 1 point for correct answer (accept 60.% or 60.0%); 1 point for showing the division setup with 40 in the denominator and 24 in the numerator. A student who writes 24/24 × 100 = 100% used Mg's own atomic mass as the denominator instead of the GFM — write: "The denominator must be the GFM of the entire compound (40 g/mol), not just one element's mass." NYSSLS: HS-PS1-2.
 
-% O = (1 × 16.0) ÷ 18.0 × 100 = 16.0/18.0 × 100 = **88.9%**
+**(b) Percent oxygen by mass in MgO:**
 
-Setup: n = 1 (subscript on O); atomic mass of O = 16.0 g/mol; GFM of H₂O = 18.0 g/mol.
-Mass ratio for O = 16/18 = 0.889; × 100 = 88.9%.
+% O = (1 × 16.0) ÷ 40.0 × 100 = 16.0/40.0 × 100 = **40.%**
 
-*Rubric:* 1 point for correct answer (accept 88.9% or 88.8%); 1 point for showing the division setup. Consistency check: if a student has % H = 11.1% and % O = 88.9%, the sum is 100.0% — award the consistency point. If the sum deviates by more than 1 percentage point, probe for a rounding or arithmetic error. NYSSLS: HS-PS1-2.
+Setup: n = 1 (subscript on O); atomic mass of O = 16.0 g/mol; GFM of MgO = 40.0 g/mol.
+Mass ratio for O = 16/40 = 0.400; × 100 = 40.0%.
+
+*Rubric:* 1 point for correct answer (accept 40.% or 40.0%); 1 point for showing the division setup with 40 in the denominator. Consistency check: % Mg + % O = 60.% + 40.% = 100.% — if the student's sum deviates by more than 1 percentage point, probe for a rounding or arithmetic error. NYSSLS: HS-PS1-2.
 
 **(c) Why the percentages add up to 100%:**
 
-*Full-credit model answer:* Every gram of the compound is made entirely of its constituent elements — hydrogen and oxygen account for all of the mass of water, with no mass left unaccounted for, so each element's share of the total mass must sum to the whole (100%).
+*Full-credit model answer:* Every gram of the compound is made entirely of its constituent elements — magnesium and oxygen account for all of the mass of magnesium oxide, with no mass left unaccounted for, so each element's share of the total mass must sum to the whole (100%).
 
 *Acceptable variations:* Any response that explains (1) the compound's mass is entirely composed of its elements and (2) the fractions of the whole must sum to 1 (or 100%) earns full credit. A response that says only "because percent always adds to 100" earns no credit — the student must explain *why* the compound's elemental fractions necessarily sum to 100%.
 

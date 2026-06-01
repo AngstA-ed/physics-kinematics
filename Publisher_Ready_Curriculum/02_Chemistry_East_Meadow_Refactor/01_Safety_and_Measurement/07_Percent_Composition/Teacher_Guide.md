@@ -33,7 +33,7 @@ Alternative hook (if fertilizer bags are unavailable): two iron supplement table
 ### Assessments
 
 - **Percent-composition problem set** (district checkpoint following lesson; see `Assessments/` folder): students compute percent composition for a series of compounds from their formulas, show all steps, and interpret which of two compounds contains more of a specified element.
-- **Exit Ticket** (Phase 5): three items — % H and % O in H₂O; sentence explaining why percents sum to 100%. See `Answer_Key.docx`.
+- **Exit Ticket** (Phase 5): three items — % Mg in MgO; % O in MgO; sentence explaining why percents sum to 100%. See `Answer_Key.docx`.
 
 ---
 
@@ -315,10 +315,10 @@ Students calculate: GFM = 12 + 16 + 2(14 + 2) + 2 = 12 + 16 + 28 + 4 = 60 g/mol.
 
 Post or read aloud:
 
-> *For water, H₂O (gram formula mass = 18 g/mol):*
-> *(a) What is the percent hydrogen by mass? Show your setup.*
-> *(b) What is the percent oxygen by mass? Show your setup.*
-> *(c) In one sentence, why do the percentages add up to 100%?*
+> *For magnesium oxide, MgO (calculate the gram formula mass first using Mg = 24 g/mol, O = 16 g/mol):*
+> *(a) What is the percent by mass of Mg in MgO? Show your setup.*
+> *(b) What is the percent by mass of O in MgO? Show your setup.*
+> *(c) In one sentence, why do the two percentages add up to 100%?*
 
 Expected answers are in `Answer_Key.docx`.
 
@@ -377,7 +377,7 @@ Collect worksheets; note which students correctly use GFM as the denominator ver
 | 5 | ENL — ≤ 3 vocab, second half | Phase 3 — vocabulary introduced at 33–36 min: percent composition / gram formula mass / mass ratio |
 | 6 | Revisit phenomenon with evidence | Phase 4 — students calculate % nitrogen in urea and verify which fertilizer bag delivers more nitrogen per gram; pie chart used to self-check H₂O result |
 | 7 | ENL/SPED supports | Access & Differentiation block: calculation template, sentence frame, word-choice box, pre-computed GFMs, one-element-at-a-time structure, calculator |
-| 8 | Assessment check | Phase 5 — Exit Ticket (% H and % O in H₂O; sentence explaining why percents sum to 100%) |
+| 8 | Assessment check | Phase 5 — Exit Ticket (% Mg and % O in MgO; sentence explaining why percents sum to 100%) |
 
 ---
 

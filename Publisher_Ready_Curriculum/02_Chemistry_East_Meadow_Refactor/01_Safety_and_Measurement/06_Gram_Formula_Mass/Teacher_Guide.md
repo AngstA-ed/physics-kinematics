@@ -33,7 +33,7 @@ Or, for a more dramatic version: hold up a helium balloon (one mole of He ≈ 4 
 ### Assessments
 
 - **Molar mass calculation quiz** (district checkpoint, following lesson; see `Assessments/` folder once created): students compute GFM from formulas, show atomic-mass add-up, and identify the unit (g/mol).
-- **Exit Ticket** (Phase 5): three items — GFM of CO₂; GFM of NaOH; sentence explaining why a mole of gold has more mass than a mole of carbon. See `Answer_Key.docx`.
+- **Exit Ticket** (Phase 5): three items — GFM of SO₂; GFM of NaOH; sentence explaining why a mole of gold has more mass than a mole of carbon. See `Answer_Key.docx`.
 
 ---
 
@@ -317,7 +317,7 @@ Target: Na = 23 + Cl = 35.5 → 58.5 g/mol. It matches the container.
 
 Post or read aloud:
 
-> *(a) Calculate the gram formula mass of CO₂. Show the atomic mass × subscript add-up.*
+> *(a) Calculate the gram formula mass of SO₂. Show the atomic mass × subscript add-up.*
 > *(b) Calculate the gram formula mass of NaOH. Show the atomic mass × subscript add-up.*
 > *(c) In one sentence, explain why a mole of gold has more mass than a mole of carbon, even though both contain the same number of atoms.*
 
@@ -382,7 +382,7 @@ This sentence structure does three things simultaneously: (1) names the term, (2
 | 5 | ENL — ≤ 3 vocab, second half | Phase 3 — vocabulary introduced at 33–36 min: gram formula mass / molar mass / mole |
 | 6 | Revisit phenomenon with evidence | Phase 4 — students verify NaCl GFM calculation against the demonstration container; bar chart used to self-check C₆H₁₂O₆ GFM |
 | 7 | ENL/SPED supports | Access & Differentiation block: GFM calculation template, sentence frame, word-choice box, pre-filled atomic masses, one-element-at-a-time table, calculator |
-| 8 | Assessment check | Phase 5 — Exit Ticket (GFM of CO₂ and NaOH; sentence explanation of gold vs. carbon) |
+| 8 | Assessment check | Phase 5 — Exit Ticket (GFM of SO₂ and NaOH; sentence explanation of gold vs. carbon) |
 
 ---
 

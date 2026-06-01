@@ -225,13 +225,15 @@ Then finish this Because / But / So sentence:
 
 ## Exit Ticket
 
-*For water, H₂O (gram formula mass = 18 g/mol):*
+*For magnesium oxide, MgO — first calculate its gram formula mass using the Periodic Table (Mg = 24 g/mol, O = 16 g/mol), then answer (a)–(c).*
 
-*(a) What is the percent hydrogen by mass? Show your setup.*
+GFM of MgO: ___ + ___ = ______ g/mol
 
-% H = ( ___ × ___ ) ÷ ___ × 100 = ______%
+*(a) What is the percent by mass of Mg in MgO? Show your setup.*
 
-*(b) What is the percent oxygen by mass? Show your setup.*
+% Mg = ( ___ × ___ ) ÷ ___ × 100 = ______%
+
+*(b) What is the percent by mass of O in MgO? Show your setup.*
 
 % O = ( ___ × ___ ) ÷ ___ × 100 = ______%
 

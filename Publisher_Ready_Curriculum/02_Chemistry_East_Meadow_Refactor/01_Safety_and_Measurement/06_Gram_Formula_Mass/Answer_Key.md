@@ -47,17 +47,17 @@ Step-by-step: C contributes 12.0 × 6 = 72.0 g/mol; H contributes 1.0 × 12 = 12
 
 ## Exit Ticket Answer
 
-**(a) GFM of CO₂:**
+**(a) GFM of SO₂:**
 
 | Element | Atomic mass (g/mol) | Subscript | Mass contribution |
 |---|---|---|---|
-| C | 12.0 | 1 | 12.0 |
+| S | 32.0 | 1 | 32.0 |
 | O | 16.0 | 2 | 32.0 |
-| **GFM** | | | **44.0 g/mol** |
+| **GFM** | | | **64.0 g/mol** |
 
-C contributes 12.0 × 1 = 12.0 g/mol; O contributes 16.0 × 2 = 32.0 g/mol; total = 44.0 g/mol. This matches the bar chart and the CO₂ reference line in `molar_masses.png`.
+S contributes 32.0 × 1 = 32.0 g/mol; O contributes 16.0 × 2 = 32.0 g/mol; total = 64.0 g/mol. SO₂ is not shown on the `molar_masses.png` bar chart, so students must calculate from the Periodic Table rather than reading the answer from the figure.
 
-*Rubric:* 1 point for correct answer (44 g/mol or 44.0 g/mol); 1 point for showing the O × 2 multiplication explicitly in the add-up table. A student who writes "C = 12, O = 16, total = 28" missed the subscript 2 on oxygen — provide written feedback on the subscript rule. NYSSLS: HS-PS1-2.
+*Rubric:* 1 point for correct answer (64 g/mol or 64.0 g/mol); 1 point for showing the O × 2 multiplication explicitly in the add-up table (S contributes 32, O contributes 32 — both rows required). A student who writes "S = 32, O = 16, total = 48" missed the subscript 2 on oxygen — provide written feedback on the subscript rule. NYSSLS: HS-PS1-2.
 
 **(b) GFM of NaOH:**
 
