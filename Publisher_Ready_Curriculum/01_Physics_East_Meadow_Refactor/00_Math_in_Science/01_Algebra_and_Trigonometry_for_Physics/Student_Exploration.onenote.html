@@ -3,7 +3,287 @@
 <head>
 <meta charset="utf-8"/>
 <title>Algebra and Trigonometry for Physics — Unit: Math in Science</title>
+<style data-inlined="lesson.css">
+/* ============================================================
+ * East Meadow × Valley Stream — Student Exploration pages
+ * Lab-notebook visual language (matches the Kinematics web edition):
+ * cream paper, ink palette, notebook grid, taped cards, sticky notes.
+ * Mapped onto the shared Student_Exploration markup. Self-contained
+ * (no external <link>; the font @import inlines safely into the
+ * OneNote static export).
+ * ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lora:ital,wght@0,400;0,600;1,400&display=swap");
 
+:root {
+  /* paper & ink */
+  --paper: #fbf6e8;
+  --paper-sheet: #fffdf5;
+  --paper-edge: #f1eada;
+  --paper-tape: rgba(232, 223, 198, 0.85);
+  --grid: rgba(166, 124, 82, 0.16);
+
+  --ink: #2b2418;
+  --ink-soft: #574a36;
+  --ink-faint: #8a7a5a;
+
+  /* brand + pen colors */
+  --em-purple: #5a2466;
+  --vs-blue: #2a4d8f;
+  --red-pen: #c14626;
+  --highlighter: #fdd35e;
+  --mint: #3d8a5e;
+  --peach: #e89668;
+  --rule: rgba(43, 36, 24, 0.18);
+
+  --radius: 3px;
+  --max-content-width: 78ch;
+
+  --font-body: "Lora", Georgia, "Iowan Old Style", serif;
+  --font-display: "Architects Daughter", "Comic Sans MS", cursive;
+}
+
+/* ----- page / paper ----- */
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-attachment: fixed;
+}
+
+.lesson-shell {
+  max-width: var(--max-content-width);
+  margin: 2.5rem auto;
+  padding: 2.25rem 2.75rem 2.75rem;
+  background: var(--paper-sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(43, 36, 24, 0.12);
+  position: relative;
+}
+/* red notebook margin rule */
+.lesson-shell::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 2.1rem;
+  width: 2px;
+  background: rgba(193, 70, 38, 0.35);
+}
+@media (max-width: 640px) {
+  .lesson-shell { padding: 1.25rem 1.25rem 1.75rem; }
+  .lesson-shell::before { display: none; }
+}
+
+/* ----- headings (handwritten display) ----- */
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; }
+h1 { font-size: 1.95rem; color: var(--ink); margin: 0 0 .25rem; }
+h2 {
+  font-size: 1.5rem;
+  color: var(--em-purple);
+  display: inline;
+  background-image: linear-gradient(transparent 62%, var(--highlighter) 62%);
+  background-repeat: no-repeat;
+  padding: 0 .15em .05em 0;
+}
+.lesson-section > h2 { display: inline-block; margin: 0 0 .65rem; }
+h3 { font-size: 1.2rem; color: var(--vs-blue); margin: 1.25rem 0 .4rem; }
+a { color: var(--vs-blue); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+p { margin: .6rem 0; }
+strong { color: var(--ink); }
+
+/* ----- co-branded header (taped to the page) ----- */
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0 1rem;
+  margin: 0 0 1.5rem;
+  border-bottom: 2px dashed var(--ink-faint);
+}
+.brand-header img { height: 42px; width: auto; transform: rotate(-1.5deg); }
+.brand-header .divider { width: 1px; height: 34px; background: var(--rule); }
+.brand-header .district-name {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  color: var(--ink-faint);
+  letter-spacing: .02em;
+}
+
+/* ----- sections ----- */
+.lesson-section { margin: 2rem 0; }
+
+/* notebook boxes for thinking prompts */
+.notice-wonder, .initial-model, .revise-model {
+  background: var(--paper-edge);
+  border: 2px dashed var(--ink-soft);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+
+/* sticky-note Turn & Talk */
+.turn-and-talk {
+  background: #fff3b0;
+  color: var(--ink);
+  padding: .9rem 1.1rem;
+  margin: 1.25rem 0;
+  border-radius: 2px;
+  box-shadow: 2px 3px 8px rgba(43, 36, 24, 0.18);
+  transform: rotate(-1deg);
+}
+.turn-and-talk::before {
+  content: "✎ Turn and Talk · ";
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--red-pen);
+}
+
+/* exit ticket card */
+.exit-ticket {
+  background: var(--paper-sheet);
+  border: 1px solid var(--rule);
+  border-top: 5px solid var(--em-purple);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.75rem 0;
+  box-shadow: 0 4px 14px rgba(43, 36, 24, 0.1);
+}
+
+/* vocabulary as taped index cards */
+.vocab-box { background: transparent; padding: 0; }
+.vocab-box ul {
+  list-style: none;
+  margin: .5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+.vocab-box li {
+  position: relative;
+  flex: 1 1 26ch;
+  background: var(--paper-sheet);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 1rem 1.1rem .9rem;
+  box-shadow: 1px 2px 7px rgba(43, 36, 24, 0.14);
+  transform: rotate(-.6deg);
+}
+.vocab-box li:nth-child(even) { transform: rotate(.7deg); }
+.vocab-box li::before {   /* a strip of tape across the top */
+  content: "";
+  position: absolute;
+  top: -9px; left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 54px; height: 18px;
+  background: var(--paper-tape);
+  border: 1px solid rgba(43, 36, 24, 0.08);
+}
+
+/* investigate panel = lab bench (styled via the section selector, not the
+   widget attribute, so the OneNote static export stays clean) */
+.lesson-section[data-section="interactive"] > div {
+  background: var(--paper-sheet);
+  border: 2px solid var(--ink-soft);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  margin: 1rem 0;
+  box-shadow: inset 0 0 0 4px var(--paper-edge);
+}
+
+.controls { display: flex; flex-direction: column; gap: .55rem; margin: 1rem 0; }
+.controls label {
+  font-size: .9rem; display: flex; justify-content: space-between;
+  align-items: center; gap: 1rem;
+}
+.controls input[type="range"] { flex: 1; accent-color: var(--red-pen); }
+.readout {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-family: var(--font-display);
+  color: var(--red-pen);
+}
+
+/* figures look like taped-in photos */
+img { max-width: 100%; height: auto; }
+.lesson-section img:not(.brand-header img) {
+  display: block;
+  margin: 1rem auto;
+  background: #fff;
+  padding: 6px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  box-shadow: 1px 2px 9px rgba(43, 36, 24, 0.16);
+}
+
+/* writing surfaces */
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 6.5rem;
+  padding: .5rem .7rem;
+  font-family: var(--font-body);
+  color: var(--ink);
+  border: 1px solid var(--ink-faint);
+  border-radius: 2px;
+  background-color: #fff;
+  background-image: repeating-linear-gradient(
+    var(--paper-sheet) 0, var(--paper-sheet) 27px, var(--rule) 28px);
+  line-height: 28px;
+}
+textarea:focus { outline: none; border-color: var(--red-pen); }
+
+/* tables (worksheet data) */
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+th, td { border: 1px solid var(--rule); padding: .5rem .6rem; text-align: left; }
+th { background: var(--paper-edge); font-family: var(--font-display); color: var(--em-purple); }
+
+ol, ul { padding-left: 1.4rem; }
+li { margin: .3rem 0; }
+blockquote {
+  margin: 1rem 0; padding: .5rem 1rem;
+  border-left: 4px solid var(--vs-blue);
+  background: rgba(42, 77, 143, 0.06);
+  font-style: italic;
+}
+
+/* strategy chips (hand-drawn pills) */
+.strategy-chip {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  color: #fff;
+  padding: .12rem .7rem;
+  margin: .2rem .25rem 0 0;
+  border-radius: 999px;
+  transform: rotate(-1.5deg);
+  box-shadow: 1px 1px 4px rgba(43, 36, 24, 0.2);
+}
+.strategy-chip.hochman { background: var(--red-pen); }
+.strategy-chip.active  { background: var(--vs-blue); }
+.strategy-chip.btc     { background: var(--mint); }
+.strategy-chip.circle  { background: var(--peach); color: var(--ink); }
+
+/* footer */
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 2px dashed var(--ink-faint);
+  text-align: center;
+  font-family: var(--font-display);
+  color: var(--ink-faint);
+}
+
+/* storyboard fallback shows only when JS is off */
+.noscript-storyboard { display: none; }
+.noscript .noscript-storyboard,
+noscript .noscript-storyboard { display: block; }
+
+</style>
 </head>
 <body>
 <div class="lesson-shell">
