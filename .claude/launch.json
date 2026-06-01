@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "chem-web",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8099", "--directory", "/Users/hoopie/Projects/Curricula/Publisher_Ready_Curriculum/02_Chemistry_East_Meadow_Web"],
+      "port": 8099
+    }
+  ]
+}
