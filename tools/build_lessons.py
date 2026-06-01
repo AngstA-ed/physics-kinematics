@@ -30,18 +30,21 @@ DEFAULT_REFACTOR = ROOT / "Publisher_Ready_Curriculum" / "01_Physics_East_Meadow
 DEFAULT_REFERENCE = DEFAULT_REFACTOR / "_assets" / "brand" / "reference.docx"
 
 
-def resolve_build_root(root_arg: str | None, reference_arg: str | None):
+def resolve_build_root(root_arg: str | None, reference_arg: str | None) -> tuple[Path, Path | None]:
     """Resolve the course refactor root and its brand reference doc.
 
     `root_arg` defaults to the physics refactor. When a custom root is given and
     no explicit `--reference` is passed, the reference defaults to
-    `<root>/_assets/brand/reference.docx`. Returns (root: Path, reference: Path|None).
+    `<root>/_assets/brand/reference.docx`. An explicitly-passed `reference_arg`
+    that does not exist is an error. Returns (root: Path, reference: Path|None).
     """
     root = Path(root_arg).resolve() if root_arg else DEFAULT_REFACTOR.resolve()
     if reference_arg:
         ref = Path(reference_arg)
-    else:
-        ref = root / "_assets" / "brand" / "reference.docx"
+        if not ref.is_file():
+            raise FileNotFoundError(f"--reference not found: {ref}")
+        return root, ref
+    ref = root / "_assets" / "brand" / "reference.docx"
     return root, (ref if ref.is_file() else None)
 
 

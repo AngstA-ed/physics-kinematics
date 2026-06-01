@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 from tools.build_lessons import resolve_build_root, DEFAULT_REFACTOR
 
@@ -29,4 +30,10 @@ def test_explicit_reference_overrides(tmp_path):
     f = tmp_path / "myref.docx"
     f.write_bytes(b"x")
     root, ref = resolve_build_root(str(tmp_path), str(f))
+    assert root == tmp_path.resolve()
     assert ref == f
+
+
+def test_explicit_missing_reference_raises(tmp_path):
+    with pytest.raises(FileNotFoundError):
+        resolve_build_root(str(tmp_path), str(tmp_path / "nope.docx"))
