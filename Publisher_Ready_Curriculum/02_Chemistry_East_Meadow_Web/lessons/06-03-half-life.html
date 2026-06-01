@@ -184,7 +184,48 @@
 <blockquote>
 <hr />
 </blockquote>
-<hr /></section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>Solve each problem. Show the number of half-lives and the fraction or time. <strong>These use carbon-14 (5,730 years) and iodine-131 (8 days) — the same isotopes from the Investigation.</strong></p>
+<hr />
+<div class="lab" data-interactive="true">
+  <div class="lab-canvas">
+    <svg id="hl-svg" width="640" height="340" viewBox="0 0 640 340" role="img" aria-label="Half-life decay curve">
+      <line x1="60" y1="300" x2="610" y2="300" stroke="#14141a" stroke-width="1.5"/>
+      <line x1="60" y1="20" x2="60" y2="300" stroke="#14141a" stroke-width="1.5"/>
+      <text x="50" y="25" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#8a8a93">100%</text>
+      <text x="50" y="304" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#8a8a93">0</text>
+      <path id="hl-path" d="" fill="none" stroke="#662e80" stroke-width="3"/>
+      <circle id="hl-dot" cx="60" cy="20" r="6" fill="#f37366"/>
+      <text x="335" y="328" text-anchor="middle" font-family="Lora" font-size="13" fill="#14141a">half-lives elapsed</text>
+    </svg>
+  </div>
+  <div class="lab-controls">
+    <div class="button-bar">
+      <label>Half-lives elapsed
+        <input id="hl-n" type="range" min="0" max="7" step="1" value="0" style="width:200px;vertical-align:middle;">
+      </label>
+    </div>
+    <div class="lab-readouts">
+      <div class="readout-card"><span class="key">Half-lives</span><span class="val" id="hl-nv">0</span></div>
+      <div class="readout-card"><span class="key">Remaining</span><span class="val accent" id="hl-pct">100%</span></div>
+      <div class="readout-card"><span class="key">Fraction left</span><span class="val" id="hl-frac">1/1</span></div>
+    </div>
+  </div>
+</div>
+<script>(function(){
+  function X(n){return 60+(n/7)*550;} function Y(p){return 300-(p/100)*280;}
+  var path=document.getElementById('hl-path'), dot=document.getElementById('hl-dot');
+  var d='M '+X(0)+' '+Y(100); for(var t=0;t<=7;t+=0.25){d+=' L '+X(t)+' '+Y(100*Math.pow(0.5,t));}
+  path.setAttribute('d',d);
+  function render(){
+    var n=parseInt(document.getElementById('hl-n').value,10), pct=100*Math.pow(0.5,n);
+    dot.setAttribute('cx',X(n)); dot.setAttribute('cy',Y(pct));
+    document.getElementById('hl-nv').textContent=n;
+    document.getElementById('hl-pct').textContent=(pct>=10?pct.toFixed(0):pct.toFixed(pct<1?2:1))+'%';
+    document.getElementById('hl-frac').textContent='1/'+Math.pow(2,n);
+  }
+  document.getElementById('hl-n').addEventListener('input',render); render();
+})();</script>
+<p style="margin-top:.6rem;"><em>Step through half-lives.</em> Each half-life cuts the remaining radioactive sample in half — 100% → 50% → 25% → 12.5% … No matter how much you start with, the fraction left after <em>n</em> half-lives is always (½)ⁿ.</p>
+</section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>Solve each problem. Show the number of half-lives and the fraction or time. <strong>These use carbon-14 (5,730 years) and iodine-131 (8 days) — the same isotopes from the Investigation.</strong></p>
 <p><strong>1.</strong> An artifact has <strong>1/8</strong> of the carbon-14 of a fresh sample. (a) Number of half-lives: _______ (b) Age of the artifact (show work): _______________</p>
 <p><strong>2.</strong> A carbon-14 sample has gone through <strong>2 half-lives</strong>. (a) Fraction remaining: _______ (b) Time elapsed (show work): _______________</p>
 <p><strong>3.</strong> An iodine-131 sample (half-life 8 days) sits for <strong>32 days</strong>. (a) Number of half-lives: _______ (b) Fraction of I-131 remaining: _______________</p>

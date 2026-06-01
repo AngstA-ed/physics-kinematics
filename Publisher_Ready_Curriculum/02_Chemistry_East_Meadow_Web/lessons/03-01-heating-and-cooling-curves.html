@@ -208,7 +208,47 @@
 <hr />
 <hr />
 </blockquote>
-<hr /></section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>Use the heating curve of water to answer each item. Show your reasoning.</p>
+<hr />
+<div class="lab" data-interactive="true">
+  <div class="lab-canvas">
+    <svg id="hc-svg" width="640" height="340" viewBox="0 0 640 340" role="img" aria-label="Heating curve">
+      <line x1="60" y1="300" x2="610" y2="300" stroke="#14141a" stroke-width="1.5"/>
+      <line x1="60" y1="20" x2="60" y2="300" stroke="#14141a" stroke-width="1.5"/>
+      <path id="hc-path" d="" fill="none" stroke="#662e80" stroke-width="3"/>
+      <circle id="hc-dot" cx="60" cy="280" r="6" fill="#f37366"/>
+      <text x="335" y="328" text-anchor="middle" font-family="Lora" font-size="13" fill="#14141a">heat added →</text>
+      <text x="20" y="160" text-anchor="middle" font-family="Lora" font-size="12" fill="#14141a" transform="rotate(-90 20 160)">temperature (°C)</text>
+    </svg>
+  </div>
+  <div class="lab-controls">
+    <div class="button-bar">
+      <label>Heat added
+        <input id="hc-q" type="range" min="0" max="100" step="2" value="0" style="width:220px;vertical-align:middle;">
+      </label>
+    </div>
+    <div class="lab-readouts">
+      <div class="readout-card"><span class="key">Temperature</span><span class="val accent" id="hc-temp">-20 °C</span></div>
+      <div class="readout-card"><span class="key">Phase</span><span class="val" id="hc-phase">solid</span></div>
+    </div>
+  </div>
+</div>
+<script>(function(){
+  function temp(q){ if(q<10)return -20+(q/10)*20; if(q<30)return 0; if(q<55)return (q-30)/25*100; if(q<85)return 100; return 100+(q-85)/15*20; }
+  function phase(q){ if(q<10)return'solid'; if(q<30)return'melting (solid + liquid)'; if(q<55)return'liquid'; if(q<85)return'boiling (liquid + gas)'; return'gas'; }
+  function X(q){return 60+(q/100)*550;} function Y(t){return 300-((t+20)/140)*280;}
+  var path=document.getElementById('hc-path'), dot=document.getElementById('hc-dot');
+  var d='M '+X(0)+' '+Y(temp(0)); for(var q=0;q<=100;q+=2){d+=' L '+X(q)+' '+Y(temp(q));}
+  path.setAttribute('d',d);
+  function render(){
+    var q=parseFloat(document.getElementById('hc-q').value), t=temp(q);
+    dot.setAttribute('cx',X(q)); dot.setAttribute('cy',Y(t));
+    document.getElementById('hc-temp').textContent=Math.round(t)+' °C';
+    document.getElementById('hc-phase').textContent=phase(q);
+  }
+  document.getElementById('hc-q').addEventListener('input',render); render();
+})();</script>
+<p style="margin-top:.6rem;"><em>Add heat.</em> Temperature rises through the solid, liquid, and gas regions — but flattens at the melting and boiling plateaus, where the added energy breaks attractions between particles instead of raising the temperature.</p>
+</section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>Use the heating curve of water to answer each item. Show your reasoning.</p>
 <p><strong>1.</strong> A student says, “On the flat parts of the graph, no energy is being added — that’s why the temperature isn’t changing.” Is the student correct? Explain what is really happening to the energy on a flat plateau.</p>
 <blockquote>
 <hr />

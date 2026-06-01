@@ -227,7 +227,61 @@
 <blockquote>
 <hr />
 </blockquote>
-<hr /></section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>For each species below, determine the number of protons, neutrons, and electrons. Show your complete table. <strong>These are the same species you counted in the Investigation — confirm your work here.</strong></p>
+<hr />
+<div class="lab" data-interactive="true">
+  <div class="lab-canvas">
+    <svg id="bo-svg" width="420" height="360" viewBox="0 0 420 360" role="img" aria-label="Bohr model">
+      <g id="bo-shells"></g>
+      <circle cx="210" cy="180" r="30" fill="#662e80"/>
+      <text id="bo-nuc" x="210" y="176" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#fff">6p</text>
+      <text id="bo-nuc2" x="210" y="192" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#fff">6n</text>
+      <g id="bo-elec"></g>
+    </svg>
+  </div>
+  <div class="lab-controls">
+    <div class="button-bar">
+      <label>Atomic number (Z)
+        <input id="bo-z" type="range" min="1" max="20" step="1" value="6" style="width:200px;vertical-align:middle;">
+      </label>
+    </div>
+    <div class="lab-readouts">
+      <div class="readout-card"><span class="key">Element</span><span class="val accent" id="bo-sym">C</span></div>
+      <div class="readout-card"><span class="key">Protons</span><span class="val" id="bo-p">6</span></div>
+      <div class="readout-card"><span class="key">Neutrons</span><span class="val" id="bo-n">6</span></div>
+      <div class="readout-card"><span class="key">Electrons</span><span class="val" id="bo-e">6</span></div>
+    </div>
+  </div>
+</div>
+<script>(function(){
+  var SYM=['','H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca'];
+  var MASS=[0,1,4,7,9,11,12,14,16,19,20,23,24,27,28,31,32,35,40,39,40];
+  var shellsG=document.getElementById('bo-shells'), elecG=document.getElementById('bo-elec');
+  function fill(z){var caps=[2,8,8,2],out=[],r=z;for(var i=0;i<caps.length&&r>0;i++){var n=Math.min(caps[i],r);out.push(n);r-=n;}return out;}
+  function render(){
+    var z=parseInt(document.getElementById('bo-z').value,10), n=MASS[z]-z, sh=fill(z);
+    document.getElementById('bo-nuc').textContent=z+'p';
+    document.getElementById('bo-nuc2').textContent=n+'n';
+    document.getElementById('bo-sym').textContent=SYM[z];
+    document.getElementById('bo-p').textContent=z;
+    document.getElementById('bo-n').textContent=n;
+    document.getElementById('bo-e').textContent=z;
+    shellsG.innerHTML=''; elecG.innerHTML='';
+    sh.forEach(function(cnt,i){
+      var rad=50+i*32, c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx',210);c.setAttribute('cy',180);c.setAttribute('r',rad);
+      c.setAttribute('fill','none');c.setAttribute('stroke','#c7c7cc');c.setAttribute('stroke-width','1.2');
+      shellsG.appendChild(c);
+      for(var k=0;k<cnt;k++){var a=2*Math.PI*k/cnt+i*0.4,
+        e=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        e.setAttribute('cx',210+rad*Math.cos(a));e.setAttribute('cy',180+rad*Math.sin(a));
+        e.setAttribute('r',6);e.setAttribute('fill','#2ea3f2');e.setAttribute('stroke','#14141a');e.setAttribute('stroke-width','1.2');
+        elecG.appendChild(e);}
+    });
+  }
+  document.getElementById('bo-z').addEventListener('input',render); render();
+})();</script>
+<p style="margin-top:.6rem;"><em>Slide the atomic number.</em> Protons (and the element's identity) change with Z; electrons fill shells 2, then 8, then 8. The neutron count here comes from each element's most common isotope.</p>
+</section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>For each species below, determine the number of protons, neutrons, and electrons. Show your complete table. <strong>These are the same species you counted in the Investigation — confirm your work here.</strong></p>
 <p><strong>1. ³⁹K</strong> (potassium-39, neutral)</p>
 <table>
 <thead>

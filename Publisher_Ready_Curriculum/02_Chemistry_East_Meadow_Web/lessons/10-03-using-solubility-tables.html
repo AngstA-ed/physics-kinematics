@@ -148,7 +148,47 @@
 </tr>
 </tbody>
 </table>
-<hr /></section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>Use Reference Table G and the graph. Show how you read each value.</p>
+<hr />
+<div class="lab" data-interactive="true">
+  <div class="lab-canvas">
+    <svg id="so-svg" width="640" height="340" viewBox="0 0 640 340" role="img" aria-label="Solubility curve">
+      <line x1="60" y1="300" x2="610" y2="300" stroke="#14141a" stroke-width="1.5"/>
+      <line x1="60" y1="20" x2="60" y2="300" stroke="#14141a" stroke-width="1.5"/>
+      <path id="so-path" d="" fill="none" stroke="#662e80" stroke-width="3"/>
+      <circle id="so-dot" cx="60" cy="300" r="6" fill="#f37366"/>
+      <text x="335" y="328" text-anchor="middle" font-family="Lora" font-size="13" fill="#14141a">temperature (°C)</text>
+      <text x="20" y="160" text-anchor="middle" font-family="Lora" font-size="12" fill="#14141a" transform="rotate(-90 20 160)">solubility (g / 100 g)</text>
+    </svg>
+  </div>
+  <div class="lab-controls">
+    <div class="button-bar">
+      <label>Temperature
+        <input id="so-t" type="range" min="0" max="100" step="5" value="20" style="width:200px;vertical-align:middle;">
+      </label>
+    </div>
+    <div class="lab-readouts">
+      <div class="readout-card"><span class="key">Temperature</span><span class="val" id="so-tv">20 °C</span></div>
+      <div class="readout-card"><span class="key">KNO₃ solubility</span><span class="val accent" id="so-sv">59 g</span></div>
+      <div class="readout-card"><span class="key">per</span><span class="val">100 g H₂O</span></div>
+    </div>
+  </div>
+</div>
+<script>(function(){
+  function S(t){return 13+2.3*t;}
+  function X(t){return 60+(t/100)*550;} function Y(s){return 300-(s/250)*280;}
+  var path=document.getElementById('so-path'), dot=document.getElementById('so-dot');
+  var d='M '+X(0)+' '+Y(S(0)); for(var t=0;t<=100;t+=5){d+=' L '+X(t)+' '+Y(S(t));}
+  path.setAttribute('d',d);
+  function render(){
+    var t=parseFloat(document.getElementById('so-t').value), s=S(t);
+    dot.setAttribute('cx',X(t)); dot.setAttribute('cy',Y(s));
+    document.getElementById('so-tv').textContent=Math.round(t)+' °C';
+    document.getElementById('so-sv').textContent=Math.round(s)+' g';
+  }
+  document.getElementById('so-t').addEventListener('input',render); render();
+})();</script>
+<p style="margin-top:.6rem;"><em>Raise the temperature.</em> For most solids like KNO₃, solubility climbs steeply as the water heats up — hot water dissolves far more solute. Reading this curve is exactly the skill the solubility tables test.</p>
+</section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>Use Reference Table G and the graph. Show how you read each value.</p>
 <p><strong>1.</strong> Read the solubility of <strong>KNO₃ (solid)</strong> at <strong>40 °C</strong>.</p>
 <blockquote>
 <p>Solubility = __________ g per 100 g water How I read it: _______________________________________________</p>

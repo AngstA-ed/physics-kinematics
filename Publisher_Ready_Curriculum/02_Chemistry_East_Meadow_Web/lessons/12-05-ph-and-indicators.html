@@ -155,7 +155,56 @@
 <li><p>Which indicator would best tell apart a solution of pH 9 from a solution of pH 7? _______________</p></li>
 <li><p>A solution has [H⁺] = 10⁻⁵ mol/L. What is its pH, and is it acidic or basic? _______________</p></li>
 </ol>
-<hr /></section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>For each item, show your work. <strong>These use the same relationship and substances you practiced in the Investigation — confirm your reasoning here.</strong></p>
+<hr />
+<div class="lab" data-interactive="true">
+  <div class="lab-canvas">
+    <svg id="ph-svg" width="640" height="260" viewBox="0 0 640 260" role="img" aria-label="pH scale">
+      <defs><linearGradient id="ph-grad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#d7263d"/><stop offset="0.3" stop-color="#f37366"/>
+        <stop offset="0.5" stop-color="#4caf50"/><stop offset="0.7" stop-color="#2ea3f2"/>
+        <stop offset="1" stop-color="#662e80"/></linearGradient></defs>
+      <rect x="40" y="60" width="560" height="40" fill="url(#ph-grad)" stroke="#14141a" stroke-width="1.5" rx="4"/>
+      <g id="ph-ticks"></g>
+      <polygon id="ph-mark" points="0,105 -8,128 8,128" fill="#14141a"/>
+      <circle id="ph-beaker" cx="320" cy="205" r="36" fill="#4caf50" stroke="#14141a" stroke-width="2.5"/>
+    </svg>
+  </div>
+  <div class="lab-controls">
+    <div class="button-bar">
+      <label>pH
+        <input id="ph-i" type="range" min="0" max="14" step="1" value="7" style="width:220px;vertical-align:middle;">
+      </label>
+    </div>
+    <div class="lab-readouts">
+      <div class="readout-card"><span class="key">pH</span><span class="val accent" id="ph-v">7</span></div>
+      <div class="readout-card"><span class="key">[H⁺] (mol/L)</span><span class="val" id="ph-h">1×10⁻⁷</span></div>
+      <div class="readout-card"><span class="key">Solution is</span><span class="val" id="ph-state">neutral</span></div>
+    </div>
+  </div>
+</div>
+<script>(function(){
+  var ticks=document.getElementById('ph-ticks');
+  for(var i=0;i<=14;i++){var x=40+(i/14)*560,
+    t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',x);t.setAttribute('y',120);t.setAttribute('text-anchor','middle');
+    t.setAttribute('font-family','JetBrains Mono');t.setAttribute('font-size','11');t.setAttribute('fill','#14141a');
+    t.textContent=i; ticks.appendChild(t);}
+  var SUP={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+  function sup(n){return String(n).split('').map(function(c){return SUP[c]||c;}).join('');}
+  var mark=document.getElementById('ph-mark'), beaker=document.getElementById('ph-beaker');
+  function colour(p){return p<3?'#d7263d':p<6?'#f37366':p<8?'#4caf50':p<11?'#2ea3f2':'#662e80';}
+  function render(){
+    var p=parseInt(document.getElementById('ph-i').value,10), x=40+(p/14)*560;
+    mark.setAttribute('transform','translate('+x+',0)');
+    beaker.setAttribute('fill',colour(p));
+    document.getElementById('ph-v').textContent=p;
+    document.getElementById('ph-h').textContent='1×10⁻'+sup(p);
+    document.getElementById('ph-state').textContent=p<7?'acidic':p>7?'basic':'neutral';
+  }
+  document.getElementById('ph-i').addEventListener('input',render); render();
+})();</script>
+<p style="margin-top:.6rem;"><em>Slide the pH.</em> Each step <em>down</em> the scale means ten times more H⁺ ions — pH 3 is ten times more acidic than pH 4. Seven is neutral; below is acidic, above is basic.</p>
+</section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>For each item, show your work. <strong>These use the same relationship and substances you practiced in the Investigation — confirm your reasoning here.</strong></p>
 <p><strong>1.</strong> Convert each pH to [H⁺] using [H⁺] = 10⁻ᵖᴴ, and classify it.</p>
 <table>
 <thead>

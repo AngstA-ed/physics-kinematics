@@ -204,7 +204,46 @@
 </tr>
 </tbody>
 </table>
-<hr /></section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>For each scenario, name the phase change, state whether energy is absorbed or released, and explain in one sentence what is happening to the particles.</p>
+<hr />
+<div class="lab" data-interactive="true">
+  <div class="lab-canvas">
+    <svg id="st-svg" width="420" height="320" viewBox="0 0 420 320" role="img" aria-label="States of matter">
+      <rect x="60" y="40" width="300" height="240" fill="#f7f4ee" stroke="#14141a" stroke-width="2.5"/>
+      <g id="st-parts"></g>
+    </svg>
+  </div>
+  <div class="lab-controls">
+    <div class="button-bar">
+      <label>Temperature
+        <input id="st-t" type="range" min="0" max="100" step="1" value="10" style="width:220px;vertical-align:middle;">
+      </label>
+    </div>
+    <div class="lab-readouts">
+      <div class="readout-card"><span class="key">State</span><span class="val accent" id="st-state">solid</span></div>
+      <div class="readout-card"><span class="key">Particles</span><span class="val" id="st-desc">packed, vibrating</span></div>
+    </div>
+  </div>
+</div>
+<script>(function(){
+  var g=document.getElementById('st-parts');
+  function render(){
+    var t=parseFloat(document.getElementById('st-t').value);
+    var state=t<33?'solid':t<66?'liquid':'gas';
+    var desc=t<33?'packed in a fixed lattice':t<66?'close but sliding past each other':'far apart, moving fast and freely';
+    g.innerHTML=''; var pts=[];
+    if(state==='solid'){ for(var r=0;r<5;r++)for(var c=0;c<6;c++)pts.push([95+c*44,75+r*44]); }
+    else if(state==='liquid'){ for(var i=0;i<26;i++){var col=i%6,row=Math.floor(i/6);pts.push([90+col*44+(row%2?16:0),150+row*40]);} }
+    else { var seed=7; for(var i=0;i<22;i++){ seed=(seed*9301+49297)%233280; var rx=seed/233280; seed=(seed*9301+49297)%233280; var ry=seed/233280; pts.push([85+rx*250,60+ry*195]); } }
+    pts.forEach(function(p){var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',10);
+      c.setAttribute('fill','#662e80');c.setAttribute('stroke','#14141a');c.setAttribute('stroke-width','1.2');g.appendChild(c);});
+    document.getElementById('st-state').textContent=state;
+    document.getElementById('st-desc').textContent=desc;
+  }
+  document.getElementById('st-t').addEventListener('input',render); render();
+})();</script>
+<p style="margin-top:.6rem;"><em>Heat it up.</em> As temperature rises, particles gain kinetic energy: a rigid <strong>solid</strong> lattice loosens into a <strong>liquid</strong> that flows, then spreads into a <strong>gas</strong> that fills its container.</p>
+</section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>For each scenario, name the phase change, state whether energy is absorbed or released, and explain in one sentence what is happening to the particles.</p>
 <ol type="1">
 <li><p>Solid iodine crystals are gently warmed in a sealed tube and a purple gas appears above the crystals — no liquid forms.</p>
 <ul>

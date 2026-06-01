@@ -186,7 +186,55 @@
 </tbody>
 </table>
 <p>Where on the periodic table (which corner) is an atom <strong>most</strong> likely to <em>lose</em> its valence electron easily? _______________________</p>
-<hr /></section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>For each pair, use the periodic table and the trends to answer. <strong>(These pairs are different from your Exit Ticket pairs.)</strong></p>
+<hr />
+<div class="lab" data-interactive="true">
+  <div class="lab-canvas">
+    <svg id="pt-svg" width="640" height="340" viewBox="0 0 640 340" role="img" aria-label="Periodic trend across period 3">
+      <g id="pt-bars"></g>
+      <text x="335" y="332" text-anchor="middle" font-family="Lora" font-size="13" fill="#14141a">Period 3:  Na → Ar  (left to right)</text>
+    </svg>
+  </div>
+  <div class="lab-controls">
+    <div class="button-bar">
+      <button id="pt-radius" class="primary" type="button">Atomic radius</button>
+      <button id="pt-ie" type="button">Ionization energy</button>
+      <button id="pt-en" type="button">Electronegativity</button>
+    </div>
+    <div class="lab-readouts">
+      <div class="readout-card"><span class="key">Trend</span><span class="val accent" id="pt-name">Atomic radius</span></div>
+      <div class="readout-card"><span class="key">Across a period →</span><span class="val" id="pt-dir">decreases</span></div>
+    </div>
+  </div>
+</div>
+<script>(function(){
+  var EL=['Na','Mg','Al','Si','P','S','Cl','Ar'];
+  var DATA={radius:[186,160,143,117,110,104,99,71], ie:[496,738,578,786,1012,1000,1251,1521], en:[0.93,1.31,1.61,1.90,2.19,2.58,3.16,0]};
+  var DIR={radius:'decreases', ie:'increases', en:'increases'};
+  var NAME={radius:'Atomic radius', ie:'Ionization energy', en:'Electronegativity'};
+  var bars=document.getElementById('pt-bars');
+  function render(key){
+    var vals=DATA[key], max=Math.max.apply(null,vals); bars.innerHTML='';
+    EL.forEach(function(e,i){
+      var h=(vals[i]/max)*240, x=70+i*68, y=290-h;
+      var r=document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',44);r.setAttribute('height',Math.max(h,0));
+      r.setAttribute('fill', i%2? '#2ea3f2':'#662e80'); r.setAttribute('rx',3); bars.appendChild(r);
+      var t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',x+22);t.setAttribute('y',308);t.setAttribute('text-anchor','middle');
+      t.setAttribute('font-family','Lora');t.setAttribute('font-size','12');t.setAttribute('fill','#14141a');
+      t.textContent=e; bars.appendChild(t);
+    });
+    document.getElementById('pt-name').textContent=NAME[key];
+    document.getElementById('pt-dir').textContent=DIR[key];
+    ['radius','ie','en'].forEach(function(k){document.getElementById('pt-'+k).classList.toggle('primary',k===key);});
+  }
+  document.getElementById('pt-radius').addEventListener('click',function(){render('radius');});
+  document.getElementById('pt-ie').addEventListener('click',function(){render('ie');});
+  document.getElementById('pt-en').addEventListener('click',function(){render('en');});
+  render('radius');
+})();</script>
+<p style="margin-top:.6rem;"><em>Switch the trend.</em> Across a period, atomic radius <strong>decreases</strong> while ionization energy and electronegativity <strong>increase</strong> — the growing nuclear charge pulls the same outer shell in tighter. (Argon has no electronegativity value; noble gases don't bond.)</p>
+</section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>For each pair, use the periodic table and the trends to answer. <strong>(These pairs are different from your Exit Ticket pairs.)</strong></p>
 <p><strong>1.</strong> Sodium (Na) and potassium (K) are both in Group 1.</p>
 <ul>
 <li>Which has the <strong>larger</strong> atomic radius? _______________</li>
