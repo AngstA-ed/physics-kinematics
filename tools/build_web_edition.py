@@ -245,18 +245,39 @@ def course_index(units: list[dict]) -> str:
             f'    <div class="chips"><span class="chip">NYSSLS HS-PS</span>'
             f'<span class="chip">5E phenomenon-based</span><span class="chip">SEL + Differentiation</span></div>\n'
             f'  </div>\n</section>')
-    cards = []
+
+    # "Jump to unit" chip nav
+    jump = "".join(
+        f'<a class="chip" href="#unit-{u["folder"]}">Unit {u["unit_no"]} · {escape(u["name"])}</a>'
+        for u in units)
+    overview = (f'      <section class="section">\n'
+                f'        <h2><span class="num">{len(units)} units</span> Jump to a unit</h2>\n'
+                f'        <div class="chips">{jump}</div>\n      </section>')
+
+    # One section per unit, listing its lessons as cards
+    unit_sections = []
     for u in units:
-        cards.append(
-            f'          <li><a class="lesson-card" href="{u["folder"]}/index.html">\n'
-            f'            <div class="number">Unit {u["unit_no"]}</div>\n'
-            f'            <div class="title">{escape(u["name"])}</div>\n'
-            f'            <div class="summary">{u["n"]} lessons</div>\n'
-            f'          </a></li>')
-    grid = "\n".join(cards)
-    main = (f'\n<main>\n  <div class="shell">\n    <div>\n      <section class="section">\n'
-            f'        <h2><span class="num">{len(units)} units</span> Course at a glance</h2>\n'
-            f'        <ol class="lesson-grid">\n{grid}\n        </ol>\n      </section>\n    </div>\n  </div>\n</main>')
+        cards = []
+        for li in u["lessons"]:
+            chips_txt = ", ".join(t for t, _ in li["chips"])
+            cards.append(
+                f'          <li><a class="lesson-card" href="{u["folder"]}/lessons/{li["slug"]}.html">\n'
+                f'            <div class="number">Lesson {li["num"]}</div>\n'
+                f'            <div class="title">{escape(li["title"])}</div>\n'
+                f'            <div class="summary">{escape(li["summary"])}</div>\n'
+                f'            <div class="footer"><span>{escape(chips_txt)}</span></div>\n'
+                f'          </a></li>')
+        grid = "\n".join(cards)
+        unit_sections.append(
+            f'      <section class="section" id="unit-{u["folder"]}">\n'
+            f'        <h2><span class="num">Unit {u["unit_no"]}</span> '
+            f'<a href="{u["folder"]}/index.html">{escape(u["name"])}</a> '
+            f'<span class="num">· {u["n"]} lessons</span></h2>\n'
+            f'        <ol class="lesson-grid">\n{grid}\n        </ol>\n      </section>')
+
+    main = ('\n<main>\n  <div class="shell">\n    <div>\n'
+            + overview + "\n" + "\n".join(unit_sections)
+            + '\n    </div>\n  </div>\n</main>')
     return (head + header + hero + main + FOOTER +
             '\n<script type="module" src="_assets/site.js"></script>\n</body>\n</html>\n')
 
@@ -325,8 +346,12 @@ def main() -> None:
 
         (out_unit / "index.html").write_text(
             unit_index(unit_name, parsed, unit_plan=up_name), encoding="utf-8")
-        units_meta.append({"folder": unit_dir.name, "name": unit_name,
-                           "unit_no": unit_dir.name[:2].lstrip("0") or "0", "n": total})
+        units_meta.append({
+            "folder": unit_dir.name, "name": unit_name,
+            "unit_no": unit_dir.name[:2].lstrip("0") or "0", "n": total,
+            "lessons": [{"num": d["num"], "title": d["title"], "slug": d["slug"],
+                         "summary": d["summary"], "chips": d["chips"]} for d in parsed],
+        })
 
     (OUT / "index.html").write_text(course_index(units_meta), encoding="utf-8")
     n_lessons = sum(u["n"] for u in units_meta)
