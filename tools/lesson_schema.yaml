@@ -33,6 +33,26 @@ answer_key_required_headings:
   - "Exit Ticket Answer"
   - "Closing Reflection (rubric)"
 
+# Student Worksheet (DOCX-only units). Student-facing 5E investigation.
+# Answers are NOT printed here — they live in the Answer Key.
+student_worksheet_required_headings:
+  - "Phenomenon"
+  - "Notice & Wonder"
+  - "Initial Model"
+  - "Investigation"
+  - "Make It Make Sense"
+  - "Vocabulary in Action"
+  - "Revise Your Model"
+  - "Exit Ticket"
+
+# Student Notes (DOCX-only units). Guided note-guide aligned to the Teacher Guide.
+student_notes_required_headings:
+  - "Learning Targets"
+  - "Key Vocabulary"
+  - "Guided Notes"
+  - "Worked Example"
+  - "Summary"
+
 unit_plan_required_headings:
   - "Cover"
   - "Unit Scope (from East Meadow Scope & Sequence)"

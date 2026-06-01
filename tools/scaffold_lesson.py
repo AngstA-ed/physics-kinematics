@@ -48,6 +48,7 @@ def scaffold_lesson(
     lesson_number: str,
     lesson_title: str,
     strategy_chips: Sequence[str],
+    docx_only: bool = False,
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     chip_html = _render_chips(strategy_chips)
@@ -123,10 +124,22 @@ def scaffold_lesson(
         "EXIT_TICKET_ANSWER": "[Expected answer + tolerance/rubric + NYSSLS tag.]",
     }
 
-    (out_dir / "Student_Exploration.html").write_text(
-        _render((TEMPLATES / "student_exploration.html.tmpl").read_text(encoding="utf-8"), common),
-        encoding="utf-8",
-    )
+    if docx_only:
+        # DOCX-only units: student worksheet + guided notes instead of the
+        # interactive HTML page.
+        (out_dir / "Student_Worksheet.md").write_text(
+            _render((TEMPLATES / "student_worksheet.md.tmpl").read_text(encoding="utf-8"), teacher_extra),
+            encoding="utf-8",
+        )
+        (out_dir / "Student_Notes.md").write_text(
+            _render((TEMPLATES / "student_notes.md.tmpl").read_text(encoding="utf-8"), teacher_extra),
+            encoding="utf-8",
+        )
+    else:
+        (out_dir / "Student_Exploration.html").write_text(
+            _render((TEMPLATES / "student_exploration.html.tmpl").read_text(encoding="utf-8"), common),
+            encoding="utf-8",
+        )
     (out_dir / "Teacher_Guide.md").write_text(
         _render((TEMPLATES / "teacher_guide.md.tmpl").read_text(encoding="utf-8"), teacher_extra),
         encoding="utf-8",
@@ -143,6 +156,8 @@ def main() -> None:
     p.add_argument("lesson_number", help="Two-digit lesson number, e.g. 03")
     p.add_argument("lesson_title", help='Lesson title, e.g. "Average Speed and Velocity"')
     p.add_argument("--strategies", default="", help="Comma-separated strategy chips")
+    p.add_argument("--docx-only", action="store_true",
+                   help="Scaffold Worksheet + Notes (DOCX-only) instead of the HTML student page")
     args = p.parse_args()
 
     chips = [c.strip() for c in args.strategies.split(",") if c.strip()]
@@ -156,6 +171,7 @@ def main() -> None:
         lesson_number=args.lesson_number,
         lesson_title=args.lesson_title,
         strategy_chips=chips,
+        docx_only=args.docx_only,
     )
     print(f"Scaffolded {lesson_dir.relative_to(ROOT)}")
 

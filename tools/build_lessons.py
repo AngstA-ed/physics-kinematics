@@ -20,6 +20,7 @@ from tools.pandoc_runner import md_to_docx, md_to_onenote_html
 from tools.static_ifier import staticify
 from tools.validators import (
     validate_teacher_guide, validate_answer_key, validate_student_html,
+    validate_student_worksheet, validate_student_notes,
     validate_onenote_html, validate_unit_plan, validate_assessment,
     ValidationError,
 )
@@ -32,42 +33,70 @@ DEFAULT_REFERENCE = DEFAULT_REFACTOR / "_assets" / "brand" / "reference.docx"
 def build_lesson_folder(
     folder: Path, *, schema_path: Path, reference_doc: Path | None, css_root: Path,
 ) -> list[str]:
-    """Build one lesson folder. Returns list of relative output paths."""
+    """Build one lesson folder. Returns list of relative output paths.
+
+    Two modes, auto-detected per folder:
+
+    * **Legacy / interactive** — folder has `Student_Exploration.html`. Builds
+      Teacher Guide + Answer Key DOCX/onenote plus the static-ified student page
+      (the Kinematics pilot).
+    * **DOCX-only** — no HTML page. Builds Teacher Guide + Student Worksheet +
+      Student Notes + Answer Key to DOCX. This is the format for all units
+      authored after the pilot.
+    """
     written: list[str] = []
 
-    # 1. Validate sources
     student_html = folder / "Student_Exploration.html"
     teacher_md = folder / "Teacher_Guide.md"
     answer_md = folder / "Answer_Key.md"
-    if not student_html.exists():
-        raise ValidationError(f"{folder.name}: Student_Exploration.html missing")
+    worksheet_md = folder / "Student_Worksheet.md"
+    notes_md = folder / "Student_Notes.md"
+
+    # 1. Validate required sources
     if not teacher_md.exists():
         raise ValidationError(f"{folder.name}: Teacher_Guide.md missing")
     if not answer_md.exists():
         raise ValidationError(f"{folder.name}: Answer_Key.md missing")
-    validate_student_html(student_html, schema_path)
     validate_teacher_guide(teacher_md, schema_path)
     validate_answer_key(answer_md, schema_path)
 
-    # 2. Build DOCX + onenote HTML from markdown sources
-    for md in [teacher_md, answer_md]:
-        docx = md.with_suffix(".docx")
-        onhtml = md.with_suffix(".onenote.html")
-        md_to_docx(md, docx, reference_doc)
-        md_to_onenote_html(md, onhtml)
-        validate_onenote_html(onhtml, schema_path)
-        written += [str(docx), str(onhtml)]
+    docx_only = not student_html.exists()
+    md_sources = [teacher_md, answer_md]
 
-    # 3. Static-ify the interactive HTML
-    onenote_html = folder / "Student_Exploration.onenote.html"
-    static_text = staticify(
-        student_html.read_text(encoding="utf-8"),
-        css_root=css_root,
-        html_dir=folder,
-    )
-    onenote_html.write_text(static_text, encoding="utf-8")
-    validate_onenote_html(onenote_html, schema_path)
-    written.append(str(onenote_html))
+    if docx_only:
+        if not worksheet_md.exists():
+            raise ValidationError(f"{folder.name}: Student_Worksheet.md missing")
+        if not notes_md.exists():
+            raise ValidationError(f"{folder.name}: Student_Notes.md missing")
+        validate_student_worksheet(worksheet_md, schema_path)
+        validate_student_notes(notes_md, schema_path)
+        md_sources += [worksheet_md, notes_md]
+    else:
+        validate_student_html(student_html, schema_path)
+
+    # 2. Build DOCX from every markdown source. DOCX-only lessons emit no HTML
+    #    (per the build-out spec); legacy lessons also emit the OneNote HTML.
+    for md in md_sources:
+        docx = md.with_suffix(".docx")
+        md_to_docx(md, docx, reference_doc)
+        written.append(str(docx))
+        if not docx_only:
+            onhtml = md.with_suffix(".onenote.html")
+            md_to_onenote_html(md, onhtml)
+            validate_onenote_html(onhtml, schema_path)
+            written.append(str(onhtml))
+
+    # 3. Legacy only: static-ify the interactive HTML student page
+    if not docx_only:
+        onenote_html = folder / "Student_Exploration.onenote.html"
+        static_text = staticify(
+            student_html.read_text(encoding="utf-8"),
+            css_root=css_root,
+            html_dir=folder,
+        )
+        onenote_html.write_text(static_text, encoding="utf-8")
+        validate_onenote_html(onenote_html, schema_path)
+        written.append(str(onenote_html))
 
     return written
 
@@ -101,16 +130,21 @@ def build_assessments(
     return written
 
 
+def _is_lesson_folder(folder: Path) -> bool:
+    """A folder is a lesson if it has a Teacher Guide (either format)."""
+    return (folder / "Teacher_Guide.md").exists()
+
+
 def _iter_lesson_folders(unit: Path):
     for child in sorted(unit.iterdir()):
-        if child.is_dir() and (child / "Student_Exploration.html").exists():
+        if child.is_dir() and _is_lesson_folder(child):
             yield child
 
 
 def build_target(target: Path, *, schema_path: Path, reference_doc: Path | None) -> dict:
     css_root = DEFAULT_REFACTOR / "_assets"
     report = {"built": [], "failed": []}
-    if (target / "Student_Exploration.html").exists():
+    if _is_lesson_folder(target):
         try:
             report["built"] += build_lesson_folder(
                 target, schema_path=schema_path,
@@ -163,7 +197,7 @@ def main() -> int:
     else:
         target = DEFAULT_REFACTOR.resolve()
 
-    if (target / "Student_Exploration.html").exists():
+    if _is_lesson_folder(target):
         report = build_target(target, schema_path=schema_path, reference_doc=reference)
     elif target == DEFAULT_REFACTOR.resolve():
         report = {"built": [], "failed": []}

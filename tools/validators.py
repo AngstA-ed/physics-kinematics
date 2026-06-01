@@ -102,6 +102,35 @@ def validate_answer_key(path: Path, schema_path: Path) -> None:
             )
 
 
+def validate_student_worksheet(path: Path, schema_path: Path) -> None:
+    """Validate a DOCX-only Student Worksheet markdown source."""
+    schema = _load_schema(schema_path)
+    text = path.read_text(encoding="utf-8")
+    h2s = _level_two_headings(text)
+    for required in schema["student_worksheet_required_headings"]:
+        if not _heading_present(required, h2s):
+            raise ValidationError(
+                f"{path.name}: missing required heading '## {required}'"
+            )
+
+
+def validate_student_notes(path: Path, schema_path: Path) -> None:
+    """Validate a DOCX-only Student Notes (guided-notes) markdown source."""
+    schema = _load_schema(schema_path)
+    text = path.read_text(encoding="utf-8")
+    h2s = _level_two_headings(text)
+    for required in schema["student_notes_required_headings"]:
+        if not _heading_present(required, h2s):
+            raise ValidationError(
+                f"{path.name}: missing required heading '## {required}'"
+            )
+    if _vocab_count(text) > schema["vocab_max"]:
+        raise ValidationError(
+            f"{path.name}: vocab exceeds {schema['vocab_max']} "
+            f"(found {_vocab_count(text)})"
+        )
+
+
 def validate_unit_plan(path: Path, schema_path: Path) -> None:
     schema = _load_schema(schema_path)
     text = path.read_text(encoding="utf-8")
