@@ -154,7 +154,58 @@
 <blockquote>
 <p>Setup: ______ × ______ = ______ × ______ V_b = ______ mL</p>
 </blockquote>
-<hr /></section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>Solve each titration problem. Label the acid and base, substitute into M_a V_a = M_b V_b, and solve for the missing variable. <strong>These are the same situations you worked in the Investigation — confirm your setups here.</strong></p>
+<hr />
+<div class="lab" data-interactive="true">
+  <div class="lab-canvas">
+    <svg id="ti-svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Titration curve">
+      <rect x="70" y="20" width="360" height="300" fill="#ffffff" stroke="#c7c7cc" stroke-width="1.5"/>
+      <line x1="70" y1="170" x2="430" y2="170" stroke="#e5e5ea" stroke-width="1"/>
+      <text x="60" y="25" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#8a8a93">14</text>
+      <text x="60" y="174" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#8a8a93">7</text>
+      <text x="60" y="320" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#8a8a93">0</text>
+      <path id="ti-path" d="" fill="none" stroke="#662e80" stroke-width="3"/>
+      <circle id="ti-dot" cx="70" cy="318" r="6" fill="#f37366"/>
+      <text x="250" y="345" text-anchor="middle" font-family="Lora" font-size="13" fill="#14141a">volume of base added (mL)</text>
+      <!-- beaker -->
+      <rect id="ti-beaker" x="500" y="150" width="90" height="150" rx="6" fill="#d8f0ff" stroke="#14141a" stroke-width="2.5"/>
+      <text x="545" y="320" text-anchor="middle" font-family="Lora" font-size="12" fill="#14141a">solution</text>
+    </svg>
+  </div>
+  <div class="lab-controls">
+    <div class="button-bar">
+      <label>Base added
+        <input id="ti-vol" type="range" min="0" max="50" step="1" value="0" style="width:200px;vertical-align:middle;">
+      </label>
+    </div>
+    <div class="lab-readouts">
+      <div class="readout-card"><span class="key">Volume added</span><span class="val" id="ti-v">0 mL</span></div>
+      <div class="readout-card"><span class="key">pH</span><span class="val accent" id="ti-ph">1.0</span></div>
+      <div class="readout-card"><span class="key">Solution is</span><span class="val" id="ti-state">acidic</span></div>
+    </div>
+  </div>
+</div>
+<script>(function(){
+  function pH(v){return 1+12/(1+Math.exp(-(v-25)*0.45));}
+  function X(v){return 70+ (v/50)*360;}
+  function Y(p){return 20+ (14-p)/14*300;}
+  var path=document.getElementById('ti-path'), dot=document.getElementById('ti-dot'), beaker=document.getElementById('ti-beaker');
+  function render(){
+    var v=parseFloat(document.getElementById('ti-vol').value), p=pH(v);
+    var d='M '+X(0)+' '+Y(pH(0));
+    for(var t=0;t<=v;t+=1){ d+=' L '+X(t)+' '+Y(pH(t)); }
+    path.setAttribute('d',d);
+    dot.setAttribute('cx',X(v)); dot.setAttribute('cy',Y(p));
+    // indicator colour: phenolphthalein-style (colourless acid -> pink base), via simple ramp
+    var col = p<6 ? '#d8f0ff' : (p<8 ? '#eafbe7' : '#ffd6ec');
+    beaker.setAttribute('fill',col);
+    document.getElementById('ti-v').textContent=Math.round(v)+' mL';
+    document.getElementById('ti-ph').textContent=p.toFixed(1);
+    document.getElementById('ti-state').textContent = p<6.5?'acidic':(p<7.5?'neutral':'basic');
+  }
+  document.getElementById('ti-vol').addEventListener('input',render); render();
+})();</script>
+<p style="margin-top:.6rem;"><em>Add base drop by drop.</em> The pH barely moves at first, then leaps through the steep <strong>equivalence point</strong> near 25 mL — where moles of base equal moles of acid — and the indicator changes colour.</p>
+</section><section id="mims" class="section"><h2><span class="num">06</span> Make it make sense</h2><p>Solve each titration problem. Label the acid and base, substitute into M_a V_a = M_b V_b, and solve for the missing variable. <strong>These are the same situations you worked in the Investigation — confirm your setups here.</strong></p>
 <p><strong>1. Solve for M_a:</strong> 25.0 mL of HCl is neutralized by 25.0 mL of 0.10 M NaOH.</p>
 <blockquote>
 <p>M_a × ______ = ______ × ______ → M_a = ______ M</p>

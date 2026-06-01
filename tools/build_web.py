@@ -11,8 +11,11 @@ Usage:
     python tools/build_web.py --units 02_Physical_Behavior_of_Matter
 """
 from __future__ import annotations
-import argparse, html, re, shutil, subprocess
+import argparse, html, re, shutil, subprocess, sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from tools.web_interactives import INTERACTIVES
 
 ROOT = Path(__file__).resolve().parent.parent
 REFACTOR = ROOT / "Publisher_Ready_Curriculum" / "02_Chemistry_East_Meadow_Refactor"
@@ -223,7 +226,11 @@ def lesson_page(unit, lesson_dir, idx, total, prev_link, next_link) -> str:
     if "initial model" in secs:
         sec("initial", "", "Initial model", fix_imgs(md_to_html(secs["initial model"])))
     if "investigation" in secs:
-        sec("investigate", "", "Investigate", fix_imgs(md_to_html(secs["investigation"])))
+        inv = fix_imgs(md_to_html(secs["investigation"]))
+        key = f"{unit['num']}-{lesson_dir.split('_')[0]}-{slug(lesson_dir)}"
+        if key in INTERACTIVES:
+            inv += INTERACTIVES[key]
+        sec("investigate", "", "Investigate", inv)
     if "make it make sense" in secs:
         sec("mims", "", "Make it make sense", fix_imgs(md_to_html(secs["make it make sense"])))
     if vocab:
