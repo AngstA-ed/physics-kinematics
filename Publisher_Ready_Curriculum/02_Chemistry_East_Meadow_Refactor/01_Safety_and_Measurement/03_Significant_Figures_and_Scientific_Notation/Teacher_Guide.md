@@ -241,7 +241,7 @@ Target: Student C's ruler has millimeter markings and one estimated digit — th
 Post or read aloud:
 
 > *(a) How many significant figures are in 0.03080?*
-> *(b) Write 6,420,000 in scientific notation.*
+> *(b) Write 48,500,000 in scientific notation.*
 > *(c) Round 7.86342 to 3 significant figures.*
 
 Expected answers are in `Answer_Key.docx`.

@@ -33,11 +33,11 @@ NYSSLS tag: Foundational → HS-PS1-7
 
 (a) **0.03080 has 4 significant figures.** Walk through digit by digit: first 0 — leading, not significant; second 0 — leading, not significant; 3 — non-zero, significant; 0 — captive between 3 and 8, significant; 8 — non-zero, significant; final 0 — trailing after the decimal, significant. The four significant digits are: 3, 0, 8, 0.
 
-(b) **6,420,000 = 6.42 × 10⁶.** Move the decimal six places to the left. The coefficient (6.42) is between 1 and 10, and the exponent (6) is positive because the original number is greater than 1. Three significant figures.
+(b) **48,500,000 = 4.85 × 10⁷.** Move the decimal seven places to the left. The coefficient (4.85) is between 1 and 10, and the exponent (7) is positive because the original number is greater than 1. Three significant figures.
 
 (c) **7.86342 rounded to 3 significant figures = 7.86.** The first three significant figures are 7, 8, and 6. The next digit is 3, which is less than 5, so the 6 stays — no rounding up. Result: 7.86.
 
-*Tolerance/rubric:* (a) 1 point for the correct count (4); 1 bonus point for correctly categorizing all four digit-types. (b) 1 point for the correct coefficient; 1 point for the correct exponent including sign. (c) 1 point for the correct rounded value; partial credit (0.5) if the student rounds to 7.9 (rounding correctly but misidentifying which digit is the third sig fig). NYSSLS: HS-PS1-7 foundational.
+*Tolerance/rubric:* (a) 1 point for the correct count (4); 1 bonus point for correctly categorizing all four digit-types. (b) 1 point for the correct coefficient (4.85); 1 point for the correct exponent including sign (10⁷). (c) 1 point for the correct rounded value; partial credit (0.5) if the student rounds to 7.9 (rounding correctly but misidentifying which digit is the third sig fig). NYSSLS: HS-PS1-7 foundational.
 
 ## Closing Reflection (rubric)
 

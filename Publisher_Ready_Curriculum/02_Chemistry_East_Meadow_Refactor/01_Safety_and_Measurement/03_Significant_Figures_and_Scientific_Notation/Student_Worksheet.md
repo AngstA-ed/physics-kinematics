@@ -150,7 +150,7 @@ Then finish this Because / But / So sentence:
 
 > _______________
 
-(b) Write 6,420,000 in scientific notation.
+(b) Write 48,500,000 in scientific notation.
 
 > _______________________________________________
 
