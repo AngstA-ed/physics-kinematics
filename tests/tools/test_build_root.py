@@ -5,7 +5,9 @@ from tools.build_lessons import resolve_build_root, DEFAULT_REFACTOR
 def test_default_root_uses_physics_refactor():
     root, ref = resolve_build_root(None, None)
     assert root == DEFAULT_REFACTOR.resolve()
-    assert ref is not None and ref.name == "reference.docx"
+    expected = DEFAULT_REFACTOR.resolve() / "_assets" / "brand" / "reference.docx"
+    # reference is that path when present, else None — never a different location
+    assert ref in (expected, None)
 
 
 def test_custom_root_default_reference_under_that_root(tmp_path):

@@ -175,8 +175,9 @@ def _unit_is_docx_only(unit: Path) -> bool:
                    for lesson in _iter_lesson_folders(unit))
 
 
-def build_target(target: Path, *, schema_path: Path, reference_doc: Path | None) -> dict:
-    css_root = DEFAULT_REFACTOR / "_assets"
+def build_target(target: Path, *, schema_path: Path, reference_doc: Path | None,
+                 refactor_root: Path = DEFAULT_REFACTOR) -> dict:
+    css_root = refactor_root / "_assets"
     report = {"built": [], "failed": []}
     if _is_lesson_folder(target):
         try:
@@ -234,16 +235,19 @@ def main() -> int:
         target = refactor_root.resolve()
 
     if _is_lesson_folder(target):
-        report = build_target(target, schema_path=schema_path, reference_doc=reference)
+        report = build_target(target, schema_path=schema_path, reference_doc=reference,
+                              refactor_root=refactor_root)
     elif target == refactor_root.resolve():
         report = {"built": [], "failed": []}
         for unit in sorted(target.iterdir()):
             if unit.is_dir() and unit.name.startswith(("0", "1")) and unit.name != "_assets":
-                sub = build_target(unit, schema_path=schema_path, reference_doc=reference)
+                sub = build_target(unit, schema_path=schema_path, reference_doc=reference,
+                                   refactor_root=refactor_root)
                 report["built"] += sub["built"]
                 report["failed"] += sub["failed"]
     else:
-        report = build_target(target, schema_path=schema_path, reference_doc=reference)
+        report = build_target(target, schema_path=schema_path, reference_doc=reference,
+                              refactor_root=refactor_root)
 
     # Write build_report.md (spec §7.2 step 5)
     report_md = ROOT / "build_report.md"
