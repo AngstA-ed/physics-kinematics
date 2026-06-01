@@ -101,18 +101,21 @@ def build_lesson_folder(
     return written
 
 
-def build_unit_plan(folder: Path, *, schema_path: Path, reference_doc: Path | None) -> list[str]:
+def build_unit_plan(folder: Path, *, schema_path: Path, reference_doc: Path | None,
+                    docx_only: bool = False) -> list[str]:
     written: list[str] = []
     md = folder / "Unit_Plan.md"
     if not md.exists():
         return written
     validate_unit_plan(md, schema_path)
     docx = md.with_suffix(".docx")
-    onhtml = md.with_suffix(".onenote.html")
     md_to_docx(md, docx, reference_doc)
-    md_to_onenote_html(md, onhtml)
-    validate_onenote_html(onhtml, schema_path)
-    written += [str(docx), str(onhtml)]
+    written.append(str(docx))
+    if not docx_only:
+        onhtml = md.with_suffix(".onenote.html")
+        md_to_onenote_html(md, onhtml)
+        validate_onenote_html(onhtml, schema_path)
+        written.append(str(onhtml))
     return written
 
 
@@ -141,6 +144,13 @@ def _iter_lesson_folders(unit: Path):
             yield child
 
 
+def _unit_is_docx_only(unit: Path) -> bool:
+    """A unit is DOCX-only when none of its lessons has an interactive HTML
+    student page (so the unit plan should emit no OneNote HTML either)."""
+    return not any((lesson / "Student_Exploration.html").exists()
+                   for lesson in _iter_lesson_folders(unit))
+
+
 def build_target(target: Path, *, schema_path: Path, reference_doc: Path | None) -> dict:
     css_root = DEFAULT_REFACTOR / "_assets"
     report = {"built": [], "failed": []}
@@ -159,6 +169,7 @@ def build_target(target: Path, *, schema_path: Path, reference_doc: Path | None)
         try:
             report["built"] += build_unit_plan(
                 target, schema_path=schema_path, reference_doc=reference_doc,
+                docx_only=_unit_is_docx_only(target),
             )
         except Exception as e:
             report["failed"].append((str(target), str(e)))
