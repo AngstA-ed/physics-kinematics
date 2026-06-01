@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Newton's Third Law (Action and Reaction) — Unit: Forces</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Forces — Lesson 03: Newton's Third Law (Action and Reaction)</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Two students sit facing each other in rolling chairs, the soles of their shoes touching. On a count, <strong>only one</strong> of them pushes. Yet <em>both</em> students roll apart — and the lighter one rolls away faster.</p>
+  <p>Only one person pushed. How did both end up moving?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>If only one person pushed, why did <em>both</em> people move?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the push-off. Write two things you <em>notice</em> and two things you <em>wonder</em>. Use the word <em>force</em> in at least one line.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">If only one person pushed, why did <em>both</em> people move? Use the word <em>force</em> in your answer.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the two students at the moment of the push. Draw an arrow for <strong>every push</strong> acting in the system, and <strong>label which object each arrow acts on</strong>. Then predict how the two pushes compare in size.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Object A pushes Object B. Click <strong>Push!</strong> and watch what happens. Newton's Third Law says the force A exerts on B is always equal in size and opposite in direction to the force B exerts back on A. The two arrows are always the <em>same length</em>, pointing opposite ways — and they act on <em>two different objects</em>, so they never cancel. Change the push strength and watch both arrows update together.</p>
+  <div data-interactive="true">
+    <svg id="t3-canvas" width="480" height="220" viewBox="0 0 480 220" role="img" aria-label="Object A and object B with equal and opposite force arrows">
+      <defs>
+        <marker id="t3-arrow-a" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 10 0 L 0 5 L 10 10 z" fill="#662e80"/></marker>
+        <marker id="t3-arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2ea3f2"/></marker>
+      </defs>
+      <line x1="0" y1="160" x2="480" y2="160" stroke="#cccccc" stroke-width="2"/>
+      <g id="t3-obj-a">
+        <circle cx="170" cy="120" r="34" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+        <text x="170" y="126" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#662e80">A</text>
+      </g>
+      <g id="t3-obj-b">
+        <circle cx="310" cy="120" r="34" fill="#e3f1fb" stroke="#2ea3f2" stroke-width="2"/>
+        <text x="310" y="126" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#2ea3f2">B</text>
+      </g>
+      <!-- force ON A (from B), points left -->
+      <line id="t3-force-a" x1="136" y1="120" x2="136" y2="120" stroke="#662e80" stroke-width="5" marker-end="url(#t3-arrow-a)"/>
+      <!-- force ON B (from A), points right -->
+      <line id="t3-force-b" x1="344" y1="120" x2="344" y2="120" stroke="#2ea3f2" stroke-width="5" marker-end="url(#t3-arrow-b)"/>
+      <text x="100" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#662e80">force on A</text>
+      <text x="380" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">force on B</text>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="t3-push" type="button">Push! (A pushes B)</button>
+        <button id="t3-reset" type="button">Reset</button>
+      </div>
+      <label>Push strength: <input id="t3-strength" type="range" min="2" max="10" value="6"> <span id="t3-strength-val" class="readout">6</span> N</label>
+      <p>Force A → B: <span id="t3-fab" class="readout">0</span> N (right) · Force B → A: <span id="t3-fba" class="readout">0</span> N (left) · <span id="t3-note" class="readout">Equal and opposite, on two different objects.</span></p>
+    </div>
+    <script>
+      (function () {
+        const strength = document.getElementById("t3-strength");
+        const SCALE = 9;
+        let t = null;
+        function setArrows(N) {
+          document.getElementById("t3-fab").textContent = N;
+          document.getElementById("t3-fba").textContent = N;
+          const fa = document.getElementById("t3-force-a"); // on A, points left from x=136
+          const fb = document.getElementById("t3-force-b"); // on B, points right from x=344
+          fa.setAttribute("x2", 136 - N * SCALE);
+          fb.setAttribute("x2", 344 + N * SCALE);
+        }
+        function reset() {
+          if (t) { cancelAnimationFrame(t); t = null; }
+          document.getElementById("t3-obj-a").setAttribute("transform", "translate(0,0)");
+          document.getElementById("t3-obj-b").setAttribute("transform", "translate(0,0)");
+          setArrows(0);
+        }
+        function push() {
+          const N = +strength.value;
+          setArrows(N);
+          // both objects accelerate apart; lighter A drawn moving a bit more
+          let dist = 0;
+          const max = 60 + N * 4;
+          if (t) cancelAnimationFrame(t);
+          function step() {
+            dist += 1.5;
+            const a = Math.min(dist, max);
+            document.getElementById("t3-obj-a").setAttribute("transform", "translate(" + (-a) + ",0)");
+            document.getElementById("t3-obj-b").setAttribute("transform", "translate(" + (a) + ",0)");
+            if (a < max) t = requestAnimationFrame(step);
+          }
+          step();
+        }
+        strength.addEventListener("input", function () {
+          document.getElementById("t3-strength-val").textContent = strength.value;
+        });
+        document.getElementById("t3-push").addEventListener("click", push);
+        document.getElementById("t3-reset").addEventListener("click", reset);
+        setArrows(0);
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Before the push, A and B sit at rest, touching. No force arrows are drawn yet.</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <circle cx="110" cy="45" r="26" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <text x="110" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#662e80">A</text>
+      <circle cx="170" cy="45" r="26" fill="#e3f1fb" stroke="#2ea3f2" stroke-width="2"/>
+      <text x="170" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#2ea3f2">B</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> A pushes B. Two arrows appear at once — equal length, pointing opposite ways: the force on B points right, the force on A points left. They are an action–reaction pair.</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <circle cx="110" cy="45" r="26" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <text x="110" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#662e80">A</text>
+      <circle cx="170" cy="45" r="26" fill="#e3f1fb" stroke="#2ea3f2" stroke-width="2"/>
+      <text x="170" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#2ea3f2">B</text>
+      <line x1="84" y1="45" x2="34" y2="45" stroke="#662e80" stroke-width="4"/>
+      <line x1="196" y1="45" x2="246" y2="45" stroke="#2ea3f2" stroke-width="4"/>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Both objects roll apart. The two forces did <em>not</em> cancel, because they act on two different objects — each object feels only its own single force. (A lighter object speeds up more for the same force: a = F/m.)</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <circle cx="60" cy="45" r="26" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <text x="60" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#662e80">A</text>
+      <circle cx="220" cy="45" r="26" fill="#e3f1fb" stroke="#2ea3f2" stroke-width="2"/>
+      <text x="220" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#2ea3f2">B</text>
+    </svg>
+  </noscript>
+  <p>The action–reaction pair: equal-length arrows, opposite directions, on two different bodies — which is exactly why they don't cancel.</p>
+  <img src="figures/action_reaction_pair.png" alt="Action–reaction pair: object A and object B side by side, with an equal-length force arrow pushing right on B and an equal-length force arrow pushing left on A." style="max-width:340px;">
+</section>
+
+<aside class="turn-and-talk">Across the balloon rocket, the chair push-off, and the card sort, what was always true about the <em>two</em> forces and the <em>two</em> objects? Use the simulator to show why the two arrows never cancel.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>You walk forward across the floor. Name the action–reaction pair and state which object each force acts on.</li>
+    <li>A rocket has no air to push against in space. How does it still speed up? Name the force pair.</li>
+    <li>A small student and a large student push off in rolling chairs. The forces on each other are equal — so why does the smaller student roll away faster?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"___ pushes ___, so ___ pushes ___ back, equal and opposite — and because they act on different objects, they ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>action–reaction pair</strong> — the two forces produced by one interaction; equal in magnitude and opposite in direction, acting on two different objects</li>
+    <li><strong>force pair</strong> — another name for an action–reaction pair; the two forces are always reported together</li>
+    <li><strong>interaction</strong> — the mutual push or pull between two objects; a force is one half of an interaction, never something a single object has alone</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your push-off drawing. Make sure you have <strong>two arrows</strong>, equal in length, pointing opposite ways, each labeled with the object it acts on. In one sentence, explain why they do <strong>not</strong> cancel.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why did the <em>lighter</em> student roll faster if the two forces were equal? Answer in one sentence: the forces are equal, but equal force on less mass gives more acceleration (a = F/m), so the lighter student speeds up more.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A swimmer pushes off the pool wall and glides forward.
+      <br>(a) Name the action–reaction pair. State which object each force acts on. (b) The two forces are equal and opposite — so why doesn't the swimmer stay still? (c) True or false: action and reaction forces cancel each other out. Explain.
+    </li>
+    <li><em>Reflection:</em> What is one idea today that pushed back on what you used to think? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://youtube.com/shorts/FMWxvYpGRBI" target="_blank" rel="noopener">Newton's Third Law demo — rolling-chair push-off (video short)</a></li>
+    <li><a href="https://www.khanacademy.org/science/physics/forces-newtons-laws/newtons-laws-of-motion/a/what-is-newtons-third-law" target="_blank" rel="noopener">What is Newton's third law? — Khan Academy</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · forces-03</p>
+</footer>
+
+</div>
+</body>
+</html>

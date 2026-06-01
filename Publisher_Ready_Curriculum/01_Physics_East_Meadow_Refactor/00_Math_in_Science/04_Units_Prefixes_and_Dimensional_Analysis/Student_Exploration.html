@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Units, Prefixes, and Dimensional Analysis — Unit: Math in Science</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Math in Science — Lesson 04: Units, Prefixes, and Dimensional Analysis</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A recipe reads "250 g flour, 0.2 L milk, bake at 180 °C" — but your kitchen has measuring cups and an oven in °F. A road sign says "100 km/h" — but your speedometer reads mph. Same physical amounts, different units. Today you become the translator, and you do it so carefully that the <em>units themselves</em> tell you when you're right.</p>
+  <img src="figures/factor_label.png" alt="Factor-label conversion of 90 km/h to m/s, showing the km and h units canceling">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>How do we change a quantity's units without changing the actual amount — and how do the units themselves prove we did it right?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Which numbers in the recipe or on the sign are in units your kitchen or car can't read? What would you need to "translate" them?</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn &amp; Talk: Pick one quantity from the recipe or the sign. What would you have to do to express it in units you can actually use?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Pick one quantity from the recipe or the road sign. Write what you'd have to do to express it in the US system. Do you think the <em>number</em> will get bigger or smaller? Why?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Type a value, choose its <strong>metric prefix</strong>, and the converter shows the factor-label step that rescales it to the base SI unit. Watch the prefix unit <em>cancel</em>, leaving only the base unit — that cancellation is how the units prove the answer is right.</p>
+  <div data-interactive="true">
+    <div class="controls">
+      <label>Value: <input id="uc-val" type="number" value="2.5" step="any" style="width:7em;"></label>
+      <label>Prefix:
+        <select id="uc-prefix">
+          <option value="3">kilo (k) = 10³</option>
+          <option value="-2">centi (c) = 10⁻²</option>
+          <option value="-3" selected>milli (m) = 10⁻³</option>
+          <option value="-6">micro (μ) = 10⁻⁶</option>
+          <option value="6">mega (M) = 10⁶</option>
+        </select>
+      </label>
+      <label>Base unit:
+        <select id="uc-unit">
+          <option value="m">meter (m)</option>
+          <option value="g">gram (g)</option>
+          <option value="s">second (s)</option>
+        </select>
+      </label>
+    </div>
+    <svg id="uc-canvas" width="480" height="170" viewBox="0 0 480 170" role="img" aria-label="Factor-label unit conversion">
+      <text id="uc-given" x="20" y="60" font-family="Inter, sans-serif" font-size="16" fill="#1a1a1a"></text>
+      <g id="uc-fraction">
+        <line id="uc-bar" x1="0" y1="0" x2="0" y2="0" stroke="#1a1a1a" stroke-width="1.5"/>
+        <text id="uc-num" x="0" y="0" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#2ea3f2"></text>
+        <text id="uc-den" x="0" y="0" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#2ea3f2"></text>
+      </g>
+      <text id="uc-result" x="20" y="130" font-family="Inter, sans-serif" font-size="16" fill="#662e80"></text>
+    </svg>
+    <div class="controls">
+      <p>Converted to base SI unit: <span id="uc-out" class="readout">0</span></p>
+    </div>
+    <script>
+      (function () {
+        const SUP = {"-":"⁻","0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹"};
+        const NAME = {"3":"k","-2":"c","-3":"m","-6":"μ","6":"M"};
+        function sup(n){ return String(n).split("").map(c => SUP[c] || c).join(""); }
+        const valEl = document.getElementById("uc-val");
+        const prefEl = document.getElementById("uc-prefix");
+        const unitEl = document.getElementById("uc-unit");
+        function draw() {
+          const val = parseFloat(valEl.value);
+          const p = +prefEl.value;
+          const base = unitEl.value;
+          const pre = NAME[prefEl.value] + base;       // e.g. "mm"
+          const factor = Math.pow(10, p);
+          const out = (isNaN(val) ? 0 : val) * factor;
+          // given quantity
+          document.getElementById("uc-given").textContent = (isNaN(val) ? "?" : val) + " " + pre + "  ×";
+          // factor-label fraction: (10^p base) / (1 pre)
+          const numTxt = "10" + sup(p) + " " + base;
+          const denTxt = "1 " + pre;
+          const fx = 250;
+          const num = document.getElementById("uc-num");
+          num.setAttribute("x", fx); num.setAttribute("y", 42); num.textContent = numTxt;
+          const den = document.getElementById("uc-den");
+          den.setAttribute("x", fx); den.setAttribute("y", 78); den.textContent = denTxt;
+          const bar = document.getElementById("uc-bar");
+          bar.setAttribute("x1", fx - 55); bar.setAttribute("y1", 52);
+          bar.setAttribute("x2", fx + 55); bar.setAttribute("y2", 52);
+          // result: the prefixed unit cancels, base unit remains
+          const fmt = (Math.abs(out) >= 1e6 || (Math.abs(out) < 1e-4 && out !== 0))
+            ? out.toExponential(3) : String(parseFloat(out.toPrecision(6)));
+          document.getElementById("uc-result").textContent =
+            "=  " + fmt + " " + base + "   (the " + pre + " cancels — only " + base + " is left)";
+          document.getElementById("uc-out").textContent = fmt + " " + base;
+        }
+        valEl.addEventListener("input", draw);
+        prefEl.addEventListener("change", draw);
+        unitEl.addEventListener("change", draw);
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Start with a prefixed quantity, e.g. 2.5 km. The prefix "kilo" means × 10³, so 1 km = 1000 m.</p>
+    <svg width="280" height="60" viewBox="0 0 280 60">
+      <text x="20" y="35" font-family="Inter, sans-serif" font-size="14" fill="#1a1a1a">2.5 km</text>
+      <text x="120" y="35" font-family="Inter, sans-serif" font-size="12" fill="#666">kilo = 10³ = 1000</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Multiply by the conversion factor written as a ratio equal to 1, with km on the bottom so it cancels: 2.5 km × (1000 m / 1 km).</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <text x="20" y="50" font-family="Inter, sans-serif" font-size="14" fill="#1a1a1a">2.5 km ×</text>
+      <line x1="120" y1="45" x2="230" y2="45" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="175" y="35" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#2ea3f2">1000 m</text>
+      <text x="175" y="70" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#2ea3f2">1 km</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> The km on top of the given quantity cancels the km on the bottom of the factor. Only meters remain: 2.5 km = 2500 m.</p>
+    <svg width="280" height="60" viewBox="0 0 280 60">
+      <text x="20" y="35" font-family="Inter, sans-serif" font-size="15" fill="#662e80">= 2500 m</text>
+      <text x="120" y="35" font-family="Inter, sans-serif" font-size="11" fill="#666">(km cancels)</text>
+    </svg>
+    <p><strong>Storyboard frame 4.</strong> Switching the prefix to milli (10⁻³) shrinks the unit, so it takes more of them: 45 mm = 0.045 m. A bigger unit always needs fewer of them.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Turn &amp; Talk: When you multiply by (1000 m / 1 km), why are you <em>allowed</em> to? How do you know which way to write the ratio so the unwanted unit <em>cancels</em>?</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Convert 5,000 m to kilometers. Did the number get bigger or smaller, and why?</li>
+    <li>Convert 3.2 m to centimeters.</li>
+    <li>A student converts 72 km/h and gets an answer in km·m/h. What went wrong, and how should they fix it?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"To go from ___ to ___, I multiply by ___ so the ___ cancels."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>SI unit</strong> — the agreed international scientific unit for a quantity: meter (length), kilogram (mass), second (time)</li>
+    <li><strong>metric prefix</strong> — a word/symbol (k, c, m, μ, M) that rescales a base unit by a power of ten (kilo = 10³, milli = 10⁻³)</li>
+    <li><strong>dimensional analysis</strong> — the factor-label method: multiplying by ratios equal to 1 so unwanted units cancel, leaving the desired units</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to the quantity you chose in your Initial Model. Convert it now, showing your factor-label or prefix step. Was your "bigger or smaller" prediction right?</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Pick one recipe or road-sign quantity. State it in the US (or base SI) system in one sentence, and name how you knew your conversion was right. Target: "100 km/h ≈ 62 mph, and I knew it was right because the km and h units canceled, leaving mi/h."</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) Convert <strong>2.5 km</strong> to meters.
+      <br>(b) Convert <strong>45 mm</strong> to meters (use the prefix).
+      <br>(c) Convert <strong>72 km/h</strong> to m/s using the factor-label method, and circle the units that cancel.
+    </li>
+    <li><em>Reflection:</em> Where else in your life would "check that the units make sense" have saved you a mistake? Name one.</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://www.nist.gov/pml/owm/metric-si/si-units" target="_blank" rel="noopener">NIST — SI Units primer (base units and prefixes)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · math-in-science-04</p>
+</footer>
+
+</div>
+</body>
+</html>

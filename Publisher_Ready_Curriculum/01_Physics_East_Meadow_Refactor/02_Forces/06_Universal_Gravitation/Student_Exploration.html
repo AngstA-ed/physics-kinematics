@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Universal Gravitation — Unit: Forces</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Forces — Lesson 06: Universal Gravitation</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Earth's gravity reaches all the way out to the Moon — it is exactly what holds the Moon in orbit. Yet the Moon never falls down onto Earth, and astronauts circling Earth float as if there were no gravity at all.</p>
+  <p>Gravity clearly reaches into space. So why doesn't the Moon just fall — and what makes that pull stronger or weaker?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What decides how strongly two objects pull on each other through gravity?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Look at the Moon's orbit and the floating astronauts. Write two things you <em>notice</em> and two things you <em>wonder</em>. Use the word <em>distance</em> in at least one line.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Name two things that might change how strongly two objects pull on each other.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw two spheres. Draw an arrow showing the pull <strong>each</strong> sphere feels from the other. Then predict: if you make one sphere heavier, what happens to the arrows? If you move them farther apart, what happens?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Two masses attract each other. Drag the <strong>separation</strong> slider and watch the force arrows grow and shrink. The force follows the <strong>inverse-square law</strong>: F<sub>g</sub> = G·m₁·m₂/r². Double the distance and the force drops to <em>one-quarter</em>, not one-half. Triple it and the force drops to <em>one-ninth</em>. Notice the two arrows are always <em>equal in size and opposite in direction</em>, no matter how different the masses (a Newton's-Third-Law cameo).</p>
+  <div data-interactive="true">
+    <svg id="ug-canvas" width="480" height="220" viewBox="0 0 480 220" role="img" aria-label="Two masses with equal and opposite gravitational force arrows that change with separation">
+      <defs>
+        <marker id="ug-arrow-1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#662e80"/></marker>
+        <marker id="ug-arrow-2" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 10 0 L 0 5 L 10 10 z" fill="#2ea3f2"/></marker>
+      </defs>
+      <circle id="ug-m1" cx="120" cy="110" r="26" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <text id="ug-m1-label" x="120" y="116" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#662e80">m₁</text>
+      <circle id="ug-m2" cx="360" cy="110" r="26" fill="#e3f1fb" stroke="#2ea3f2" stroke-width="2"/>
+      <text id="ug-m2-label" x="360" y="116" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#2ea3f2">m₂</text>
+      <!-- force on m1 (points right, toward m2) -->
+      <line id="ug-f1" x1="146" y1="110" x2="146" y2="110" stroke="#662e80" stroke-width="5" marker-end="url(#ug-arrow-1)"/>
+      <!-- force on m2 (points left, toward m1) -->
+      <line id="ug-f2" x1="334" y1="110" x2="334" y2="110" stroke="#2ea3f2" stroke-width="5" marker-end="url(#ug-arrow-2)"/>
+      <line id="ug-r-line" x1="120" y1="170" x2="360" y2="170" stroke="#999" stroke-width="1"/>
+      <text id="ug-r-text" x="240" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#999">r</text>
+    </svg>
+    <div class="controls">
+      <label>Separation r: <input id="ug-r" type="range" min="1" max="4" value="1" step="1"> <span id="ug-r-val" class="readout">1</span> (× base distance)</label>
+      <p>F<sub>g</sub> ∝ 1/r² → relative force = <span id="ug-force" class="readout">100</span>% of the baseline (the two pulls are always equal and opposite).</p>
+    </div>
+    <script>
+      (function () {
+        const rEl = document.getElementById("ug-r");
+        // map slider 1..4 to screen separation and inverse-square force
+        const M1X_BASE = 120, GAP_PER_UNIT = 60, CX = 240;
+        const ARROW_BASE = 60;
+        function draw() {
+          const r = +rEl.value;
+          document.getElementById("ug-r-val").textContent = r;
+          // position masses symmetrically about CX, farther apart as r grows
+          const half = 60 + (r - 1) * 50;
+          const m1x = CX - half, m2x = CX + half;
+          document.getElementById("ug-m1").setAttribute("cx", m1x);
+          document.getElementById("ug-m1-label").setAttribute("x", m1x);
+          document.getElementById("ug-m2").setAttribute("cx", m2x);
+          document.getElementById("ug-m2-label").setAttribute("x", m2x);
+          document.getElementById("ug-r-line").setAttribute("x1", m1x);
+          document.getElementById("ug-r-line").setAttribute("x2", m2x);
+          document.getElementById("ug-r-text").setAttribute("x", (m1x + m2x) / 2);
+          // inverse-square: force factor = 1/r^2
+          const factor = 1 / (r * r);
+          const len = ARROW_BASE * factor;
+          // force on m1 points right (toward m2), starting at its right edge
+          const f1 = document.getElementById("ug-f1");
+          f1.setAttribute("x1", m1x + 26);
+          f1.setAttribute("x2", m1x + 26 + len);
+          // force on m2 points left (toward m1), starting at its left edge
+          const f2 = document.getElementById("ug-f2");
+          f2.setAttribute("x1", m2x - 26);
+          f2.setAttribute("x2", m2x - 26 - len);
+          document.getElementById("ug-force").textContent = (factor * 100).toFixed(0);
+        }
+        rEl.addEventListener("input", draw);
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Two masses sit a baseline distance r apart. Each feels an equal-length attractive force arrow pointing toward the other. Call this force 100%.</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <circle cx="90" cy="45" r="20" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <circle cx="190" cy="45" r="20" fill="#e3f1fb" stroke="#2ea3f2" stroke-width="2"/>
+      <line x1="110" y1="45" x2="150" y2="45" stroke="#662e80" stroke-width="4"/>
+      <line x1="170" y1="45" x2="130" y2="45" stroke="#2ea3f2" stroke-width="4"/>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Double the distance (r → 2r). The force does <em>not</em> halve — it drops to one-quarter (25%), because the distance is <em>squared</em> in the denominator: 1/2² = 1/4. The arrows shrink to a quarter length.</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <circle cx="55" cy="45" r="20" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <circle cx="225" cy="45" r="20" fill="#e3f1fb" stroke="#2ea3f2" stroke-width="2"/>
+      <line x1="75" y1="45" x2="85" y2="45" stroke="#662e80" stroke-width="4"/>
+      <line x1="205" y1="45" x2="195" y2="45" stroke="#2ea3f2" stroke-width="4"/>
+      <text x="140" y="80" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#666">force = 25%</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> No matter how different the two masses are, the two pulls are always equal in size and opposite in direction — Newton's Third Law. The mass (amount of matter) never changes when you move the objects; only the force changes.</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <circle cx="80" cy="45" r="28" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <circle cx="200" cy="45" r="14" fill="#e3f1fb" stroke="#2ea3f2" stroke-width="2"/>
+      <line x1="108" y1="45" x2="140" y2="45" stroke="#662e80" stroke-width="4"/>
+      <line x1="186" y1="45" x2="154" y2="45" stroke="#2ea3f2" stroke-width="4"/>
+      <text x="140" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#666">equal &amp; opposite pulls</text>
+    </svg>
+  </noscript>
+  <p>The force falls off steeply — not linearly — as distance grows. That steep curve is the inverse-square law:</p>
+  <img src="figures/fg_vs_r_inverse_square.png" alt="Line graph of gravitational force versus distance r: a steep inverse-square curve that falls off rapidly as r increases." style="max-width:340px;">
+  <p>And no matter how different the two masses, the pulls are equal in size and opposite in direction:</p>
+  <img src="figures/two_mass_gravity.png" alt="Two masses m1 and m2 separated by distance r, each feeling an equal-length attractive force arrow pointing toward the other." style="max-width:340px;">
+</section>
+
+<aside class="turn-and-talk">When the distance <em>doubled</em>, did the force become one-half — or something else? Say the distance pattern as a rule, then check it on the simulator (try r = 2 and r = 3).</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Two objects pull on each other with a force of 12 N. Their masses stay the same, but you double the distance between them. What is the new force?</li>
+    <li>Your mass is the same on Earth and on the Moon, but you would weigh about 1/6 as much on the Moon. Explain how both statements can be true.</li>
+    <li>Earth pulls on the Moon. Does the Moon pull back on Earth? Is that pull bigger, smaller, or equal? Explain.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"When the distance doubles, the gravitational force becomes ___ because the distance is ___ in the formula."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>gravitational force</strong> — the attractive force every mass exerts on every other mass; near Earth's surface it is what we call weight (F<sub>g</sub> = mg)</li>
+    <li><strong>inverse-square law</strong> — the pattern in which a force shrinks with the <em>square</em> of the distance, so doubling the distance divides the force by four</li>
+    <li><strong>mass</strong> — the unchanging amount of matter in an object (in kilograms), which sets how strongly it gravitates and is not the same as weight</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your two-spheres drawing. Rewrite your prediction about distance using the words <em>inverse-square law</em> — be specific about what happens to the force when distance doubles. Then complete this Because / But / So sentence:</p>
+  <p>"The gravitational force depends on the masses <strong>because</strong> ___, <strong>but</strong> it depends even more sharply on distance <strong>because</strong> ___, <strong>so</strong> ___."</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why don't astronauts in orbit fall to Earth, even though Earth's gravity still pulls them? Answer in one sentence using <em>gravitational force</em> and <em>inverse-square law</em>: gravity still acts on them, but they are in continuous free fall — moving sideways fast enough that they keep "missing" Earth, so they circle it and float.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>Two satellites pull on each other with a gravitational force of 8 N.
+      <br>(a) Their masses stay the same, but the distance between them doubles. What is the new force? Show your reasoning. (b) Is the amount of matter (mass) in each satellite changed by moving them apart? Explain.
+    </li>
+    <li><em>Reflection:</em> What is one thing today that changed how you think about gravity or weight? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/gravity-force-lab-basics" target="_blank" rel="noopener">Gravity Force Lab: Basics — PhET (drag two masses; watch the force change)</a></li>
+    <li><a href="https://www.khanacademy.org/science/physics/centripetal-force-and-gravitation/gravity-newtonian/a/what-is-gravity" target="_blank" rel="noopener">What is gravity? — Khan Academy</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · forces-06</p>
+</footer>
+
+</div>
+</body>
+</html>

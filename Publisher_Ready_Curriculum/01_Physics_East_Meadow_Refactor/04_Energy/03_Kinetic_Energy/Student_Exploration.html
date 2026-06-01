@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Kinetic Energy — Unit: Work, Energy &amp; Power</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Work, Energy &amp; Power — Lesson 03: Kinetic Energy</h1>
+    <div><span class="strategy-chip btc">BTC</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A car at 20 mph and the <em>same</em> car at 40 mph: the speed only doubled, but the distance needed to stop roughly <em>quadruples</em>. The energy of motion is not growing the way you'd expect.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>How does the energy of a moving object depend on its speed — and why does a small speed increase make it so much harder to stop?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Look at the stopping-distance pattern. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">If the speed only doubled, why might the energy of motion grow by <em>more</em> than double? Make a guess about the math.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Write your prediction before any calculating: "When the car's speed doubles, I predict its energy of motion becomes ____ times bigger, because ____."</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>The mass is fixed at <strong>1000 kg</strong>. Slide the speed and watch the marker climb the KE = ½mv² curve. The curve bends upward because KE depends on speed <em>squared</em>. Predict the factor before you double the speed.</p>
+  <div data-interactive="true">
+    <svg id="ke-canvas" width="480" height="320" viewBox="0 0 480 320" role="img" aria-label="Kinetic energy vs speed curve">
+      <line x1="50" y1="280" x2="50" y2="20" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="50" y1="280" x2="460" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="60" y="35" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">KE (J)</text>
+      <text x="400" y="300" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">speed (m/s)</text>
+      <path id="ke-curve" d="" fill="none" stroke="#662e80" stroke-width="2.5"/>
+      <line id="ke-vline" x1="50" y1="280" x2="50" y2="280" stroke="#999" stroke-width="1" stroke-dasharray="3 3"/>
+      <circle id="ke-marker" cx="50" cy="280" r="6" fill="#2ea3f2"/>
+    </svg>
+    <div class="controls">
+      <label>Speed v (m/s): <input id="ke-v" type="range" min="0" max="40" step="2" value="10"> <span id="ke-vr" class="readout">10</span></label>
+      <p>Mass m = <span class="readout">1000</span> kg (fixed) · KE = ½mv² = <span id="ke-ke" class="readout">50000</span> J</p>
+    </div>
+    <script>
+      (function () {
+        const M = 1000, V_MAX = 40;
+        const X0 = 50, X1 = 460, Y0 = 280, Y_TOP = 20;
+        const KE_MAX = 0.5 * M * V_MAX * V_MAX; // 800,000 J
+        function px(v) { return X0 + (v / V_MAX) * (X1 - X0); }
+        function py(ke) { return Y0 - (ke / KE_MAX) * (Y0 - Y_TOP); }
+        // draw the curve once
+        let d = "";
+        for (let v = 0; v <= V_MAX; v += 1) {
+          const ke = 0.5 * M * v * v;
+          d += (v === 0 ? "M " : "L ") + px(v).toFixed(1) + " " + py(ke).toFixed(1) + " ";
+        }
+        document.getElementById("ke-curve").setAttribute("d", d);
+        const vin = document.getElementById("ke-v");
+        const marker = document.getElementById("ke-marker");
+        const vline = document.getElementById("ke-vline");
+        function update() {
+          const v = +vin.value;
+          const ke = 0.5 * M * v * v;
+          document.getElementById("ke-vr").textContent = v;
+          document.getElementById("ke-ke").textContent = ke.toLocaleString();
+          const x = px(v), y = py(ke);
+          marker.setAttribute("cx", x);
+          marker.setAttribute("cy", y);
+          vline.setAttribute("x1", x); vline.setAttribute("x2", x);
+          vline.setAttribute("y1", Y0); vline.setAttribute("y2", y);
+        }
+        vin.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A 1000 kg car at 10 m/s has KE = ½(1000)(10²) = 50,000 J. The marker sits low on a gently rising curve.</p>
+    <svg width="240" height="130" viewBox="0 0 240 130">
+      <line x1="30" y1="110" x2="220" y2="110" stroke="#1a1a1a" stroke-width="1"/>
+      <path d="M 30 110 Q 120 105 220 20" stroke="#662e80" stroke-width="2.5" fill="none"/>
+      <circle cx="78" cy="105" r="5" fill="#2ea3f2"/>
+      <text x="84" y="100" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">10 m/s: 50,000 J</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Double the speed to 20 m/s: KE = ½(1000)(20²) = 200,000 J — <em>four</em> times as much, not double. The marker jumps far up the curve.</p>
+    <svg width="240" height="130" viewBox="0 0 240 130">
+      <line x1="30" y1="110" x2="220" y2="110" stroke="#1a1a1a" stroke-width="1"/>
+      <path d="M 30 110 Q 120 105 220 20" stroke="#662e80" stroke-width="2.5" fill="none"/>
+      <circle cx="125" cy="78" r="5" fill="#2ea3f2"/>
+      <text x="60" y="50" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">20 m/s: 200,000 J (×4)</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Triple the speed to 30 m/s: KE = ½(1000)(30²) = 450,000 J — <em>nine</em> times the original. The factors 1 : 4 : 9 match n², because v is squared in ½mv².</p>
+    <svg width="240" height="130" viewBox="0 0 240 130">
+      <line x1="30" y1="110" x2="220" y2="110" stroke="#1a1a1a" stroke-width="1"/>
+      <path d="M 30 110 Q 120 105 220 20" stroke="#662e80" stroke-width="2.5" fill="none"/>
+      <circle cx="175" cy="45" r="5" fill="#2ea3f2"/>
+      <text x="50" y="30" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">30 m/s: 450,000 J (×9)</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Tour the curve: set v to 10, then 20, then 30 m/s. Read the KE each time. Convince your partner why doubling speed gives 4× the energy, not 2×.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A 2.0 kg ball moves at 3.0 m/s. Calculate its kinetic energy. Show KE = ½mv².</li>
+    <li>Two identical cars move down the road. Car A goes 15 m/s; car B goes 30 m/s. How many times more kinetic energy does car B have? Explain using v².</li>
+    <li>Your friend says "double the speed, double the energy." Use the formula to correct your friend.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"When speed becomes ___ times bigger, KE becomes ___ times bigger, because the speed is ___ in ½mv²."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>kinetic energy</strong> — the energy an object has because of its motion; KE = ½mv², in joules</li>
+    <li><strong>mass</strong> — the amount of matter in an object (kg); KE is proportional to mass (first power)</li>
+    <li><strong>speed</strong> — how fast an object moves (m/s); KE is proportional to speed <em>squared</em> (v²)</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Make a bar chart of KE at 1×, 2×, and 3× speed for the same car. Label each bar with its factor. Revise your prediction: when speed doubles, KE becomes how many times bigger, and why?</p>
+  <img src="figures/ke_speed_multiples.png" alt="Kinetic energy at 1×, 2×, 3× speed — bars in the ratio 1:4:9." style="max-width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence, explain why a car at 40 mph needs about <em>four</em> times the stopping distance of a car at 20 mph. Use KE = ½mv².</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A 1500 kg car travels at 10 m/s.
+      <br>(a) Calculate its kinetic energy. Show KE = ½mv².
+      <br>(b) The car speeds up to 20 m/s. What is its new KE, and by what factor did it change?
+      <br>(c) In one sentence, explain why doubling speed makes the car so much harder to stop.
+    </li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://www.physicsclassroom.com/class/energy/Lesson-1/Kinetic-Energy" target="_blank" rel="noopener">The Physics Classroom — Kinetic Energy</a></li>
+    <li><a href="https://www.youtube.com/watch?v=PIA1AfQfM4U" target="_blank" rel="noopener">Stopping distance and speed (video)</a></li>
+    <li><a href="https://javalab.org/en/category/energy_en/" target="_blank" rel="noopener">Javalab — energy simulations index</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · energy-03</p>
+</footer>
+
+</div>
+</body>
+</html>

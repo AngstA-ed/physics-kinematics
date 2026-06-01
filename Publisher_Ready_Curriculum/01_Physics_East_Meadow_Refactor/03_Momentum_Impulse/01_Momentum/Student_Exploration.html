@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Momentum — Unit: Momentum &amp; Impulse</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Momentum &amp; Impulse — Lesson 01: Momentum</h1>
+    <div><span class="strategy-chip circle">RESTORATIVE CIRCLE</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>In a <a href="https://youtu.be/2UHS883_P60" target="_blank" rel="noopener">Newton's cradle</a>, one ball swings in and exactly one ball swings out — every time. Then your teacher poses a choice: a loaded dump truck and a bicycle are both rolling toward you at <em>the same speed</em>. You can only step out of the way of one. Which do you let pass — and why?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What makes one moving object harder to stop than another?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the cradle and picture the truck-versus-bike choice. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: what <em>two</em> things seem to decide how hard a moving object is to stop? Try to use the words <em>mass</em> and <em>speed</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Rank these from <em>easiest</em> to <em>hardest</em> to stop: a tennis ball thrown gently, a tennis ball thrown hard, a bowling ball rolled gently, a bowling ball rolled hard. Then write one sentence explaining the rule you used to rank them.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Drag the sliders to set an object's <strong>mass</strong> and <strong>velocity</strong>. The arrow shows the momentum <strong>p = m·v</strong> — watch how it grows when <em>either</em> mass or speed grows, and how it flips direction when velocity goes negative. Predict <em>before</em> you slide.</p>
+  <div data-interactive="true">
+    <svg id="mom-canvas" width="480" height="220" viewBox="0 0 480 220" role="img" aria-label="Momentum arrow">
+      <defs>
+        <marker id="mom-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#662e80"/>
+        </marker>
+      </defs>
+      <line x1="240" y1="20" x2="240" y2="200" stroke="#ccc" stroke-width="1"/>
+      <line x1="20" y1="120" x2="460" y2="120" stroke="#999" stroke-width="1.5"/>
+      <text x="448" y="138" font-family="Inter, sans-serif" font-size="11" fill="#999">East +</text>
+      <text x="22" y="138" font-family="Inter, sans-serif" font-size="11" fill="#999">West −</text>
+      <line id="mom-vec" x1="240" y1="120" x2="340" y2="120" stroke="#662e80" stroke-width="6" marker-end="url(#mom-arrow)"/>
+      <circle cx="240" cy="120" r="5" fill="#1a1a1a"/>
+      <text id="mom-label" x="280" y="105" font-family="Inter, sans-serif" font-size="13" fill="#662e80" font-weight="700">p</text>
+    </svg>
+    <div class="controls">
+      <label>Mass m (kg): <input id="mom-m" type="range" min="0.5" max="10" step="0.5" value="2"> <span id="mom-m-r" class="readout">2</span></label>
+      <label>Velocity v (m/s, + = East): <input id="mom-v" type="range" min="-10" max="10" step="0.5" value="3"> <span id="mom-v-r" class="readout">3</span></label>
+      <p>Momentum p = m·v = <span id="mom-p" class="readout">6.0</span> kg·m/s, <span id="mom-dir" class="readout">East</span></p>
+    </div>
+    <script>
+      (function () {
+        const CX = 240, CY = 120, MAX_LEN = 210, MAX_P = 100;
+        const mEl = document.getElementById("mom-m");
+        const vEl = document.getElementById("mom-v");
+        const vec = document.getElementById("mom-vec");
+        const label = document.getElementById("mom-label");
+        function update() {
+          const m = parseFloat(mEl.value), v = parseFloat(vEl.value);
+          const p = m * v;
+          document.getElementById("mom-m-r").textContent = m;
+          document.getElementById("mom-v-r").textContent = v;
+          document.getElementById("mom-p").textContent = p.toFixed(1);
+          let dir = "(at rest)";
+          if (p > 0) dir = "East"; else if (p < 0) dir = "West";
+          document.getElementById("mom-dir").textContent = dir;
+          // scale arrow length to magnitude, capped
+          let len = Math.min(Math.abs(p) / MAX_P, 1) * MAX_LEN;
+          const sign = p >= 0 ? 1 : -1;
+          const x2 = CX + sign * len;
+          vec.setAttribute("x2", Math.abs(p) < 0.01 ? CX + 0.1 : x2);
+          vec.setAttribute("y2", CY);
+          label.setAttribute("x", CX + sign * (len / 2) - 8);
+          label.textContent = "p = " + p.toFixed(0);
+        }
+        mEl.addEventListener("input", update);
+        vEl.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A 2 kg cart moves East at 3 m/s. Its momentum is p = m·v = 2 × 3 = 6 kg·m/s, East. The arrow points East and has length 6.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <line x1="20" y1="40" x2="120" y2="40" stroke="#662e80" stroke-width="5"/>
+      <text x="40" y="30" font-family="Inter, sans-serif" font-size="12" fill="#662e80">p = 6, East</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Double the mass to 4 kg at the same 3 m/s and momentum doubles to 12 kg·m/s — the arrow is twice as long. Doubling the velocity instead does the same thing: momentum is proportional to both.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <line x1="20" y1="40" x2="220" y2="40" stroke="#662e80" stroke-width="5"/>
+      <text x="60" y="30" font-family="Inter, sans-serif" font-size="12" fill="#662e80">p = 12, East</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Send the cart West (negative velocity). The momentum keeps the same size but the arrow flips to point West — momentum is a vector, so direction (the sign) matters.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <line x1="220" y1="40" x2="120" y2="40" stroke="#662e80" stroke-width="5"/>
+      <text x="120" y="30" font-family="Inter, sans-serif" font-size="12" fill="#662e80">p = −6 (West)</text>
+    </svg>
+    <p><strong>Storyboard frame 4.</strong> At the same speed, the dump truck's huge mass gives it a far longer momentum arrow than the bicycle — which is exactly why it is so much harder to stop.</p>
+  </noscript>
+  <p>The same speed can hide very different momenta when mass differs:</p>
+  <img src="figures/momentum_compare.png" alt="Momentum at the same speed for three vehicles of different mass" style="max-width:100%;height:auto;">
+  <img src="figures/momentum_vector.png" alt="Momentum is a vector pointing the way the object moves" style="max-width:100%;height:auto;">
+</section>
+
+<aside class="turn-and-talk">Two objects have the same <em>speed</em> but different momentum. Use the slider to build an example and convince your partner what must be different about them.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A 1,200 kg car moves East at 20 m/s. Calculate its momentum, with units and direction.</li>
+    <li>Two carts roll at the same speed, but Cart B has twice the mass of Cart A. How do their momenta compare?</li>
+    <li>A golf ball and a baseball are thrown so they have the <em>same momentum</em>. The golf ball is lighter. What must be true about its speed? Explain.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The ___ has more momentum because its ___ (mass / velocity) is larger, so p = m·v is ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>momentum</strong> — a measure of how hard an object is to stop; p = m·v, a vector measured in kg·m/s</li>
+    <li><strong>mass</strong> — the amount of matter in an object (kg); one of the two factors that set momentum</li>
+    <li><strong>velocity</strong> — how fast and in what direction an object moves (m/s); momentum points the same way</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your tennis-ball / bowling-ball ranking. Compute <strong>p = m·v</strong> for each (tennis ball = 0.06 kg, bowling ball = 6 kg; gentle = 2 m/s, hard = 8 m/s). Does the math match your gut ranking? Rewrite your rule using <em>p = m·v</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Back to the truck and the bike at the same speed. In one sentence, use <em>p = m·v</em> to say why the truck is the dangerous one to let pass.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A 0.145 kg baseball is pitched West at 40 m/s.
+      <br>(a) Calculate its momentum, with units and direction. (b) A 0.045 kg golf ball is hit at 70 m/s — show which ball has more momentum. (c) Is momentum a vector or a scalar? Give one reason.
+    </li>
+    <li><em>Reflection:</em> What is one idea today that you understand better because of something a classmate said?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/collision-lab" target="_blank" rel="noopener">PhET Collision Lab</a> — set two masses and speeds and read off the momentum</li>
+    <li><a href="https://javalab.org/en/momentum_en/" target="_blank" rel="noopener">Javalab — Momentum simulation</a></li>
+    <li><a href="https://youtu.be/2UHS883_P60" target="_blank" rel="noopener">Newton's cradle in slow motion</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · momentum-impulse-01</p>
+</footer>
+
+</div>
+</body>
+</html>

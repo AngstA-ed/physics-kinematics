@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Newton's Second Law and Net Force — Unit: Forces</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Forces — Lesson 02: Newton's Second Law and Net Force</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher pulls the same rubber band back the <em>same distance</em> every time — so the push is the same — and launches three different balls: a ping-pong ball, a golf ball, and a steel ball. The light ball rockets away. The heavy steel ball barely leaves the slingshot.</p>
+  <p>Same band, same pull, same push. So why does each ball take off so differently?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>If the push is the same every time, what decides how much each object speeds up?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the three launches. Write two things you <em>notice</em> and two things you <em>wonder</em>. Use the word <em>mass</em> in at least one line.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">The push was the same on all three balls, so what made the light ball speed up so much more? Use the word <em>mass</em> in your answer.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the three balls leaving the slingshot. Draw <strong>one arrow for the push</strong> (same size on each ball) and a <strong>second arrow for how fast each one speeds up</strong>. Then predict which ball speeds up the most and why.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Set the net force and the mass with the sliders. The simulator computes the acceleration live using <strong>a = F<sub>net</sub> / m</strong> and shows it on the dial and bar. Try the two controlled rounds: (1) hold the mass and double the force — what happens to <em>a</em>? (2) hold the force and double the mass — what happens to <em>a</em>?</p>
+  <div data-interactive="true">
+    <svg id="fma-canvas" width="480" height="220" viewBox="0 0 480 220" role="img" aria-label="An acceleration gauge needle and a bar showing a = F over m">
+      <!-- gauge -->
+      <path d="M 60 170 A 90 90 0 0 1 240 170" fill="none" stroke="#e6e6e6" stroke-width="12"/>
+      <path id="fma-arc" d="" fill="none" stroke="#2ea3f2" stroke-width="12"/>
+      <line id="fma-needle" x1="150" y1="170" x2="150" y2="90" stroke="#662e80" stroke-width="4"/>
+      <circle cx="150" cy="170" r="6" fill="#662e80"/>
+      <text x="150" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a">acceleration</text>
+      <!-- bar -->
+      <rect x="300" y="40" width="40" height="130" fill="#f0f0f0" stroke="#cccccc"/>
+      <rect id="fma-bar" x="300" y="170" width="40" height="0" fill="#2ea3f2"/>
+      <text id="fma-bar-label" x="360" y="110" font-family="Inter, sans-serif" font-size="22" fill="#662e80">0.0</text>
+      <text x="360" y="132" font-family="Inter, sans-serif" font-size="12" fill="#666">m/s²</text>
+    </svg>
+    <div class="controls">
+      <label>Net force F<sub>net</sub>: <input id="fma-f" type="range" min="0" max="24" value="12"> <span id="fma-f-val" class="readout">12</span> N</label>
+      <label>Mass m: <input id="fma-m" type="range" min="1" max="12" value="4"> <span id="fma-m-val" class="readout">4</span> kg</label>
+      <p>a = F<sub>net</sub> / m = <span id="fma-f-disp" class="readout">12</span> ÷ <span id="fma-m-disp" class="readout">4</span> = <span id="fma-a-val" class="readout">3.0</span> m/s²</p>
+    </div>
+    <script>
+      (function () {
+        const f = document.getElementById("fma-f");
+        const m = document.getElementById("fma-m");
+        const A_MAX = 24; // max plausible a (24 N / 1 kg)
+        const CX = 150, CY = 170, R = 90;
+        function polar(angDeg) {
+          const a = angDeg * Math.PI / 180;
+          return [CX + R * Math.cos(a), CY - R * Math.sin(a)];
+        }
+        function draw() {
+          const F = +f.value, M = +m.value;
+          const a = F / M;
+          document.getElementById("fma-f-val").textContent = F;
+          document.getElementById("fma-m-val").textContent = M;
+          document.getElementById("fma-f-disp").textContent = F;
+          document.getElementById("fma-m-disp").textContent = M;
+          document.getElementById("fma-a-val").textContent = a.toFixed(1);
+          document.getElementById("fma-bar-label").textContent = a.toFixed(1);
+          // needle: 180° (left) at a=0 → 0° (right) at a=A_MAX
+          const frac = Math.min(a / A_MAX, 1);
+          const ang = 180 - frac * 180;
+          const [nx, ny] = polar(ang);
+          const needle = document.getElementById("fma-needle");
+          needle.setAttribute("x2", nx);
+          needle.setAttribute("y2", ny);
+          // colored arc from 180° down to current angle
+          const [sx, sy] = polar(180);
+          const [ex, ey] = polar(ang);
+          const large = (180 - ang) > 180 ? 1 : 0;
+          document.getElementById("fma-arc").setAttribute(
+            "d", "M " + sx + " " + sy + " A " + R + " " + R + " 0 " + large + " 1 " + ex + " " + ey);
+          // bar
+          const bh = Math.min(a / A_MAX, 1) * 130;
+          const bar = document.getElementById("fma-bar");
+          bar.setAttribute("height", bh);
+          bar.setAttribute("y", 170 - bh);
+        }
+        f.addEventListener("input", draw);
+        m.addEventListener("input", draw);
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Baseline: 12 N on a 4 kg cart gives a = 12 ÷ 4 = 3.0 m/s². The needle sits at the middle of the gauge.</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <path d="M 30 70 A 60 60 0 0 1 150 70" fill="none" stroke="#e6e6e6" stroke-width="8"/>
+      <line x1="90" y1="70" x2="90" y2="15" stroke="#662e80" stroke-width="3"/>
+      <text x="180" y="50" font-family="Inter, sans-serif" font-size="13" fill="#662e80">a = 3.0 m/s²</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Double the force to 24 N on the same 4 kg cart: a = 24 ÷ 4 = 6.0 m/s². Doubling the net force <em>doubles</em> the acceleration — they are directly proportional.</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <path d="M 30 70 A 60 60 0 0 1 150 70" fill="none" stroke="#e6e6e6" stroke-width="8"/>
+      <line x1="90" y1="70" x2="135" y2="35" stroke="#662e80" stroke-width="3"/>
+      <text x="180" y="50" font-family="Inter, sans-serif" font-size="13" fill="#662e80">a = 6.0 m/s²</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Back to 12 N but double the mass to 8 kg: a = 12 ÷ 8 = 1.5 m/s². Doubling the mass <em>halves</em> the acceleration — mass is inversely proportional, sitting in the denominator.</p>
+    <svg width="280" height="90" viewBox="0 0 280 90">
+      <path d="M 30 70 A 60 60 0 0 1 150 70" fill="none" stroke="#e6e6e6" stroke-width="8"/>
+      <line x1="90" y1="70" x2="55" y2="30" stroke="#662e80" stroke-width="3"/>
+      <text x="180" y="50" font-family="Inter, sans-serif" font-size="13" fill="#662e80">a = 1.5 m/s²</text>
+    </svg>
+  </noscript>
+  <p>When the same net force acts on different masses, acceleration is directly proportional to net force — a straight line through the origin:</p>
+  <img src="figures/accel_vs_net_force.png" alt="Line graph of acceleration versus net force: a straight line through the origin, showing acceleration is directly proportional to net force." style="max-width:340px;">
+</section>
+
+<aside class="turn-and-talk">Put your two patterns into one rule: acceleration goes ___ when force goes up, and ___ when mass goes up. Check your rule against the gauge above.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A 2 kg ball is pushed with a net force of 6 N. What is its acceleration? Show your work using <strong>a = F<sub>net</sub> / m</strong>.</li>
+    <li>Two carts get the same net force, but Cart B has twice the mass of Cart A. How do their accelerations compare?</li>
+    <li>A net force of 20 N gives a cart an acceleration of 4 m/s². What is the mass of the cart?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"When the net force stays the same but the mass ___, the acceleration ___ because mass is in the ___ of a = F<sub>net</sub> / m."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>net force</strong> — the single force equivalent to all forces on an object combined (as vectors); the <em>cause</em> of acceleration</li>
+    <li><strong>acceleration</strong> — the rate at which an object's velocity changes; equal to net force divided by mass (a = F<sub>net</sub> / m)</li>
+    <li><strong>newton</strong> — the SI unit of force; 1 N = 1 kg·m/s², the force that accelerates a 1 kg mass at 1 m/s²</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your three-ball drawing. Re-label your arrows using the words <em>net force</em> and <em>acceleration</em>. Then complete this Because / But / So sentence:</p>
+  <p>"The steel ball accelerated the least <strong>because</strong> ___, <strong>but</strong> ___, <strong>so</strong> ___."</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why does a loaded delivery truck take longer to speed up than an empty one, even with the same engine force? Answer in one sentence using <em>net force</em>, <em>mass</em>, and <em>acceleration</em> — same net force, but more mass, so a smaller acceleration (a = F<sub>net</sub> / m).</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A net force of 12 N acts on a 4 kg cart.
+      <br>(a) Find the cart's acceleration. Show F<sub>net</sub> = m·a (or a = F<sub>net</sub> / m). (b) If the mass were doubled to 8 kg with the same 12 N, what is the new acceleration? (c) In one sentence, explain what happened to the acceleration and why.
+    </li>
+    <li><em>Reflection:</em> What is one thing today that changed how you think about force and motion? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/force_movement_en/" target="_blank" rel="noopener">Force and movement simulation — Javalab</a></li>
+    <li><a href="https://ophysics.com/f1.html" target="_blank" rel="noopener">Force, motion, and the inclined plane — oPhysics</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · forces-02</p>
+</footer>
+
+</div>
+</body>
+</html>

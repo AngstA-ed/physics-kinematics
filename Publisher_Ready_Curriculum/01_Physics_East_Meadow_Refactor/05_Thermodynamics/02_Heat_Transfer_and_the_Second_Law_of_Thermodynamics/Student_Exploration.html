@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Heat Transfer and the Second Law of Thermodynamics — Unit: Thermal Energy &amp; Conservation</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Thermal Energy &amp; Conservation — Lesson 02: Heat Transfer and the Second Law of Thermodynamics</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Emperor penguins survive −40 °C winters by packing into a tight <strong>huddle</strong> and slowly rotating, so the warm birds in the center and the freezing birds on the edge keep trading places. Meanwhile, on your desk, an ice cube is melting in a cup of warm water — the drink cools and the ice warms until both reach <em>one</em> temperature.</p>
+  <img src="figures/heat_transfer_modes.png" alt="Conduction, convection, and radiation — three ways thermal energy transfers" style="max-width:100%;height:auto;border-radius:8px;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>Which way does thermal energy move when a hot thing and a cold thing meet — and where do they end up?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the penguin huddle and the ice in your warm drink. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: does energy move from the warm water <em>to</em> the ice, or from the ice <em>to</em> the water? How do you know?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch the warm water and the ice cube the instant they meet. Use arrows to show which way thermal energy flows. Predict the final temperature: closer to the ice, closer to the warm water, or in between?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Set a starting temperature for a <strong>hot block</strong> and a <strong>cold block</strong>, then press <em>Touch &amp; release</em> to put them in contact. Watch the two temperatures change over time. Which one drops? Which one climbs? Do they cross, or do they <em>meet and stop</em>?</p>
+  <div data-interactive="true">
+    <svg id="ht-canvas" width="480" height="300" viewBox="0 0 480 300" role="img" aria-label="Two bodies reaching thermal equilibrium">
+      <!-- axes -->
+      <line x1="50" y1="20" x2="50" y2="250" stroke="#999" stroke-width="1.5"/>
+      <line x1="50" y1="250" x2="460" y2="250" stroke="#999" stroke-width="1.5"/>
+      <text x="20" y="135" font-family="Inter, sans-serif" font-size="11" fill="#444" transform="rotate(-90 20 135)">Temperature (°C)</text>
+      <text x="240" y="275" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#444">Time</text>
+      <text x="30" y="30"  font-family="Inter, sans-serif" font-size="10" fill="#444">100</text>
+      <text x="35" y="253" font-family="Inter, sans-serif" font-size="10" fill="#444">0</text>
+      <!-- equilibrium guideline -->
+      <line id="ht-eq" x1="50" y1="135" x2="460" y2="135" stroke="#bbb" stroke-width="1" stroke-dasharray="4 4"/>
+      <text id="ht-eq-lab" x="455" y="130" text-anchor="end" font-family="Inter, sans-serif" font-size="10" fill="#888">equilibrium</text>
+      <polyline id="ht-hot"  fill="none" stroke="#c0392b" stroke-width="3" points=""/>
+      <polyline id="ht-cold" fill="none" stroke="#2ea3f2" stroke-width="3" points=""/>
+      <text x="60" y="45"  font-family="Inter, sans-serif" font-size="11" fill="#c0392b">hot block</text>
+      <text x="60" y="240" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">cold block</text>
+    </svg>
+    <div class="controls">
+      <label>Hot block start temp: <input id="ht-thot" type="range" min="50" max="100" step="5" value="90"> <span id="ht-thot-r" class="readout">90</span> °C</label>
+      <label>Cold block start temp: <input id="ht-tcold" type="range" min="0" max="45" step="5" value="10"> <span id="ht-tcold-r" class="readout">10</span> °C</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="ht-go" type="button">Touch &amp; release</button>
+        <button id="ht-reset" type="button">Reset</button>
+      </div>
+      <p>Equilibrium temperature (equal-size blocks): <span id="ht-eqval" class="readout">50</span> °C. Energy always flows from the <strong>hot</strong> block to the <strong>cold</strong> block until both are equal — never the other way on its own.</p>
+    </div>
+    <script>
+      (function () {
+        const thotI = document.getElementById("ht-thot");
+        const tcoldI = document.getElementById("ht-tcold");
+        const hotLine = document.getElementById("ht-hot");
+        const coldLine = document.getElementById("ht-cold");
+        const eqLine = document.getElementById("ht-eq");
+        const X0 = 50, X1 = 460, Y0 = 250, Y1 = 30;   // y for 0°C and 100°C
+        function yOf(T) { return Y0 + (T / 100) * (Y1 - Y0); }
+        function xOf(f) { return X0 + f * (X1 - X0); }
+        let timer = null;
+        function readouts() {
+          document.getElementById("ht-thot-r").textContent = thotI.value;
+          document.getElementById("ht-tcold-r").textContent = tcoldI.value;
+          const eq = (parseFloat(thotI.value) + parseFloat(tcoldI.value)) / 2;
+          document.getElementById("ht-eqval").textContent = eq.toFixed(0);
+          eqLine.setAttribute("y1", yOf(eq)); eqLine.setAttribute("y2", yOf(eq));
+        }
+        function reset() {
+          if (timer) cancelAnimationFrame(timer);
+          hotLine.setAttribute("points", "");
+          coldLine.setAttribute("points", "");
+          readouts();
+        }
+        function run() {
+          if (timer) cancelAnimationFrame(timer);
+          const Th0 = parseFloat(thotI.value), Tc0 = parseFloat(tcoldI.value);
+          const eq = (Th0 + Tc0) / 2;            // equal masses & specific heat
+          const k = 0.9;                          // Newton's-cooling rate constant
+          const hotPts = [], coldPts = [];
+          let t = 0;                              // dimensionless time 0..1
+          const start = performance.now();
+          function frame(now) {
+            const f = Math.min((now - start) / 4000, 1);   // 4-second animation
+            const decay = Math.exp(-k * f * 6);
+            const Th = eq + (Th0 - eq) * decay;
+            const Tc = eq + (Tc0 - eq) * decay;
+            hotPts.push(xOf(f) + "," + yOf(Th));
+            coldPts.push(xOf(f) + "," + yOf(Tc));
+            hotLine.setAttribute("points", hotPts.join(" "));
+            coldLine.setAttribute("points", coldPts.join(" "));
+            if (f < 1) timer = requestAnimationFrame(frame);
+          }
+          timer = requestAnimationFrame(frame);
+        }
+        thotI.addEventListener("input", () => { readouts(); });
+        tcoldI.addEventListener("input", () => { readouts(); });
+        document.getElementById("ht-go").onclick = run;
+        document.getElementById("ht-reset").onclick = reset;
+        reset();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A hot block at 90 °C and a cold block at 10 °C are placed in contact. The hot block's particles move fast; the cold block's move slowly.</p>
+    <svg width="280" height="100" viewBox="0 0 280 100">
+      <rect x="20" y="30" width="90" height="50" fill="#c0392b" opacity="0.8"/>
+      <rect x="170" y="30" width="90" height="50" fill="#2ea3f2" opacity="0.8"/>
+      <text x="40" y="60" font-family="Inter, sans-serif" font-size="11" fill="#fff">90°C</text>
+      <text x="195" y="60" font-family="Inter, sans-serif" font-size="11" fill="#fff">10°C</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Thermal energy flows from hot to cold. The hot block's temperature drops while the cold block's rises — the two curves move toward each other.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="10" x2="20" y2="110" stroke="#999"/><line x1="20" y1="110" x2="270" y2="110" stroke="#999"/>
+      <polyline fill="none" stroke="#c0392b" stroke-width="2" points="20,20 100,45 180,58 260,62"/>
+      <polyline fill="none" stroke="#2ea3f2" stroke-width="2" points="20,100 100,80 180,68 260,62"/>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Both reach the same temperature — <em>thermal equilibrium</em> — at about 50 °C, and stop changing. There is no net flow afterward. This spreading-out is the second law of thermodynamics.</p>
+    <svg width="280" height="100" viewBox="0 0 280 100">
+      <rect x="20" y="30" width="90" height="50" fill="#9b59b6" opacity="0.7"/>
+      <rect x="170" y="30" width="90" height="50" fill="#9b59b6" opacity="0.7"/>
+      <text x="40" y="60" font-family="Inter, sans-serif" font-size="11" fill="#fff">50°C</text>
+      <text x="195" y="60" font-family="Inter, sans-serif" font-size="11" fill="#fff">50°C</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Run the model twice with different starting temperatures. The two curves always <em>meet and stop</em> — they never cross. Convince your partner why "cold flowing in" is the wrong way to describe it.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Which way does thermal energy flow when a hot object touches a cold object? Why never the other way on its own?</li>
+    <li>A metal spoon left in hot soup gets warm at the handle, even though only the bowl end touches the soup. Which transfer mode explains this — conduction, convection, or radiation?</li>
+    <li>Why do the penguins keep rotating through the huddle? Use the idea that energy "spreads out."</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"Thermal energy flows from the ___ object to the ___ object until they reach ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>heat</strong> — thermal energy that flows from a hotter object to a cooler one because of a temperature difference</li>
+    <li><strong>thermal equilibrium</strong> — the state in which two objects in contact reach the same temperature and there is no net flow of thermal energy between them</li>
+    <li><strong>second law of thermodynamics</strong> — in a closed system, thermal energy spontaneously spreads to a more uniform (less concentrated) distribution</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Expand this kernel sentence using all three Hochman conjunctions:</p>
+  <p>"Thermal energy flows from the hot water into the ice <strong>because</strong> ____, <strong>but</strong> ____, <strong>so</strong> ____."</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Use the second law to explain in one sentence why the penguin huddle keeps the whole group alive.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>You drop a warm metal spoon into a cup of cold water in an insulated (closed) container.
+      <br>(a) Which way does thermal energy flow, and why?
+      <br>(b) What is the final situation called, and how do the two temperatures compare then?
+      <br>(c) Name the heat-transfer mode that warms the spoon's handle, and state the second law of thermodynamics in your own words.
+    </li>
+    <li><em>Reflection:</em> What is one thing today that changed how you think? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://javalab.org/en/heat_transfer_en/" target="_blank" rel="noopener">Javalab — Heat Transfer / Thermal Equilibrium (two bodies reach equilibrium)</a></li>
+    <li><a href="https://javalab.org/en/heat_transfer_methods_en/" target="_blank" rel="noopener">Javalab — Conduction, Convection, Radiation</a></li>
+    <li><a href="https://www.youtube.com/watch?v=4Py9eXIO_z0" target="_blank" rel="noopener">Emperor penguin huddle (BBC video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · thermodynamics-02</p>
+</footer>
+
+</div>
+</body>
+</html>

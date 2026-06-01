@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conservation of Energy — Unit: Work, Energy &amp; Power</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Work, Energy &amp; Power — Lesson 05: Conservation of Energy</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A pendulum released from one side swings up to almost the same height on the other side — over and over. At the bottom it moves fast; at the top it stops. A skate-park half-pipe and a roller coaster do the same trade between height and speed.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What is being traded as something rises and falls, and does the total amount of energy stay the same?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the pendulum swing back and forth. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Where is the pendulum fastest, where is it highest, and what does that tell you about where each kind of energy is biggest?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch the half-pipe (or pendulum). Mark <strong>TOP</strong>, <strong>MIDDLE</strong>, <strong>BOTTOM</strong>. At each point, predict KE and PE as HIGH, MEDIUM, or ZERO.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>A 1.0 kg cart rides a frictionless valley track. Slide its position from the top of one side to the bottom and up the other. Watch the PE bar shrink as the KE bar grows — but the <strong>total</strong> bar never changes. Energy is conserved: PE ↔ KE.</p>
+  <div data-interactive="true">
+    <svg id="ce-canvas" width="480" height="320" viewBox="0 0 480 320" role="img" aria-label="Cart on a track with KE/PE/total energy bars">
+      <path id="ce-track" d="M 30 60 Q 160 280 290 60" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+      <circle id="ce-cart" cx="30" cy="60" r="9" fill="#662e80"/>
+      <text x="20" y="50" font-family="Inter, sans-serif" font-size="10" fill="#666">top</text>
+      <text x="270" y="50" font-family="Inter, sans-serif" font-size="10" fill="#666">top</text>
+      <!-- bars -->
+      <line x1="340" y1="290" x2="470" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect id="ce-pe" x="350" y="90" width="30" height="200" fill="#662e80"/>
+      <text x="365" y="305" font-family="Inter, sans-serif" font-size="10" fill="#662e80" text-anchor="middle">PE</text>
+      <rect id="ce-ke" x="395" y="290" width="30" height="0" fill="#2ea3f2"/>
+      <text x="410" y="305" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2" text-anchor="middle">KE</text>
+      <rect id="ce-tot" x="440" y="90" width="30" height="200" fill="#2a7f4f"/>
+      <text x="455" y="305" font-family="Inter, sans-serif" font-size="10" fill="#2a7f4f" text-anchor="middle">Total</text>
+      <text id="ce-pe-v" x="365" y="85" font-family="Inter, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+      <text id="ce-ke-v" x="410" y="285" font-family="Inter, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+      <text id="ce-tot-v" x="455" y="85" font-family="Inter, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+    </svg>
+    <div class="controls">
+      <label>Cart position along the track: <input id="ce-pos" type="range" min="0" max="100" step="2" value="0"> <span id="ce-posr" class="readout">top</span></label>
+      <p>m = 1.0 kg · g ≈ 9.81 · KE = <span id="ce-keo" class="readout">0</span> J · PE = <span id="ce-peo" class="readout">196</span> J · Total = <span id="ce-toto" class="readout">196</span> J</p>
+    </div>
+    <script>
+      (function () {
+        const M = 1.0, G = 9.81, H_TOP = 20; // height of the track top, meters
+        const E_TOTAL = M * G * H_TOP; // ~196.2 J, conserved
+        const BAR_BASE = 290, BAR_MAX_H = 200;
+        const cart = document.getElementById("ce-cart");
+        const posIn = document.getElementById("ce-pos");
+        // sample the SVG track path so the cart follows it
+        const track = document.getElementById("ce-track");
+        const len = track.getTotalLength();
+        // y range of the path maps to physical height: y=60 (top) -> h=H_TOP, y=190 (bottom) -> h=0
+        const Y_TOP_PX = 60, Y_BOT_PX = 190;
+        function setBar(rect, label, energy) {
+          const h = (energy / E_TOTAL) * BAR_MAX_H;
+          rect.setAttribute("y", BAR_BASE - h);
+          rect.setAttribute("height", h);
+          label.setAttribute("y", BAR_BASE - h - 4);
+          label.textContent = Math.round(energy) + " J";
+        }
+        function update() {
+          const frac = +posIn.value / 100;
+          const pt = track.getPointAtLength(frac * len);
+          cart.setAttribute("cx", pt.x);
+          cart.setAttribute("cy", pt.y);
+          // physical height from pixel y
+          const h = H_TOP * (Y_BOT_PX - pt.y) / (Y_BOT_PX - Y_TOP_PX);
+          const hClamp = Math.max(0, h);
+          const pe = M * G * hClamp;
+          const ke = Math.max(0, E_TOTAL - pe);
+          document.getElementById("ce-posr").textContent =
+            frac < 0.1 ? "top (left)" : frac > 0.9 ? "top (right)" : (frac > 0.4 && frac < 0.6 ? "bottom" : "midway");
+          document.getElementById("ce-keo").textContent = Math.round(ke);
+          document.getElementById("ce-peo").textContent = Math.round(pe);
+          document.getElementById("ce-toto").textContent = Math.round(pe + ke);
+          setBar(document.getElementById("ce-pe"), document.getElementById("ce-pe-v"), pe);
+          setBar(document.getElementById("ce-ke"), document.getElementById("ce-ke-v"), ke);
+          setBar(document.getElementById("ce-tot"), document.getElementById("ce-tot-v"), pe + ke);
+        }
+        posIn.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> At the top, the cart is stopped: PE is maximum (≈ 196 J) and KE is zero. The total bar reads ≈ 196 J.</p>
+    <svg width="240" height="130" viewBox="0 0 240 130">
+      <rect x="30" y="20" width="30" height="90" fill="#662e80"/><text x="32" y="125" font-family="Inter, sans-serif" font-size="9" fill="#662e80">PE</text>
+      <rect x="90" y="110" width="30" height="0" fill="#2ea3f2"/><text x="92" y="125" font-family="Inter, sans-serif" font-size="9" fill="#2ea3f2">KE=0</text>
+      <rect x="150" y="20" width="30" height="90" fill="#2a7f4f"/><text x="148" y="125" font-family="Inter, sans-serif" font-size="9" fill="#2a7f4f">Total</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Midway down, PE and KE are each about half. PE has transformed partly into KE — but the total bar is unchanged at ≈ 196 J.</p>
+    <svg width="240" height="130" viewBox="0 0 240 130">
+      <rect x="30" y="65" width="30" height="45" fill="#662e80"/><text x="32" y="125" font-family="Inter, sans-serif" font-size="9" fill="#662e80">PE</text>
+      <rect x="90" y="65" width="30" height="45" fill="#2ea3f2"/><text x="92" y="125" font-family="Inter, sans-serif" font-size="9" fill="#2ea3f2">KE</text>
+      <rect x="150" y="20" width="30" height="90" fill="#2a7f4f"/><text x="148" y="125" font-family="Inter, sans-serif" font-size="9" fill="#2a7f4f">Total</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> At the bottom, PE is zero and KE is maximum (≈ 196 J) — the cart is fastest here. The total bar is still ≈ 196 J: energy was transformed, never lost.</p>
+    <svg width="240" height="130" viewBox="0 0 240 130">
+      <rect x="30" y="110" width="30" height="0" fill="#662e80"/><text x="32" y="125" font-family="Inter, sans-serif" font-size="9" fill="#662e80">PE=0</text>
+      <rect x="90" y="20" width="30" height="90" fill="#2ea3f2"/><text x="92" y="125" font-family="Inter, sans-serif" font-size="9" fill="#2ea3f2">KE</text>
+      <rect x="150" y="20" width="30" height="90" fill="#2a7f4f"/><text x="148" y="125" font-family="Inter, sans-serif" font-size="9" fill="#2a7f4f">Total</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Slide the cart from the top to the bottom. The PE and KE bars swap heights, but the green Total bar never moves. Convince your partner what that flat Total bar means.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A 2.0 kg ball is dropped from 5.0 m. Ignoring friction, what is its KE just before it lands? Use PE lost = KE gained, with g ≈ 9.81 m/s².</li>
+    <li>At the bottom of a frictionless hill, is the cart's PE maximum or minimum? Is its KE maximum or minimum? Explain.</li>
+    <li>Why does a real pendulum eventually stop, even though energy is conserved?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"As the cart drops, ___ energy turns into ___ energy, but the total stays ___ because energy is ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>mechanical energy</strong> — the sum of an object's kinetic and potential energy (KE + PE)</li>
+    <li><strong>conservation of energy</strong> — energy is never created or destroyed; without friction, mechanical energy stays constant</li>
+    <li><strong>energy transformation</strong> — the conversion of energy from one form to another, such as PE ↔ KE</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Plot KE and PE vs. position along the track. Where do the two curves cross, and what is true of their sum everywhere?</p>
+  <img src="figures/ke_pe_crossover.png" alt="KE and PE vs position — the curves cross while their sum stays constant." style="max-width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence, explain why the pendulum returns to (almost) the same height every swing, using <em>conservation of energy</em> and <em>energy transformation</em>.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A 0.50 kg cart starts at rest at the top of a <strong>frictionless</strong> track 2.0 m high. (Use g ≈ 9.81 m/s².)
+      <br>(a) What is its PE at the top? Show PE = mgh.
+      <br>(b) Using conservation of energy, what is its KE at the bottom? Explain.
+      <br>(c) On a real track with friction, would the KE at the bottom be more, less, or equal? Where does the difference go?
+    </li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/energy-skate-park-basics" target="_blank" rel="noopener">PhET — Energy Skate Park: Basics</a></li>
+    <li><a href="https://javalab.org/en/roller_coaster_en/" target="_blank" rel="noopener">Javalab — Roller coaster</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · energy-05</p>
+</footer>
+
+</div>
+</body>
+</html>

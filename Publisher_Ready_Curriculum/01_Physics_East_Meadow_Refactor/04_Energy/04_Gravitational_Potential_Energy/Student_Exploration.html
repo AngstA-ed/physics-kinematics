@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Gravitational Potential Energy — Unit: Work, Energy &amp; Power</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Work, Energy &amp; Power — Lesson 04: Gravitational Potential Energy</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A roller-coaster car is slowly hauled up the lift hill. Nothing exciting happens on the way up — but every meter of height <em>stores</em> energy the coaster will spend on the way down. A water tower does the same thing with water.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What is being stored as the car climbs, and what does the amount of stored energy depend on?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the slow climb up the lift hill. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">What two things about the coaster car decide how much energy is stored at the top? Use the word <em>height</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the coaster car on the lift hill at <strong>three</strong> heights. Predict: when the height doubles, the stored energy becomes how many times bigger? Does it double? More? Less?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>A 500 kg coaster car (g ≈ 9.81 m/s²). Slide the height and watch the car rise on the track while the PE bar grows. PE = mgh grows in a straight line — double the height, double the stored energy.</p>
+  <div data-interactive="true">
+    <svg id="pe-canvas" width="480" height="300" viewBox="0 0 480 300" role="img" aria-label="Mass rising on a track with a PE bar">
+      <line x1="40" y1="270" x2="40" y2="30" stroke="#999" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="46" y="42" font-family="Inter, sans-serif" font-size="11" fill="#666">height h</text>
+      <line x1="30" y1="270" x2="240" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+      <text x="30" y="288" font-family="Inter, sans-serif" font-size="10" fill="#666">reference (ground, h = 0)</text>
+      <rect id="pe-car" x="60" y="250" width="44" height="20" rx="4" fill="#f0e8f5" stroke="#662e80" stroke-width="2"/>
+      <text id="pe-h-label" x="112" y="265" font-family="Inter, sans-serif" font-size="11" fill="#662e80">0 m</text>
+      <text x="300" y="45" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">PE (J)</text>
+      <line x1="300" y1="270" x2="460" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect id="pe-bar" x="320" y="270" width="60" height="0" fill="#2ea3f2"/>
+      <text id="pe-bar-label" x="350" y="265" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a" font-weight="700" text-anchor="middle">0 J</text>
+    </svg>
+    <div class="controls">
+      <label>Height h (m): <input id="pe-h" type="range" min="0" max="30" step="2" value="0"> <span id="pe-hr" class="readout">0</span></label>
+      <p>Mass m = <span class="readout">500</span> kg · g ≈ 9.81 m/s² · PE = mgh = <span id="pe-pe" class="readout">0</span> J</p>
+    </div>
+    <script>
+      (function () {
+        const M = 500, G = 9.81, H_MAX = 30;
+        const GROUND_Y = 270, TOP_Y = 40, CAR_H = 20;
+        const PE_MAX = M * G * H_MAX; // ~147,150 J
+        const BAR_MAX_H = 200;
+        const hin = document.getElementById("pe-h");
+        const car = document.getElementById("pe-car");
+        const hLabel = document.getElementById("pe-h-label");
+        const bar = document.getElementById("pe-bar");
+        const barLabel = document.getElementById("pe-bar-label");
+        function update() {
+          const h = +hin.value;
+          const pe = M * G * h;
+          document.getElementById("pe-hr").textContent = h;
+          document.getElementById("pe-pe").textContent = Math.round(pe).toLocaleString();
+          // car position
+          const carTop = GROUND_Y - CAR_H - (h / H_MAX) * (GROUND_Y - CAR_H - TOP_Y);
+          car.setAttribute("y", carTop);
+          hLabel.setAttribute("y", carTop + 15);
+          hLabel.textContent = h + " m";
+          // bar
+          const bh = (pe / PE_MAX) * BAR_MAX_H;
+          bar.setAttribute("y", GROUND_Y - bh);
+          bar.setAttribute("height", bh);
+          barLabel.setAttribute("y", GROUND_Y - bh - 6);
+          barLabel.textContent = Math.round(pe).toLocaleString() + " J";
+        }
+        hin.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> The 500 kg car sits on the ground (h = 0). PE = mgh = 500 × 9.81 × 0 = 0 J — no stored energy, the bar is empty.</p>
+    <svg width="240" height="120" viewBox="0 0 240 120">
+      <line x1="20" y1="100" x2="120" y2="100" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="40" y="85" width="36" height="15" fill="#f0e8f5" stroke="#662e80" stroke-width="2"/>
+      <text x="130" y="98" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">PE = 0 J</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Haul the car to h = 15 m. PE = 500 × 9.81 × 15 ≈ 73,575 J. The car is halfway up and the PE bar is half-full.</p>
+    <svg width="240" height="120" viewBox="0 0 240 120">
+      <line x1="20" y1="100" x2="120" y2="100" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="40" y="50" width="36" height="15" fill="#f0e8f5" stroke="#662e80" stroke-width="2"/>
+      <text x="130" y="60" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">PE ≈ 73,575 J</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> At h = 30 m the PE doubles to ≈ 147,150 J. PE grows in a straight line with height — double the height, double the stored energy.</p>
+    <svg width="240" height="120" viewBox="0 0 240 120">
+      <line x1="20" y1="100" x2="120" y2="100" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect x="40" y="15" width="36" height="15" fill="#f0e8f5" stroke="#662e80" stroke-width="2"/>
+      <text x="130" y="25" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">PE ≈ 147,150 J</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Set the height to 15 m, then 30 m. The PE doubles. Now imagine moving the "ground" line up to a platform — the same car would have less PE. Convince your partner why the reference height matters.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A 2.0 kg book sits on a 1.0 m table. What is its gravitational PE relative to the floor? Use PE = mgh with g ≈ 9.81 m/s².</li>
+    <li>Two coaster cars sit at the same height. Car A is 400 kg; car B is 800 kg. Which has more PE, and by what factor? Explain.</li>
+    <li>Why must we always state the <em>reference height</em> (the "zero") when we report a potential energy?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The object stores ___ J because PE = m·g·h, measured from the ___ as the zero."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>potential energy</strong> — energy stored because of an object's position; gravitational PE = mgh, in joules</li>
+    <li><strong>height</strong> — the vertical distance above a chosen reference point; the h in PE = mgh</li>
+    <li><strong>gravitational field</strong> — the region where gravity acts; its strength g ≈ 9.81 m/s² near Earth's surface sets the g in PE = mgh</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Using PE = mgh, make a bar chart of PE at several lift-hill heights for one car. What pattern do the bar heights follow? Revise your prediction: when height doubles, PE becomes how many times bigger, and why?</p>
+  <img src="figures/pe_at_heights.png" alt="Gravitational PE at several heights — bars grow in proportion to height." style="max-width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one Because/But/So sentence, explain why the tallest lift hill stores the most energy — and why we always state PE relative to the ground.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A 500 kg roller-coaster car is hauled to the top of a 30 m lift hill. (Use g ≈ 9.81 m/s².)
+      <br>(a) Calculate its gravitational potential energy relative to the ground. Show PE = mgh.
+      <br>(b) If the lift hill were only 15 m, what would its PE be, and how does it compare?
+      <br>(c) Explain why your answer to (a) would change if we measured height from a platform halfway up instead of the ground.
+    </li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://www.physicsclassroom.com/class/energy/Lesson-1/Potential-Energy" target="_blank" rel="noopener">The Physics Classroom — Potential Energy</a></li>
+    <li><a href="https://javalab.org/en/potential_energy_en/" target="_blank" rel="noopener">Javalab — Potential energy due to gravity</a></li>
+    <li><a href="https://www.youtube.com/watch?v=Anv2Rr-A3MI" target="_blank" rel="noopener">Roller coaster energy (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · energy-04</p>
+</footer>
+
+</div>
+</body>
+</html>

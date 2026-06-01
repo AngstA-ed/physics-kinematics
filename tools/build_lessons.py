@@ -35,14 +35,16 @@ def build_lesson_folder(
 ) -> list[str]:
     """Build one lesson folder. Returns list of relative output paths.
 
-    Two modes, auto-detected per folder:
+    Compositional — builds whatever sources are present:
 
-    * **Legacy / interactive** — folder has `Student_Exploration.html`. Builds
-      Teacher Guide + Answer Key DOCX/onenote plus the static-ified student page
-      (the Kinematics pilot).
-    * **DOCX-only** — no HTML page. Builds Teacher Guide + Student Worksheet +
-      Student Notes + Answer Key to DOCX. This is the format for all units
-      authored after the pilot.
+    * `Teacher_Guide.md` + `Answer_Key.md` (required) → DOCX.
+    * `Student_Worksheet.md` / `Student_Notes.md` (optional) → DOCX.
+    * `Student_Exploration.html` (optional) → static-ified OneNote page.
+
+    A lesson is **interactive** when it has a `Student_Exploration.html`; for
+    interactive lessons the Markdown docs ALSO get OneNote HTML siblings (to
+    match the Kinematics pilot). A lesson with no HTML page is **DOCX-only**:
+    its Markdown docs build to DOCX with no HTML at all.
     """
     written: list[str] = []
 
@@ -60,34 +62,41 @@ def build_lesson_folder(
     validate_teacher_guide(teacher_md, schema_path)
     validate_answer_key(answer_md, schema_path)
 
-    docx_only = not student_html.exists()
+    interactive = student_html.exists()
     md_sources = [teacher_md, answer_md]
 
-    if docx_only:
-        if not worksheet_md.exists():
-            raise ValidationError(f"{folder.name}: Student_Worksheet.md missing")
-        if not notes_md.exists():
-            raise ValidationError(f"{folder.name}: Student_Notes.md missing")
+    # Student Worksheet / Notes are built whenever present (independent of the
+    # interactive HTML page), so adding an HTML page never drops the DOCX.
+    if worksheet_md.exists():
         validate_student_worksheet(worksheet_md, schema_path)
+        md_sources.append(worksheet_md)
+    if notes_md.exists():
         validate_student_notes(notes_md, schema_path)
-        md_sources += [worksheet_md, notes_md]
-    else:
+        md_sources.append(notes_md)
+    # A non-interactive lesson must still carry student materials.
+    if not interactive and not worksheet_md.exists() and not notes_md.exists():
+        raise ValidationError(
+            f"{folder.name}: needs a Student_Exploration.html or "
+            f"Student_Worksheet.md/Student_Notes.md"
+        )
+
+    if interactive:
         validate_student_html(student_html, schema_path)
 
-    # 2. Build DOCX from every markdown source. DOCX-only lessons emit no HTML
-    #    (per the build-out spec); legacy lessons also emit the OneNote HTML.
+    # 2. Build DOCX from every markdown source. Interactive lessons also emit a
+    #    OneNote HTML sibling per doc; DOCX-only lessons emit no HTML.
     for md in md_sources:
         docx = md.with_suffix(".docx")
         md_to_docx(md, docx, reference_doc)
         written.append(str(docx))
-        if not docx_only:
+        if interactive:
             onhtml = md.with_suffix(".onenote.html")
             md_to_onenote_html(md, onhtml)
             validate_onenote_html(onhtml, schema_path)
             written.append(str(onhtml))
 
-    # 3. Legacy only: static-ify the interactive HTML student page
-    if not docx_only:
+    # 3. Interactive only: static-ify the interactive HTML student page
+    if interactive:
         onenote_html = folder / "Student_Exploration.onenote.html"
         static_text = staticify(
             student_html.read_text(encoding="utf-8"),

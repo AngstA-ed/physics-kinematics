@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Graphing and Interpreting Data — Unit: Math in Science</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Math in Science — Lesson 02: Graphing and Interpreting Data</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher claims that for <em>any</em> round lid, the distance around it and the distance across it are locked together by the <strong>same multiplier</strong> — big lid or small lid, the same number. Today you will catch that multiplier on a graph.</p>
+  <img src="figures/pi_scatter.png" alt="Scatter plot of circumference versus diameter for several lids with a straight line of best fit through the origin">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What single number connects the circumference of a circle to its diameter, and how does a graph reveal it?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>As the lids get bigger across, what happens to the distance around them? What shape do you predict the graph will be?</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn &amp; Talk: As the lids get bigger across, what happens to the distance around them? Will the graph be straight or curved — and will it pass through (0, 0)?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch the graph you <em>expect</em> before measuring. Label the axes (which quantity do you <em>choose</em>, and which <em>responds</em>?). Predict in one sentence what the line will look like and whether it passes through the origin.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>The dots are real lid measurements: circumference (y) versus diameter (x). Drag the <strong>slope</strong> slider to swing the best-fit line until it passes through the cloud with about as many points above as below. Read the slope — it should land near π ≈ 3.14.</p>
+  <div data-interactive="true">
+    <canvas id="fit-canvas" width="460" height="340" role="img" aria-label="Line of best fit canvas for circumference vs diameter"></canvas>
+    <div class="controls">
+      <label>Best-fit slope (rise / run): <input id="fit-slope" type="range" min="1.5" max="4.5" value="2.4" step="0.01"> <span id="fit-slope-val" class="readout">2.40</span></label>
+      <p>Sum of squared errors (smaller = better fit): <span id="fit-sse" class="readout">0</span> &nbsp;·&nbsp; Predicted C for a 20 cm lid: <span id="fit-pred" class="readout">0</span> cm</p>
+    </div>
+    <script>
+      (function () {
+        const cv = document.getElementById("fit-canvas");
+        const ctx = cv.getContext("2d");
+        const W = 460, H = 340, PAD = 40;
+        // diameter (cm) -> circumference (cm), noisy around C = pi*d
+        const data = [
+          {d: 6,  c: 19.5}, {d: 9,  c: 27.8}, {d: 11, c: 35.4},
+          {d: 14, c: 43.2}, {d: 17, c: 54.1}, {d: 21, c: 65.0}
+        ];
+        const DMAX = 24, CMAX = 80;
+        const sx = (d) => PAD + d / DMAX * (W - 2 * PAD);
+        const sy = (c) => H - PAD - c / CMAX * (H - 2 * PAD);
+        const slopeEl = document.getElementById("fit-slope");
+        function draw() {
+          const m = +slopeEl.value;
+          ctx.clearRect(0, 0, W, H);
+          // axes
+          ctx.strokeStyle = "#1a1a1a"; ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(PAD, PAD); ctx.lineTo(PAD, H - PAD); ctx.lineTo(W - PAD, H - PAD);
+          ctx.stroke();
+          // gridlines
+          ctx.strokeStyle = "#eee"; ctx.lineWidth = 1;
+          for (let d = 4; d <= DMAX; d += 4) { ctx.beginPath(); ctx.moveTo(sx(d), PAD); ctx.lineTo(sx(d), H - PAD); ctx.stroke(); }
+          for (let c = 20; c <= CMAX; c += 20) { ctx.beginPath(); ctx.moveTo(PAD, sy(c)); ctx.lineTo(W - PAD, sy(c)); ctx.stroke(); }
+          ctx.fillStyle = "#1a1a1a"; ctx.font = "11px Inter, sans-serif";
+          ctx.fillText("diameter (cm)", W - 130, H - PAD + 24);
+          ctx.save(); ctx.translate(14, 110); ctx.rotate(-Math.PI / 2);
+          ctx.fillText("circumference (cm)", 0, 0); ctx.restore();
+          // best-fit line through origin: C = m*d
+          ctx.strokeStyle = "#2ea3f2"; ctx.lineWidth = 2.5;
+          ctx.beginPath(); ctx.moveTo(sx(0), sy(0)); ctx.lineTo(sx(DMAX), sy(m * DMAX)); ctx.stroke();
+          // data points + residuals
+          let sse = 0;
+          data.forEach(p => {
+            const pred = m * p.d;
+            sse += (p.c - pred) * (p.c - pred);
+            ctx.strokeStyle = "#bbb"; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(sx(p.d), sy(p.c)); ctx.lineTo(sx(p.d), sy(pred)); ctx.stroke();
+            ctx.fillStyle = "#662e80";
+            ctx.beginPath(); ctx.arc(sx(p.d), sy(p.c), 5, 0, 2 * Math.PI); ctx.fill();
+          });
+          document.getElementById("fit-slope-val").textContent = m.toFixed(2);
+          document.getElementById("fit-sse").textContent = sse.toFixed(0);
+          document.getElementById("fit-pred").textContent = (m * 20).toFixed(1);
+        }
+        slopeEl.addEventListener("input", draw);
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Six lid measurements are plotted: diameter on the x-axis, circumference on the y-axis. The points rise from bottom-left to top-right in a roughly straight band.</p>
+    <svg width="280" height="180" viewBox="0 0 280 180">
+      <line x1="30" y1="150" x2="260" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="30" y1="20" x2="30" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+      <circle cx="70" cy="128" r="4" fill="#662e80"/><circle cx="100" cy="110" r="4" fill="#662e80"/>
+      <circle cx="135" cy="92" r="4" fill="#662e80"/><circle cx="175" cy="70" r="4" fill="#662e80"/>
+      <circle cx="210" cy="48" r="4" fill="#662e80"/><circle cx="240" cy="34" r="4" fill="#662e80"/>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> A single straight line of best fit is drawn through the cloud — not dot-to-dot — with about as many points above the line as below it, and it passes near the origin (0, 0).</p>
+    <svg width="280" height="180" viewBox="0 0 280 180">
+      <line x1="30" y1="150" x2="260" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="30" y1="20" x2="30" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="30" y1="150" x2="250" y2="30" stroke="#2ea3f2" stroke-width="2.5"/>
+      <circle cx="70" cy="128" r="3" fill="#662e80"/><circle cx="135" cy="92" r="3" fill="#662e80"/><circle cx="210" cy="48" r="3" fill="#662e80"/>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> A slope triangle is built on the line: the rise divided by the run gives the slope. Because the line goes through the origin, that slope is the proportionality constant — about 3.14, which is π.</p>
+    <svg width="280" height="180" viewBox="0 0 280 180">
+      <line x1="30" y1="150" x2="250" y2="30" stroke="#2ea3f2" stroke-width="2.5"/>
+      <line x1="100" y1="112" x2="200" y2="112" stroke="#d23" stroke-width="2"/>
+      <line x1="200" y1="112" x2="200" y2="57" stroke="#d23" stroke-width="2"/>
+      <text x="120" y="128" font-family="Inter, sans-serif" font-size="11" fill="#d23">run</text>
+      <text x="205" y="90" font-family="Inter, sans-serif" font-size="11" fill="#d23">rise</text>
+      <text x="60" y="40" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">slope ≈ 3.14 = π</text>
+    </svg>
+    <p><strong>Storyboard frame 4.</strong> A line that is too shallow or too steep leaves most points stranded far above or below it — the residual gaps grow. The best slope is the one that makes those gaps smallest.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Turn &amp; Talk: With different lids, why did everyone land near the <em>same</em> slope? What does it mean that the line passes through the origin?</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A graph plots distance (y) versus time (x) for a walker. Which variable is independent and which is dependent?</li>
+    <li>A best-fit line rises 6 units over a run of 3 units. What is its slope?</li>
+    <li>Two lines are drawn on the same axes. Line A is steeper than Line B. What does the steeper slope mean about how fast y changes?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"When the ___ goes up by ___, the ___ goes up by ___, so the slope is ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>independent variable</strong> — the quantity you choose or change; it goes on the x-axis (here, the lid's diameter)</li>
+    <li><strong>dependent variable</strong> — the quantity that responds and is measured; it goes on the y-axis (here, the circumference)</li>
+    <li><strong>slope</strong> — the rise divided by the run of a line (Δy / Δx); for a line through the origin it is the proportionality constant</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Compare the graph you predicted to the graph you measured. Was it a straight line? Did it pass through the origin? Rewrite the locked-together rule as an equation using your slope: C = ____ × d.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>State the locked-together rule in one sentence with the word <em>slope</em>. Target: "Circumference = slope × diameter, and the slope is π ≈ 3.14, so C = πd — the same multiplier for every lid."</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A class plots a stretched spring's length (cm) versus the mass hung on it (g). The line is straight and starts at 12 cm when 0 g is hung.
+      <br>(a) Which is the independent variable and which is the dependent variable? (b) The line rises 8 cm over a run of 200 g — what is the slope, including units? (c) Explain in plain words what that slope tells you about the spring.
+    </li>
+    <li><em>Reflection:</em> Whose idea in your group changed how you drew or read the line today? Name them.</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://slowrevealgraphs.com/" target="_blank" rel="noopener">Slow Reveal Graphs — read a graph piece by piece</a></li>
+    <li><a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">Desmos — plot your lid data and fit a line</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · math-in-science-02</p>
+</footer>
+
+</div>
+</body>
+</html>

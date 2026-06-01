@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Thermal Energy and Temperature — Unit: Thermal Energy &amp; Conservation</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Thermal Energy &amp; Conservation — Lesson 01: Thermal Energy and Temperature</h1>
+    <div><span class="strategy-chip circle">RESTORATIVE CIRCLE</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A lit sparkler burns at over <strong>1,000 °C</strong> — yet a child can hold it inches away and be fine. A warm bath is only about <strong>40 °C</strong>, but if that water were ever 1,000 °C it would be deadly. Same temperature idea, wildly different danger.</p>
+  <img src="figures/particle_speed.png" alt="Slow particles (cool) versus fast particles (hot); average arrow length is the temperature" style="max-width:100%;height:auto;border-radius:8px;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What is the difference between something being <em>hot</em> and something <em>holding a lot of energy</em>?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Compare the tiny, fiercely hot sparkler with the large, only-warm bath. Write two things you notice and two things you wonder. Use the word <em>particles</em> if you can.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: what is the difference between a thing being <em>hot</em> and a thing <em>having a lot of heat energy</em>? Pick one wondering you would like the class to figure out today.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch the particles inside the <strong>sparkler tip</strong> and inside the <strong>bathtub</strong>. Use arrow <em>length</em> to show how fast each particle moves, and <em>dots</em> to show how many there are. Then write one sentence: which has faster particles, and which has more total particle motion?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Set the <strong>temperature</strong> (how fast the particles move on average) and the <strong>amount of substance</strong> (how many particles there are). The bars compare a small cup and a large pool at that same temperature. Notice: temperature is the <em>same</em> for both, but the <em>total</em> thermal energy is not.</p>
+  <div data-interactive="true">
+    <svg id="te-canvas" width="480" height="300" viewBox="0 0 480 300" role="img" aria-label="Particle motion and thermal energy comparison">
+      <rect x="0" y="0" width="480" height="300" fill="#fafafa"/>
+      <!-- particle boxes -->
+      <rect x="20" y="20" width="140" height="120" fill="#fff" stroke="#999" stroke-width="1.5" rx="6"/>
+      <rect x="180" y="20" width="280" height="120" fill="#fff" stroke="#999" stroke-width="1.5" rx="6"/>
+      <text x="90"  y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#444">Cup (few particles)</text>
+      <text x="320" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#444">Pool (many particles)</text>
+      <g id="te-cup-particles"></g>
+      <g id="te-pool-particles"></g>
+      <!-- energy bars -->
+      <text x="20" y="185" font-family="Inter, sans-serif" font-size="12" fill="#444">Total thermal energy</text>
+      <rect x="20"  y="195" width="200" height="26" fill="#eee" stroke="#ccc" rx="4"/>
+      <rect id="te-cup-bar"  x="20"  y="195" width="0" height="26" fill="#662e80" rx="4"/>
+      <text x="225" y="213" font-family="Inter, sans-serif" font-size="11" fill="#662e80">cup: <tspan id="te-cup-val">0</tspan></text>
+      <rect x="20"  y="235" width="200" height="26" fill="#eee" stroke="#ccc" rx="4"/>
+      <rect id="te-pool-bar" x="20"  y="235" width="0" height="26" fill="#2ea3f2" rx="4"/>
+      <text x="225" y="253" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">pool: <tspan id="te-pool-val">0</tspan></text>
+    </svg>
+    <div class="controls">
+      <label>Temperature (avg particle speed): <input id="te-temp" type="range" min="10" max="90" step="5" value="40"> <span id="te-temp-r" class="readout">40</span> °C</label>
+      <label>Amount of substance (cup size, particles): <input id="te-amt" type="range" min="3" max="12" step="1" value="6"> <span id="te-amt-r" class="readout">6</span></label>
+      <p>Both containers are at the <strong>same temperature</strong>, so their particles move at the same <em>average</em> speed. The pool holds <span id="te-ratio" class="readout">8</span>× as many particles, so it holds far more <em>total</em> thermal energy.</p>
+    </div>
+    <script>
+      (function () {
+        const temp = document.getElementById("te-temp");
+        const amt  = document.getElementById("te-amt");
+        const cupG  = document.getElementById("te-cup-particles");
+        const poolG = document.getElementById("te-pool-particles");
+        const POOL_MULT = 8;            // pool holds 8x the cup's particles
+        function jitter(seed) { return (Math.sin(seed * 12.9898) * 43758.5453) % 1; }
+        function dots(group, x0, y0, w, h, n, speed) {
+          group.innerHTML = "";
+          const r = 4;
+          for (let i = 0; i < n; i++) {
+            const px = x0 + r + (Math.abs(jitter(i + 1)) * (w - 2 * r));
+            const py = y0 + r + (Math.abs(jitter(i + 7)) * (h - 2 * r));
+            const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            c.setAttribute("cx", px); c.setAttribute("cy", py); c.setAttribute("r", r);
+            // hotter = redder
+            const red = Math.round(120 + speed * 1.4);
+            c.setAttribute("fill", "rgb(" + Math.min(red,235) + ",60,90)");
+            group.appendChild(c);
+            // motion blur lines scale with temperature
+            const len = 2 + speed / 12;
+            const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            l.setAttribute("x1", px - len); l.setAttribute("y1", py);
+            l.setAttribute("x2", px + len); l.setAttribute("y2", py);
+            l.setAttribute("stroke", "#c43"); l.setAttribute("stroke-width", "1"); l.setAttribute("opacity", "0.5");
+            group.appendChild(l);
+          }
+        }
+        function update() {
+          const T = parseFloat(temp.value);
+          const n = parseFloat(amt.value);
+          temp.nextElementSibling && (document.getElementById("te-temp-r").textContent = T);
+          document.getElementById("te-amt-r").textContent = n;
+          document.getElementById("te-ratio").textContent = POOL_MULT;
+          // draw particles (cap pool dots for legibility)
+          dots(cupG, 20, 20, 140, 120, n, T);
+          dots(poolG, 180, 20, 280, 120, Math.min(n * POOL_MULT, 60), T);
+          // thermal energy ~ temperature (in K) x particle count, normalized to a bar
+          const cupE  = (T + 273) * n;
+          const poolE = (T + 273) * n * POOL_MULT;
+          const maxE  = (90 + 273) * 12 * POOL_MULT;
+          document.getElementById("te-cup-bar").setAttribute("width",  (cupE  / maxE * 200).toFixed(0));
+          document.getElementById("te-pool-bar").setAttribute("width", (poolE / maxE * 200).toFixed(0));
+          document.getElementById("te-cup-val").textContent  = (cupE  / 1000).toFixed(1) + " kJ";
+          document.getElementById("te-pool-val").textContent = (poolE / 1000).toFixed(1) + " kJ";
+        }
+        temp.addEventListener("input", update);
+        amt.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A small cup and a large pool both read 40 °C. Every particle in both moves at the same <em>average</em> speed — temperature only measures speed, not amount.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <rect x="10" y="20" width="70" height="70" fill="#fff" stroke="#999"/>
+      <rect x="110" y="20" width="160" height="70" fill="#fff" stroke="#999"/>
+      <circle cx="30" cy="45" r="4" fill="#c43"/><circle cx="55" cy="70" r="4" fill="#c43"/>
+      <circle cx="135" cy="40" r="4" fill="#c43"/><circle cx="170" cy="65" r="4" fill="#c43"/>
+      <circle cx="205" cy="45" r="4" fill="#c43"/><circle cx="240" cy="70" r="4" fill="#c43"/>
+      <text x="45" y="105" font-family="Inter, sans-serif" font-size="10" fill="#444">cup 40°C</text>
+      <text x="170" y="105" font-family="Inter, sans-serif" font-size="10" fill="#444">pool 40°C</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> The pool has far more particles. Total thermal energy = (energy per particle) × (number of particles), so the pool's energy bar is many times longer even at the same temperature.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <rect x="10" y="15" width="40" height="20" fill="#662e80"/><text x="55" y="30" font-family="Inter, sans-serif" font-size="10" fill="#662e80">cup energy</text>
+      <rect x="10" y="45" width="240" height="20" fill="#2ea3f2"/><text x="60" y="78" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">pool energy (much larger)</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Raise the temperature and every particle speeds up — both bars grow. But for the same temperature, the larger amount of substance always holds more total thermal energy.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <rect x="10" y="15" width="70" height="20" fill="#662e80"/><text x="85" y="30" font-family="Inter, sans-serif" font-size="10" fill="#662e80">cup, hotter</text>
+      <rect x="10" y="45" width="270" height="20" fill="#2ea3f2"/><text x="60" y="78" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">pool, hotter (largest)</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Both containers read the same temperature on the slider. Use the energy bars to convince your partner why the pool would take far more energy to boil away than the cup.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A cup of tea and a backyard pool both read 30 °C. Which has more thermal energy, and why?</li>
+    <li>Why is a sparkler safe to hold even though it is far hotter than bathwater?</li>
+    <li>If you double the amount of water but keep the temperature the same, what happens to the <em>average</em> particle speed? What happens to the <em>total</em> thermal energy?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The ___ has a higher temperature because its particles move ___, but the ___ has more thermal energy because it has ___ particles."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>temperature</strong> — a measure of the <em>average</em> kinetic energy of the particles in a substance (how fast they move, on average)</li>
+    <li><strong>thermal energy</strong> — the <em>total</em> kinetic energy of <em>all</em> the particles; depends on temperature <strong>and</strong> the amount of substance</li>
+    <li><strong>kinetic energy</strong> — the energy an object or particle has because of its motion</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your particle drawing. Re-label one side "high average KE = high temperature" and use dots to show the total amount of substance. Rewrite your one-sentence explanation using the words <em>temperature</em> and <em>thermal energy</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why would a single drop of boiling water sting but not seriously burn, while a whole bathtub at the same 100 °C would be deadly? Answer in one sentence using <em>temperature</em> and <em>thermal energy</em>.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A lit sparkler tip is about 1,000 °C. A warm bath is about 40 °C.
+      <br>(a) Which has the higher temperature, and what does temperature measure about the particles?
+      <br>(b) Which one could transfer more thermal energy to your body, and why?
+      <br>(c) Two buckets of water read exactly 25 °C, but one holds 1 L and the other holds 50 L. Which has more thermal energy? Explain.
+    </li>
+    <li><em>Reflection:</em> What is one idea today that changed how you think about "hot"? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/states-of-matter-basics" target="_blank" rel="noopener">PhET — States of Matter: Basics (heat a sample, watch particles speed up)</a></li>
+    <li><a href="https://javalab.org/en/temperature_en/" target="_blank" rel="noopener">Javalab — Temperature and Molecular Motion</a></li>
+    <li><a href="https://javalab.org/en/brownian_motion_en/" target="_blank" rel="noopener">Javalab — Brownian Motion (faster motion as temperature rises)</a></li>
+    <li><a href="https://www.youtube.com/watch?v=A9eDRUd6lZk" target="_blank" rel="noopener">Sparkler temperature vs. heat energy (video)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · thermodynamics-01</p>
+</footer>
+
+</div>
+</body>
+</html>

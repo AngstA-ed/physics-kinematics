@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conservation of Momentum — Unit: Momentum &amp; Impulse</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Momentum &amp; Impulse — Lesson 03: Conservation of Momentum</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Two ice skaters stand still, facing each other, then push off — both <a href="https://youtu.be/5Y2bgFkWQqc" target="_blank" rel="noopener">glide away in opposite directions</a>. On a cart track, a moving cart hits a still cart and the motion transfers. Nobody added a push from outside, yet motion appears. Where does it come from — and what is the <em>total</em> now?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>When two objects interact, what happens to the total momentum of the system?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the skaters and the carts. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: the skaters started with <em>zero</em> total momentum. What is the total <em>after</em> they push apart? Use plus and minus signs.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw two carts <em>before</em> and <em>after</em> a collision. Label each cart's momentum arrow (size and direction) in both pictures. Predict: adding the arrows as vectors, is the total the same before and after?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Set the mass and velocity of two carts, then press <strong>Collide</strong>. The carts collide and stick together (a perfectly inelastic collision). Compare the <strong>total momentum before</strong> and <strong>after</strong> — predict first, then check. No outside push acts, so what should stay the same?</p>
+  <div data-interactive="true">
+    <svg id="con-canvas" width="480" height="180" viewBox="0 0 480 180" role="img" aria-label="Two carts colliding">
+      <line x1="20" y1="130" x2="460" y2="130" stroke="#999" stroke-width="2"/>
+      <rect id="con-c1" x="80" y="100" width="40" height="30" rx="3" fill="#662e80"/>
+      <rect id="con-c2" x="360" y="100" width="40" height="30" rx="3" fill="#2ea3f2"/>
+      <text id="con-l1" x="80" y="95" font-family="Inter, sans-serif" font-size="11" fill="#662e80">A</text>
+      <text id="con-l2" x="360" y="95" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">B</text>
+    </svg>
+    <div class="controls">
+      <label>Cart A mass (kg): <input id="con-m1" type="range" min="1" max="6" step="1" value="2"> <span id="con-m1-r" class="readout">2</span></label>
+      <label>Cart A velocity (m/s): <input id="con-v1" type="range" min="0" max="6" step="1" value="3"> <span id="con-v1-r" class="readout">3</span></label>
+      <label>Cart B mass (kg): <input id="con-m2" type="range" min="1" max="6" step="1" value="1"> <span id="con-m2-r" class="readout">1</span></label>
+      <label>Cart B velocity (m/s): <input id="con-v2" type="range" min="-6" max="0" step="1" value="0"> <span id="con-v2-r" class="readout">0</span></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0;">
+        <button id="con-go" type="button">Collide</button>
+        <button id="con-reset" type="button">Reset</button>
+      </div>
+      <p>Total p <strong>before</strong> = <span id="con-before" class="readout">6.0</span> kg·m/s · Total p <strong>after</strong> = <span id="con-after" class="readout">—</span> kg·m/s</p>
+      <p id="con-msg" style="margin:.3rem 0 0;font-style:italic;color:#662e80;">Σp before = Σp after — momentum is conserved.</p>
+    </div>
+    <script>
+      (function () {
+        const c1 = document.getElementById("con-c1"), c2 = document.getElementById("con-c2");
+        const TRACK_L = 20, TRACK_R = 440;
+        const ids = ["con-m1","con-v1","con-m2","con-v2"];
+        let raf = null;
+        function vals() {
+          return {
+            m1: +document.getElementById("con-m1").value,
+            v1: +document.getElementById("con-v1").value,
+            m2: +document.getElementById("con-m2").value,
+            v2: +document.getElementById("con-v2").value,
+          };
+        }
+        function showInputs() {
+          const v = vals();
+          document.getElementById("con-m1-r").textContent = v.m1;
+          document.getElementById("con-v1-r").textContent = v.v1;
+          document.getElementById("con-m2-r").textContent = v.m2;
+          document.getElementById("con-v2-r").textContent = v.v2;
+          const before = v.m1*v.v1 + v.m2*v.v2;
+          document.getElementById("con-before").textContent = before.toFixed(1);
+        }
+        function reset() {
+          if (raf) cancelAnimationFrame(raf), raf = null;
+          c1.setAttribute("x", 80); c2.setAttribute("x", 360);
+          document.getElementById("con-l1").setAttribute("x", 80);
+          document.getElementById("con-l2").setAttribute("x", 360);
+          document.getElementById("con-after").textContent = "—";
+          showInputs();
+        }
+        function collide() {
+          if (raf) cancelAnimationFrame(raf);
+          const v = vals();
+          const before = v.m1*v.v1 + v.m2*v.v2;
+          const vf = before / (v.m1 + v.m2);   // stick together
+          let x1 = 80, x2 = 360, stuck = false;
+          function frame() {
+            if (!stuck) {
+              x1 += v.v1 * 0.6;
+              x2 += v.v2 * 0.6;
+              if (x1 + 40 >= x2) { stuck = true; }   // contact
+            } else {
+              x1 += vf * 0.6; x2 = x1 + 40;
+            }
+            x1 = Math.max(TRACK_L, Math.min(x1, TRACK_R - 80));
+            x2 = Math.max(x1 + 40, Math.min(x2, TRACK_R - 40));
+            c1.setAttribute("x", x1); c2.setAttribute("x", x2);
+            document.getElementById("con-l1").setAttribute("x", x1);
+            document.getElementById("con-l2").setAttribute("x", x2);
+            if (stuck && (x1 <= TRACK_L || x1 >= TRACK_R - 80)) { raf = null; return; }
+            raf = requestAnimationFrame(frame);
+          }
+          document.getElementById("con-after").textContent = before.toFixed(1);
+          const same = Math.abs(before - vf*(v.m1+v.m2)) < 0.01;
+          document.getElementById("con-msg").textContent = same
+            ? "Σp before = Σp after = " + before.toFixed(1) + " kg·m/s — momentum is conserved (they move off at " + vf.toFixed(1) + " m/s)."
+            : "Check your numbers.";
+          frame();
+        }
+        ids.forEach(id => document.getElementById(id).addEventListener("input", () => { reset(); }));
+        document.getElementById("con-go").onclick = collide;
+        document.getElementById("con-reset").onclick = reset;
+        showInputs();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Before: a 2 kg cart A moves right at 3 m/s (p = +6) toward a 1 kg cart B at rest (p = 0). Total momentum before = +6 kg·m/s.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <line x1="10" y1="60" x2="270" y2="60" stroke="#999" stroke-width="2"/>
+      <rect x="30" y="35" width="30" height="22" fill="#662e80"/>
+      <rect x="200" y="35" width="22" height="22" fill="#2ea3f2"/>
+      <text x="25" y="30" font-size="10" fill="#662e80">A: +6</text>
+      <text x="195" y="30" font-size="10" fill="#2ea3f2">B: 0</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> They collide and stick. Combined mass = 3 kg. Conservation gives Σp_after = Σp_before = +6, so v = 6/3 = 2 m/s right.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <line x1="10" y1="60" x2="270" y2="60" stroke="#999" stroke-width="2"/>
+      <rect x="120" y="35" width="50" height="22" fill="#444"/>
+      <text x="120" y="30" font-size="10" fill="#444">stuck: 3 kg, +6, v = 2 m/s</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Two skaters at rest (total = 0) push apart. One gets +p, the other −p. The signed total is still zero — equal and opposite momenta cancel. Nothing was created; the push was <em>internal</em> to the system.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <text x="60" y="40" font-size="11" fill="#1a1a1a">(+p) + (−p) = 0 still</text>
+    </svg>
+  </noscript>
+  <p>The total system momentum is the same before and after:</p>
+  <img src="figures/total_momentum_before_after.png" alt="Total system momentum before vs after, equal" style="max-width:100%;height:auto;">
+  <img src="figures/before_after_vectors.png" alt="Skaters push apart: equal and opposite momenta sum to zero" style="max-width:100%;height:auto;">
+</section>
+
+<aside class="turn-and-talk">The carts pushed on each other — was that force <em>inside</em> or <em>outside</em> your system? What real-world force could break conservation on a cart track? Convince your partner.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Two skaters at rest push apart. The total before is zero. Explain why the total after is also zero, even though both are now moving.</li>
+    <li>A 2 kg cart moving at 3 m/s East hits a still 1 kg cart and they stick. What outside force, if present, would stop momentum from being conserved?</li>
+    <li>If two skaters of different mass push apart, which one moves faster? Justify with p = m·v and the idea that the total stays zero.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The total momentum is the ___ before and after because the ___ force on the system is ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>conservation of momentum</strong> — the total momentum of a system stays constant when the external net force on it is zero: Σp_before = Σp_after</li>
+    <li><strong>system</strong> — the set of objects whose momenta we add together; interactions inside it are internal forces</li>
+    <li><strong>collision</strong> — an interaction in which objects exert forces on each other for a short time (a push-off counts)</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your before/after cart drawing. Write <strong>Σp_before = Σp_after</strong> using your actual signed momentum values. If one value was unknown, solve for it.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence, explain why the two skaters glide apart at different speeds if one is heavier — using conservation of momentum.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A 2 kg cart moving East at 3 m/s collides with a 1 kg cart at rest, and they stick together.
+      <br>(a) Find the total momentum of the system before the collision. (b) After they stick, what is the combined mass, and what is their velocity? (c) State the condition under which momentum is conserved.
+    </li>
+    <li><em>Reflection:</em> Whose prediction in your group was closest today, and what did you learn from comparing predictions to data?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/collision-lab" target="_blank" rel="noopener">PhET Collision Lab</a> — turn on the momentum vectors and the "total" readout</li>
+    <li><a href="https://javalab.org/en/conservation_of_momentum_en/" target="_blank" rel="noopener">Javalab — Conservation of Momentum</a></li>
+    <li><a href="https://youtu.be/5Y2bgFkWQqc" target="_blank" rel="noopener">Ice skaters pushing off each other</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · momentum-impulse-03</p>
+</footer>
+
+</div>
+</body>
+</html>

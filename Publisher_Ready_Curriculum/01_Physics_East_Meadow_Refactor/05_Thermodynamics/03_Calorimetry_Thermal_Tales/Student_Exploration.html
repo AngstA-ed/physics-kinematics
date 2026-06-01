@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Calorimetry — Thermal Tales — Unit: Thermal Energy &amp; Conservation</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Thermal Energy &amp; Conservation — Lesson 03: Calorimetry — Thermal Tales</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher holds equal amounts of <strong>hot water (80 °C)</strong> and <strong>cold water (20 °C)</strong>. They are about to be poured together into an insulated cup. What will the thermometer read after they mix — 100 °C? 50 °C? Something else?</p>
+  <img src="figures/mixing_temps.png" alt="Hot and cold samples meeting at one final temperature" style="max-width:100%;height:auto;border-radius:8px;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>When hot and cold water mix in a closed cup, what decides the final temperature?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Before anything is mixed, write two things you notice and two things you wonder. Then commit to a prediction: final temperature = ______ °C.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder / My predicted final temperature…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: the hot water cools and the cold water warms. Is the energy that <em>leaves</em> the hot water the same amount the cold water <em>gains</em>? Why?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>With your group, <strong>plan the investigation</strong>. What will you measure (masses, starting temperatures)? How will you keep the system <em>closed</em>? How will you know when you've reached the final temperature?</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Set the <strong>mass</strong> and <strong>starting temperature</strong> of the hot and cold water. The model uses <strong>heat lost = heat gained</strong> (Q = m·c·ΔT, with the same c for both) to compute the final temperature, then shows both curves meeting there. Notice how the heavier sample pulls the final temperature toward itself.</p>
+  <div data-interactive="true">
+    <svg id="ca-canvas" width="480" height="300" viewBox="0 0 480 300" role="img" aria-label="Calorimetry: hot and cold water reaching a final temperature">
+      <line x1="50" y1="20" x2="50" y2="250" stroke="#999" stroke-width="1.5"/>
+      <line x1="50" y1="250" x2="460" y2="250" stroke="#999" stroke-width="1.5"/>
+      <text x="20" y="135" font-family="Inter, sans-serif" font-size="11" fill="#444" transform="rotate(-90 20 135)">Temperature (°C)</text>
+      <text x="240" y="275" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#444">Time</text>
+      <text x="30" y="30"  font-family="Inter, sans-serif" font-size="10" fill="#444">100</text>
+      <text x="35" y="253" font-family="Inter, sans-serif" font-size="10" fill="#444">0</text>
+      <line id="ca-eq" x1="50" y1="135" x2="460" y2="135" stroke="#bbb" stroke-width="1" stroke-dasharray="4 4"/>
+      <text id="ca-eq-lab" x="455" y="130" text-anchor="end" font-family="Inter, sans-serif" font-size="10" fill="#888">final temp</text>
+      <polyline id="ca-hot"  fill="none" stroke="#c0392b" stroke-width="3" points=""/>
+      <polyline id="ca-cold" fill="none" stroke="#2ea3f2" stroke-width="3" points=""/>
+      <text x="60" y="45"  font-family="Inter, sans-serif" font-size="11" fill="#c0392b">hot water</text>
+      <text x="60" y="240" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">cold water</text>
+    </svg>
+    <div class="controls">
+      <label>Hot water mass: <input id="ca-mhot" type="range" min="0.05" max="0.50" step="0.05" value="0.20"> <span id="ca-mhot-r" class="readout">0.20</span> kg</label>
+      <label>Hot water start temp: <input id="ca-thot" type="range" min="50" max="95" step="5" value="80"> <span id="ca-thot-r" class="readout">80</span> °C</label>
+      <label>Cold water mass: <input id="ca-mcold" type="range" min="0.05" max="0.50" step="0.05" value="0.20"> <span id="ca-mcold-r" class="readout">0.20</span> kg</label>
+      <label>Cold water start temp: <input id="ca-tcold" type="range" min="0" max="40" step="5" value="20"> <span id="ca-tcold-r" class="readout">20</span> °C</label>
+      <p>Final temperature: <span id="ca-tf" class="readout">50.0</span> °C · Heat lost by hot = <span id="ca-qlost" class="readout">25116</span> J · Heat gained by cold = <span id="ca-qgain" class="readout">25116</span> J. In a closed cup these are <strong>equal</strong> — energy is conserved.</p>
+    </div>
+    <script>
+      (function () {
+        const C = 4186;   // specific heat of water, J/kg·°C
+        const ids = ["ca-mhot","ca-thot","ca-mcold","ca-tcold"];
+        const el = {};
+        ids.forEach(i => el[i] = document.getElementById(i));
+        const hotLine = document.getElementById("ca-hot");
+        const coldLine = document.getElementById("ca-cold");
+        const eqLine = document.getElementById("ca-eq");
+        const X0 = 50, X1 = 460, Y0 = 250, Y1 = 30;
+        function yOf(T) { return Y0 + (T / 100) * (Y1 - Y0); }
+        function xOf(f) { return X0 + f * (X1 - X0); }
+        let timer = null;
+        function update() {
+          const mh = parseFloat(el["ca-mhot"].value),  Th0 = parseFloat(el["ca-thot"].value);
+          const mc = parseFloat(el["ca-mcold"].value), Tc0 = parseFloat(el["ca-tcold"].value);
+          document.getElementById("ca-mhot-r").textContent  = mh.toFixed(2);
+          document.getElementById("ca-thot-r").textContent  = Th0;
+          document.getElementById("ca-mcold-r").textContent = mc.toFixed(2);
+          document.getElementById("ca-tcold-r").textContent = Tc0;
+          // heat lost = heat gained:  mh*c*(Th0 - Tf) = mc*c*(Tf - Tc0)
+          // Tf = (mh*Th0 + mc*Tc0) / (mh + mc)
+          const Tf = (mh * Th0 + mc * Tc0) / (mh + mc);
+          const qLost = mh * C * (Th0 - Tf);
+          const qGain = mc * C * (Tf - Tc0);
+          document.getElementById("ca-tf").textContent    = Tf.toFixed(1);
+          document.getElementById("ca-qlost").textContent = Math.round(qLost);
+          document.getElementById("ca-qgain").textContent = Math.round(qGain);
+          eqLine.setAttribute("y1", yOf(Tf)); eqLine.setAttribute("y2", yOf(Tf));
+          // animate both curves easing toward Tf
+          if (timer) cancelAnimationFrame(timer);
+          const start = performance.now();
+          const hotPts = [], coldPts = [];
+          function frame(now) {
+            const f = Math.min((now - start) / 2500, 1);
+            const ease = 1 - Math.exp(-4 * f);
+            const Th = Th0 + (Tf - Th0) * ease;
+            const Tc = Tc0 + (Tf - Tc0) * ease;
+            hotPts.push(xOf(f) + "," + yOf(Th));
+            coldPts.push(xOf(f) + "," + yOf(Tc));
+            hotLine.setAttribute("points", hotPts.join(" "));
+            coldLine.setAttribute("points", coldPts.join(" "));
+            if (f < 1) timer = requestAnimationFrame(frame);
+          }
+          timer = requestAnimationFrame(frame);
+        }
+        ids.forEach(i => el[i].addEventListener("input", update));
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Equal masses: 0.20 kg of 80 °C water and 0.20 kg of 20 °C water. Because the masses and specific heats match, the final temperature is the average, 50 °C.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="10" x2="20" y2="110" stroke="#999"/><line x1="20" y1="110" x2="270" y2="110" stroke="#999"/>
+      <polyline fill="none" stroke="#c0392b" stroke-width="2" points="20,25 100,45 180,55 260,58"/>
+      <polyline fill="none" stroke="#2ea3f2" stroke-width="2" points="20,95 100,75 180,62 260,58"/>
+      <text x="120" y="50" font-family="Inter, sans-serif" font-size="10" fill="#666">Tf = 50 °C</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Heat lost = heat gained. Q for the hot water, m·c·ΔT = (0.20)(4186)(80−50) = 25,116 J, equals Q for the cold water, (0.20)(4186)(50−20) = 25,116 J. No energy escapes the closed cup.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <rect x="20" y="15" width="120" height="20" fill="#c0392b"/><text x="145" y="30" font-family="Inter, sans-serif" font-size="10" fill="#c0392b">Q lost = 25,116 J</text>
+      <rect x="20" y="45" width="120" height="20" fill="#2ea3f2"/><text x="145" y="60" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">Q gained = 25,116 J</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> A <em>little</em> hot water (0.10 kg) into a <em>lot</em> of cold water (0.30 kg) lands the final temperature near 35 °C — closer to the cold side, because the larger mass needs more energy to change temperature.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="10" x2="20" y2="110" stroke="#999"/><line x1="20" y1="110" x2="270" y2="110" stroke="#999"/>
+      <polyline fill="none" stroke="#c0392b" stroke-width="2" points="20,25 100,60 180,75 260,80"/>
+      <polyline fill="none" stroke="#2ea3f2" stroke-width="2" points="20,95 100,86 180,82 260,80"/>
+      <text x="120" y="72" font-family="Inter, sans-serif" font-size="10" fill="#666">Tf ≈ 35 °C</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Drag the hot mass small and the cold mass large. Watch the final temperature slide toward the cold side, while "Q lost" and "Q gained" stay equal. Explain to your partner why the bigger sample barely moves.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Why does mixing equal masses of hot and cold water give a final temperature in the <em>middle</em> (the average)?</li>
+    <li>If you mixed a <em>little</em> hot water into a <em>lot</em> of cold water, would the final temperature land above or below the average? Why?</li>
+    <li>Why did we use a foam cup with a lid instead of an open metal beaker?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The heat lost by the ___ water equals the heat gained by the ___ water, so the final temperature is ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>calorimetry</strong> — the measurement of heat transfer, usually by mixing substances in an insulated container and tracking temperature change</li>
+    <li><strong>specific heat</strong> — the energy needed to raise the temperature of 1 kg of a substance by 1 °C (the "c" in Q = m·c·ΔT)</li>
+    <li><strong>heat</strong> — the thermal energy (Q) transferred from a hotter object to a cooler one, measured in joules</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Predict: <strong>0.10 kg of 80 °C water</strong> poured into <strong>0.30 kg of 20 °C water</strong>. Will the final temperature be above or below 50 °C? Justify using Q = m·c·ΔT (heat lost = heat gained). Then check your answer with the slider above.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Use heat lost = heat gained to explain in one sentence why your mixed cup settled where it did.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>In an insulated cup you mix 0.20 kg of water at 80 °C with 0.20 kg of water at 20 °C. (c_water = 4,186 J/kg·°C.)
+      <br>(a) Using heat lost = heat gained, what is the final temperature?
+      <br>(b) Calculate the heat gained by the cold water with Q = m·c·ΔT.
+      <br>(c) How does that compare to the heat lost by the hot water, and what principle does that show?
+    </li>
+    <li><em>Reflection:</em> What is one thing today that changed how you think? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/energy-forms-and-changes" target="_blank" rel="noopener">PhET — Energy Forms and Changes (heat and mix substances)</a></li>
+    <li><a href="https://javalab.org/en/specific_heat_en/" target="_blank" rel="noopener">Javalab — Specific Heat / Calorimetry</a></li>
+    <li><a href="https://www.nysed.gov/curriculum-instruction/science-learning-standards" target="_blank" rel="noopener">NYSED — Science Learning Standards (Investigating Energy / Thermal Energy tasks)</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · thermodynamics-03</p>
+</footer>
+
+</div>
+</body>
+</html>

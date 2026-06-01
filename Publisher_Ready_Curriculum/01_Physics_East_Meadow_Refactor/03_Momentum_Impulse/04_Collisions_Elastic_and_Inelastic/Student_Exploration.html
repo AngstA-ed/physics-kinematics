@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Collisions: Elastic and Inelastic — Unit: Momentum &amp; Impulse</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Momentum &amp; Impulse — Lesson 04: Collisions: Elastic and Inelastic</h1>
+    <div><span class="strategy-chip btc">BTC</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A <a href="https://youtu.be/2UHS883_P60" target="_blank" rel="noopener">Newton's cradle</a> <em>clicks</em> and the motion passes cleanly through — it keeps bouncing. Two balls of clay are pressed together and stop with a dull <em>thud</em>. Both collisions conserved momentum (you proved that last lesson). But the cradle keeps going and the clay just stops. Where did the clay's motion energy go?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>If both collisions conserve momentum, what is different between the bouncy one and the sticky one?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the cradle click and the clay thud. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your group: momentum is conserved in both. So what is <em>different</em> between the bouncy cradle and the sticky clay? Use the word <em>energy</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>At your board, draw before/after for the cradle and for the clay. For each, predict: is momentum conserved? Is kinetic energy conserved? Defend your prediction.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Toggle between an <strong>elastic</strong> collision (the carts bounce apart) and a perfectly <strong>inelastic</strong> one (they stick). Press <strong>Collide</strong> and watch the bars: <strong>total momentum</strong> is conserved in <em>both</em>, but <strong>kinetic energy</strong> (KE = ½mv²) only stays the same in the elastic case. A 2 kg cart at 4 m/s strikes a 2 kg cart at rest.</p>
+  <div data-interactive="true">
+    <svg id="col-canvas" width="480" height="150" viewBox="0 0 480 150" role="img" aria-label="Two carts colliding, elastic or inelastic">
+      <line x1="20" y1="110" x2="460" y2="110" stroke="#999" stroke-width="2"/>
+      <rect id="col-c1" x="60" y="80" width="40" height="30" rx="3" fill="#662e80"/>
+      <rect id="col-c2" x="300" y="80" width="40" height="30" rx="3" fill="#2ea3f2"/>
+    </svg>
+    <div class="controls">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+        <button id="col-mode" type="button" aria-pressed="false">Mode: Elastic (bounce)</button>
+        <button id="col-go" type="button">Collide</button>
+        <button id="col-reset" type="button">Reset</button>
+      </div>
+      <p>Total momentum: before = <span class="readout">8.0</span> kg·m/s · after = <span id="col-pafter" class="readout">—</span> kg·m/s</p>
+      <p>Kinetic energy: before = <span class="readout">16.0</span> J · after = <span id="col-keafter" class="readout">—</span> J</p>
+      <p id="col-msg" style="margin:.3rem 0 0;font-style:italic;color:#662e80;"></p>
+    </div>
+    <script>
+      (function () {
+        const c1 = document.getElementById("col-c1"), c2 = document.getElementById("col-c2");
+        const m1 = 2, m2 = 2, u1 = 4, u2 = 0;        // kg, m/s
+        const TRACK_L = 20, TRACK_R = 440;
+        let elastic = true, raf = null;
+        const pBefore = m1*u1 + m2*u2;                // 8
+        const keBefore = 0.5*m1*u1*u1 + 0.5*m2*u2*u2; // 16
+        function finals() {
+          if (elastic) {
+            // equal masses, target at rest: velocities swap
+            return { v1: ((m1-m2)*u1 + 2*m2*u2)/(m1+m2), v2: ((m2-m1)*u2 + 2*m1*u1)/(m1+m2) };
+          }
+          const vf = pBefore / (m1+m2);               // stick: 2 m/s
+          return { v1: vf, v2: vf };
+        }
+        function reset() {
+          if (raf) cancelAnimationFrame(raf), raf = null;
+          c1.setAttribute("x", 60); c2.setAttribute("x", 300);
+          document.getElementById("col-pafter").textContent = "—";
+          document.getElementById("col-keafter").textContent = "—";
+          document.getElementById("col-msg").textContent = "";
+        }
+        function collide() {
+          if (raf) cancelAnimationFrame(raf);
+          const f = finals();
+          const pAfter = m1*f.v1 + m2*f.v2;
+          const keAfter = 0.5*m1*f.v1*f.v1 + 0.5*m2*f.v2*f.v2;
+          let x1 = 60, x2 = 300, hit = false;
+          function frame() {
+            if (!hit) {
+              x1 += u1 * 0.5; x2 += u2 * 0.5;
+              if (x1 + 40 >= x2) hit = true;
+            } else {
+              x1 += f.v1 * 0.5;
+              x2 = elastic ? x2 + f.v2 * 0.5 : x1 + 40;
+            }
+            x1 = Math.max(TRACK_L, Math.min(x1, TRACK_R - 40));
+            x2 = Math.max(TRACK_L, Math.min(x2, TRACK_R - 40));
+            c1.setAttribute("x", x1); c2.setAttribute("x", x2);
+            if (hit && (x2 >= TRACK_R - 40 || x1 >= TRACK_R - 40)) { raf = null; return; }
+            raf = requestAnimationFrame(frame);
+          }
+          document.getElementById("col-pafter").textContent = pAfter.toFixed(1);
+          document.getElementById("col-keafter").textContent = keAfter.toFixed(1);
+          document.getElementById("col-msg").textContent = elastic
+            ? "Elastic: momentum AND kinetic energy conserved (16 J before and after)."
+            : "Inelastic (stuck): momentum conserved (8), but KE drops 16 → " + keAfter.toFixed(0) + " J — the lost 8 J became heat, sound, and deformation.";
+          frame();
+        }
+        document.getElementById("col-mode").onclick = (e) => {
+          elastic = !elastic;
+          e.target.textContent = elastic ? "Mode: Elastic (bounce)" : "Mode: Inelastic (stick)";
+          e.target.setAttribute("aria-pressed", !elastic);
+          reset();
+        };
+        document.getElementById("col-go").onclick = collide;
+        document.getElementById("col-reset").onclick = reset;
+        reset();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Before (both cases): a 2 kg cart at 4 m/s approaches a 2 kg cart at rest. Total momentum = 8 kg·m/s. Kinetic energy = ½(2)(4²) = 16 J.</p>
+    <svg width="280" height="70" viewBox="0 0 280 70">
+      <line x1="10" y1="50" x2="270" y2="50" stroke="#999" stroke-width="2"/>
+      <rect x="30" y="28" width="26" height="20" fill="#662e80"/>
+      <rect x="180" y="28" width="26" height="20" fill="#2ea3f2"/>
+      <text x="20" y="22" font-size="10" fill="#1a1a1a">p = 8, KE = 16 J</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Elastic (equal masses): the moving cart stops and the still cart leaves at 4 m/s — velocities swap. Momentum still 8, kinetic energy still 16 J. Nothing is lost.</p>
+    <svg width="280" height="70" viewBox="0 0 280 70">
+      <line x1="10" y1="50" x2="270" y2="50" stroke="#999" stroke-width="2"/>
+      <rect x="60" y="28" width="26" height="20" fill="#662e80"/>
+      <rect x="200" y="28" width="26" height="20" fill="#2ea3f2"/>
+      <text x="20" y="22" font-size="10" fill="#1a1a1a">p = 8, KE = 16 J (conserved)</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Inelastic (stick): the carts move off together at 2 m/s. Momentum is still 8, but KE = ½(4)(2²) = 8 J — half is gone. The missing 8 J became heat, sound, and deformation. Momentum is conserved in both; kinetic energy is not.</p>
+    <svg width="280" height="70" viewBox="0 0 280 70">
+      <line x1="10" y1="50" x2="270" y2="50" stroke="#999" stroke-width="2"/>
+      <rect x="130" y="28" width="44" height="20" fill="#444"/>
+      <text x="20" y="22" font-size="10" fill="#c0392b">p = 8, KE = 8 J (lost 8 J)</text>
+    </svg>
+  </noscript>
+  <p>Elastic — both conserved; inelastic — momentum conserved but kinetic energy lost:</p>
+  <img src="figures/momentum_ke_elastic.png" alt="Elastic collision: momentum and kinetic energy conserved" style="max-width:100%;height:auto;">
+  <img src="figures/momentum_ke_inelastic.png" alt="Inelastic collision: momentum conserved, kinetic energy lost" style="max-width:100%;height:auto;">
+  <img src="figures/collision_diagram.png" alt="Before a collision: two carts approach with opposite momenta" style="max-width:100%;height:auto;">
+</section>
+
+<aside class="turn-and-talk">Run both modes. Where did the missing kinetic energy go in the sticky one — name three places? And why is an <em>inelastic</em> crumple zone safer than a perfectly elastic bumper? Build the next question for the group next to you.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Two balls of clay collide and stick. Momentum is conserved but kinetic energy is not. Where did the missing kinetic energy go?</li>
+    <li>A car crash where the bumpers lock together is which type of collision? Justify.</li>
+    <li>Why is an <em>inelastic</em> crumple zone safer for passengers than a perfectly <em>elastic</em> bumper that bounces back? (Hint: energy absorbed and contact time.)</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"This collision is ___ because the kinetic energy ___ conserved, but the momentum ___ conserved."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>elastic collision</strong> — a collision in which kinetic energy is conserved (e.g. a Newton's cradle); momentum is conserved too</li>
+    <li><strong>inelastic collision</strong> — a collision in which kinetic energy is <em>not</em> conserved (some becomes heat/sound/deformation); momentum is still conserved. Perfectly inelastic = objects stick together</li>
+    <li><strong>kinetic energy</strong> — the energy of motion, KE = ½mv²; the quantity that distinguishes elastic from inelastic collisions</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your before/after drawings. Label each collision <strong>elastic</strong> or <strong>inelastic</strong>, annotate where any lost kinetic energy went, and confirm with numbers that momentum is conserved in both.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence, explain why the clay "thud" and the cradle "click" both conserve momentum but only one conserves kinetic energy.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A 2 kg ball moving at 4 m/s strikes a 2 kg ball at rest. They stick and move off together.
+      <br>(a) Find their combined velocity using conservation of momentum. (b) Compute the kinetic energy before and after — is KE conserved? (c) Is this collision elastic or inelastic? Justify with your numbers, and name where the missing energy went.
+    </li>
+    <li><em>Reflection:</em> What idea got clearer for you when you saw it written on the board by your group instead of in a notebook?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/collision-lab" target="_blank" rel="noopener">PhET Collision Lab</a> — slide elasticity 100% → 0% and watch the KE bar drop while momentum stays fixed</li>
+    <li><a href="https://javalab.org/en/collision_en/" target="_blank" rel="noopener">Javalab — Elastic and Inelastic Collision</a></li>
+    <li><a href="https://youtu.be/2UHS883_P60" target="_blank" rel="noopener">Newton's cradle in slow motion</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · momentum-impulse-04</p>
+</footer>
+
+</div>
+</body>
+</html>

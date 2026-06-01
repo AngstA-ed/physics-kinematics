@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Algebra and Trigonometry for Physics — Unit: Math in Science</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Math in Science — Lesson 01: Algebra and Trigonometry for Physics</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>A zipline cable runs from a tall tower down to a low platform. The installer measured only two things: the cable is <strong>26 m long</strong> and it leaves the top at <strong>18° below horizontal</strong>. The town inspector now needs two numbers that nobody ever measured — how <em>high</em> is the top tower, and how <em>far across the ground</em> does the rider travel. We are going to get both numbers without climbing anything.</p>
+  <img src="figures/right_triangle.png" alt="A zipline cable drawn as the hypotenuse of a right triangle, with the height and ground run as the two legs">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>How can we find a height and a distance we can't reach, using only a length and an angle?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Look at the zipline triangle. Write what the installer gave us, what is missing, and what shape the cable makes with the ground and the tower.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn &amp; Talk: What did the installer give us, and what is missing? Which two numbers does the inspector still need?</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch the zipline as a triangle. Label the <strong>26 m</strong> cable and the <strong>18°</strong> angle. Mark which side is the <em>height</em> of the tower and which side is the <em>ground run</em>. Then write a one-sentence guess for how you might find the height.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Drag the <strong>angle</strong> and <strong>hypotenuse</strong> sliders. The triangle redraws and the calculator below uses SOH-CAH-TOA to compute the height (opposite) and the ground run (adjacent). Set the angle to 18° and the hypotenuse to 26 m to recover the zipline answer.</p>
+  <div data-interactive="true">
+    <svg id="tri-canvas" width="480" height="320" viewBox="0 0 480 320" role="img" aria-label="Right-triangle trig solver">
+      <g id="tri-grid" stroke="#eee" stroke-width="1"></g>
+      <line x1="40" y1="280" x2="440" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="40" y1="280" x2="40" y2="40" stroke="#1a1a1a" stroke-width="1.5"/>
+      <polygon id="tri-shape" points="40,280 40,280 40,280" fill="rgba(102,46,128,0.10)" stroke="#662e80" stroke-width="3"/>
+      <line id="tri-rise" x1="40" y1="280" x2="40" y2="280" stroke="#2ea3f2" stroke-width="3"/>
+      <rect id="tri-right" x="40" y="270" width="10" height="10" fill="none" stroke="#1a1a1a" stroke-width="1" visibility="hidden"/>
+      <path id="tri-arc" d="" fill="none" stroke="#d23" stroke-width="2"/>
+      <text id="tri-anglabel" x="0" y="0" font-family="Inter, sans-serif" font-size="12" fill="#d23"></text>
+      <text id="tri-hyplabel" x="0" y="0" font-family="Inter, sans-serif" font-size="12" fill="#662e80"></text>
+      <text id="tri-riselabel" x="0" y="0" font-family="Inter, sans-serif" font-size="12" fill="#2ea3f2"></text>
+      <text id="tri-runlabel" x="0" y="0" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a"></text>
+    </svg>
+    <div class="controls">
+      <label>Angle θ: <input id="tri-angle" type="range" min="5" max="85" value="18" step="1"> <span id="tri-angle-val" class="readout">18</span>°</label>
+      <label>Hypotenuse: <input id="tri-hyp" type="range" min="5" max="40" value="26" step="1"> <span id="tri-hyp-val" class="readout">26</span> m</label>
+      <p>Height (opposite) = hyp × sin θ = <span id="tri-opp" class="readout">0</span> m &nbsp;·&nbsp; Ground run (adjacent) = hyp × cos θ = <span id="tri-adj" class="readout">0</span> m</p>
+    </div>
+    <script>
+      (function () {
+        const OX = 40, OY = 280, SCALE = 9; // px per meter
+        const grid = document.getElementById("tri-grid");
+        for (let x = OX; x <= 440; x += 40) {
+          const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          l.setAttribute("x1", x); l.setAttribute("y1", 40);
+          l.setAttribute("x2", x); l.setAttribute("y2", 280);
+          grid.appendChild(l);
+        }
+        for (let y = 40; y <= 280; y += 40) {
+          const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          l.setAttribute("x1", 40); l.setAttribute("y1", y);
+          l.setAttribute("x2", 440); l.setAttribute("y2", y);
+          grid.appendChild(l);
+        }
+        const angleEl = document.getElementById("tri-angle");
+        const hypEl = document.getElementById("tri-hyp");
+        function draw() {
+          const deg = +angleEl.value, hyp = +hypEl.value;
+          const rad = deg * Math.PI / 180;
+          const opp = hyp * Math.sin(rad);
+          const adj = hyp * Math.cos(rad);
+          const ex = OX + adj * SCALE, ey = OY - opp * SCALE;
+          document.getElementById("tri-shape").setAttribute("points",
+            OX + "," + OY + " " + ex + "," + OY + " " + ex + "," + ey);
+          document.getElementById("tri-rise").setAttribute("x1", ex);
+          document.getElementById("tri-rise").setAttribute("y1", OY);
+          document.getElementById("tri-rise").setAttribute("x2", ex);
+          document.getElementById("tri-rise").setAttribute("y2", ey);
+          document.getElementById("tri-right").setAttribute("x", ex - 10);
+          document.getElementById("tri-right").setAttribute("visibility", "visible");
+          const R = 34;
+          const ax = OX + R, ay = OY;
+          const bx = OX + R * Math.cos(rad), by = OY - R * Math.sin(rad);
+          document.getElementById("tri-arc").setAttribute("d",
+            "M " + ax + " " + ay + " A " + R + " " + R + " 0 0 0 " + bx + " " + by);
+          document.getElementById("tri-anglabel").setAttribute("x", OX + 40);
+          document.getElementById("tri-anglabel").setAttribute("y", OY - 8);
+          document.getElementById("tri-anglabel").textContent = deg + "°";
+          document.getElementById("tri-hyplabel").setAttribute("x", (OX + ex) / 2 - 10);
+          document.getElementById("tri-hyplabel").setAttribute("y", (OY + ey) / 2 - 6);
+          document.getElementById("tri-hyplabel").textContent = hyp + " m";
+          document.getElementById("tri-riselabel").setAttribute("x", ex + 6);
+          document.getElementById("tri-riselabel").setAttribute("y", (OY + ey) / 2);
+          document.getElementById("tri-riselabel").textContent = "opp " + opp.toFixed(1);
+          document.getElementById("tri-runlabel").setAttribute("x", (OX + ex) / 2 - 18);
+          document.getElementById("tri-runlabel").setAttribute("y", OY + 18);
+          document.getElementById("tri-runlabel").textContent = "adj " + adj.toFixed(1);
+          document.getElementById("tri-angle-val").textContent = deg;
+          document.getElementById("tri-hyp-val").textContent = hyp;
+          document.getElementById("tri-opp").textContent = opp.toFixed(1);
+          document.getElementById("tri-adj").textContent = adj.toFixed(1);
+        }
+        angleEl.addEventListener("input", draw);
+        hypEl.addEventListener("input", draw);
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A right triangle has the 18° angle at the bottom-left corner. The slanted top side — the hypotenuse — is the 26 m zipline cable.</p>
+    <svg width="280" height="160" viewBox="0 0 280 160">
+      <polygon points="20,140 240,140 240,40" fill="rgba(102,46,128,0.1)" stroke="#662e80" stroke-width="3"/>
+      <text x="120" y="78" font-family="Inter, sans-serif" font-size="11" fill="#662e80">hypotenuse = 26 m</text>
+      <text x="30" y="135" font-family="Inter, sans-serif" font-size="11" fill="#d23">18°</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> The height is the side <em>opposite</em> the 18° angle. Because we know the hypotenuse, we use sine: height = 26 × sin 18° ≈ 8.0 m.</p>
+    <svg width="280" height="160" viewBox="0 0 280 160">
+      <polygon points="20,140 240,140 240,40" fill="none" stroke="#662e80" stroke-width="2" opacity="0.3"/>
+      <line x1="240" y1="140" x2="240" y2="40" stroke="#2ea3f2" stroke-width="3"/>
+      <text x="245" y="95" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">opp ≈ 8.0 m</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> The ground run is the side <em>adjacent</em> to the angle, so it uses cosine: run = 26 × cos 18° ≈ 24.7 m.</p>
+    <svg width="280" height="160" viewBox="0 0 280 160">
+      <polygon points="20,140 240,140 240,40" fill="none" stroke="#662e80" stroke-width="2" opacity="0.3"/>
+      <line x1="20" y1="140" x2="240" y2="140" stroke="#1a1a1a" stroke-width="3"/>
+      <text x="70" y="155" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">adj ≈ 24.7 m</text>
+    </svg>
+    <p><strong>Storyboard frame 4.</strong> Raise the angle toward 85° and the height grows while the run shrinks; lower it toward 5° and the cable lies almost flat. The hypotenuse never changes — only how it splits into opposite and adjacent.</p>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Turn &amp; Talk: Which trig ratio connects the side you want to the side you were given? Explain it to your partner using the words <em>opposite</em> and <em>hypotenuse</em>.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Rearrange <strong>a = (v − u) / t</strong> to solve for <strong>v</strong> (the final speed).</li>
+    <li>A ramp's slanted top is 5.0 m long (the hypotenuse) and tilts 10° above the ground. Which side is the rise — opposite or adjacent to the 10° angle?</li>
+    <li>Using question 2, find the rise (height) of the ramp.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The side I want is ___ the angle, and I was given the ___, so I use ___ (sin / cos)."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>isolate (a variable)</strong> — to use inverse operations on both sides of an equation until the wanted variable stands alone (e.g., <em>v = d / t</em> → <em>d = v t</em>)</li>
+    <li><strong>sine</strong> — the trig ratio of the side opposite an angle to the hypotenuse: sin θ = opposite / hypotenuse</li>
+    <li><strong>right triangle</strong> — a triangle with one 90° angle; its longest side (opposite the right angle) is the hypotenuse</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your Initial Model sketch. Fill in the actual height and ground run of the zipline, with units. Then rewrite your one-sentence method using the word <em>sine</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Give the inspector both numbers in one sentence each, with units. Target: height ≈ 26 × sin 18° ≈ 8.0 m; run ≈ 26 × cos 18° ≈ 24.7 m. Predict: if the cable left the tower at a steeper angle, would the tower be taller or shorter?</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A wheelchair ramp is 5.0 m long (the slanted hypotenuse) and rises at 10° above the ground.
+      <br>(a) Rearrange <em>v = d / t</em> to solve for <em>t</em>. (b) Which side of the ramp triangle is the rise — opposite or adjacent to the 10° angle? (c) Find the rise (height) of the ramp. Show the ratio you used.
+    </li>
+    <li><em>Reflection:</em> Which felt harder today — rearranging the equation or choosing the trig ratio? Name one thing that made the harder one click.</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/trig-tour" target="_blank" rel="noopener">PhET — Trig Tour (sine/cosine on a triangle and circle)</a></li>
+    <li><a href="https://javalab.org/en/vector_composition_en/" target="_blank" rel="noopener">Javalab — Vector composition and decomposition</a></li>
+    <li><a href="https://www.youtube.com/results?search_query=zipline+physics" target="_blank" rel="noopener">Zipline physics videos</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · math-in-science-01</p>
+</footer>
+
+</div>
+</body>
+</html>

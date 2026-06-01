@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Friction — Unit: Forces</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Forces — Lesson 04: Friction</h1>
+    <div><span class="strategy-chip btc">BTC</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher drags the <strong>same sneaker</strong> at the same speed across tile, then carpet, then sandpaper — and the spring scale reads a different number every time. Then a heavy book will not slide at all… until one harder push, and it suddenly breaks loose and slides easily.</p>
+  <p>The sneaker never changed. So what made the scale read differently — and why did the book suddenly "let go"?</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What decides how hard friction pushes back — and why does an object suddenly "let go" and start sliding?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the sneaker drag and the stuck book. Write two things you <em>notice</em> and two things you <em>wonder</em>. Use the word <em>force</em> in at least one line.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Why does the same sneaker need a different pull on each surface? Use the word <em>force</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the sneaker being dragged. Draw an arrow for the <strong>pull</strong> (spring scale) and an arrow for <strong>whatever pushes back</strong>. Then predict which surface needs the biggest pull, and why.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>Slowly raise the <strong>applied force</strong> with the slider. At first the box <em>does not move</em>: static friction grows to exactly match your push, so the net force stays zero. Once your push beats the static maximum, the box breaks loose and slides — now <strong>kinetic friction</strong> (a bit smaller, roughly constant) opposes it. Watch the friction readout climb, peak, then drop.</p>
+  <div data-interactive="true">
+    <svg id="fr-canvas" width="480" height="220" viewBox="0 0 480 220" role="img" aria-label="A box on a surface with an applied-force arrow and a friction arrow">
+      <defs>
+        <marker id="fr-arrow-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2ea3f2"/></marker>
+        <marker id="fr-arrow-f" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 10 0 L 0 5 L 10 10 z" fill="#cc2b2b"/></marker>
+      </defs>
+      <line x1="0" y1="150" x2="480" y2="150" stroke="#8a6d3b" stroke-width="4"/>
+      <rect id="fr-box" x="190" y="110" width="80" height="40" rx="3" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <text id="fr-box-label" x="230" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#662e80">box</text>
+      <!-- applied force, right -->
+      <line id="fr-applied" x1="270" y1="130" x2="270" y2="130" stroke="#2ea3f2" stroke-width="5" marker-end="url(#fr-arrow-a)"/>
+      <!-- friction, left -->
+      <line id="fr-friction" x1="190" y1="130" x2="190" y2="130" stroke="#cc2b2b" stroke-width="5" marker-end="url(#fr-arrow-f)"/>
+      <text x="350" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">applied force</text>
+      <text x="110" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#cc2b2b">friction</text>
+    </svg>
+    <div class="controls">
+      <label>Applied force: <input id="fr-applied-slider" type="range" min="0" max="14" value="0"> <span id="fr-applied-val" class="readout">0</span> N</label>
+      <p>Friction force: <span id="fr-friction-val" class="readout">0</span> N · State: <span id="fr-state" class="readout">at rest (static friction)</span></p>
+      <p style="font-size:.85rem;color:#666;">Static maximum ≈ 8 N · kinetic ≈ 6 N (μ·F<sub>N</sub>). Friction only opposes — it never pushes the box forward.</p>
+    </div>
+    <script>
+      (function () {
+        const slider = document.getElementById("fr-applied-slider");
+        const STATIC_MAX = 8, KINETIC = 6, SCALE = 9;
+        let sliding = false;
+        function draw() {
+          const applied = +slider.value;
+          document.getElementById("fr-applied-val").textContent = applied;
+          // hysteresis: once sliding, stay sliding until applied drops below kinetic
+          if (!sliding && applied > STATIC_MAX) sliding = true;
+          if (sliding && applied <= KINETIC) sliding = false;
+          let friction, state, moves;
+          if (!sliding) {
+            // static friction matches applied up to its max
+            friction = Math.min(applied, STATIC_MAX);
+            state = applied === 0 ? "at rest (no push)" : "at rest — static friction matches your push";
+            moves = false;
+          } else {
+            friction = KINETIC;
+            state = "sliding — kinetic friction opposes motion";
+            moves = true;
+          }
+          document.getElementById("fr-friction-val").textContent = friction.toFixed(0);
+          document.getElementById("fr-state").textContent = state;
+          // arrows
+          const ap = document.getElementById("fr-applied");
+          ap.setAttribute("x2", 270 + applied * SCALE);
+          ap.setAttribute("visibility", applied > 0 ? "visible" : "hidden");
+          const fr = document.getElementById("fr-friction");
+          fr.setAttribute("x2", 190 - friction * SCALE);
+          fr.setAttribute("visibility", friction > 0 ? "visible" : "hidden");
+          // box slides right when moving
+          const box = document.getElementById("fr-box");
+          const label = document.getElementById("fr-box-label");
+          const shift = moves ? Math.min((applied - KINETIC) * 12, 90) : 0;
+          box.setAttribute("x", 190 + shift);
+          label.setAttribute("x", 230 + shift);
+          box.setAttribute("fill", moves ? "#d7ecfb" : "#efe6f4");
+        }
+        slider.addEventListener("input", draw);
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> A gentle push (3 N) on the box. It does not move: static friction grows to exactly 3 N, opposite the push, so the net force is zero. The friction arrow matches the applied arrow.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <line x1="20" y1="55" x2="260" y2="55" stroke="#8a6d3b" stroke-width="3"/>
+      <rect x="110" y="30" width="50" height="25" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <line x1="160" y1="42" x2="200" y2="42" stroke="#2ea3f2" stroke-width="4"/>
+      <line x1="110" y1="42" x2="70" y2="42" stroke="#cc2b2b" stroke-width="4"/>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Push harder, past the static maximum (about 8 N). The box breaks loose. Friction can no longer match the push — there is now a net force, and the box starts to slide.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <line x1="20" y1="55" x2="260" y2="55" stroke="#8a6d3b" stroke-width="3"/>
+      <rect x="120" y="30" width="50" height="25" fill="#d7ecfb" stroke="#662e80" stroke-width="2"/>
+      <line x1="170" y1="42" x2="240" y2="42" stroke="#2ea3f2" stroke-width="4"/>
+      <line x1="120" y1="42" x2="75" y2="42" stroke="#cc2b2b" stroke-width="4"/>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> While sliding, kinetic friction is steadier and a bit smaller than the static maximum. That is why a desk is harder to <em>start</em> moving than to <em>keep</em> moving. Friction = μ·F<sub>N</sub>.</p>
+    <svg width="280" height="80" viewBox="0 0 280 80">
+      <line x1="20" y1="55" x2="260" y2="55" stroke="#8a6d3b" stroke-width="3"/>
+      <rect x="160" y="30" width="50" height="25" fill="#d7ecfb" stroke="#662e80" stroke-width="2"/>
+      <line x1="210" y1="42" x2="255" y2="42" stroke="#2ea3f2" stroke-width="4"/>
+      <line x1="160" y1="42" x2="125" y2="42" stroke="#cc2b2b" stroke-width="4"/>
+    </svg>
+  </noscript>
+  <p>The friction force climbs through the static region to a peak, then drops to a steadier kinetic plateau — exactly the breakaway pattern:</p>
+  <img src="figures/friction_vs_applied.png" alt="Line graph of friction force versus applied force: a rising static region up to a peak, then a lower flat kinetic plateau once the object is sliding." style="max-width:340px;">
+</section>
+
+<aside class="turn-and-talk">Right before the box slips, is the friction still climbing or holding steady? What two things (μ and F<sub>N</sub>) set how big friction can get? Test it on the simulator.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Why is it harder to <em>start</em> a desk sliding than to <em>keep</em> it sliding once it moves?</li>
+    <li>Two boxes sit on the same floor; one is heavier. Which needs more force to slide, and why?</li>
+    <li>The same sneaker reads a bigger pull on sandpaper than on tile. What about the sandpaper makes friction larger?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"Friction is ___ when the object is not moving and ___ when it slides; it gets bigger when ___ or ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>friction</strong> — a contact force that opposes relative motion (or attempted motion) between two surfaces; on the Reference Table, F<sub>f</sub> = μ·F<sub>N</sub></li>
+    <li><strong>static friction</strong> — friction on an object that is not yet sliding; it varies to match the applied force up to a maximum</li>
+    <li><strong>kinetic friction</strong> — friction on an object that is already sliding; it is roughly constant</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your sneaker drawing. Label the push-back arrow <strong>friction</strong>. Add one sentence: when is it static, when is it kinetic, and what two things set its size? Use <strong>F<sub>f</sub> = μ·F<sub>N</sub></strong>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>A phone in a grippy case slides toward a table edge. In one sentence using <em>friction</em> and <em>normal force</em>, why does a grippy case help it stop without sliding off? A grippy case raises μ, so even a modest normal force gives enough friction to keep the phone from sliding — the design controls how the phone stops.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>(a) You push a crate gently and it does not move. Name the force opposing your push and say whether it is static or kinetic. Explain.
+      <br>(b) A 200 N crate sits on a floor with μ = 0.30 between the crate and the floor. Calculate the kinetic friction force as it slides. Show F<sub>f</sub> = μ·F<sub>N</sub>.
+      <br>(c) <em>Cause and Effect:</em> name one change that would make the friction force larger.
+    </li>
+    <li><em>Reflection:</em> Whose idea at your station changed how you think about friction today?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html" target="_blank" rel="noopener">Forces and Motion: Basics (Friction tab) — PhET</a></li>
+    <li><a href="https://ophysics.com/f1.html" target="_blank" rel="noopener">Friction — block on a surface (vary μ and F<sub>N</sub>) — oPhysics</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · forces-04</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Impulse and the Impulse–Momentum Theorem — Unit: Momentum &amp; Impulse</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Momentum &amp; Impulse — Lesson 02: Impulse and the Impulse–Momentum Theorem</h1>
+    <div><span class="strategy-chip hochman">HOCHMAN</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher drops two identical eggs from the same height. One lands on a hard tray and <a href="https://youtu.be/BLRfWtN3SQE" target="_blank" rel="noopener">shatters</a>; the other lands on a pillow and survives. Both eggs hit moving at the same speed and end at rest — so both have the <em>same change in momentum</em>. The same physics protects you in a car: watch a <a href="https://youtu.be/yQHDosNQGZk" target="_blank" rel="noopener">slow-motion airbag</a> deploy.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>If both eggs had the same change in momentum, why did only one break?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch both eggs land. Write two things you notice and two things you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Turn to your partner: both eggs had the same change in momentum, so what made the <em>force</em> on each egg so different? Use the word <em>time</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Sketch two force-vs-time graphs for the <em>same</em> egg stopping: one landing on the tray, one on the pillow. Make the total "push" (area under the curve) the same, but the shapes different. Predict which graph has the taller spike.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>The egg always undergoes the <strong>same impulse</strong> J (it stops from the same speed). Drag the slider to change the <strong>collision time Δt</strong> — a pillow stretches Δt, a tray squeezes it short. Watch the <strong>peak force F = J/Δt</strong> and the force bar respond. This is the airbag idea: more time, less force.</p>
+  <div data-interactive="true">
+    <svg id="imp-canvas" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="Force vs time bar">
+      <line x1="60" y1="200" x2="460" y2="200" stroke="#999" stroke-width="1.5"/>
+      <line x1="60" y1="20" x2="60" y2="200" stroke="#999" stroke-width="1.5"/>
+      <text x="20" y="25" font-family="Inter, sans-serif" font-size="11" fill="#999">Force</text>
+      <text x="420" y="218" font-family="Inter, sans-serif" font-size="11" fill="#999">time →</text>
+      <!-- The force "pulse": a rectangle whose width = Δt and height = F, area = J (constant) -->
+      <rect id="imp-bar" x="62" y="40" width="80" height="160" fill="#2ea3f2" opacity="0.55"/>
+      <text id="imp-area" x="150" y="120" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">area = J (impulse) is fixed</text>
+    </svg>
+    <div class="controls">
+      <label>Collision time Δt (s): <input id="imp-dt" type="range" min="0.02" max="0.5" step="0.01" value="0.05"> <span id="imp-dt-r" class="readout">0.05</span></label>
+      <p>Fixed impulse J = <span class="readout">4.0</span> N·s · Peak force F = J/Δt = <span id="imp-f" class="readout">80</span> N</p>
+      <p id="imp-msg" style="margin:.3rem 0 0;font-style:italic;color:#662e80;"></p>
+    </div>
+    <script>
+      (function () {
+        const J = 4.0;                 // fixed impulse, N·s
+        const X0 = 62, BASE_Y = 200, TOP_LIMIT = 30, FULL_W = 396;
+        const dtEl = document.getElementById("imp-dt");
+        const bar = document.getElementById("imp-bar");
+        const areaLbl = document.getElementById("imp-area");
+        const DT_MIN = 0.02, DT_MAX = 0.5, F_MAX = J / DT_MIN; // 200 N
+        function update() {
+          const dt = parseFloat(dtEl.value);
+          const F = J / dt;
+          document.getElementById("imp-dt-r").textContent = dt.toFixed(2);
+          document.getElementById("imp-f").textContent = F.toFixed(0);
+          // width proportional to dt, height proportional to F; area (J) stays visually constant
+          const w = (dt / DT_MAX) * FULL_W;
+          const hFrac = Math.min(F / F_MAX, 1);
+          const h = hFrac * (BASE_Y - TOP_LIMIT);
+          bar.setAttribute("x", X0);
+          bar.setAttribute("width", Math.max(w, 4));
+          bar.setAttribute("y", BASE_Y - h);
+          bar.setAttribute("height", h);
+          bar.setAttribute("fill", F > 120 ? "#c0392b" : "#2ea3f2");
+          areaLbl.setAttribute("x", X0 + Math.max(w, 4) + 8);
+          areaLbl.setAttribute("y", BASE_Y - h / 2);
+          const msg = document.getElementById("imp-msg");
+          if (dt <= 0.06) msg.textContent = "Hard tray: tiny Δt → huge force spike (egg breaks).";
+          else if (dt >= 0.3) msg.textContent = "Pillow / airbag: long Δt → gentle force (egg survives).";
+          else msg.textContent = "Same impulse spread over more time = smaller force.";
+        }
+        dtEl.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> The hard tray stops the egg in a tiny time (Δt ≈ 0.05 s). The force-vs-time pulse is a tall, narrow spike: F = J/Δt = 4 / 0.05 = 80 N. The egg breaks.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="100" x2="260" y2="100" stroke="#999"/>
+      <rect x="22" y="20" width="30" height="80" fill="#c0392b" opacity="0.6"/>
+      <text x="60" y="55" font-family="Inter, sans-serif" font-size="11" fill="#c0392b">tall spike, F = 80 N</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> The pillow (or an airbag) stops the egg over a much longer time (Δt ≈ 0.4 s). The same impulse becomes a low, wide pulse: F = 4 / 0.4 = 10 N. The egg survives.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="20" y1="100" x2="260" y2="100" stroke="#999"/>
+      <rect x="22" y="80" width="200" height="20" fill="#2ea3f2" opacity="0.6"/>
+      <text x="60" y="75" font-family="Inter, sans-serif" font-size="11" fill="#2ea3f2">low, wide, F = 10 N</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Both pulses cover the <em>same area</em> — the impulse J = F·Δt = Δp is identical. Only the trade between height (force) and width (time) changes. Stretching Δt is exactly what lowers the force.</p>
+  </noscript>
+  <p>Equal areas under the curve mean equal impulse — only the peak force differs:</p>
+  <img src="figures/force_vs_time.png" alt="Force vs time for a hard stop and a soft stop, equal area = equal impulse" style="max-width:100%;height:auto;">
+  <img src="figures/peak_force_compare.png" alt="Same impulse, longer contact time gives a smaller peak force" style="max-width:100%;height:auto;">
+</section>
+
+<aside class="turn-and-talk">Slide Δt as small as it goes, then as large as it goes. The impulse never changes — so what is the only thing the airbag is actually buying you? Convince your partner in one sentence using F = Δp/Δt.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>An egg's change in momentum stopping on a pillow is the same as on a tray. What single quantity does the pillow make <em>bigger</em>, and what does that do to the force?</li>
+    <li>A crumple zone makes a car body more damaged in a crash but the people inside safer. Explain using J = F·Δt.</li>
+    <li>A 0.5 kg ball moving at 8 m/s is caught and stopped. What impulse is needed to stop it? (Give units.)</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"For the same impulse, a ___ contact time makes the force ___, because F = Δp/Δt."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>impulse</strong> — the product of force and the time it acts, J = F·Δt; equals the change in momentum (Δp); unit N·s = kg·m/s</li>
+    <li><strong>force</strong> — a push or pull (N); for a fixed impulse, a smaller force results from a longer contact time</li>
+    <li><strong>time interval</strong> — Δt, how long a force acts (s); extending it reduces the force for the same impulse</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your two graphs. Label the area under each as the <strong>impulse</strong>. Then finish the Because/But/So sentence: "Both eggs have the same change in momentum <strong>because</strong> ___, <strong>but</strong> ___, <strong>so</strong> ___." Add an appositive that names impulse: "Impulse, ___, equals the change in momentum."</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one Because/But/So sentence, explain why the egg on the pillow survives while the egg on the tray breaks.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A 0.5 kg ball moving at 8 m/s is brought to rest.
+      <br>(a) Find the impulse needed to stop it (units and direction). (b) If a glove stops it in 0.4 s, what average force? If a bare hand stops it in 0.05 s, what force? (c) Use J = F·Δt to explain, in one sentence, why the glove hurts less.
+    </li>
+    <li><em>Reflection:</em> Name one everyday object that secretly uses the impulse–momentum theorem to keep someone safe.</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://phet.colorado.edu/en/simulations/collision-lab" target="_blank" rel="noopener">PhET Collision Lab</a> — vary elasticity to build force/time intuition</li>
+    <li><a href="https://javalab.org/en/impulse_en/" target="_blank" rel="noopener">Javalab — Impulse and Momentum</a></li>
+    <li><a href="https://youtu.be/BLRfWtN3SQE" target="_blank" rel="noopener">Egg drop: pillow vs. plate</a></li>
+    <li><a href="https://youtu.be/yQHDosNQGZk" target="_blank" rel="noopener">Slow-motion airbag deployment / crash test</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · momentum-impulse-02</p>
+</footer>
+
+</div>
+</body>
+</html>

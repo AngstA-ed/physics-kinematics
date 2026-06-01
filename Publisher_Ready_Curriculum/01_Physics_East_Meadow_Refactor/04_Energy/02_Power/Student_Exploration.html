@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Power — Unit: Work, Energy &amp; Power</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Work, Energy &amp; Power — Lesson 02: Power</h1>
+    <div><span class="strategy-chip active">ACTIVE LEARNING</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Two students climb the same staircase. One climbs fast, one climbs slowly. Both reach the top, so both did about the same <em>work</em> against gravity — but everyone agrees something is different.</p>
+  <img src="figures/power_comparison.png" alt="Power output of people compared to household appliances." style="max-width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>If two people do the same work, what makes one of them "more powerful," and how do we measure it?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the two climbers. Write what you notice and what you wonder.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">If both climbers did the same work, what made the fast climber different? Use the word <em>time</em>.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Write, in words, a formula for "how fast work is done." What would you divide by what? Predict whether a heavier climber or a faster climber has more of it.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>The work done is fixed at <strong>2400 J</strong> (the same staircase climb). Slide the <em>time</em> it takes. Watch the power bar: doing the same work in less time means more power. P = W / t.</p>
+  <div data-interactive="true">
+    <svg id="pw-canvas" width="480" height="220" viewBox="0 0 480 220" role="img" aria-label="Power bar">
+      <text x="20" y="30" font-family="Inter, sans-serif" font-size="12" fill="#1a1a1a">Power output (watts)</text>
+      <line x1="60" y1="180" x2="60" y2="40" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="60" y1="180" x2="460" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+      <rect id="pw-bar" x="62" y="60" width="120" height="118" fill="#2ea3f2"/>
+      <text id="pw-bar-label" x="190" y="120" font-family="Inter, sans-serif" font-size="13" fill="#1a1a1a" font-weight="700">2400 W</text>
+      <text x="20" y="185" font-family="Inter, sans-serif" font-size="10" fill="#666">0</text>
+    </svg>
+    <div class="controls">
+      <label>Time to do the climb t (s): <input id="pw-t" type="range" min="1" max="20" step="1" value="1"> <span id="pw-tr" class="readout">1</span></label>
+      <p>Work W = <span class="readout">2400</span> J (fixed) · Power P = W / t = <span id="pw-p" class="readout">2400</span> W</p>
+    </div>
+    <script>
+      (function () {
+        const W = 2400;
+        const tin = document.getElementById("pw-t");
+        const bar = document.getElementById("pw-bar");
+        const label = document.getElementById("pw-bar-label");
+        const BASE_Y = 180, MAX_H = 140, P_MAX = 2400;
+        function update() {
+          const t = +tin.value;
+          const P = W / t;
+          document.getElementById("pw-tr").textContent = t;
+          document.getElementById("pw-p").textContent = Math.round(P);
+          const h = Math.max(2, (P / P_MAX) * MAX_H);
+          bar.setAttribute("y", BASE_Y - h);
+          bar.setAttribute("height", h);
+          label.setAttribute("y", BASE_Y - h - 6);
+          label.textContent = Math.round(P) + " W";
+        }
+        tin.addEventListener("input", update);
+        update();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> The climb is worth a fixed 2400 J of work. Done in 1 second, the power output is 2400 J ÷ 1 s = 2400 W — a tall bar.</p>
+    <svg width="220" height="120" viewBox="0 0 220 120">
+      <line x1="30" y1="100" x2="200" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <rect x="40" y="20" width="40" height="80" fill="#2ea3f2"/>
+      <text x="90" y="60" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">2400 W</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Same 2400 J done in 4 seconds: P = 2400 ÷ 4 = 600 W. The work is unchanged, but spreading it over more time shrinks the power bar.</p>
+    <svg width="220" height="120" viewBox="0 0 220 120">
+      <line x1="30" y1="100" x2="200" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <rect x="40" y="80" width="40" height="20" fill="#2ea3f2"/>
+      <text x="90" y="95" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">600 W</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> Same 2400 J done in 8 seconds: P = 300 W — an even shorter bar. The faster climber (smaller t) is "more powerful" because power = work ÷ time.</p>
+    <svg width="220" height="120" viewBox="0 0 220 120">
+      <line x1="30" y1="100" x2="200" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+      <rect x="40" y="90" width="40" height="10" fill="#2ea3f2"/>
+      <text x="90" y="98" font-family="Inter, sans-serif" font-size="11" fill="#1a1a1a">300 W</text>
+    </svg>
+  </noscript>
+</section>
+
+<aside class="turn-and-talk">Your two stair-climb trials did the <em>same work</em>. Slide the time to match your fast trial and your slow trial. Why is the power different? What changed?</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>Two motors raise the same load the same height. Motor A takes 2.0 s; motor B takes 8.0 s. Which motor is more powerful, and by what factor? Explain.</li>
+    <li>A 60 W light bulb runs for 10 seconds. How much energy does it use? (Hint: rearrange P = W/t.)</li>
+    <li>Your friend says, "The faster climber did more work." Correct your friend using the words <em>work</em>, <em>time</em>, and <em>power</em>.</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"Both did ___ J of work, but doing it in ___ time means ___ power, because P = W/t."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>power</strong> — the rate at which work is done (energy transferred per unit time); P = W/t = Fv</li>
+    <li><strong>watt</strong> — the SI unit of power; one watt equals one joule per second (1 W = 1 J/s)</li>
+    <li><strong>energy</strong> — the capacity to do work, measured in joules; power tells how <em>fast</em> energy is transferred</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Plot work vs. time for a fast climber and a slow climber. What does the <em>slope</em> of each line represent? Rewrite your explanation of "more powerful" in one sentence using <em>power</em> and <em>time</em>.</p>
+  <img src="figures/work_vs_time.png" alt="Work vs time: the slope of each line is the power." style="max-width:100%;height:auto;">
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>In one sentence, explain why the fast stair-climber is "more powerful" than the slow one even though they did the same work. Use the words <em>power</em> and <em>time</em>.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>An elevator does 48,000 J of work lifting a load.
+      <br>(a) If it takes 8.0 s, what is its power output? Show P = W/t.
+      <br>(b) A second elevator does the same 48,000 J in 16 s. How does its power compare?
+      <br>(c) A 700 N student runs up a 4.0 m staircase in 5.0 s. What is the student's power output?
+    </li>
+    <li><em>Reflection:</em> What is one thing that surprised you today? Who helped you make sense of something?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://www.physicsclassroom.com/class/energy/Lesson-1/Power" target="_blank" rel="noopener">The Physics Classroom — Power</a></li>
+    <li><a href="https://www.youtube.com/watch?v=8jBJBwwTBc8" target="_blank" rel="noopener">Physics of stair-climbing power (video)</a></li>
+    <li><a href="https://javalab.org/en/category/energy_en/" target="_blank" rel="noopener">Javalab — energy simulations index</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · energy-02</p>
+</footer>
+
+</div>
+</body>
+</html>

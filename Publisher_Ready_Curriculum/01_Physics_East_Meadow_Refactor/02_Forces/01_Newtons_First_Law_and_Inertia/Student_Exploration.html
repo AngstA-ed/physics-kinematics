@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Newton's First Law and Inertia — Unit: Forces</title>
+  <link rel="stylesheet" href="../../_assets/lesson.css">
+</head>
+<body>
+<div class="lesson-shell">
+
+<header class="brand-header">
+  <img src="../../_assets/brand/em_logo.svg" alt="East Meadow Schools">
+  <div class="divider"></div>
+  <img src="../../_assets/brand/vs_logo.svg" alt="Valley Stream Central HSD">
+  <div>
+    <div class="district-name">East Meadow Schools × Valley Stream Central HSD</div>
+    <h1>Unit: Forces — Lesson 01: Newton's First Law and Inertia</h1>
+    <div><span class="strategy-chip circle">RESTORATIVE CIRCLE</span></div>
+  </div>
+</header>
+
+<section class="lesson-section" data-section="phenomenon">
+  <h2>Phenomenon</h2>
+  <p>Your teacher sets a stack of empty cups on a smooth cloth at the edge of the table, then yanks the cloth straight out — fast and level. The cups barely move; they stay almost exactly where they were. In a clip from the International Space Station, an astronaut lets go of a floating tool and it just hangs there, motionless, in mid-air.</p>
+  <p>Watch the cups, not the hand. The cloth is gone in an instant, yet the cups <em>stay put</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="driving-question">
+  <h2>Driving Question</h2>
+  <p><strong>What decides whether an object's motion changes or stays the same?</strong></p>
+</section>
+
+<section class="lesson-section notice-wonder" data-section="notice-wonder">
+  <h2>Notice &amp; Wonder</h2>
+  <p>Watch the tablecloth pull and the floating ISS tool. Write two things you <em>notice</em> and two things you <em>wonder</em>. Use the word <em>motion</em> in at least one line.</p>
+  <textarea rows="6" placeholder="What I notice / What I wonder…"></textarea>
+</section>
+
+<aside class="turn-and-talk">Share with your partner: why did the cups stay put when the cloth was pulled away? Use the word <em>motion</em> in your answer.</aside>
+
+<section class="lesson-section initial-model" data-section="initial-model">
+  <h2>Initial Model</h2>
+  <p>Draw the cup sitting on the cloth. Draw an arrow for <strong>every push or pull</strong> acting on the cup while the cloth is yanked out from under it. Then write one sentence predicting whether the cup speeds up, slows down, or stays the same — and why.</p>
+</section>
+
+<section class="lesson-section" data-section="interactive">
+  <h2>Investigate</h2>
+  <p>A box sits on a frictionless floor. Two people pull on it from opposite sides. Use the sliders to set each pull. The simulator adds the forces as vectors, shows the <strong>net force</strong>, and tells you whether the box accelerates or stays at constant velocity. When are the forces <em>balanced</em>?</p>
+  <div data-interactive="true">
+    <svg id="bal-canvas" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="A box with a leftward and rightward force arrow and a net-force arrow">
+      <line x1="0" y1="180" x2="480" y2="180" stroke="#cccccc" stroke-width="2"/>
+      <defs>
+        <marker id="bal-arrow-l" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 10 0 L 0 5 L 10 10 z" fill="#662e80"/></marker>
+        <marker id="bal-arrow-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2ea3f2"/></marker>
+        <marker id="bal-arrow-net" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#cc2b2b"/></marker>
+      </defs>
+      <rect id="bal-box" x="200" y="130" width="80" height="50" rx="4" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <text x="240" y="160" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#662e80">box</text>
+      <line id="bal-left"  x1="200" y1="155" x2="120" y2="155" stroke="#662e80" stroke-width="5" marker-end="url(#bal-arrow-l)"/>
+      <line id="bal-right" x1="280" y1="155" x2="360" y2="155" stroke="#2ea3f2" stroke-width="5" marker-end="url(#bal-arrow-r)"/>
+      <line id="bal-net"   x1="240" y1="205" x2="240" y2="205" stroke="#cc2b2b" stroke-width="5" marker-end="url(#bal-arrow-net)"/>
+      <text x="240" y="228" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#cc2b2b">net force</text>
+    </svg>
+    <div class="controls">
+      <label>Left pull (purple): <input id="bal-fl" type="range" min="0" max="10" value="5"> <span id="bal-fl-val" class="readout">5</span> N</label>
+      <label>Right pull (blue): <input id="bal-fr" type="range" min="0" max="10" value="5"> <span id="bal-fr-val" class="readout">5</span> N</label>
+      <p>Net force: <span id="bal-net-val" class="readout">0</span> N · The box: <span id="bal-state" class="readout">stays at constant velocity (balanced)</span></p>
+    </div>
+    <script>
+      (function () {
+        const fl = document.getElementById("bal-fl");
+        const fr = document.getElementById("bal-fr");
+        const CX = 240, SCALE = 12;
+        function draw() {
+          const L = +fl.value, R = +fr.value;
+          document.getElementById("bal-fl-val").textContent = L;
+          document.getElementById("bal-fr-val").textContent = R;
+          // left arrow points left from box edge
+          const leftLine = document.getElementById("bal-left");
+          leftLine.setAttribute("x2", 200 - L * SCALE);
+          leftLine.setAttribute("visibility", L > 0 ? "visible" : "hidden");
+          const rightLine = document.getElementById("bal-right");
+          rightLine.setAttribute("x2", 280 + R * SCALE);
+          rightLine.setAttribute("visibility", R > 0 ? "visible" : "hidden");
+          // net force: positive = to the right
+          const net = R - L;
+          const netLine = document.getElementById("bal-net");
+          if (net === 0) {
+            netLine.setAttribute("visibility", "hidden");
+          } else {
+            netLine.setAttribute("visibility", "visible");
+            netLine.setAttribute("x1", CX);
+            netLine.setAttribute("x2", CX + net * SCALE);
+          }
+          document.getElementById("bal-net-val").textContent =
+            (net === 0 ? "0" : (net > 0 ? "+" : "−") + Math.abs(net)) ;
+          const state = document.getElementById("bal-state");
+          if (net === 0) {
+            state.textContent = "stays at constant velocity (balanced forces)";
+          } else {
+            state.textContent = "accelerates " + (net > 0 ? "right" : "left") + " (unbalanced forces)";
+          }
+        }
+        fl.addEventListener("input", draw);
+        fr.addEventListener("input", draw);
+        draw();
+      })();
+    </script>
+  </div>
+  <noscript class="noscript-storyboard">
+    <p><strong>Storyboard frame 1.</strong> Two equal pulls — 5 N left, 5 N right — act on the box. The two force arrows are the same length, pointing opposite ways. The net force is 0 N, so the box stays at constant velocity (here, at rest). The forces are <em>balanced</em>.</p>
+    <svg width="280" height="100" viewBox="0 0 280 100">
+      <rect x="120" y="35" width="40" height="30" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <line x1="120" y1="50" x2="70" y2="50" stroke="#662e80" stroke-width="4"/>
+      <line x1="160" y1="50" x2="210" y2="50" stroke="#2ea3f2" stroke-width="4"/>
+      <text x="140" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#cc2b2b">net = 0 → no change in motion</text>
+    </svg>
+    <p><strong>Storyboard frame 2.</strong> Now the right pull is bigger (8 N right, 3 N left). The arrows are unequal. A red net-force arrow points right (5 N). The box accelerates to the right — the forces are <em>unbalanced</em>.</p>
+    <svg width="280" height="100" viewBox="0 0 280 100">
+      <rect x="120" y="35" width="40" height="30" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <line x1="120" y1="50" x2="90" y2="50" stroke="#662e80" stroke-width="4"/>
+      <line x1="160" y1="50" x2="240" y2="50" stroke="#2ea3f2" stroke-width="4"/>
+      <line x1="140" y1="78" x2="190" y2="78" stroke="#cc2b2b" stroke-width="4"/>
+      <text x="140" y="96" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#cc2b2b">net = 5 N right → accelerates</text>
+    </svg>
+    <p><strong>Storyboard frame 3.</strong> A resting cup feels gravity pulling down and the table's normal force pushing up — equal and opposite. The vertical forces are balanced too, so the cup's net force is zero and its motion never changes until something unbalanced (the snatched cloth's tiny friction) acts on it.</p>
+    <svg width="280" height="120" viewBox="0 0 280 120">
+      <line x1="40" y1="90" x2="240" y2="90" stroke="#999" stroke-width="2"/>
+      <rect x="120" y="60" width="40" height="30" fill="#efe6f4" stroke="#662e80" stroke-width="2"/>
+      <line x1="140" y1="60" x2="140" y2="20" stroke="#2ea3f2" stroke-width="4"/>
+      <line x1="140" y1="90" x2="140" y2="115" stroke="#662e80" stroke-width="4"/>
+      <text x="170" y="40" font-family="Inter, sans-serif" font-size="10" fill="#2ea3f2">normal force up</text>
+      <text x="148" y="110" font-family="Inter, sans-serif" font-size="10" fill="#662e80">gravity down</text>
+    </svg>
+  </noscript>
+  <p>The free-body diagram below shows the same balanced-force idea for a book resting on a table — gravity down, normal force up, net force zero.</p>
+  <img src="figures/fbd_book_on_table.png" alt="Free-body diagram of a book on a table: gravity pulls down, the normal force pushes up, the two are balanced, and the net force is zero." style="max-width:320px;">
+</section>
+
+<aside class="turn-and-talk">Across the cloth pull and the cart on the smooth floor, what did it always take to <em>change</em> how something was moving? Build a balanced case and an unbalanced case on the simulator to convince your partner.</aside>
+
+<section class="lesson-section" data-section="make-it-make-sense">
+  <h2>Make It Make Sense</h2>
+  <ol>
+    <li>A book lies still on a table. Gravity pulls it down. What second force acts on it, and why doesn't the book move?</li>
+    <li>Two students push a box from opposite sides with equal force. What is the net force, and what does the box do?</li>
+    <li>Why is it harder to get a fully loaded backpack moving than an empty one?</li>
+  </ol>
+  <details>
+    <summary>Stuck? Sentence frame</summary>
+    <p>"The ___ stayed / kept moving because the net force was ___, so its motion did not ___."</p>
+  </details>
+</section>
+
+<section class="lesson-section vocab-box" data-section="vocab">
+  <h2>Key Vocabulary (max 3)</h2>
+  <ul>
+    <li><strong>inertia</strong> — an object's tendency to resist a change in its motion; more mass means more inertia</li>
+    <li><strong>net force</strong> — the single force equivalent to all the forces on an object added together (as vectors)</li>
+    <li><strong>balanced forces</strong> — forces whose net force is zero, so the object's motion does not change</li>
+  </ul>
+</section>
+
+<section class="lesson-section revise-model" data-section="revise-model">
+  <h2>Revise Your Model</h2>
+  <p>Return to your cup drawing. Were the sideways forces on the cup balanced or unbalanced while the cloth slid underneath it? Re-label the arrows and rewrite your explanation in one sentence using <em>inertia</em> and <em>net force</em>.</p>
+</section>
+
+<section class="lesson-section" data-section="return-to-phenomenon">
+  <h2>Return to the Phenomenon</h2>
+  <p>Why does a seatbelt matter the instant a car stops short? Answer in one sentence using <em>inertia</em>: your body keeps moving forward because the sudden stop acted on the car, not yet on you — until the belt supplies the force that changes <em>your</em> motion.</p>
+</section>
+
+<section class="lesson-section exit-ticket" data-section="exit-ticket">
+  <h2>Exit Ticket + Closing Reflection</h2>
+  <ol>
+    <li>A hockey puck slides across the ice at a steady speed in a straight line.
+      <br>(a) What is the net force on the puck? Explain. (b) Name the force that eventually slows it down. (c) On a frictionless rink with no air, what would the puck do? Why?
+    </li>
+    <li><em>Reflection:</em> What is one thing today that changed how you think? Who helped you make sense of it?</li>
+  </ol>
+</section>
+
+<section class="lesson-section" data-section="explore-further">
+  <h2>Explore Further</h2>
+  <ul>
+    <li><a href="https://youtu.be/eOKFWZ-5lQc" target="_blank" rel="noopener">Tablecloth pull — dishes stay put while the cloth is yanked out (video)</a></li>
+    <li><a href="https://www.khanacademy.org/science/physics/forces-newtons-laws/newtons-laws-of-motion/a/what-is-newtons-first-law" target="_blank" rel="noopener">What is Newton's first law? — Khan Academy</a></li>
+    <li><a href="https://javalab.org/en/moment_of_inertia_3d_en/" target="_blank" rel="noopener">Moment of inertia (3D) — Javalab</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:.8rem;color:#666;">Learning, Achieving, Succeeding! · forces-01</p>
+</footer>
+
+</div>
+</body>
+</html>
