@@ -100,20 +100,24 @@ def classification_tree(path, *, figsize=(7.2, 4.6)) -> str:
     fig, ax = plt.subplots(figsize=figsize)
     ax.set_xlim(0, 12); ax.set_ylim(0, 8); ax.axis("off")
 
-    def box(x, y, text, color=PURPLE):
-        ax.add_patch(FancyBboxPatch((x - 1.1, y - 0.4), 2.2, 0.8,
+    def box(x, y, text, color=PURPLE, width=2.4, fontsize=9):
+        half_w = width / 2
+        ax.add_patch(FancyBboxPatch((x - half_w, y - 0.42), width, 0.84,
                      boxstyle="round,pad=0.05", facecolor=color, edgecolor=INK, alpha=0.9))
         ax.text(x, y, text, ha="center", va="center", color="white",
-                fontsize=9, fontweight="bold")
+                fontsize=fontsize, fontweight="bold")
 
     def link(x1, y1, x2, y2):
         ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle="-|>",
                      mutation_scale=14, color=INK, linewidth=1.4))
 
-    box(6, 7.2, "MATTER")
-    box(3, 5.2, "Pure Substances", BLUE); box(9, 5.2, "Mixtures", ACCENT2)
-    box(1.5, 3.0, "Elements", BLUE); box(4.5, 3.0, "Compounds", BLUE)
-    box(7.5, 3.0, "Homogeneous", ACCENT2); box(10.5, 3.0, "Heterogeneous", ACCENT2)
+    box(6, 7.2, "MATTER", width=2.4)
+    box(3, 5.2, "Pure Substances", BLUE, width=3.1)
+    box(9, 5.2, "Mixtures", ACCENT2, width=2.4)
+    box(1.5, 3.0, "Elements", BLUE, width=2.4)
+    box(4.5, 3.0, "Compounds", BLUE, width=2.6)
+    box(7.5, 3.0, "Homogeneous", ACCENT2, width=2.8)
+    box(10.5, 3.0, "Heterogeneous", ACCENT2, width=2.9)
     for (x2, y2) in [(3, 5.6), (9, 5.6)]:
         link(6, 6.8, x2, y2)
     link(3, 4.8, 1.5, 3.4); link(3, 4.8, 4.5, 3.4)
@@ -154,21 +158,64 @@ def graduated_cylinder(path, *, reading, capacity, figsize=(2.6, 4.6)) -> str:
 
 def dimensional_analysis_track(path, steps, *, title="", figsize=(7.5, 2.2)) -> str:
     """Factor-label 'railroad track' diagram. `steps` is a list of
-    (numerator, denominator) string pairs; the first denominator is usually ''."""
-    fig, ax = plt.subplots(figsize=figsize)
-    ax.set_xlim(0, len(steps) * 3 + 0.5); ax.set_ylim(0, 3); ax.axis("off")
+    (numerator, denominator) string pairs; the first denominator is usually ''.
+
+    Draws a proper bordered fraction grid: outer rectangle, horizontal
+    midline separating numerator (purple) from denominator (blue) rows, and
+    vertical dividers between cells (but NOT before the first cell).
+    Figure width is scaled to the number of steps.
+    """
+    n = len(steps)
+    cell_w = 2.6          # width of each cell in data units
+    cell_h = 1.0          # half-height (each row is cell_h tall)
+    pad_l = 0.3           # left/right margin
+    pad_tb = 0.35         # top/bottom margin
+
+    total_w = n * cell_w + 2 * pad_l
+    total_h = 2 * cell_h + 2 * pad_tb
+
+    # Scale figure width to content, with a floor of figsize width
+    fw = max(figsize[0], n * 1.9)
+    fig, ax = plt.subplots(figsize=(fw, figsize[1]))
+    ax.set_xlim(0, total_w)
+    ax.set_ylim(0, total_h)
+    ax.axis("off")
+
     if title:
-        ax.set_title(title, fontsize=11, fontweight="bold")
-    ax.plot([0.2, len(steps) * 3 + 0.3], [1.5, 1.5], color=INK, linewidth=1.6)
+        ax.set_title(title, fontsize=11, fontweight="bold", pad=6)
+
+    lw = 1.8  # line width for grid
+
+    # Outer border rectangle
+    rect_x = pad_l
+    rect_y = pad_tb
+    rect_w = n * cell_w
+    rect_h = 2 * cell_h
+    ax.add_patch(Rectangle((rect_x, rect_y), rect_w, rect_h,
+                            fill=False, edgecolor=INK, linewidth=lw, zorder=2))
+
+    # Horizontal midline (separates numerator / denominator rows)
+    mid_y = pad_tb + cell_h
+    ax.plot([rect_x, rect_x + rect_w], [mid_y, mid_y],
+            color=INK, linewidth=lw, zorder=2)
+
+    # Vertical dividers between cells (NOT before cell 0)
+    for i in range(1, n):
+        vx = pad_l + i * cell_w
+        ax.plot([vx, vx], [rect_y, rect_y + rect_h],
+                color=INK, linewidth=lw, zorder=2)
+
+    # Text labels
     for i, (num, den) in enumerate(steps):
-        cx = i * 3 + 1.5
-        if i > 0:
-            ax.plot([cx - 1.5, cx - 1.5], [0.5, 2.5], color=INK, linewidth=1.6)
-        ax.text(cx, 2.05, num, ha="center", va="center", fontsize=10,
-                color=PURPLE, fontweight="bold")
+        cx = pad_l + i * cell_w + cell_w / 2
+        num_y = mid_y + cell_h / 2      # vertical centre of numerator row
+        den_y = pad_tb + cell_h / 2     # vertical centre of denominator row
+        ax.text(cx, num_y, num, ha="center", va="center",
+                fontsize=10, color=PURPLE, fontweight="bold", zorder=3)
         if den:
-            ax.text(cx, 0.95, den, ha="center", va="center", fontsize=10,
-                    color=BLUE, fontweight="bold")
+            ax.text(cx, den_y, den, ha="center", va="center",
+                    fontsize=10, color=BLUE, fontweight="bold", zorder=3)
+
     return _save(fig, path)
 
 
