@@ -94,6 +94,9 @@ def collect(root: Path, only_units: list[str] | None, doc_order: list[str],
     return paths
 
 
+_FIRST_HEADING_RE = re.compile(r'^(#{1,6})\s+(.+?)\s*$', re.MULTILINE)
+
+
 def _prep(md_path: Path) -> str:
     """Load a lesson Markdown source: absolutize figure links, demote headings."""
     text = md_path.read_text(encoding="utf-8")
@@ -102,17 +105,43 @@ def _prep(md_path: Path) -> str:
     return _HEAD_RE.sub(r'#\1\2', text)  # H1→H2 … so doc titles nest under unit H1
 
 
+def _tag_first_heading(text: str, anchor: str) -> tuple[str, str]:
+    """Append a {#anchor} id to the first heading and return (text, heading_title)."""
+    m = _FIRST_HEADING_RE.search(text)
+    if not m:
+        return text, anchor
+    title = m.group(2).strip()
+    tagged = f"{m.group(1)} {title} {{#{anchor}}}"
+    text = text[:m.start()] + tagged + text[m.end():]
+    return text, title
+
+
+def _render_toc(entries: list[tuple[int, str, str]]) -> str:
+    """A static, clickable Markdown TOC (renders in every viewer; the field-based
+    pandoc TOC stays blank until Word recalculates, so we build our own)."""
+    lines = ["# Contents {#toc}", ""]
+    for level, title, anchor in entries:
+        indent = "    " if level == 2 else ""
+        # escape brackets in link text
+        safe = title.replace("[", "(").replace("]", ")")
+        lines.append(f"{indent}- [{safe}](#{anchor})")
+    return "\n".join(lines) + "\n"
+
+
 def build_markdown(root: Path, only_units: list[str] | None,
                    doc_order: list[str]) -> tuple[str, int]:
-    """Build the combined Markdown with a unit-heading hierarchy. Returns
-    (markdown, document_count)."""
+    """Build the combined Markdown: a static linked TOC, then a unit-heading
+    hierarchy with anchored document titles. Returns (markdown, document_count)."""
     blocks: list[str] = []
+    toc: list[tuple[int, str, str]] = []
     ndocs = 0
-    for unit in _unit_dirs(root, only_units):
+    for ui, unit in enumerate(_unit_dirs(root, only_units)):
         name = UNIT_NAMES.get(unit.name) or \
             re.sub(r'^\d+[_-]?', '', unit.name).replace('_', ' ')
-        blocks.append(PAGE_BREAK)          # each unit starts on a fresh page
-        blocks.append(f"# {name}\n")        # unit-level H1 (TOC level 1)
+        uid = f"u{ui}"
+        toc.append((1, name, uid))
+        blocks.append(PAGE_BREAK)              # each unit starts on a fresh page
+        blocks.append(f"# {name} {{#{uid}}}\n")  # unit-level H1
         files: list[Path] = []
         if (unit / "Unit_Plan.md").is_file():
             files.append(unit / "Unit_Plan.md")
@@ -120,11 +149,15 @@ def build_markdown(root: Path, only_units: list[str] | None,
             files += [lesson / f"{n}.md" for n in doc_order
                       if (lesson / f"{n}.md").is_file()]
         for di, p in enumerate(files):
-            if di:                          # page break between docs, not before the first
-                blocks.append(PAGE_BREAK)
-            blocks.append(_prep(p))         # doc title becomes H2 (TOC level 2)
             ndocs += 1
-    return "\n\n".join(blocks) + "\n", ndocs
+            did = f"d{ndocs}"
+            text, title = _tag_first_heading(_prep(p), did)  # doc title → H2 #did
+            toc.append((2, title, did))
+            if di:                              # page break between docs, not before the first
+                blocks.append(PAGE_BREAK)
+            blocks.append(text)
+    markdown = _render_toc(toc) + "\n\n".join(blocks) + "\n"
+    return markdown, ndocs
 
 
 def combine_pandoc(root: Path, only_units: list[str] | None,
@@ -138,7 +171,6 @@ def combine_pandoc(root: Path, only_units: list[str] | None,
     tmp.write_text(markdown, encoding="utf-8")
     try:
         cmd = ["pandoc", str(tmp), "-o", str(out),
-               "--toc", "--toc-depth=2",
                "--metadata", f"title={title}",
                f"--resource-path={root}"]
         if reference and reference.is_file():
